@@ -1,0 +1,85 @@
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+}
+
+.bottom-bar-content {
+    padding: 10px 10px 24px 10px;
+}
+
+ul.menu-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+ul.menu-list .menu-item .menu-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    width: 70px;
+    gap: 4px;
+    padding: 0;
+    color: #C3D3D6;
+}
+
+ul.menu-list .menu-item .menu-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+ul.menu-list .menu-item .menu-link img {
+    width: 24px;
+    height: 24px;
+    border: 50%;
+    object-fit: cover;
+}
+
+ul.menu-list .menu-item .menu-link svg path {
+    fill: #C3D3D6;
+}
+
+ul.menu-list .menu-item .menu-link svg rect {
+    stroke: #C3D3D6;
+}
+
+ul.menu-list .menu-item .menu-link.active {
+    color: var(--gimmel-orange);
+    background: transparent !important;
+}
+
+ul.menu-list .menu-item .menu-link.active img {
+    border: 1px solid var(--gimmel-orange);
+    border-radius: 50%;
+}
+
+ul.menu-list .menu-item .menu-link.active svg path {
+    fill: var(--gimmel-orange);
+}
+
+ul.menu-list .menu-item .menu-link.active svg rect {
+    stroke: var(--gimmel-orange);
+}
+
+.bottom-bar {
+    display: none;
+}
+
+
+
+@media screen and (min-width: 280px) and (max-width: 767px) {
+    .bottom-bar {
+        display: block;
+    }
+}

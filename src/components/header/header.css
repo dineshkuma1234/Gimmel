@@ -1,0 +1,71 @@
+.filter-history {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.filter-content {
+    padding: 16px 24px;
+}
+
+.filter-content {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.filter-content::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.filter-content::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.filter-content::-webkit-scrollbar-thumb {  
+    background: var(--gimmel-lightGray);
+    border-radius: 8px;
+}
+
+.middle-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-link.is-active {
+    background-color: var(--gimmel-lightGray);
+    color: var(--gimmel-darkBlue);
+}
+
+.profile-btn-view {
+    display: flex;
+}
+
+.sec-center a {
+    cursor: pointer;
+}
+
+.menu-link.active {
+    color: var(--gimmel-darkBlue);
+    background: #DBE4E6;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.menu-link.active svg path {
+    fill: var(--gimmel-darkBlue);
+}
+
+.profile-btn-view.active {
+    color: var(--gimmel-darkBlue);
+    background: #DBE4E6;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
