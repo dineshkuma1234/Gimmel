@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
-// import Multiselect from 'multiselect-dropdown-react';
+import { MultiSelect } from "react-multi-select-component";
 
 
 const data = [{
@@ -31,6 +31,14 @@ const data = [{
 }
 ];
 
+const options = [
+    { label: "Smoking", value: "smoking" },
+    { label: "Drug use prevention", value: "drug" },
+    { label: "Alcohol use prevention", value: "alcohol" },
+    { label: "Physical health", value: "physical" },
+    { label: "Mental health", value: "mental" },
+];
+
 function FilterData() {
     const [selectedAge, setSelectedAge] = useState("18+");
 
@@ -50,7 +58,7 @@ function FilterData() {
         setSelectedDate(date);
     };
 
-    const [selectedAudience , setSelectedAudience] = useState("");
+    const [selectedAudience, setSelectedAudience] = useState("");
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
@@ -58,6 +66,14 @@ function FilterData() {
 
     const handleResult = (params) => {
         console.log(params);
+    };
+
+    const [selected, setSelected] = useState([]);
+
+    const handleRemove = (value) => {
+        setSelected((prevSelected) =>
+            prevSelected.filter((item) => item.value !== value)
+        );
     };
 
     return (
@@ -78,13 +94,41 @@ function FilterData() {
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Topic of the content</Form.Label>
-                        {/* <Multiselect
-                            options={data}
-                            onSelectOptions={handleResult}
-                            customArrow={
-                                <span style={{ marginLeft: '8px', cursor: 'pointer' }}>▼</span>
-                            } // Custom dropdown icon
-                        /> */}
+                        <div>
+                            {selected.length > 0 ? (
+                                <ul className='selected-list'>
+                                    {selected.map((item) => (
+                                        <li key={item.value}>
+                                            {item.label}{" "}
+                                            <button
+                                                onClick={() => handleRemove(item.value)}
+                                                style={{
+                                                    marginLeft: "4px",
+                                                    color: "#ffffff",
+                                                    cursor: "pointer",
+                                                    background: "none",
+                                                    border: "none",
+                                                }}
+                                            >
+                                                X
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                        <MultiSelect
+                            options={options}
+                            value={selected}
+                            onChange={setSelected}
+                            labelledBy="Select"
+                            overrideStrings={{
+                                selectSomeItems: "Select topics",
+                            }}
+                            className="multi-select"
+                        />
                     </Form.Group>
                 </div>
                 <div className="dropdown-divider"></div>
@@ -220,10 +264,37 @@ function FilterData() {
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput6">
                         <Form.Label>Duration</Form.Label>
-                        <Form.Check type="radio" aria-label="radio 1" label="Less than 4 minutes " />
-                        <Form.Check type="radio" aria-label="radio 2" label="4-8 minutes" />
-                        <Form.Check type="radio" aria-label="radio 3" label="8-12 minutes" />
-                        <Form.Check type="radio" aria-label="radio 4" label="More than 12 minutes" />
+                        {['radio'].map((type) => (
+                            <div key={`default-${type}`} className="mb-3">
+                                <Form.Check
+                                    label={`Less than 4 minutes`}
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-1`}
+                                />
+
+                                <Form.Check
+                                    label={`4-8 minutes`}
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-2`}
+                                />
+
+                                <Form.Check
+                                    type={type}
+                                    label={`8-12 minutes`}
+                                    name="group1"
+                                    id={`inline-${type}-3`}
+                                />
+
+                                <Form.Check
+                                    type={type}
+                                    label={`More than 12 minutes`}
+                                    name="group1"
+                                    id={`inline-${type}-4`}
+                                />
+                            </div>
+                        ))}
                     </Form.Group>
                 </div>
                 <div className="dropdown-divider"></div>

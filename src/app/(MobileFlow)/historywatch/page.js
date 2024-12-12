@@ -36,7 +36,7 @@ function HistoryWatch() {
                 <div className="page-inner">
                     <div className="page-section-left">
                         <div className="back-button">
-                        <button
+                            <button
                                 className="btn"
                                 onClick={() => window.history.back()}
                             >
@@ -84,39 +84,37 @@ function HistoryWatch() {
 
             <div className="page-main-section top-space">
                 <div className="custom-container">
-                    <div className='body-middle'>
-                        <div className="save-video-list-container">
-                            <div className="video-list-container">
-                                {videoData.map((video) => (
-                                    <div className="video-item" key={video.id}>
-                                        <Link href={"/watch"}>
-                                            <div className="video-item-inline">
-                                                <div className="video-item-left">
-                                                    <div className="video-item-thumbnail">
-                                                        <Image src={video.thumbnail} alt="thumbnail" />
-                                                    </div>
+                    <div className="save-video-list-container">
+                        <div className="video-list-container">
+                            {videoData.map((video) => (
+                                <div className="video-item" key={video.id}>
+                                    <Link href={"/watch"}>
+                                        <div className="video-item-inline">
+                                            <div className="video-item-left">
+                                                <div className="video-item-thumbnail">
+                                                    <Image src={video.thumbnail} alt="thumbnail" />
                                                 </div>
-                                                <div className="video-item-right">
-                                                    <div className="video-item-inline">
-                                                        <div className="video-item-info">
-                                                            <div className="video-item-title">
-                                                                <p>{video.title}</p>
-                                                            </div>
-                                                            <div className="video-item-category">{video.category}</div>
-                                                            <div className="upload-info">{video.uploadInfo}</div>
+                                            </div>
+                                            <div className="video-item-right">
+                                                <div className="video-item-inline">
+                                                    <div className="video-item-info">
+                                                        <div className="video-item-title">
+                                                            <p>{video.title}</p>
                                                         </div>
-                                                        <div className="video-item-actions">
-                                                            <div className="video-item-icon">
-                                                                <MdMoreVert />
-                                                            </div>
+                                                        <div className="video-item-category">{video.category}</div>
+                                                        <div className="upload-info">{video.uploadInfo}</div>
+                                                    </div>
+                                                    <div className="video-item-actions">
+                                                        <div className="video-item-icon">
+                                                            <MdMoreVert />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

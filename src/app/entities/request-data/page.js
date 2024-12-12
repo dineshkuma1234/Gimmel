@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Header from "../../../components/header/header";
-import { MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import './request.css';
@@ -17,6 +17,16 @@ function RequestData() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
+    const [show3, setShow3] = useState(false);
+
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
 
     const [showOverview, setShowOverview] = useState(false);
 
@@ -74,9 +84,55 @@ function RequestData() {
                 </Modal.Body>
             </Modal>
 
+
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal success-modal'>
+                <Modal.Header closeButton>
+                    <h4>Request sent sucesfully!</h4>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="text-small">
+                            Thank you for your request. We are extending our library every day. Stay tuned as a material fitting to your request might appear in any day.  If you wish a personalised video offer for your request consider subscribing to our XY plan.
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn-color-orange" onClick={handleClose2}>Upgrade my Plan</button>
+                            <button className="btn-color-orange-transprent mt-4" onClick={handleShow3}>Okay</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Feedback Modal */}
+            <Modal show={show3} onHide={handleClose3} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="success-icon report-modal">
+                            <Image src={require("../../../assets/images/feedback.svg")} alt="Success" />
+                        </div>
+
+                        <div className="report-modal-text">
+                            <div className="report-modal-title">
+                                How's your experience so far?
+                            </div>
+                            <div className="share-alart">
+                                We’d love to hear your thoughts! What’s working well, and what would you improve?
+                            </div>
+                            <div className="textarea-container mb-4">
+                                <Form.Control as="textarea" rows={3} placeholder="" />
+                            </div>
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn btn-color-orange" onClick={handleClose3}>Send Report</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
             <Header />
 
-            <main id="main" className="top-space-filter">
+            {/* <main id="main" className="top-space-filter">
                 <div className="category-filter-container">
                     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                         <div className="sidebar">
@@ -84,13 +140,13 @@ function RequestData() {
                                 <Nav variant="pills" className="flex-column request-data">
                                     <Nav.Item>
                                         <Nav.Link eventKey="first">
-                                            <MdAddCircleOutline />New Request
+                                            <MdAddCircleOutline className="me-2 d-block" />New Request
                                         </Nav.Link>
                                     </Nav.Item>
                                     <div className="dropdown-divider"></div>
                                     <Nav.Item>
                                         <Nav.Link eventKey="second">
-                                            Understanding and Managing Anxiety in Teenagers
+                                            Understanding and Managing Anxiety in Teenagers <MdMoreVert />
                                         </Nav.Link>
                                     </Nav.Item>
                                 </Nav>
@@ -102,7 +158,7 @@ function RequestData() {
                                     <Tab.Content>
                                         <Tab.Pane eventKey="first">
                                             <div className="row justify-content-center">
-                                                {/* First Column */}
+                                                
                                                 {!showOverview && (
                                                     <div className="col-10">
                                                         <div className="page-request-title">What do you need</div>
@@ -156,7 +212,7 @@ function RequestData() {
                                                     </div>
                                                 )}
 
-                                                {/* Second Column */}
+                                                
                                                 {showOverview && (
                                                     <div className="col-10">
                                                         <div className="page-request-title">Request overview</div>
@@ -224,12 +280,6 @@ function RequestData() {
                                                     <div className="page-request-data">
                                                         <div className="bg-green-light">
                                                             <div className="bg-green-inner">
-                                                                {/* <div className="request-time-image">
-                                                                    <Image src={require("../../../assets/images/time-request.svg")} alt="User Avatar" />
-                                                                </div>
-                                                                <div className="request-time-text">
-                                                                    <p>Stay tuned! We are working on finding you the best fitting materials.</p>
-                                                                </div> */}
 
                                                                 {currentStep === 1 && (
                                                                     <div className="content-box-inner" id="step-1">
@@ -318,7 +368,7 @@ function RequestData() {
                                                                         <div className="footer-btn-container">
                                                                             <div className="btn-right">
                                                                                 <button className="btn btn-orange-outline">None of these</button>
-                                                                                <button className="btn btn-orange" onClick={handleConfirm}>
+                                                                                <button className="btn btn-orange-request" onClick={handleConfirm}>
                                                                                     Confirm
                                                                                 </button>
                                                                             </div>
@@ -419,6 +469,67 @@ function RequestData() {
                             </div>
                         </div>
                     </Tab.Container>
+                </div>
+            </main> */}
+
+            <main id="main" className="top-space">
+                <div className="request-container">
+                    <div className="registration-alert">
+                        <div className="registration-alert-content">
+                            <div className="alert-inline">
+                                <div className="alert-icon">
+                                    <Image src={require('../../../assets/images/info.svg')} alt="info" />
+                                </div>
+                                <div className="alert-message">
+                                    If you wish a personalised video offer for your request consider subscribing to our XY plan and we will send you three suggested material presonalised for your needs.
+                                </div>
+                                <div className="alert-link-url">
+                                    <Link href=''>
+                                        Start registration
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="send-request-content">
+                        <div className="bg-white">
+                            <div className="bg-content">
+                                <div className="bg-content-inner">
+                                    <div className="page-request-title">What do you need</div>
+                                    <div className="page-request-data">
+                                        <Form className="request-data-form">
+                                            <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput1">
+                                                <div className="col-4">
+                                                    <Form.Label>Title of your request</Form.Label>
+                                                </div>
+                                                <div className="col-8">
+                                                    <Form.Control type="text" placeholder="" />
+                                                </div>
+                                            </Form.Group>
+                                            <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput2">
+                                                <div className="col-4">
+                                                    <Form.Label>Material description</Form.Label>
+                                                </div>
+                                                <div className="col-8">
+                                                    <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                    <div className="count-text">0/60</div>
+                                                </div>
+                                            </Form.Group>
+                                        </Form>
+                                        <div className="btn-container d-flex justify-content-end">
+                                            <button
+                                                className="btn btn-form-orange"
+                                                onClick={handleShow2}
+                                            >
+                                                Review Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
         </>

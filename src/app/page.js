@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <>
-      {deviceWidth > 768 ? (
+      {deviceWidth > 991 ? (
         <Main />
       ) : (
         <MainMobile />

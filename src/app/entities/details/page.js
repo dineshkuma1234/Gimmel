@@ -193,7 +193,7 @@ function VideoDetails() {
                                     <div className="sec-inline-row">
                                         <div className="user-info-container">
                                             <div className="user-avatar">
-                                                <Image src="https://via.placeholder.com/150" alt="User Avatar" />
+                                                <Image src={require("../../../assets/images/user.svg")} alt="User Avatar" />
                                             </div>
                                             <div className="user-name">
                                                 <h4>Content creator</h4>

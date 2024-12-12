@@ -57,21 +57,17 @@ function MainMobile() {
 
     const [checkedItems, setCheckedItems] = useState({});
 
+    // Handle checkbox state change
     const handleChange = (e) => {
         const { id, checked } = e.target;
-        if (id === "deselect-all") {
-            const newCheckedState = {};
-            if (!checked) {
-                Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
-            }
-            setCheckedItems(newCheckedState);
-        } else {
-            setCheckedItems({
-                ...checkedItems,
-                [id]: checked,
-            });
-        }
+        setCheckedItems((prevCheckedItems) => ({
+            ...prevCheckedItems,
+            [id]: checked,
+        }));
     };
+
+    // Compute the count of selected checkboxes
+    const selectedCount = Object.values(checkedItems).filter(Boolean).length;
 
     const topics = [
         { id: "addiction", label: "Addiction" },
@@ -136,22 +132,15 @@ function MainMobile() {
                         <Accordion defaultActiveKey="0">
                             <Accordion.Item eventKey="0" className='modal-select-item'>
                                 <Accordion.Header>
-                                    <span className="accordion-title">Substance Use</span>
-                                    <div className="select-count">3</div>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Substance Use</span>
+                                        <div className="select-count">{selectedCount}</div>
+                                    </div>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                <ul className="checkbox-group">
+                                    <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
-                                                <ListGroup.Item>
-                                                    <Form.Check
-                                                        type="checkbox"
-                                                        id="deselect-all"
-                                                        label="Deselect all"
-                                                        checked={Object.values(checkedItems).every((val) => !val)} // True if all items are unchecked
-                                                        onChange={handleChange}
-                                                    />
-                                                </ListGroup.Item>
                                                 {topics.map((topic) => (
                                                     <ListGroup.Item key={topic.id}>
                                                         <Form.Check
@@ -169,22 +158,44 @@ function MainMobile() {
                                 </Accordion.Body>
                             </Accordion.Item>
                             <Accordion.Item eventKey="1" className='modal-select-item'>
-                                <Accordion.Header>Accordion Item #2</Accordion.Header>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Mental Health</span>
+                                        <div className="select-count">{selectedCount}</div>
+                                    </div>
+                                </Accordion.Header>
                                 <Accordion.Body>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {topics.map((topic) => (
+                                                    <ListGroup.Item key={topic.id}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.id}
+                                                            label={topic.label}
+                                                            checked={!!checkedItems[topic.id]} // Default to false if undefined
+                                                            onChange={handleChange}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
                     </div>
+                    <div className="text-area mt-4">
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Give us a description of your interests</Form.Label>
+                            <Form.Control as="textarea" className="height-96 form-control" rows={3} />
+                            <p className="mt-2">0/60 words</p>
+                        </Form.Group>
+                    </div>
                     <div className="bottom-bar-modal">
                         <div className="bottom-btn-bar-inner">
-                            <button type="button" className="btn-color-orange">Send</button>
+                            <button type="button" className="btn-color-orange" onClick={handleClose}>Send</button>
                         </div>
                     </div>
                 </Modal.Body>

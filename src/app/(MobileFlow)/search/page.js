@@ -105,7 +105,7 @@ function Search() {
                 <div className="page-inner">
                     <div className="page-section-left">
                         <div className="back-button">
-                        <button
+                            <button
                                 className="btn"
                                 onClick={() => window.history.back()}
                             >
@@ -148,11 +148,13 @@ function Search() {
                                             <Image src={require("../../../assets/images/history.svg")} alt="slider thumbnil" />
                                             {item.title}
                                         </div>
-                                        <div className='search-history-img'>
-                                            <Image src={item.thumbnail} alt="slider thumbnil" />
-                                        </div>
-                                        <div className='search-history-icon'>
-                                            <Image src={require("../../../assets/images/north_east.svg")} alt="slider thumbnil" />
+                                        <div className="inline-search">
+                                            <div className='search-history-img'>
+                                                <Image src={item.thumbnail} alt="slider thumbnil" />
+                                            </div>
+                                            <div className='search-history-icon'>
+                                                <Image src={require("../../../assets/images/north_east.svg")} alt="slider thumbnil" />
+                                            </div>
                                         </div>
                                     </Link>
                                 </li>

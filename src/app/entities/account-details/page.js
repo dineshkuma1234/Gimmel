@@ -60,7 +60,7 @@ function AccountDetails() {
                             <div className="account-details">
                                 <div className="account-user-info">
                                     <div className="account-user-avatar">
-                                        <Image src="https://via.placeholder.com/150" alt="User Avatar" width={100} height={100} />
+                                        <Image src={require("../../../assets/images/user.svg")} alt="User Avatar" width={100} height={100} />
                                     </div>
                                     <div>
                                         <div className="account-name">

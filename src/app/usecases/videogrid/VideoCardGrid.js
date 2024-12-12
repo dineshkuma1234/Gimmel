@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
+import { Form } from 'react-bootstrap';
 
 const videoData = [
     {
@@ -98,8 +99,41 @@ const VideoCard = ({ video }) => {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
     return (
         <>
+
+            {/* New folder Modal start */}
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>New folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={
+                            () => {
+                                handleClose2();
+                                addNewFolder();
+                            }
+
+                        }>Create folder</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Full summary Modal start */}
             <Modal show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Full Summary</Modal.Title>
@@ -114,6 +148,7 @@ const VideoCard = ({ video }) => {
                 </Modal.Body>
             </Modal>
 
+            {/* Save to My Library Modal start */}
             <Modal show={show1} onHide={handleClose1} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Save to My Library</Modal.Title>
@@ -181,18 +216,20 @@ const VideoCard = ({ video }) => {
                             <button
                                 type="button"
                                 className="btn btn-new-folder"
-                                onClick={addNewFolder}
+                                onClick={handleShow2}
                             >
                                 <MdAddCircleOutline /> New Folder
                             </button>
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" data-bs-dismiss="modal">Save here</button>
+                        <button type="button" className="btn-color-orange" onClick={handleClose1}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
-            <div className="col-md-3 col-sm-6">
+
+
+            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div className="video-card">
                     <div className="video-card-content">
                         <Link href="/videodetails">

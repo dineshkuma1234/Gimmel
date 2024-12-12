@@ -30,9 +30,9 @@ function Header() {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // const toggleMenu = () => {
-    //     setMenuOpen(!menuOpen);
-    // };
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
 
     const handleLinkClick = () => {
         setMenuOpen(false);
@@ -40,7 +40,7 @@ function Header() {
 
     React.useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 768 && menuOpen) {
+            if (window.innerWidth > 991 && menuOpen) {
                 setMenuOpen(false);
             }
         };
@@ -49,42 +49,28 @@ function Header() {
     }, [menuOpen]);
 
     const [showHistory, setShowHistory] = useState(false);
-    const searchContainerRef = useRef(null);
+    const [showFilter, setShowFilter] = useState(false);
+    const containerRef = useRef(null);
 
     const handleShowHistory = () => {
         setShowHistory(true);
     };
 
-    const handleClickOutside = (event) => {
-        if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
-            setShowHistory(false);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('click', handleClickOutside);
-        return () => {
-            window.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
-
-    const [showFilter, setShowFilter] = useState(false);
-    const filterContainerRef = useRef(null);
-
     const handleShowFilter = () => {
         setShowFilter(true);
     };
 
-    const handleClickOutsideFilter = (event) => {
-        if (filterContainerRef.current && !filterContainerRef.current.contains(event.target)) {
+    const handleClickOutside = (event) => {
+        if (containerRef.current && !containerRef.current.contains(event.target)) {
+            setShowHistory(false);
             setShowFilter(false);
         }
     };
 
     useEffect(() => {
-        window.addEventListener('click', handleClickOutsideFilter);
+        window.addEventListener('mousedown', handleClickOutside);
         return () => {
-            window.removeEventListener('click', handleClickOutsideFilter);
+            window.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
@@ -96,7 +82,7 @@ function Header() {
                         <Image src={Logo} alt="logo" width="100" height="100" />
                     </Link>
 
-                    <div className="search-container" ref={searchContainerRef}>
+                    <div className="search-container" ref={containerRef}>
                         <input
                             type="text"
                             className="search-input"
@@ -206,6 +192,11 @@ function Header() {
                         </ul>
                     </div>
                 </div>
+                {/* <div className="burger" id="burger" onClick={toggleMenu}>
+                    <span className="burger-line"></span>
+                    <span className="burger-line"></span>
+                    <span className="burger-line"></span>
+                </div> */}
                 <div className="sec-center">
                     <Link href="/account" className="logo">
                         <div className={`for-dropdown profile-btn-view ${pathname === "/account" ? "active" : ""}`} htmlFor="dropdown">

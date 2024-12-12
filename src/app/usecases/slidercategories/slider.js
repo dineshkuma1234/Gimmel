@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,6 +11,7 @@ import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
+import { Form } from 'react-bootstrap';
 
 const videoData = [
     {
@@ -67,6 +68,22 @@ const videoData = [
 
 const SliderCategories = ({ video }) => {
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show1, setShow1] = useState(false);
+
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
+
+
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
     const swiperRef = useRef(null);
 
     const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -74,6 +91,19 @@ const SliderCategories = ({ video }) => {
     const toggleDropdown = (id) => {
         setOpenDropdownId((prevId) => (prevId === id ? null : id));
     };
+
+    const handleOutsideClick = (event) => {
+        if (!event.target.closest('.dropdown-menu-card') && !event.target.closest('.dropdown-toggle')) {
+            setOpenDropdownId(null);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
 
     const [folders, setFolders] = useState([
         { id: 1, name: 'My Library' },
@@ -90,16 +120,7 @@ const SliderCategories = ({ video }) => {
         setFolders([...folders, newFolder]);
     };
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const [show1, setShow1] = useState(false);
-
-    const handleClose1 = () => setShow1(false);
-    const handleShow1 = () => setShow1(true);
-
+    
 
     return (
         <>
@@ -181,7 +202,11 @@ const SliderCategories = ({ video }) => {
                             <button
                                 type="button"
                                 className="btn btn-new-folder"
-                                onClick={addNewFolder}
+                                onClick={
+                                    () => {
+                                        handleShow2();
+                                    }
+                                }
                             >
                                 <MdAddCircleOutline /> New Folder
                             </button>
@@ -189,6 +214,31 @@ const SliderCategories = ({ video }) => {
                     </div>
                     <div className="body-footer">
                         <button type="button" className="btn-color-orange" data-bs-dismiss="modal">Save here</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* New folder Modal start */}
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>New folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={
+                            () => {
+                                handleClose2();
+                                addNewFolder();
+                            }
+                        }>Create folder</button>
                     </div>
                 </Modal.Body>
             </Modal>

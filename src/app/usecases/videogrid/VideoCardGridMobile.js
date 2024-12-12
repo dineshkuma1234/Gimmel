@@ -195,7 +195,7 @@ const VideoCard = ({ video }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <div className="col-md-3 col-sm-6">
+            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div className="video-card">
                     <div className="video-card-content">
                         <Link href="/watchvideo">
