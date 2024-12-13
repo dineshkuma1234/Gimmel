@@ -54,16 +54,25 @@ function Header() {
 
     const handleShowHistory = () => {
         setShowHistory(true);
+        // add class to search input
+        const searchInput = document.querySelector('.search-container');
+        searchInput.classList.add('active');
     };
 
     const handleShowFilter = () => {
         setShowFilter(true);
+        // add class to search input
+        const searchInput = document.querySelector('.search-container');
+        searchInput.classList.add('active');
     };
 
     const handleClickOutside = (event) => {
         if (containerRef.current && !containerRef.current.contains(event.target)) {
             setShowHistory(false);
             setShowFilter(false);
+            // remove class from search input
+            const searchInput = document.querySelector('.search-container');
+            searchInput.classList.remove('active');
         }
     };
 

@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Image from "next/image";
 import Link from "next/link";
+import VideoDetails from "../details/page";
 
 function RequestData() {
 
@@ -27,6 +28,13 @@ function RequestData() {
 
     const handleClose3 = () => setShow3(false);
     const handleShow3 = () => setShow3(true);
+
+    const [show4, setShow4] = useState(false);
+
+    const handleClose4 = () => setShow4(false);
+    const handleShow4 = () => setShow4(true);
+
+    const [fullscreen, setFullscreen] = useState(true);
 
     const [showOverview, setShowOverview] = useState(false);
 
@@ -84,7 +92,6 @@ function RequestData() {
                 </Modal.Body>
             </Modal>
 
-
             <Modal show={show2} onHide={handleClose2} centered className='custom-modal success-modal'>
                 <Modal.Header closeButton>
                     <h4>Request sent sucesfully!</h4>
@@ -130,9 +137,17 @@ function RequestData() {
                 </Modal.Body>
             </Modal>
 
+            <Modal show={show4} onHide={handleClose4} centered className='custom-modal modal-full'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <VideoDetails />
+                    </div>
+                </Modal.Body>
+            </Modal>
+
             <Header />
 
-            {/* <main id="main" className="top-space-filter">
+            <main id="main" className="top-space-filter">
                 <div className="category-filter-container">
                     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                         <div className="sidebar">
@@ -296,7 +311,7 @@ function RequestData() {
                                                                                         >
                                                                                             <div className="btn-listing">
                                                                                                 <div className="button-left-side">
-                                                                                                    <button className="btn btn-icon eye-icon">
+                                                                                                    <button className="btn btn-icon eye-icon" onClick={handleShow4}>
                                                                                                         <svg
                                                                                                             width="24"
                                                                                                             height="24"
@@ -470,9 +485,9 @@ function RequestData() {
                         </div>
                     </Tab.Container>
                 </div>
-            </main> */}
+            </main>
 
-            <main id="main" className="top-space">
+            {/* <main id="main" className="top-space">
                 <div className="request-container">
                     <div className="registration-alert">
                         <div className="registration-alert-content">
@@ -531,7 +546,7 @@ function RequestData() {
                         </div>
                     </div>
                 </div>
-            </main>
+            </main> */}
         </>
     );
 }

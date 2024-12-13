@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import Link from 'next/link';
+import { Form } from 'react-bootstrap';
 
 const categories = [
     {
@@ -94,6 +95,11 @@ function CategoriesCard() {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
 
     return (
         <>
@@ -175,7 +181,7 @@ function CategoriesCard() {
                             <button
                                 type="button"
                                 className="btn btn-new-folder"
-                                onClick={addNewFolder}
+                                onClick={handleShow2}
                             >
                                 <MdAddCircleOutline /> New Folder
                             </button>
@@ -186,6 +192,34 @@ function CategoriesCard() {
                     </div>
                 </Modal.Body>
             </Modal>
+
+            {/* New folder Modal start */}
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>New folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={
+                            () => {
+                                handleClose2();
+                                addNewFolder();
+                            }
+
+                        }>Create folder</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
 
             {categories.map((category) => (
                 <div className="categories-card" key={category.id}>

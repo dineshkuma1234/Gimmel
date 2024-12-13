@@ -11,6 +11,7 @@ import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
 import Link from 'next/link';
+import { Modal } from 'react-bootstrap';
 
 
 const videoData = [
@@ -49,9 +50,143 @@ function AccountDetails() {
         setIsYearly(!isYearly);
     };
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
 
     return (
         <>
+            <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Subscription Plan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div id="pricingSection" className="mt-4">
+                            <div className="container">
+                                {/* CHOOSE YOUR PLAN */}
+                                <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
+                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Monthly</span>
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isYearly} onChange={togglePricing} />
+                                        <span className="slider-price"></span>
+                                    </label>
+                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Yearly</span>
+                                    <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
+                                </div>
+                                {/* CHOOSE YOU PLAN END */}
+
+                                <div className="row mx-n3 justify-content-center">
+                                    {/* PRICING CARD - Free Plan */}
+                                    <div className="col-6 mb-4">
+                                        <div className="card card-frame">
+                                            <div className="row align-items-center">
+                                                <div className="col-md-12">
+                                                    <div className="card-header bg-transparent">
+                                                        <div className="price-card--title">
+                                                            <h4>Free Plan</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <ul className="list-unstyled list-md-space mb-0">
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 1
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 2
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 3
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className='price-btn'>
+                                                        <button className='btn btn-color-orange-trans'>Current Plan</button>
+                                                    </div>
+                                                    <div className="price">
+                                                        <div className="price-number">Free</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* END PRICING CARD - Free Plan */}
+
+                                    {/* PRICING CARD - Pro Plan */}
+                                    <div className="col-6 mb-4">
+                                        <div className="card card-frame active">
+                                            <div className="row align-items-center">
+                                                <div className="col-md-12">
+                                                    <div className="card-header bg-transparent">
+                                                        <div className="price-card--title">
+                                                            <h4>Pro Plan</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <ul className="list-unstyled list-md-space mb-0">
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 1
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 2
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 3
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-12">
+                                                    <div className='price-btn'>
+                                                        <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
+                                                    </div>
+                                                    <div className="price">
+                                                        <div className="price-number">{isYearly ? '$10/month' : '$12/month'}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* END PRICING CARD - Pro Plan */}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='active-plan-info'>
+                            Currently you have an active <b className='active-plan-name'>Free Plan </b>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal success-modal'>
+                <Modal.Header closeButton>
+                    <h4>Are you sure you want to log out?</h4>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="success-icon">
+                            <Image src={require("../../../assets/images/logout.svg")} alt="Success" />
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn-color-orange" onClick={handleClose2}>Yes, I want to log out</button>
+                            <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
             <Header />
             <main id="main" className="top-space">
                 <div className="custom-container">
@@ -232,7 +367,7 @@ function AccountDetails() {
 
                                                     <div className="col-md-12">
                                                         <div className='price-btn'>
-                                                            <button className='btn btn-color-orange'>Upgrade</button>
+                                                            <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
                                                         </div>
                                                         <div className="price">
                                                             <div className="price-number">{isYearly ? '$10/month' : '$12/month'}</div>

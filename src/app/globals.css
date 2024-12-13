@@ -338,6 +338,10 @@ body {
   margin: 0 40px;
 }
 
+.search-container.active {
+  border-radius: 8px 8px 0 0;
+}
+
 .search-input {
   width: 450px;
   padding: 10px;
@@ -1973,4 +1977,80 @@ a.see-all {
 
 .request-loader-container {
   text-align: center;
+}
+
+.folder-content-right {
+  position: relative;
+}
+
+button.folder-icon {
+  position: relative;
+  background: transparent;
+  border: none;
+}
+
+.dropdown-menu-card li button svg {
+  margin-right: 16px;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-container svg {
+  width: 40px;
+  height: 40px;
+  color: red;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.title-container p.modal-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gimmel-darkBlue);
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.success-modal h4 {
+  color: #fff;
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.btn-color-orange-transprent {
+  background-color: #4D5F57;
+  border: 1px solid var(--gimmel-orange);
+  width: 100%;
+  height: 56px;
+  color: var(--gimmel-orange);
+  border-radius: 8px;
+}
+
+.success-icon {
+  text-align: center;
+}
+
+.success-modal .modal-dialog {
+  max-width: 600px ! important;
+}
+
+.modal-full .modal-dialog{
+  max-width: 98% ! important;
+  margin: 16px auto ! important;
+}
+
+.modal-full .modal-body .header {
+  display: none;
+}
+
+.modal-full .modal-body {
+  padding: 0;
+}
+
+.modal-full .modal-body .top-space-filter {
+  margin-top: 0;
+}
+
+.modal-full .modal-body .react-player {
+  border-radius: 8px 8px 0px 0px;
 }

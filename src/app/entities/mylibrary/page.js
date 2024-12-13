@@ -1,13 +1,26 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../../../components/header/header";
 import Sidebar from "../../usecases/sidebar/sidebar";
 import "../../CommenStyle/filter.css";
-import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";
+import { TbEdit } from "react-icons/tb";
+import { Modal, Form } from "react-bootstrap";
+import { FiAlertOctagon } from "react-icons/fi";
 
 function MyLibrary() {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
 
     const [folders] = useState([
         { id: 1, name: 'My Library' },
@@ -15,9 +28,72 @@ function MyLibrary() {
         { id: 3, name: 'Personal Files' },
     ]);
 
+    const dropdownRef = useRef(null);
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+
+    const toggleDropdown = (folderId) => {
+        setIsDropdownOpen((prev) => (prev === folderId ? null : folderId));
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(null);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleClickOutside);
+        return () => {
+            window.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
 
     return (
         <>
+            {/* Rename folder modal start */}
+            <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Rename folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={handleClose}>Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Delete folder modal start */}
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="icon-container d-flex justify-content-center">
+                            <FiAlertOctagon />
+                        </div>
+                        <div className="title-container d-flex justify-content-center align-items-center">
+                            <p className='modal-title'>Are you sure?</p>
+                        </div>
+                        <div className="input-container modal-input">
+                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div className="btn-container d-flex gap-3">
+                        <button className="btn btn-color-orange" onClick={handleClose2}>Delete</button>
+                        <button className="btn btn-color-orange-outline" onClick={handleClose2}>Cancel</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
             <Header />
 
             <main id="main" className="top-space-filter">
@@ -57,12 +133,12 @@ function MyLibrary() {
 
                         <div className='folder-lists mt-3'>
                             {folders.map((folder) => (
-                                <div key={folder.id} className='folder-view'>
-                                    <div className='folder-inner'>
-                                        <div className='folder-content-inline'>
+                                <div key={folder.id} className="folder-view">
+                                    <div className="folder-inner">
+                                        <div className="folder-content-inline">
                                             <Link href="/materials">
-                                                <div className='folder-content-left'>
-                                                    <div className='folder-icon'>
+                                                <div className="folder-content-left">
+                                                    <div className="folder-icon">
                                                         <svg
                                                             width="32"
                                                             height="32"
@@ -76,15 +152,36 @@ function MyLibrary() {
                                                             />
                                                         </svg>
                                                     </div>
-                                                    <div className='folder-name'>
+                                                    <div className="folder-name">
                                                         <p>{folder.name}</p>
                                                     </div>
                                                 </div>
                                             </Link>
-                                            <div className='folder-content-right'>
-                                                <div className='folder-icon'>
+                                            <div className="folder-content-right" ref={dropdownRef}>
+                                                <button
+                                                    className="folder-icon"
+                                                    onClick={() => toggleDropdown(folder.id)}
+                                                >
                                                     <MdMoreVert />
-                                                </div>
+                                                </button>
+                                                {isDropdownOpen === folder.id && (
+                                                    <div className="dropdown-menu-card">
+                                                        <ul>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow}>
+                                                                    <TbEdit />
+                                                                    Rename
+                                                                </button>
+                                                            </li>
+                                                            <li className="hide_mobile">
+                                                                <button variant="primary" onClick={handleShow2}>
+                                                                    <MdDeleteOutline />
+                                                                    Delete
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
