@@ -674,6 +674,10 @@ span.user-name {
   -webkit-box-orient: vertical;
 }
 
+.de-info p.expanded {
+  -webkit-line-clamp: unset;
+}
+
 .category-card-image {
   position: relative;
   height: auto;
@@ -860,6 +864,10 @@ span.user-name {
 }
 
 .dropdown-menu-card li button svg {
+  margin-right: 16px;
+}
+
+.dropdown-menu-card li button img {
   margin-right: 16px;
 }
 
@@ -1101,7 +1109,7 @@ span.user-name {
   padding: 16px;
   border-radius: 8px;
   border: 1px solid #E7EDEF;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .library-swiper .video-card-detail {

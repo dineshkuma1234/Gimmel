@@ -300,6 +300,7 @@ ul.account-list li {
 
 .suggested-card .de-title h4 {
     line-height: 18px;
+    margin-bottom: 0;
 }
 
 .suggested-card .de-title h4 a {

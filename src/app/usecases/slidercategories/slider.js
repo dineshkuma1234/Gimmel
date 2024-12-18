@@ -120,7 +120,12 @@ const SliderCategories = ({ video }) => {
         setFolders([...folders, newFolder]);
     };
 
-    
+    const [expandedVideoId, setExpandedVideoId] = useState(null);
+
+    const handleToggleExpand = (id) => {
+        setExpandedVideoId(expandedVideoId === id ? null : id);
+    };
+
 
     return (
         <>
@@ -345,14 +350,17 @@ const SliderCategories = ({ video }) => {
 
                                             <div className="video-de-info d-flex">
                                                 <div className="de-info">
-                                                    <p>{video.description}</p>
+                                                    <p className={expandedVideoId === video.id ? 'expanded' : ''}>
+                                                        {video.description}
+                                                    </p>
                                                 </div>
                                                 <div className="more-btn">
-                                                    <button className="btn btn-more">
+                                                    <button className="btn btn-more" onClick={() => handleToggleExpand(video.id)}>
                                                         <FaCaretDown />
                                                     </button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

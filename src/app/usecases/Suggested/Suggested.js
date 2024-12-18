@@ -243,7 +243,7 @@ function Suggested({ video }) {
                             </div>
                         </Link>
                     </div>
-                    <div className='col-6'>
+                    <div className='col-6 pe-0 ps-0'>
                         <div className="video-card-detail">
                             <div className="video-de-title">
                                 <div className="de-title">

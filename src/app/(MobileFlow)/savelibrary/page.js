@@ -2,14 +2,25 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline , MdDeleteOutline} from "react-icons/md";
 import Link from "next/link";
+import { TbEdit } from "react-icons/tb";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
 
 function SaveLibrary() {
+
+    const [show, setShow] = useState(false);
+    
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+    
+        const [show3, setShow3] = useState(false);
+    
+        const handleClose3 = () => setShow3(false);
+        const handleShow3 = () => setShow3(true);
 
     const [show2, setShow2] = useState(false);
 
@@ -32,9 +43,71 @@ function SaveLibrary() {
         setFolders([...folders, newFolder]);
     };
 
+    const dropdownRef = useRef(null);
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+
+    const toggleDropdown = (folderId) => {
+        setIsDropdownOpen((prev) => (prev === folderId ? null : folderId));
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(null);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleClickOutside);
+        return () => {
+            window.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
 
     return (
         <>
+
+            {/* Rename folder modal start */}
+            <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Rename folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={handleClose}>Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Delete folder modal start */}
+            <Modal show={show3} onHide={handleClose3} centered className='custom-modal'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="icon-container d-flex justify-content-center">
+                            <FiAlertOctagon />
+                        </div>
+                        <div className="title-container d-flex justify-content-center align-items-center">
+                            <p className='modal-title'>Are you sure?</p>
+                        </div>
+                        <div className="input-container modal-input">
+                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div className="btn-container d-flex gap-3">
+                        <button className="btn btn-color-orange" onClick={handleClose3}>Delete</button>
+                        <button className="btn btn-color-orange-outline" onClick={handleClose3}>Cancel</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
 
             <Modal show={show2} onHide={handleClose2} centered className='modal-dots'>
                 <div className='modal-bar'>
@@ -142,10 +215,31 @@ function SaveLibrary() {
                                                     </div>
                                                 </div>
                                             </Link>
-                                            <div className='folder-content-right'>
-                                                <div className='folder-icon'>
+                                            <div className="folder-content-right" ref={dropdownRef}>
+                                                <button
+                                                    className="folder-icon"
+                                                    onClick={() => toggleDropdown(folder.id)}
+                                                >
                                                     <MdMoreVert />
-                                                </div>
+                                                </button>
+                                                {isDropdownOpen === folder.id && (
+                                                    <div className="dropdown-menu-card">
+                                                        <ul>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow}>
+                                                                    <TbEdit />
+                                                                    Rename
+                                                                </button>
+                                                            </li>
+                                                            <li className="hide_mobile">
+                                                                <button variant="primary" onClick={handleShow2}>
+                                                                    <MdDeleteOutline />
+                                                                    Delete
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

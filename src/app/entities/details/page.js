@@ -1,7 +1,7 @@
 "use client"
 
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Header from "../../../components/header/header";
 import ReactPlayer from "react-player";
 import "../../CommenStyle/details.css";
@@ -15,6 +15,7 @@ import SuggestedCardGrid from "../../usecases/Suggested/Suggested";
 import Reviews from "../../usecases/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
+import Link from "next/link";
 function VideoDetails() {
 
     const [show, setShow] = useState(false);
@@ -31,6 +32,30 @@ function VideoDetails() {
 
     const handleClose3 = () => setShow3(false);
     const handleShow3 = () => setShow3(true);
+
+    const [show4, setShow4] = useState(false);
+
+    const handleClose4 = () => setShow4(false);
+    const handleShow4 = () => setShow4(true);
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+    
+        useEffect(() => {
+            window.addEventListener('click', handleClickOutside);
+            return () => {
+                window.removeEventListener('click', handleClickOutside);
+            };
+        }, []);
 
     return (
         <>
@@ -170,6 +195,21 @@ function VideoDetails() {
                 </Modal.Body>
             </Modal>
 
+            {/* Full summary Modal start */}
+            <Modal show={show4} onHide={handleClose4} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Full Summary</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='modal-bar show_mobile'>
+                        <div className='bar-line'></div>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
+                    <p>Nulla in libero eget ex tristique pellentesque. Sed ex massa, cursus sagittis interdum ac, iaculis eget est. Vestibulum leo neque, eleifend et pretium vehicula, finibus sit amet dui. Phasellus nec eros a orci ultrices sagittis sit amet in lacus. Morbi nec commodo justo. Cras at varius risus. Cras nec libero consequat, vulputate felis ut, pharetra libero. Fusce ornare arcu ultrices lectus vulputate ultrices. Aenean purus nisl, bibendum vel massa eget, porttitor gravida ligula. Sed ut ante convallis, pretium quam pretium, eleifend ante. </p>
+                    <p>Donec tempus mollis quam, quis molestie neque pretium ut. In eu venenatis nisi. Nam tristique sed nisi a aliquet. Praesent mauris neque, ornare nec commodo sed, aliquam at mi. Vivamus sit amet libero et felis pretium tempor tincidunt vel dui. Suspendisse tincidunt pharetra bibendum.</p>
+                </Modal.Body>
+            </Modal>
+
             <Header />
 
             <main id="main" className="top-space-filter">
@@ -214,7 +254,40 @@ function VideoDetails() {
                                                 <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
                                                 Summary
                                             </button>
-                                            <button className="btn btn-light-bg w-40"><MdMoreVert /></button>
+                                            <div className="more-btn" ref={dropdownRef}>
+                                                <button className="btn btn-light-bg w-40" onClick={toggleDropdown}><MdMoreVert /></button>
+                                                {isDropdownOpen && (
+                                                    <div className="dropdown-menu-card">
+                                                        <ul>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow4}>
+                                                                    <Image src={require("../../../assets/images/summary.svg")} alt="summary" />
+                                                                    See full summary
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow}>
+                                                                    <Image src={require("../../../assets/images/save.svg")} alt="save" />
+                                                                    Save
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow2}>
+                                                                    <Image src={require("../../../assets/images/share.svg")} alt="share" />
+                                                                    Share
+                                                                </button>
+                                                            </li>
+                                                            <div className="dropdown-divider"></div>
+                                                            <li>
+                                                                <button href="#" onClick={handleShow3}>
+                                                                    <Image src={require("../../../assets/images/report-icon.svg")} alt="report" />
+                                                                    Report
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="account-info-container">

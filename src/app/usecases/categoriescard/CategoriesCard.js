@@ -1,13 +1,15 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import Image from "next/image";
 import Modal from 'react-bootstrap/Modal';
-import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline, MdDeleteOutline } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import Link from 'next/link';
 import { Form } from 'react-bootstrap';
+import { FiAlertOctagon } from "react-icons/fi";
 
 const categories = [
     {
@@ -100,6 +102,37 @@ function CategoriesCard() {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
+    const [show3, setShow3] = useState(false);
+
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
+
+    const [show4, setShow4] = useState(false);
+
+    const handleClose4 = () => setShow4(false);
+    const handleShow4 = () => setShow4(true);
+
+    const dropdownRef = useRef(null);
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+
+    const toggleDropdownFolder = (folderId) => {
+        setIsDropdownOpen((prev) => (prev === folderId ? null : folderId));
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(null);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleClickOutside);
+        return () => {
+            window.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
 
     return (
         <>
@@ -167,10 +200,31 @@ function CategoriesCard() {
                                                     <p>{folder.name}</p>
                                                 </div>
                                             </div>
-                                            <div className='folder-content-right'>
-                                                <div className='folder-icon'>
+                                            <div className="folder-content-right" ref={dropdownRef}>
+                                                <button
+                                                    className="folder-icon"
+                                                    onClick={() => toggleDropdownFolder(folder.id)}
+                                                >
                                                     <MdMoreVert />
-                                                </div>
+                                                </button>
+                                                {isDropdownOpen === folder.id && (
+                                                    <div className="dropdown-menu-card">
+                                                        <ul>
+                                                            <li>
+                                                                <button variant="primary" onClick={handleShow3}>
+                                                                    <TbEdit />
+                                                                    Rename
+                                                                </button>
+                                                            </li>
+                                                            <li className="hide_mobile">
+                                                                <button variant="primary" onClick={handleShow4}>
+                                                                    <MdDeleteOutline />
+                                                                    Delete
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -215,6 +269,47 @@ function CategoriesCard() {
                             }
 
                         }>Create folder</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+             {/* Rename folder modal start */}
+             <Modal show={show3} onHide={handleClose3} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Rename folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={handleClose3}>Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Delete folder modal start */}
+            <Modal show={show4} onHide={handleClose4} centered className='custom-modal'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="icon-container d-flex justify-content-center">
+                            <FiAlertOctagon />
+                        </div>
+                        <div className="title-container d-flex justify-content-center align-items-center">
+                            <p className='modal-title'>Are you sure?</p>
+                        </div>
+                        <div className="input-container modal-input">
+                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div className="btn-container d-flex gap-3">
+                        <button className="btn btn-color-orange" onClick={handleClose4}>Delete</button>
+                        <button className="btn btn-color-orange-outline" onClick={handleClose4}>Cancel</button>
                     </div>
                 </Modal.Body>
             </Modal>

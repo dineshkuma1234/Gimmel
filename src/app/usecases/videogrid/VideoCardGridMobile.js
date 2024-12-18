@@ -101,6 +101,12 @@ const VideoCard = ({ video }) => {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleToggle = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
         <>
             <Modal show={show} onHide={handleClose} centered className='custom-modal'>
@@ -281,10 +287,10 @@ const VideoCard = ({ video }) => {
 
                             <div className="video-de-info d-flex">
                                 <div className="de-info">
-                                    <p>{video.description}</p>
+                                    <p className={isExpanded ? 'expanded' : ''}>{video.description}</p>
                                 </div>
                                 <div className="more-btn">
-                                    <button className="btn btn-more">
+                                    <button className="btn btn-more" onClick={handleToggle}>
                                         <FaCaretDown />
                                     </button>
                                 </div>
