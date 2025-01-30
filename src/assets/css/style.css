@@ -588,7 +588,7 @@ input[type="range"]::-moz-range-thumb {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: 50vh;
+    height: 300px;
     overflow: auto;
     padding: 0px 0 10px;
     padding-bottom: 40px;

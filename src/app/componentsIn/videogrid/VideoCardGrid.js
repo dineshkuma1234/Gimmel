@@ -93,7 +93,7 @@ const videoData = [
     },
 ];
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video,getPost }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -275,14 +275,14 @@ const VideoCard = ({ video }) => {
             </Modal>
 
 
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+            {/* <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className='my-interests-card'>
                     <div className="video-card-1">
                         <div className="video-card-content">
                             <Link href="/videodetails">
                                 <div className="video-card-image">
                                     <Image src={require("../../../assets/images/bg-in.png")} alt="video card" />
-                                    {/* <div className="video-duration">{video.duration}</div> */}
+                                    <div className="video-duration">{video.duration}</div>
                                 </div>
                             </Link>
                         </div>
@@ -296,14 +296,14 @@ const VideoCard = ({ video }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
                     <div className="video-card-content">
                         <Link href="/videodetails">
                             <div className="video-card-image">
-                                <Image src={SliderThumbnil} alt="video card" />
+                                <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>
                             </div>
                         </Link>
@@ -325,9 +325,9 @@ const VideoCard = ({ video }) => {
                                     </svg>
                                 </div>
                                 <div className="rating">
-                                    <span>{video.rating}</span>
+                                    <span>{'8/10'}</span>
                                 </div>
-                                <div className="eng-name">{video.engagement}</div>
+                                <div className="eng-name">{'Engagement Rating'}</div>
                             </div>
 
                             <div className="video-de-title">
@@ -400,10 +400,12 @@ const VideoCard = ({ video }) => {
     );
 };
 
-const VideoCardGrid = () => (
+const VideoCardGrid = ({getPost}) => (
+    console.log(getPost,"this is get post---11111"),
+    
     <div className="row">
-        {videoData.map((video) => (
-            <VideoCard key={video.id} video={video} />
+        {getPost && Array.isArray(getPost) && getPost?.map((video) => (
+            <VideoCard key={video._id} video={video} />
         ))}
     </div>
 );

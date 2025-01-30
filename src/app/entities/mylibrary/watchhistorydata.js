@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Header from "../../../components/header/header";
-import Sidebar from "../../usecases/sidebar/sidebar";
+import Sidebar from "../../componentsIn/sidebar/sidebar";
 import "../../CommenStyle/filter.css";
 import Link from "next/link";
-import CategoriesCard from "../../usecases/categoriescard/CategoriesCard";
+import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 
 function WatchHistoryData() {
 

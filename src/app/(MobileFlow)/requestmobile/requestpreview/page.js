@@ -5,7 +5,7 @@ import BottomBar from "../../../../components/BottomBar/BottomBar";
 import { Form } from "react-bootstrap";
 import '../../../entities/request-data/request.css';
 import Image from "next/image";
-import VideoCardGrid from "../../../usecases/videogrid/VideoCardGridMobile";
+import VideoCardGrid from "../../../componentsIn/videogrid/VideoCardGridMobile";
 import Modal from 'react-bootstrap/Modal';
 import '../../../CommenStyle/details.css';
 

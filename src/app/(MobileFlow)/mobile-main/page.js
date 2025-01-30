@@ -3,8 +3,8 @@
 import React from "react";
 import Header from "../../../components/header/header";
 import BottomBar from "../../../components/BottomBar/BottomBar";
-import SliderSection from "../../usecases/slider/slider";
-import VideoCardGridMobile from "../../usecases/videogrid/VideoCardGridMobile";
+import SliderSection from "../../componentsIn/slider/slider";
+import VideoCardGridMobile from "../../componentsIn/videogrid/VideoCardGridMobile";
 import Link from "next/link";
 import { FaEllipsisV } from 'react-icons/fa';
 import Image from "next/image";

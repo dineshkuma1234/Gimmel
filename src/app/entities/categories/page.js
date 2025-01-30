@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../../components/header/header";
-import SliderSection from "../../usecases/slidercategories/slider";
+import SliderSection from "../../componentsIn/slidercategories/slider";
 
 function Categories() {
     return (

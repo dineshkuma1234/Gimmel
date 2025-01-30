@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../../../components/header/header";
 import BottomBar from "../../../components/BottomBar/BottomBar";
-import SliderSection from "../../usecases/slider/slider";
-import VideoCardGrid from "../../usecases/videogrid/VideoCardGrid";
+import SliderSection from "../../componentsIn/slider/slider";
+import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
 import Link from "next/link";
 
-function Main() {
+function Main({getPost,handleGetPost}) {
     return (
         <>
             <Header />
@@ -26,12 +26,12 @@ function Main() {
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-                    <VideoCardGrid />
+                    <VideoCardGrid getPost={getPost}  handleGetPost={handleGetPost} />
 
-                    <div className="page-main-title">
+                    {/* <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-                    <VideoCardGrid />
+                    <VideoCardGrid /> */}
                 </div>
             </main>
 

@@ -79,7 +79,7 @@ function PageComponent() {
                                         }
                                     </div>
                                     <div className="skip-btn">
-                                        <Link href="price.html" className="btn-text">Skip</Link>
+                                        <Link href="/" className="btn-text">Skip</Link>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@ function PageComponent() {
                     </div>
                     <div className="bottom-bar">
                         <div className="skip-btn">
-                            <Link href="price.html" className="btn-text">Skip</Link>
+                            <Link href="/" className="btn-text">Skip</Link>
                         </div>
                     </div>
                 </div>
