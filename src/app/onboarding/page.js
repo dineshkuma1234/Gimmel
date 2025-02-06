@@ -120,6 +120,15 @@ function PageComponent() {
                         </div>
                     </div>
                     <div className="bottom-bar">
+                    <div className="step-button">
+                            {
+                                selectedButton === "Teaching" ? (
+                                    <Link href="/onboarding/teaching" className="btn-color-blue ">Next</Link>
+                                ) : (
+                                    <Link href="/onboarding/learning" className="btn-color-blue ">Next</Link>
+                                )
+                            }
+                        </div>
                         <div className="skip-btn">
                             <Link href="/" className="btn-text">Skip</Link>
                         </div>

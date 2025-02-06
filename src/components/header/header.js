@@ -22,7 +22,7 @@ const historyItems = [
     "Risks of E-cigarettes and Vaping",
 ];
 
-function Header() {
+function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
 
     const pathname = usePathname()
 
@@ -83,6 +83,10 @@ function Header() {
         };
     }, []);
 
+     const handleHistoryItemClick =(item)=>{
+        setHeaderSearch(item.title);
+     }
+     console.log(headerSearch,"headerSearch---")
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">
@@ -96,7 +100,15 @@ function Header() {
                             type="text"
                             className="search-input"
                             placeholder="Search"
-                            onClick={handleShowHistory}
+                            value={headerSearch}
+                            onChange={(e) => setHeaderSearch(e.target.value)}
+                            // onFocus={() => {
+                            //     handleShowHistory();
+                            //     handleHistoryList(headerSearch);
+                            //   }}
+                            onClick={()=>handleHistoryList()}
+                            onFocus={()=>handleShowHistory()}
+
                         />
                         <button className="search-button" onClick={handleShowFilter}>
                             <Image src={FilterIcon} alt="filter icon" width="20" height="20" />
@@ -104,12 +116,12 @@ function Header() {
                         {showHistory && (
                             <div className="search-history" id="searchHistory">
                                 <ul>
-                                    {historyItems.map((item, index) => (
-                                        <li key={index}>
+                                    {historyList.map((item, index) => (
+                                        <li key={index} onClick={()=>handleHistoryItemClick(item)}>
                                             <Link href="#">
                                                 <div className='search-history-left'>
                                                     <Image src={require("../../assets/images/history.svg")} alt="slider thumbnil" />
-                                                    {item}
+                                                    {item.title}
                                                 </div>
                                                 <div className='search-history-icon'>
                                                     <Image src={require("../../assets/images/north_east.svg")} alt="slider thumbnil" />
@@ -124,14 +136,15 @@ function Header() {
                         {showFilter && (
                             <div className="filter-history" id="searchHistory">
                                 <div className='filter-content'>
-                                    <FilterData />
+                                    <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch}/>
                                 </div>
                             </div>
                         )}
                     </div>
 
                     <div className='search-icon'>
-                        <Image src={require("../../assets/images/search-icon.svg")} alt="search icon" />
+                        <Link href="/search">
+                        <Image src={require("../../assets/images/search-icon.svg")} alt="search icon" /> </Link>
                     </div>
 
                     <div className={`menu ${menuOpen ? "is-active" : ""}`} id="menu">

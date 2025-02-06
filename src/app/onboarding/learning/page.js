@@ -86,7 +86,7 @@ function Learning() {
             {deviceWidth > 768 ? (
                 <LearningStep interest={interest} educationalObjective={educationalObjective} handleOnboarding={handleOnboarding} />
             ) : (
-                <LearningStepMobile />
+                <LearningStepMobile  interest={interest} educationalObjective={educationalObjective} handleOnboarding={handleOnboarding}/>
             )}
             
         </>

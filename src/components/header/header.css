@@ -34,6 +34,26 @@
     border-radius: 8px;
 }
 
+.search-history {
+    height: 450px;
+    overflow-y: scroll;
+    padding-right: 16px;
+}
+
+.search-history::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+}
+
+.search-history::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.search-history::-webkit-scrollbar-thumb {  
+    background: #C3D3D6;
+    border-radius: 8px;
+}
+
 .filter-content .dropdown-divider {
     margin: 16px 0 8px;
 }

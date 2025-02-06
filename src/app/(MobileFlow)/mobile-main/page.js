@@ -43,7 +43,7 @@ const videoData = [
     },
 ]
 
-function MainMobile() {
+function MainMobile({getPost}) {
 
     const [show2, setShow2] = useState(false);
 
@@ -213,17 +213,17 @@ function MainMobile() {
 
                     <SliderSection />
 
+                    {/* <div className="page-main-title">
+                        <h3>Recommended for you</h3>
+                    </div>
+
+                    <VideoCardGridMobile /> */}
+
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
 
-                    <VideoCardGridMobile />
-
-                    <div className="page-main-title">
-                        <h3>Recommended for you</h3>
-                    </div>
-
-                    <VideoCardGridMobile />
+                    <VideoCardGridMobile getPost={getPost}/>
 
                     <div className="page-slider-section mb-4">
                         <div className="slider-title">

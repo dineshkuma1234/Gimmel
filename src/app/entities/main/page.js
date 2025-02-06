@@ -5,10 +5,10 @@ import SliderSection from "../../componentsIn/slider/slider";
 import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
 import Link from "next/link";
 
-function Main({getPost,handleGetPost}) {
+function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
     return (
         <>
-            <Header />
+            <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}/>
 
             <main id="main" className="top-space">
                 <div className="custom-container">
@@ -26,7 +26,7 @@ function Main({getPost,handleGetPost}) {
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-                    <VideoCardGrid getPost={getPost}  handleGetPost={handleGetPost} />
+                    <VideoCardGrid getPost={getPost}   />
 
                     {/* <div className="page-main-title">
                         <h3>Recommended for you</h3>

@@ -93,7 +93,7 @@ const videoData = [
     },
 ];
 
-const VideoCard = ({ video,getPost }) => {
+const VideoCard = ({ video, }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -325,7 +325,7 @@ const VideoCard = ({ video,getPost }) => {
                                     </svg>
                                 </div>
                                 <div className="rating">
-                                    <span>{'8/10'}</span>
+                                    <span>{video.engagement}/10</span>
                                 </div>
                                 <div className="eng-name">{'Engagement Rating'}</div>
                             </div>
@@ -404,8 +404,8 @@ const VideoCardGrid = ({getPost}) => (
     console.log(getPost,"this is get post---11111"),
     
     <div className="row">
-        {getPost && Array.isArray(getPost) && getPost?.map((video) => (
-            <VideoCard key={video._id} video={video} />
+        {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
+            <VideoCard key={`video-${index}`} video={video} />
         ))}
     </div>
 );

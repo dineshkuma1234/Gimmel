@@ -239,58 +239,52 @@ const AuthService = {
   },
 
   SearchResult: async (
-    searchValue,
+    headerSearch,
     isOn,
+    chips,
+    inputValue,
+    selectedAge,
+    selectedEngagement,
+    selectedDate,
     sliderValue,
     selectedValue,
-    chips,
-    engagementRate,
-    datePublished,
-    primaryAudience,
-    selectedAgeRequirement,
-    selectedItem
+    selectedAudience,
   ) => {
-    console.log(searchValue,
-      isOn,
-      sliderValue,
-      selectedValue,
-      chips,
-      engagementRate,
-      datePublished,
-      primaryAudience,
-      selectedAgeRequirement,
-      selectedItem, 'selectedItem----');
+    console.log(headerSearch,"headerSearch--12")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, Search } = ApiConfig;
 
     // Build query parameters dynamically
     const params = new URLSearchParams();
-
-    if (searchValue) params.append('search', searchValue);
+    
+    if (headerSearch) params.append('search', headerSearch);
     if (isOn) params.append('isVerified', isOn);
-    if (sliderValue) params.append('difficultyLevel', sliderValue);
+
+    if (sliderValue) params.append('difficultyLevel', Number(sliderValue));
+    
     if (selectedValue) params.append('duration', selectedValue);
+
     if (chips) params.append('topic', chips);
-    if (engagementRate) params.append('engagement', engagementRate);
-    if (datePublished) params.append('createdAt', datePublished);
-    if (primaryAudience) params.append('audience', primaryAudience);
-    if (selectedAgeRequirement && selectedAgeRequirement.isSelected) {
-      params.append('ageRange', selectedAgeRequirement.value);
+    
+    if (selectedEngagement) params.append('engagement', selectedEngagement);
+    console.log("this is console")
+    
+    if (selectedDate) params.append('createdAt', selectedDate);
+    if (selectedAudience) params.append('audience', selectedAudience);
+    if (selectedAge ) {
+      params.append('ageRange', selectedAge);
     }
-    if (selectedItem) params.append('postId', selectedItem);
+    // if (selectedItem) params.append('postId', selectedItem);
+    const url = `${authBaseUrl}${Search}${params.toString() ? `?${params.toString()}` : ''}`;
 
-    const url = `${authBaseUrl}${Search}${params.toString() ? `?${params.toString()}` : ''
-      }`;
-
-    console.log(url, "url-----")
+  
     // const params = {};
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-
-    console.log(url, "url---");
-    return ApiCallGet(url, params, headers);
+    console.log(url,params, "url-----")
+    return ApiCallGet(url, {}, headers);
   },
 
 

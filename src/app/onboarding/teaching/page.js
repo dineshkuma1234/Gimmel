@@ -146,7 +146,15 @@ function Teaching() {
                     handleNavigateHomeScreen={handleNavigateHomeScreen}
                  />
             ) : (
-                <TeachingStepMobile />
+                <TeachingStepMobile 
+                    handleNavigateOnBoardingSuccess={handleNavigateOnBoardingSuccess}
+                    handleOnboarding={handleOnboarding}
+                    teachingTopic={teachingTopic}
+                    contentMaturity={contentMaturity}
+                    teachingLocation={teachingLocation}
+                    eduction={eduction}
+                    handleNavigateHomeScreen={handleNavigateHomeScreen}
+                />
             )}
 
         </>

@@ -66,12 +66,14 @@ const Login = ({handleLogIn}) => {
                                         <form className="form">
                                             <div className="form-group">
                                                 <label htmlFor="email">Email</label>
-                                                <input name="email"  type="email" value={email?.value} className="form-control" id="email" placeholder="" onFocus={() => handleFocus('email', true)} onChange={e => handleChange('email',e.target.value,null,'valid Email')} error={email?.error}/>
+                                                <input name="email"  type="email" value={email?.value} className={`form-control ${email?.error ? 'is-invalid' : ''}`} id="email" placeholder="" onFocus={() => handleFocus('email', true)} onChange={e => handleChange('email',e.target.value,null,'valid Email')} />
+                                                {email?.error && <div className="invalid-feedback">{email.error}</div>}
                                             </div>
-                                            { email.value && (
+                                            { email.value && !email.error && (
                                             <div className="form-group">
                                                 <label htmlFor="password">Password</label>
-                                                <input type="password" name="password" className="form-control" value={password?.value} id="password" placeholder=""  onFocus={() => handleFocus('password', true)}  onChange={e=> handleChange('password', e.target.value, null, 'your password')} error={password?.error}/>
+                                                <input type="password" name="password" className={`form-control ${password?.error ? 'is-invalid' : ''}`} value={password?.value} id="password" placeholder=""  onFocus={() => handleFocus('password', true)}  onChange={e=> handleChange('password', e.target.value, null, 'your password')} />
+                                                {password?.error && <div className="invalid-feedback">{password.error}</div>}
                                             </div>
                                             )}
                                             <div className="forgot-password">

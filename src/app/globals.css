@@ -357,6 +357,7 @@ body {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  color: #104e5b;
 }
 
 .search-button:hover {
@@ -1786,7 +1787,8 @@ a.see-all {
   left: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 99;
+  z-index: 999;
+  padding: 0px 16px;
 }
 
 .page-slider-section {

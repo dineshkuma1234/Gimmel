@@ -52,7 +52,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     const [selectAll1, setSelectAll1] = useState(false);
     console.log(checkedItems1,"this is checked1")
     
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState('');
     const filteredTopics = (interest || []).filter(topic =>
         topic.name.toLowerCase().includes(searchTerm.toLowerCase())
     );

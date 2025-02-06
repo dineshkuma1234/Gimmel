@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachingLocation, eduction, handleNavigateHomeScreen, handleSkipData }) => {
     const images = [
-        "",
+        
         require("../../../assets/images/Artwork.svg"),
         require("../../../assets/images/step-3.svg"),
         // require("../../../assets/images/step-4.svg"),
@@ -20,7 +20,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const [selectAll1, setSelectAll1] = useState(false);
     const [selectAll3, setSelectAll3] = useState(false);
     const [checkedItems3, setCheckedItems3] = useState({});
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState('');
 
     const [selectedval, setSelectedval] = useState([])
 // ;    console.log( selected,'selected----');
