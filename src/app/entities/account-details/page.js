@@ -44,7 +44,7 @@ const videoData = [
 
 function AccountDetails() {
 
-    const [isYearly, setIsYearly] = useState(true);
+    const [isYearly, setIsYearly] = useState(false);
 
     const togglePricing = () => {
         setIsYearly(!isYearly);
@@ -73,12 +73,12 @@ function AccountDetails() {
                             <div className="container">
                                 {/* CHOOSE YOUR PLAN */}
                                 <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
-                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Monthly</span>
+                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
                                     <label className="switch">
                                         <input type="checkbox" checked={isYearly} onChange={togglePricing} />
                                         <span className="slider-price"></span>
                                     </label>
-                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Yearly</span>
+                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
                                     <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
                                 </div>
                                 {/* CHOOSE YOU PLAN END */}
@@ -151,7 +151,7 @@ function AccountDetails() {
                                                         <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
                                                     </div>
                                                     <div className="price">
-                                                        <div className="price-number">{isYearly ? '$10/month' : '$12/month'}</div>
+                                                        <div className="price-number">{isYearly ? '$12/month' : '$10/month'}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,7 +219,7 @@ function AccountDetails() {
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
                                             <div className="col-3">
-                                                <Form.Label>Phone</Form.Label>
+                                                <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
                                                 <Form.Control type="email" placeholder="+1 (713) 892-5638" />
@@ -274,7 +274,7 @@ function AccountDetails() {
                                             </div>
                                         </Form.Group>
 
-                                        <div className="btn-container" style={{ textAlign: "right" }}>
+                                        <div className="text-right" style={{ textAlign: "right" }}>
                                             <button className="btn btn-form-orange">Edit data</button>
                                         </div>
                                     </Form>
@@ -292,19 +292,19 @@ function AccountDetails() {
                                 <div className="container">
                                     {/* CHOOSE YOUR PLAN */}
                                     <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
-                                        <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Monthly</span>
+                                        <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
                                         <label className="switch">
                                             <input type="checkbox" checked={isYearly} onChange={togglePricing} />
                                             <span className="slider-price"></span>
                                         </label>
-                                        <span className={`switch-label ${isYearly ? 'active' : ''}`}>Yearly</span>
+                                        <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
                                         <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
                                     </div>
                                     {/* CHOOSE YOU PLAN END */}
 
                                     <div className="row mx-n3 justify-content-center">
                                         {/* PRICING CARD - Free Plan */}
-                                        <div className="col-4 mb-4">
+                                        <div className="col-4 px-2 mb-4">
                                             <div className="card card-frame">
                                                 <div className="row align-items-center">
                                                     <div className="col-md-12">
@@ -341,7 +341,7 @@ function AccountDetails() {
                                         {/* END PRICING CARD - Free Plan */}
 
                                         {/* PRICING CARD - Pro Plan */}
-                                        <div className="col-4 mb-4">
+                                        <div className="col-4 px-2 mb-4">
                                             <div className="card card-frame active">
                                                 <div className="row align-items-center">
                                                     <div className="col-md-12">
@@ -370,7 +370,7 @@ function AccountDetails() {
                                                             <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
                                                         </div>
                                                         <div className="price">
-                                                            <div className="price-number">{isYearly ? '$10/month' : '$12/month'}</div>
+                                                            <div className="price-number">{isYearly ? '$12/month' : '$10/month'}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -385,7 +385,7 @@ function AccountDetails() {
                             </div>
                         </div>
                     </div>
-                    <div className="card-white">
+                    <div className="card-white overflow-hidden">
                         <div className="card-inner-padding">
                             <div className='inline- d-flex align-items-center justify-content-between'>
                                 <div className="card-white-title">
@@ -429,11 +429,11 @@ function AccountDetails() {
                         </div>
                     </div>
 
-                    <div className="card-white">
+                    <div className="card-white overflow-hidden">
                         <div className="card-inner-padding">
                             <div className='inline- d-flex align-items-center justify-content-between'>
                                 <div className="card-white-title">
-                                    <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
+                                    <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
                                     <h3>Watch history</h3>
                                 </div>
                                 <Link href="/watchhistory" className='view-all-btn'>View all</Link>

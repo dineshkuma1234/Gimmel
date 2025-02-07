@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import { MultiSelect } from "react-multi-select-component";
+import { IoSearchSharp } from "react-icons/io5";
 
 
 const data = [{
@@ -39,30 +40,32 @@ const options = [
     { label: "Mental health", value: "mental" },
 ];
 
-function FilterData() {
-    const [selectedAge, setSelectedAge] = useState("18+");
+function FilterData({handleSearchCont,headerSearch}) {
+    const [selectedAge, setSelectedAge] = useState("18");
 
     const handleClick = (age) => {
         setSelectedAge(age);
     };
+    console.log(selectedAge,"selectedAge---")
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
     };
-
+    // console.log(selectedEngagement,"selectedEngagement---")
     const [selectedDate, setSelectedDate] = useState("");
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
     };
-
+    console.log(selectedDate,"selectedDate---")
     const [selectedAudience, setSelectedAudience] = useState("");
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
     };
+    console.log(selectedAudience,"Audience----");
 
     const handleResult = (params) => {
         console.log(params);
@@ -75,7 +78,41 @@ function FilterData() {
             prevSelected.filter((item) => item.value !== value)
         );
     };
+    const [chips,setChips]=useState([]);
+    const [inputValue, setInputValue] = useState('');
+    console.log(inputValue,"inputvalue---");
+    const addChip = () => {
+        if (inputValue.trim() !== '') {
+            setChips([...chips, inputValue]);
+            setInputValue('');
+        }
+    };
+    const removeChip = (index) => {
+        const newChips = chips.filter((_, i) => i !== index);
+        setChips(newChips);
+    };
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addChip();
+        }
+    };
+    const [sliderValue, setSliderValue] = useState(5);
+    const handleSliderChange = (value)=>{
+        setSliderValue(value[1]);
+    }
 
+    console.log(sliderValue,"slidervalue");
+
+    const [selectedValue,setSelectedValue] =useState('');
+
+    const handleSelectedChange =(e)=>{
+        setSelectedValue(e.target.value);
+    }
+    console.log(selectedValue,"duration---")
+
+    const [isOn,setIsOn]=useState(false)
+
+    console.log(chips,"this is chips---")
     return (
         <>
             <div className="middle-section">
@@ -87,6 +124,8 @@ function FilterData() {
                         <Form.Check
                             type="switch"
                             id="custom-switch"
+                            checked={isOn}
+                            onChange={(e)=>{setIsOn(e.target.value); console.log('changed to:', e.target.value);}}
                         />
                     </Form>
                 </div>
@@ -95,13 +134,13 @@ function FilterData() {
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Topic of the content</Form.Label>
                         <div>
-                            {selected.length > 0 ? (
+                            {chips.length > 0 ? (
                                 <ul className='selected-list'>
-                                    {selected.map((item) => (
-                                        <li key={item.value}>
-                                            {item.label}{" "}
+                                    {chips.map((chip, index) => (
+                                        <li key={index}>
+                                            {chip}
                                             <button
-                                                onClick={() => handleRemove(item.value)}
+                                                onClick={() => removeChip(index)}
                                                 style={{
                                                     marginLeft: "4px",
                                                     color: "#ffffff",
@@ -119,16 +158,22 @@ function FilterData() {
                                 ""
                             )}
                         </div>
-                        <MultiSelect
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy="Select"
-                            overrideStrings={{
-                                selectSomeItems: "Select topics",
-                            }}
-                            className="multi-select"
-                        />
+
+                        <div className='search-container m-0'>
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search" 
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                onBlur={addChip}
+                            />
+                            <div className='search-button'>
+                                <IoSearchSharp />
+                            </div>
+                        </div>
+                        
                     </Form.Group>
                 </div>
                 <div className="dropdown-divider"></div>
@@ -139,32 +184,32 @@ function FilterData() {
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "18+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "3" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick("18+")}
+                                onClick={() => handleClick("3")}
                             >
-                                18+
+                                3 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "21+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "16" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick("21+")}
+                                onClick={() => handleClick("16")}
                             >
-                                21+
+                                16 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "25+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "18" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick("25+")}
+                                onClick={() => handleClick("18")}
                             >
-                                25+
+                                18 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "30+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "21" ? "active" : ""}`}
                                 id="list-settings-list"
-                                onClick={() => handleClick("30+")}
+                                onClick={() => handleClick("21")}
                             >
-                                30+
+                                21 years
                             </button>
                         </div>
                     </div>
@@ -215,30 +260,30 @@ function FilterData() {
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "Today" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedDate === "today" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick2("Today")}
+                                onClick={() => handleClick2("today")}
                             >
                                 Today
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This week" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedDate === "thisWeek" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick2("This week")}
+                                onClick={() => handleClick2("thisWeek")}
                             >
                                 This week
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This month" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedDate === "thisMonth" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick2("This month")}
+                                onClick={() => handleClick2("thisMonth")}
                             >
                                 This month
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This year" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedDate === "thisYear" ? "active" : ""}`}
                                 id="list-settings-list"
-                                onClick={() => handleClick2("This year")}
+                                onClick={() => handleClick2("thisYear")}
                             >
                                 This year
                             </button>
@@ -249,16 +294,25 @@ function FilterData() {
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput5">
                         <Form.Label>Difficulty Level</Form.Label>
-                        <Form.Control type="text" placeholder="Set difficulty" />
+                        <Form.Control type="text" placeholder="Set difficulty" value={sliderValue.toString()} readOnly />
                     </Form.Group>
                 </div>
-                <div className="select-container mt-4 mb-4">
-                    <RangeSlider
-                        className="single-thumb"
-                        defaultValue={[0, 50]}
-                        thumbsDisabled={[true, false]}
-                        rangeSlideDisabled={true}
-                    />
+                <div className="select-container mt-4">
+                    <div className='range-slider-container inline-gap-8'>
+                        <div className='number-text'>1</div>
+                        <RangeSlider
+                            className="single-thumb"
+                            min={1}
+                            max={10}
+                            step={1}
+                            defaultValue={[1,sliderValue]}    
+                            value={[1,sliderValue]}
+                            thumbsDisabled={[true, false]}
+                            rangeSlideDisabled={true}
+                            onInput={handleSliderChange}
+                        />
+                        <div className='number-text'>10</div>
+                    </div>
                 </div>
                 <div className="dropdown-divider"></div>
                 <div className="select-container">
@@ -271,27 +325,35 @@ function FilterData() {
                                     name="group1"
                                     type={type}
                                     id={`inline-${type}-1`}
+                                    value="less-than-4"
+                                    onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
-                                    label={`4-8 minutes`}
+                                    label={`4-20 minutes`}
                                     name="group1"
                                     type={type}
+                                    value="4-20"
                                     id={`inline-${type}-2`}
+                                    onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
                                     type={type}
-                                    label={`8-12 minutes`}
+                                    label={`20-40 minutes`}
                                     name="group1"
                                     id={`inline-${type}-3`}
+                                    value="20-40"
+                                    onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
                                     type={type}
-                                    label={`More than 12 minutes`}
+                                    label={`More than 40 minutes`}
                                     name="group1"
                                     id={`inline-${type}-4`}
+                                    value="more-than-40"
+                                    onChange={handleSelectedChange}
                                 />
                             </div>
                         ))}
@@ -303,7 +365,7 @@ function FilterData() {
                         <Form.Label>Primary Audience</Form.Label>
                     </Form.Group>
                     <div className="tab-select">
-                        <div className="list-group" id="list-tab" role="tablist">
+                        <div className="list-group btn-list-2" id="list-tab" role="tablist">
                             <button
                                 className={`list-group-item list-group-item-action ${selectedAudience === "Student" ? "active" : ""}`}
                                 id="list-home-list"
@@ -328,6 +390,22 @@ function FilterData() {
                         </div>
                     </div>
                 </div>
+                <button type="button" className="btn-color-orange" onClick={()=>{
+                    handleSearchCont(
+                    headerSearch,
+                    isOn,
+                    chips,
+                    inputValue,
+                    selectedAge,
+                    selectedEngagement,
+                    selectedDate,
+                    sliderValue,
+                    selectedValue,
+                    selectedAudience,
+                )
+                console.log(headerSearch,"headerSearch---222")
+                }}>Apply Filter</button>
+
             </div>
         </>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "../../../components/header/header";
 import '../../CommenStyle/filter.css';
-import CategoriesCard from "../../usecases/categoriescard/CategoriesCard";
-import Sidebar from "../../usecases/sidebar/sidebar";
+import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
+import Sidebar from "../../componentsIn/sidebar/sidebar";
 
 function CategoryFilter() {
 

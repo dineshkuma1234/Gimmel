@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Header from "../../../components/header/header";
-import Sidebar from "../../usecases/sidebar/sidebar";
+import Sidebar from "../../componentsIn/sidebar/sidebar";
 import "../../CommenStyle/filter.css";
 import Link from "next/link";
-import CategoriesCard from "../../usecases/categoriescard/CategoriesCard";
+import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
+import Image from "next/image";
 
 function Material() {
 
@@ -20,15 +21,15 @@ function Material() {
                         </div>
                     </div>
                     <div className='main-container'>
-                        <div className="page-main-title-mylibrary inline-gap-8">
-                            <h3>My Library</h3> | <Link href="#">6th Grade</Link>
+                        <div className="page-main-title-mylibrary inline-gap-16">
+                            <h3>My Library</h3> <Image src={require("../../../assets/images/right-svg.svg")} alt="arrow" /> <Link href="#">6th Grade</Link>
                         </div>
                         <div className='body-top'>
                             <div className='body-top-left mt-3'>
                                 <div className='short-by'>
                                     <p>Sort by</p>
                                     <select name="" id="" className='short-by-select'>
-                                        <option>Most recent</option>
+                                        <option>relevancy</option>
                                         <option>Most popular</option>
                                     </select>
                                 </div>

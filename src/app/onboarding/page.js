@@ -22,6 +22,12 @@ function PageComponent() {
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
+    const [selectedButton, setSelectedButton] = useState("Teaching");
+
+    const handleButtonClick = (buttonName) => {
+        setSelectedButton(buttonName);
+    };
+
 
     return (
         <>
@@ -33,7 +39,7 @@ function PageComponent() {
                             <div className="left-banner remove-shadow">
                                 <div className="left-banner-content">
                                     <div className="banner-image">
-                                        <Image id="slider-image" src={require("../../assets/images/pixel.svg")} alt="banner" />
+                                        {/* <Image id="slider-image" src={require("../../assets/images/pixel.svg")} alt="banner" /> */}
                                     </div>
                                 </div>
                             </div>
@@ -48,20 +54,32 @@ function PageComponent() {
                                         <h1>I&apos;m here to have an easier time ___</h1>
                                     </div>
                                     <div className="banner-btn-inner">
-                                        <Link href="/onboarding/teaching">
-                                            <button
-                                                className='btn-border selected'
-                                            >
-                                                Teaching
-                                            </button>
-                                        </Link>
-                                        <Link href="/onboarding/learning">
-                                            <button
-                                                className='btn-border'
-                                            >
-                                                Learning
-                                            </button>
-                                        </Link>
+                                        <button
+                                            className={`btn-border ${selectedButton === "Teaching" ? "selected" : ""}`}
+                                            onClick={() => handleButtonClick("Teaching")}
+                                        >
+                                            Teaching
+                                        </button>
+                                        <button
+                                            className={`btn-border ${selectedButton === "Learning" ? "selected" : ""}`}
+                                            onClick={() => handleButtonClick("Learning")}
+                                        >
+                                            Learning
+                                        </button>
+                                    </div>  
+                                </div>
+                                <div className='bottom-btn-container'>
+                                    <div className="step-button">
+                                        {
+                                            selectedButton === "Teaching" ? (
+                                                <Link href="/onboarding/teaching" className="btn-color-blue ">Next</Link>
+                                            ) : (
+                                                <Link href="/onboarding/learning" className="btn-color-blue ">Next</Link>
+                                            )
+                                        }
+                                    </div>
+                                    <div className="skip-btn">
+                                        <Link href="/" className="btn-text">Skip</Link>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +87,7 @@ function PageComponent() {
                     </div>
                 </div>
             ) : (
-                <div className="page-container-mobile" style={{ height: "100%", background: "#fff", display: "flex",}}>
+                <div className="page-container-mobile" style={{ height: "100%", background: "#fff", display: "flex", }}>
                     <div className="page-main-section top-space-request">
                         <div className="custom-container">
                             <div className="left-banner remove-shadow">
@@ -85,27 +103,34 @@ function PageComponent() {
                                     <h1>I&apos;m here to have an easier time ___</h1>
                                 </div>
                                 <div className="banner-btn-inner">
-                                    <Link href="/onboarding/teaching">
-                                        <button
-                                            className='btn-border selected'
-                                        >
-                                            Teaching
-                                        </button>
-                                    </Link>
-                                    <Link href="/onboarding/learning">
-                                        <button
-                                            className='btn-border'
-                                        >
-                                            Learning
-                                        </button>
-                                    </Link>
+                                    <button
+                                        className={`btn-border ${selectedButton === "Teaching" ? "selected" : ""}`}
+                                        onClick={() => handleButtonClick("Teaching")}
+                                    >
+                                        Teaching
+                                    </button>
+                                    <button
+                                        className={`btn-border ${selectedButton === "Learning" ? "selected" : ""}`}
+                                        onClick={() => handleButtonClick("Learning")}
+                                    >
+                                        Learning
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="bottom-bar">
+                    <div className="step-button">
+                            {
+                                selectedButton === "Teaching" ? (
+                                    <Link href="/onboarding/teaching" className="btn-color-blue ">Next</Link>
+                                ) : (
+                                    <Link href="/onboarding/learning" className="btn-color-blue ">Next</Link>
+                                )
+                            }
+                        </div>
                         <div className="skip-btn">
-                            <Link href="price.html" className="btn-text">Skip</Link>
+                            <Link href="/" className="btn-text">Skip</Link>
                         </div>
                     </div>
                 </div>

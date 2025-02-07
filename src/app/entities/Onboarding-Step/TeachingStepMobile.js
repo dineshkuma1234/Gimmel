@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Form, ListGroup } from "react-bootstrap";
 import Image from "next/image";
 import ReactSlider from "react-slider";
 import Link from "next/link";
 
-const TeachingStepMobile = () => {
+const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, teachingLocation, eduction, handleNavigateHomeScreen, handleSkipData }) => {
     const images = [
         require("../../../assets/images/pixel.svg"),
         require("../../../assets/images/Artwork.svg"),
@@ -15,173 +15,225 @@ const TeachingStepMobile = () => {
         require("../../../assets/images/stap-6.svg"),
     ];
 
-    const [selected, setSelected] = useState("School staff member");
-    const handleSelect = (label) => {
-        setSelected(label);
-    };
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const changeSlide = (index) => {
-        if (index < 0) {
-            setCurrentIndex(0);
-        } else if (index >= images.length) {
-            setCurrentIndex(images.length - 1);
-        } else {
-            setCurrentIndex(index);
-        }
-    };
-
-    const previousSlide = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-        }
-    };
-
-    const nextSlide = () => {
-        if (currentIndex < images.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-        }
-    };
-
-    const [checkedItems, setCheckedItems] = useState({});
-
-    const handleChange = (e) => {
-        const { id, checked } = e.target;
-        if (id === "deselect-all") {
-            const newCheckedState = {};
-            if (!checked) {
-                Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
+     const [checkedItems1, setCheckedItems1] = useState({});
+        const [selectAll, setSelectAll] = useState(false);
+        const [selectAll1, setSelectAll1] = useState(false);
+        const [selectAll3, setSelectAll3] = useState(false);
+        const [checkedItems3, setCheckedItems3] = useState({});
+        const [selected, setSelected] = useState('');
+    
+        const [selectedval, setSelectedval] = useState([])
+    // ;    console.log( selected,'selected----');
+        const handleSelect = (label) => {
+            setSelected(label);
+            const arr =[label];
+            setSelectedval(arr);
+            // console.log( arr,'selected value---',);
+        };
+        // console.log(handleSelect,'handleSelect----');
+        const [minValue, setMinValue] = useState(12);
+        const [maxValue, setMaxValue] = useState(30);
+        const [sliderValues, setSliderValues] = useState([])
+    
+        const handleSliderChange = ([min, max]) => {
+            setMinValue(min);
+            setMaxValue(max);
+            const arr = [min, max]
+            setSliderValues(arr);
+            // console.log('min max array', arr);
+        };
+    
+        const [currentIndex, setCurrentIndex] = useState(0);
+        const changeSlide = (index) => {
+            if (index < 0) {
+                setCurrentIndex(0);
+            } else if (index >= images.length) {
+                setCurrentIndex(images.length - 1);
+            } else {
+                setCurrentIndex(index);
             }
-            setCheckedItems(newCheckedState);
-        } else {
-            setCheckedItems({
-                ...checkedItems,
-                [id]: checked,
+        };
+    
+        const previousSlide = () => {
+            if (currentIndex > 0) {
+                setCurrentIndex(currentIndex - 1);
+            }
+        };
+    
+        const nextSlide = () => {
+            if (currentIndex < images.length - 1) {
+                setCurrentIndex(currentIndex + 1);
+            }
+        };
+    
+        const [checkedItems, setCheckedItems] = useState({});
+    
+        // const handleChange = (e) => {
+        //     const { id, checked } = e.target;
+        //     if (id === "deselect-all") {
+        //         const newCheckedState = {};
+        //         if (!checked) {
+        //             Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
+        //         }
+        //         setCheckedItems(newCheckedState);
+        //     } else {
+        //         setCheckedItems({
+        //             ...checkedItems,
+        //             [id]: checked,
+        //         });
+        //     }
+        // };
+        const [item,setItems]=useState([]);
+        const [selectedmaturity,setselectedMaturity] =useState([])
+        const [slectedEducation,setSelectedEducation]=useState([])
+        // console.log(slectedEducation,"selectedMaturity-----")
+    
+        useEffect(()=>{
+            // console.log(item, 'my item is here')
+        },[item,selectedmaturity,slectedEducation]);
+    
+        const handleChange = (e) => {
+            const { id, checked } = e.target;
+    
+            if (id === "select-deselect-all") {
+                const newCheckedState = {};
+                const newArr=filteredTopics.map((topic) => {newCheckedState[topic.name] = checked
+                    return topic.name
+                }); // Select/Deselect all topics
+                setItems((prevItems) => [...prevItems, ...newArr]);
+                setCheckedItems(newCheckedState);
+                setSelectAll(checked); // Update button behavior
+            } else {
+                setCheckedItems({
+                    ...checkedItems,
+                    [id]: checked,
+                });
+                if(checked){
+                    setItems((prevItems) => [...prevItems, id]);
+                }
+            }
+        };
+        const handleCheckboxChange = (e) => {
+                const { id, checked } = e.target;
+        
+                if (id === "select-deselect-all") {
+                    const newCheckedState = {};
+                    const newArr=filterContentMaturity.map((item) => {newCheckedState[item.name] = checked
+                        return item.name
+                    }); // Select/Deselect all topics
+                    setselectedMaturity((prev)=>[...prev,...newArr])
+                    setCheckedItems1(newCheckedState);
+                    setSelectAll1(checked); // Update button behavior
+                } else {
+                    setCheckedItems1({
+                        ...checkedItems1,
+                        [id]: checked,
+                    });
+                    if(checked){
+                        setselectedMaturity((prevItems)=>[...prevItems,id])
+                    }
+                }
+            };
+        
+        //  console.log(slectedEducation,"slectedEducation----")
+            const handleChangeeducation = (e) => {
+                const { id, checked } = e.target;
+        
+                if (id === "select-deselect-all") {
+                    const newCheckedState = {};
+                    const newArr=eduction.map((item) => {newCheckedState[item.name] = checked
+                        return item.name
+                    }); // Select/Deselect all topics
+                    setSelectedEducation((prev)=>[...prev,...newArr])
+                    setCheckedItems3(newCheckedState);
+                    setSelectAll3(checked); // Update button behavior
+                } else {
+                    setCheckedItems3({
+                        ...checkedItems3,
+                        [id]: checked,
+                    });
+                    if(checked){
+                        setSelectedEducation((prevItems)=>[...prevItems,id])
+                    }
+                }
+            };
+        
+            const states = [
+                "Alabama",
+                "Alaska",
+                "Arizona",
+                "Arkansas",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "District of Columbia",
+                "Florida",
+                "Georgia",
+            ];
+        
+            const [selectedItems, setSelectedItems] = useState({
+                'deselect-all': false,
+                'abuse': false,
+                'death': false,
+                'discussions': false,
+                'disturbing': false,
+                'gore': false,
+                'sexual': false,
             });
-        }
-    };
-
-    const topics = [
-        { id: "alcohol", label: "Alcohol" },
-        { id: "anxiety", label: "Anxiety" },
-        { id: "addiction", label: "Addiction" },
-        { id: "anger", label: "Anger" },
-        { id: "bodyImage", label: "Body Image" },
-        { id: "bullying", label: "Bullying" },
-        { id: "cannabis", label: "Cannabis & Synthetic Cannabinoids" },
-        { id: "cigarettes", label: "Cigarettes" },
-        { id: "cyberbullying", label: "Cyberbullying" },
-        { id: "decisionmaking", label: "Decision making" },
-        { id: "depression", label: "Depression" },
-        { id: "dopamine", label: "Dopamine" },
-        { id: "eating", label: "Eating disorders" },
-        { id: "E-cigarettes", label: "E-cigarettes" },
-    ];
-
-    const [checkedItems1, setCheckedItems1] = useState({});
-    const [selectAll, setSelectAll] = useState(false);
-
-    const topicsSecond = [
-        { id: "abuse", label: "Abuse" },
-        { id: "death", label: "Death" },
-        { id: "discussions", label: "Discussions or Depictions of Self-Harm" },
-        { id: "disturbing", label: "Disturbing Images" },
-        { id: "gore", label: "Gore" },
-        { id: "sexual", label: "Sexual Imagery" },
-        { id: "sexualLanguage", label: "Sexual Language/Explicit" },
-    ];
-
-    // Handle individual checkbox changes
-    const handleCheckboxChange = (e) => {
-        const { id, checked } = e.target;
-        if (id === "select-all") {
-            const newState = {};
-            topics.forEach((topic) => {
-                newState[topic.id] = checked;
-            });
-            setCheckedItems1(newState);
-            setSelectAll(checked);
-        } else {
-            setCheckedItems1((prevState) => ({
-                ...prevState,
-                [id]: checked,
-            }));
-            setSelectAll(Object.values(checkedItems1).every((val) => val) && checked);
-        }
-    };
-
-    const states = [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Florida",
-        "Georgia",
-    ];
-
-    const [selectedItems, setSelectedItems] = useState({
-        'deselect-all': false,
-        'abuse': false,
-        'death': false,
-        'discussions': false,
-        'disturbing': false,
-        'gore': false,
-        'sexual': false,
-    });
-
-    const handleSelectAllChange = (e) => {
-        const isChecked = e.target.checked;
-        setSelectedItems((prevState) => {
-            const newState = Object.keys(prevState).reduce((acc, key) => {
-                acc[key] = isChecked;
-                return acc;
-            }, {});
-            return newState;
-        });
-    };
-
-    const handleCheckboxChange1 = (e) => {
-        const { id, checked } = e.target;
-        setSelectedItems((prevState) => ({
-            ...prevState,
-            [id]: checked,
-        }));
-    };
-
-    const checkboxes = [
-        { id: 'deselect-all', label: 'Select all', isSelectAll: true },
-        { id: 'abuse', label: 'Student Academic Success' },
-        { id: 'death', label: 'Enhance Learning Environments' },
-        { id: 'discussions', label: 'Student Social Success' },
-        { id: 'disturbing', label: 'Student Relationship with Self' },
-        { id: 'gore', label: 'Student Knowledge of High-Risk Behaviors' },
-        { id: 'sexual', label: 'Student Manageability of Life' },
-    ];
-
-    const [minValue, setMinValue] = useState(12);
-    const [maxValue, setMaxValue] = useState(30);
-
-    const handleSliderChange = ([min, max]) => {
-        setMinValue(min);
-        setMaxValue(max);
-    };
-
-    const handleInputChange = (e, type) => {
-        const value = parseInt(e.target.value, 10);
-
-        if (type === "min" && value < maxValue && value >= 10) {
-            setMinValue(value);
-        }
-
-        if (type === "max" && value > minValue && value <= 70) {
-            setMaxValue(value);
-        }
-    };
+        
+            const handleSelectAllChange = (e) => {
+                const isChecked = e.target.checked;
+                setSelectedItems((prevState) => {
+                    const newState = Object.keys(prevState).reduce((acc, key) => {
+                        acc[key] = isChecked;
+                        return acc;
+                    }, {});
+                    return newState;
+                });
+            };
+        
+            const handleCheckboxChange1 = (e) => {
+                const { id, checked } = e.target;
+                setSelectedItems((prevState) => ({
+                    ...prevState,
+                    [id]: checked,
+                }));
+            };
+        
+            // const checkboxes = [
+            //     { id: 'deselect-all', label: 'Select all', isSelectAll: true },
+            //     { id: 'abuse', label: 'Student Academic Success' },
+            //     { id: 'death', label: 'Enhance Learning Environments' },
+            //     { id: 'discussions', label: 'Student Social Success' },
+            //     { id: 'disturbing', label: 'Student Relationship with Self' },
+            //     { id: 'gore', label: 'Student Knowledge of High-Risk Behaviors' },
+            //     { id: 'sexual', label: 'Student Manageability of Life' },
+            // ];
+        
+            
+        
+            const handleInputChange = (e, type) => {
+                const value = parseInt(e.target.value, 10);
+        
+                if (type === "min" && value < maxValue && value >= 10) {
+                    setMinValue(value);
+                }
+        
+                if (type === "max" && value > minValue && value <= 70) {
+                    setMaxValue(value);
+                }
+            };
+            const [searchTerm, setSearchTerm] = useState('');
+            const filteredTopics = teachingTopic.filter(topic =>
+                topic.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        
+            const [maturity, setMaturity] = useState('')
+            const filterContentMaturity = contentMaturity.filter(item =>
+                item.name.toLowerCase().includes(maturity.toLowerCase())
+            );
+        
 
     return (
         <>
@@ -299,26 +351,25 @@ const TeachingStepMobile = () => {
 
                                 <div className="step-data">
                                     <div className="msg-text">Select at least three topics!</div>
-                                    <input type="text" className="search-bar" placeholder="Search subject" />
+                                    <input type="text" className="search-bar" placeholder="Search subject" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
                                                 <ListGroup.Item>
                                                     <Form.Check
-                                                        type="checkbox"
-                                                        id="deselect-all"
-                                                        label="Deselect all"
-                                                        checked={Object.values(checkedItems).every((val) => !val)} // True if all items are unchecked
-                                                        onChange={handleChange}
+                                                         id="select-deselect-all"
+                                                         label={selectAll ? "Deselect All" : "Select All"} // Toggle button text
+                                                         checked={selectAll} // True when all topics are selected
+                                                         onChange={handleChange}
                                                     />
                                                 </ListGroup.Item>
-                                                {topics.map((topic) => (
-                                                    <ListGroup.Item key={topic.id}>
+                                                {filteredTopics.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={topic.id}
-                                                            label={topic.label}
-                                                            checked={!!checkedItems[topic.id]} // Default to false if undefined
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
                                                             onChange={handleChange}
                                                         />
                                                     </ListGroup.Item>
@@ -338,30 +389,29 @@ const TeachingStepMobile = () => {
                                 </div>
 
                                 <div className="step-data">
-                                    <input type="text" className="search-bar" placeholder="Search subject" />
+                                    <input type="text" className="search-bar" placeholder="Search subject" value={maturity} onChange={(e)=>setMaturity(e.target.value)}/>
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
                                                 {/* Select All Checkbox */}
                                                 <ListGroup.Item>
                                                     <Form.Check
-                                                        type="checkbox"
-                                                        id="select-all"
-                                                        label="Select all"
-                                                        checked={selectAll}
+                                                        id="select-deselect-all"
+                                                        label={selectAll1 ? "Deselect All" : "Select All"} // Toggle button text
+                                                        checked={selectAll1} // True when all topics are selected
                                                         onChange={handleCheckboxChange}
                                                     />
                                                 </ListGroup.Item>
 
                                                 {/* Individual Checkboxes */}
-                                                {topicsSecond.map((topic) => (
-                                                    <ListGroup.Item key={topic.id}>
+                                                {filterContentMaturity.map((item, index) => (
+                                                    <ListGroup.Item key={index}>
                                                         <Form.Check
-                                                            type="checkbox"
-                                                            id={topic.id}
-                                                            label={topic.label}
-                                                            checked={checkedItems1[topic.id] || false}
-                                                            onChange={handleCheckboxChange}
+                                                             type="checkbox"
+                                                             id={item.name}
+                                                             label={item.name}
+                                                             checked={checkedItems1[item.name] }
+                                                             onChange={handleCheckboxChange}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -405,7 +455,7 @@ const TeachingStepMobile = () => {
                                 </div>
                                 <div className="step-data mt-3">
                                     <ul className="checkbox-group">
-                                        {checkboxes.map((checkbox) => (
+                                        {/* {checkboxes.map((checkbox) => (
                                             <li key={checkbox.id}>
                                                 <Form.Check
                                                     type="checkbox"
@@ -416,7 +466,30 @@ const TeachingStepMobile = () => {
                                                     disabled={checkbox.isSelectAll && selectedItems['deselect-all']}
                                                 />
                                             </li>
-                                        ))}
+                                        ))} */}
+                                        <Form>
+                                            <ListGroup>
+                                                <ListGroup.Item>
+                                                    <Form.Check
+                                                            id="select-deselect-all"
+                                                            label={selectAll3 ? "Deselect All" : "Select All"} // Toggle button text
+                                                            checked={selectAll3} // True when all topics are selected
+                                                            onChange={handleChangeeducation}
+                                                    />
+                                                </ListGroup.Item>
+                                                {eduction && Array.isArray(eduction) && eduction.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems3[topic.name]} // Default to false if undefined
+                                                            onChange={handleChangeeducation}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
                                     </ul>
                                 </div>
                                 <div className="step-button">
@@ -463,9 +536,15 @@ const TeachingStepMobile = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="skip-btn">
-                            <Link href="price.html" className="btn-text">Skip</Link>
-                        </div>
+                        <div className="step-button">
+                                {
+                                    currentIndex === images.length - 1 ? (
+                                        <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation)}>Finish</Link>
+                                    ) : (
+                                        <button type="button" className="btn-color-blue" onClick={nextSlide}>Next</button>
+                                    )
+                                }
+                            </div>
                     </div>
                 </div>
             </div>

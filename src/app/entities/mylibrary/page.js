@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Header from "../../../components/header/header";
-import Sidebar from "../../usecases/sidebar/sidebar";
+import Sidebar from "../../componentsIn/sidebar/sidebar";
 import "../../CommenStyle/filter.css";
 import { MdMoreVert, MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";

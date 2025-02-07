@@ -153,10 +153,10 @@ function RequestData() {
 
                         <div className="report-modal-text">
                             <div className="report-modal-title">
-                                How's your experience so far?
+                                How&apos;s your experience so far?
                             </div>
                             <div className="share-alart">
-                                We’d love to hear your thoughts! What’s working well, and what would you improve?
+                                We&apos&apos;d love to hear your thoughts! What&apos;s working well, and what would you improve?
                             </div>
                             <div className="textarea-container mb-4">
                                 <Form.Control as="textarea" rows={3} placeholder="" />
@@ -183,7 +183,7 @@ function RequestData() {
                     <Modal.Title>Share</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="modal-body-container">
+                    <div className="modal-body-container share-modal">
                         <div className="share-comtent">
                             <div className="share-alart">
                                 Do you want to attach the generated materials to the shared link?
@@ -327,7 +327,7 @@ function RequestData() {
             </Modal>
 
             {/* New folder Modal start */}
-            <Modal show={show6} onHide={handleClose6} centered className='custom-modal'>
+            <Modal show={show6} onHide={handleClose6} centered className='custom-modal new-folder-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>New folder</Modal.Title>
                 </Modal.Header>
@@ -385,7 +385,7 @@ function RequestData() {
                                                     <div className="col-10">
                                                         <div className="page-request-title">What do you need</div>
                                                         <div className="page-request-data">
-                                                            <Form className="request-data-form">
+                                                            <Form className="request-data-form form-width">
                                                                 <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput1">
                                                                     <div className="col-4">
                                                                         <Form.Label>Title of your request</Form.Label>
@@ -439,7 +439,7 @@ function RequestData() {
                                                     <div className="col-10">
                                                         <div className="page-request-title">Request overview</div>
                                                         <div className="page-request-data">
-                                                            <Form className="request-data-form-overview">
+                                                            <Form className="request-data-form-overview form-width">
                                                                 <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput1">
                                                                     <div className="col-4">
                                                                         <Form.Label>Title of your request</Form.Label>
@@ -590,7 +590,7 @@ function RequestData() {
                                                                         <div className="footer-btn-container">
                                                                             <div className="btn-right">
                                                                                 <button className="btn btn-orange-outline">None of these</button>
-                                                                                <button className="btn btn-orange-request" onClick={handleConfirm}>
+                                                                                <button className="btn btn-orange-request" onClick={handleConfirm} disabled={!activeItem}>
                                                                                     Confirm
                                                                                 </button>
                                                                             </div>
@@ -611,9 +611,9 @@ function RequestData() {
                                                                                         <div className="video-duration">10:00</div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="col-6">
+                                                                                <div className="col-6 ps-0">
                                                                                     <div className="video-details">
-                                                                                        <div className="de-title">
+                                                                                        <div className="de-title mb-3">
                                                                                             <Link href="/videodetails">Healthy Habits: Preventing Addiction Through Lifestyle Choices</Link>
                                                                                         </div>
                                                                                         <div className="summary">
@@ -650,34 +650,34 @@ function RequestData() {
                                                         </div>
                                                         <Form className="request-data-form-overview">
                                                             <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput1">
-                                                                <div className="col-4">
+                                                                <div className="col-3">
                                                                     <Form.Label>Date posted</Form.Label>
                                                                 </div>
-                                                                <div className="col-8">
+                                                                <div className="col-9">
                                                                     <Form.Control type="text" placeholder="" />
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput2">
-                                                                <div className="col-4">
+                                                                <div className="col-3">
                                                                     <Form.Label>Material description</Form.Label>
                                                                 </div>
-                                                                <div className="col-8">
+                                                                <div className="col-9">
                                                                     <Form.Control as="textarea" placeholder="" className="height-96" />
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput3">
-                                                                <div className="col-4">
+                                                                <div className="col-3">
                                                                     <Form.Label>What should be avoided?</Form.Label>
                                                                 </div>
-                                                                <div className="col-8">
+                                                                <div className="col-9">
                                                                     <Form.Control as="textarea" placeholder="" className="height-96" />
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="row" controlId="exampleForm.ControlInput4">
-                                                                <div className="col-4">
+                                                                <div className="col-3">
                                                                     <Form.Label>Additional details</Form.Label>
                                                                 </div>
-                                                                <div className="col-8">
+                                                                <div className="col-9">
                                                                     <Form.Control as="textarea" placeholder="" className="height-96" />
                                                                 </div>
                                                             </Form.Group>

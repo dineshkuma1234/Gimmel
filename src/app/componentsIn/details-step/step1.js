@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
-import { Form } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
+import Image from "next/image";
 function Step1() {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <>
+            {/* Download Successful Modal */}
+            <Modal show={show} onHide={handleClose} centered className='custom-modal success-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Download was successful!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="success-icon">
+                            <Image src={require("../../../assets/images/Untitled_Artwork.svg")} alt="Success" />
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn btn-color-orange" onClick={handleClose}>Okay</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
             <div className="step-details-container">
                 <div className="hide_mobile">
                     <div className="btn-container">
-                        <button className="btn btn-light-orange"><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-orange"><FiRefreshCcw />Regenerate</button>
+                        <button className="btn btn-light-blue" onClick={handleShow}><FiDownload /> Download PDF</button>
+                        <button className="btn btn-light-blue"><FiRefreshCcw />Regenerate</button>
                     </div>
                 </div>
 

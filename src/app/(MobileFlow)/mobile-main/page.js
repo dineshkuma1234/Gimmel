@@ -3,8 +3,8 @@
 import React from "react";
 import Header from "../../../components/header/header";
 import BottomBar from "../../../components/BottomBar/BottomBar";
-import SliderSection from "../../usecases/slider/slider";
-import VideoCardGridMobile from "../../usecases/videogrid/VideoCardGridMobile";
+import SliderSection from "../../componentsIn/slider/slider";
+import VideoCardGridMobile from "../../componentsIn/videogrid/VideoCardGridMobile";
 import Link from "next/link";
 import { FaEllipsisV } from 'react-icons/fa';
 import Image from "next/image";
@@ -43,7 +43,7 @@ const videoData = [
     },
 ]
 
-function MainMobile() {
+function MainMobile({getPost}) {
 
     const [show2, setShow2] = useState(false);
 
@@ -213,17 +213,17 @@ function MainMobile() {
 
                     <SliderSection />
 
+                    {/* <div className="page-main-title">
+                        <h3>Recommended for you</h3>
+                    </div>
+
+                    <VideoCardGridMobile /> */}
+
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
 
-                    <VideoCardGridMobile />
-
-                    <div className="page-main-title">
-                        <h3>Recommended for you</h3>
-                    </div>
-
-                    <VideoCardGridMobile />
+                    <VideoCardGridMobile getPost={getPost}/>
 
                     <div className="page-slider-section mb-4">
                         <div className="slider-title">

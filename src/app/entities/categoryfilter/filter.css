@@ -148,7 +148,8 @@
     font-weight: 600;
     width: calc(100% / 4);
     text-align: center;
-    padding: 8px 0px;
+    padding: 5px 0px;
+    color: #878787;
 }
 
 .tab-select .list-group .list-group-item.active {

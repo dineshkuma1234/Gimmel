@@ -1,35 +1,37 @@
 import React from "react";
 import Header from "../../../components/header/header";
 import BottomBar from "../../../components/BottomBar/BottomBar";
-import SliderSection from "../../usecases/slider/slider";
-import VideoCardGrid from "../../usecases/videogrid/VideoCardGrid";
+import SliderSection from "../../componentsIn/slider/slider";
+import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
 import Link from "next/link";
 
-function Main() {
+function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
     return (
         <>
-            <Header />
+            <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}/>
 
             <main id="main" className="top-space">
                 <div className="custom-container">
-                    <div className="page-main-title">
+                    <div className="page-main-title mb-3">
                         <h3>Categories</h3>
                         <Link href="/categories" className="see-all">See more categories</Link>
                     </div>
+                </div>
 
+                <div className="swiper-container">
                     <SliderSection />
+                </div>
 
+                <div className="custom-container">
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
+                    <VideoCardGrid getPost={getPost}   />
 
-                    <VideoCardGrid />
-
-                    <div className="page-main-title">
+                    {/* <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-
-                    <VideoCardGrid />
+                    <VideoCardGrid /> */}
                 </div>
             </main>
 

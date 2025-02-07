@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../../components/header/header";
-import SliderSection from "../../usecases/slidercategories/slider";
+import SliderSection from "../../componentsIn/slidercategories/slider";
 
 function Categories() {
     return (
@@ -12,14 +12,25 @@ function Categories() {
                     <div className="page-main-title">
                         <h3>12+ years</h3>
                     </div>
+                </div>
+
+                <div className="swiper-container">
                     <SliderSection />
+                </div>
+                <div className="custom-container">
                     <div className="page-main-title">
                         <h3>Drug prevention</h3>
                     </div>
+                </div>
+                <div className="swiper-container">
                     <SliderSection />
+                </div>
+                <div className="custom-container">
                     <div className="page-main-title">
                         <h3>Mental health</h3>
                     </div>
+                </div>
+                <div className="swiper-container">
                     <SliderSection />
                 </div>
             </main>

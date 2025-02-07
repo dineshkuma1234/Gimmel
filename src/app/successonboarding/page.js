@@ -13,7 +13,7 @@ function Success() {
                         <div className="left-banner remove-shadow">
                             <div className="left-banner-content">
                                 <div className="banner-image">
-                                    <Image src={require("../../assets/images/pixel.svg")} alt="banner" />
+                                    {/* <Image src={require("../../assets/images/pixel.svg")} alt="banner" /> */}
                                 </div>
                             </div>
                         </div>

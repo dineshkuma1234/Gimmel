@@ -8,8 +8,8 @@ import '../../CommenStyle/details.css';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
-import Step1 from "../../usecases/details-step/step1";
-import Reviews from "../../usecases/reviews/reviews";
+import Step1 from "../../componentsIn/details-step/step1";
+import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
 import { Form, ModalBody } from "react-bootstrap";
 import { useState } from "react";
@@ -116,7 +116,7 @@ function WatchVideo() {
                 </div>
                 <div className="dropdown-divider"></div>
                 <Modal.Body>
-                    <div className="modal-body-container">
+                    <div className="modal-body-container share-modal">
                         <div className="share-comtent">
                             <div className="share-alart">
                                 Do you want to attach the generated materials to the shared link?

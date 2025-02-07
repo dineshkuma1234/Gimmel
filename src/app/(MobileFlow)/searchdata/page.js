@@ -9,61 +9,18 @@ import FilterData from "../../../components/header/filterdata";
 import '../../CommenStyle/filter.css';
 
 
-function Search() {
+function Search({historyList=[], headerSearch ,setHeaderSearch ,handleHistoryList}) {
 
-    const historyItems = [
-        {
-            title: "The Impact of Alcohol on Mental Health",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Alcohol's Impact on Physical Health",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Recognizing Alcohol Abuse and Dependence",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Strategies for Reducing Alcohol Consumption",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Alcohol and Youth: Risks and Prevention",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Alcohol and Mental Health: Understanding the Link",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Cognitive Behavioral Therapy for Depression",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "Alcohol and Addiction: Understanding the Process",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-        {
-            title: "The Benefits of Alcohol for Mental Health",
-            date: "May 15, 2023",
-            thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-        },
-    ];
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handleHistoryItemClick =(item)=>{
+        setHeaderSearch(item.title);
+     }
+console.log(headerSearch,"headerSearch====")
     return (
         <>
             <Modal show={show} onHide={handleClose} centered className='custom-modal filter-modal'>
@@ -124,7 +81,7 @@ function Search() {
                             </button>
                         </div>
                         <div className="search-bar-header">
-                            <input type="text" placeholder="Search" />
+                            <input type="text" placeholder="Search" value={headerSearch} onChange={(e)=>setHeaderSearch(e.target.value)} onClick={()=>handleHistoryList()}/>
                         </div>
                     </div>
                     <div className="page-section-right">
@@ -141,8 +98,8 @@ function Search() {
                 <div className="custom-container">
                     <div className="search-history-container" id="searchHistory">
                         <ul>
-                            {historyItems.map((item, index) => (
-                                <li key={index}>
+                            {historyList.map((item, index) => (
+                                <li key={index} onClick={()=>handleHistoryItemClick(item)}>
                                     <Link href="/search/searchlist">
                                         <div className='search-history-left'>
                                             <Image src={require("../../../assets/images/history.svg")} alt="slider thumbnil" />

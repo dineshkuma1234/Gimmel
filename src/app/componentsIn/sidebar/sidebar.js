@@ -62,7 +62,7 @@ function Sidebar() {
     return (
         <>
             {/* New folder Modal start */}
-            <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+            <Modal show={show} onHide={handleClose} centered className='custom-modal new-folder-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>New folder</Modal.Title>
                 </Modal.Header>
@@ -157,32 +157,32 @@ function Sidebar() {
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "18+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "3 years" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick("18+")}
+                                onClick={() => handleClick("3 years")}
                             >
-                                18+
+                                3 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "21+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "16 years" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick("21+")}
+                                onClick={() => handleClick("16 years")}
                             >
-                                21+
+                                16 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "25+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "18 years" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick("25+")}
+                                onClick={() => handleClick("18 years")}
                             >
-                                25+
+                                18 years
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "30+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "21 years" ? "active" : ""}`}
                                 id="list-settings-list"
-                                onClick={() => handleClick("30+")}
+                                onClick={() => handleClick("21 years")}
                             >
-                                30+
+                                21 years
                             </button>
                         </div>
                     </div>
@@ -269,12 +269,16 @@ function Sidebar() {
                     </Form.Group>
                 </div>
                 <div className="select-container">
-                    <RangeSlider
-                        className="single-thumb"
-                        defaultValue={[0, 50]}
-                        thumbsDisabled={[true, false]}
-                        rangeSlideDisabled={true}
-                    />
+                    <div className='range-slider-container inline-gap-8'>
+                        <div className='number-text'>1</div>
+                        <RangeSlider
+                            className="single-thumb"
+                            defaultValue={[0, 50]}
+                            thumbsDisabled={[true, false]}
+                            rangeSlideDisabled={true}
+                        />
+                        <div className='number-text'>10</div>
+                    </div>
                 </div>
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput6">
@@ -317,7 +321,7 @@ function Sidebar() {
                         <Form.Label>Primary Audience</Form.Label>
                     </Form.Group>
                     <div className="tab-select">
-                        <div className="list-group" id="list-tab" role="tablist">
+                        <div className="list-group btn-list-2" id="list-tab" role="tablist">
                             <button
                                 className={`list-group-item list-group-item-action ${selectedAudience === "Student" ? "active" : ""}`}
                                 id="list-home-list"

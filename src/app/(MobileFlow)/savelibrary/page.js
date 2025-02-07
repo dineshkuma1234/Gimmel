@@ -1,26 +1,27 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { MdMoreVert, MdAddCircleOutline , MdDeleteOutline} from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline, MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
+import { FiAlertOctagon } from "react-icons/fi";
 
 function SaveLibrary() {
 
     const [show, setShow] = useState(false);
-    
-        const handleClose = () => setShow(false);
-        const handleShow = () => setShow(true);
-    
-        const [show3, setShow3] = useState(false);
-    
-        const handleClose3 = () => setShow3(false);
-        const handleShow3 = () => setShow3(true);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show3, setShow3] = useState(false);
+
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
 
     const [show2, setShow2] = useState(false);
 

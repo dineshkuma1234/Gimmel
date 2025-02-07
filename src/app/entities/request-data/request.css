@@ -206,8 +206,13 @@
 }
 
 .check-button input:checked {
-    background-color: var(--gimmel-orange);
+    background-color: transparent;
     border-color: var(--gimmel-orange);
+}
+
+.check-button input:checked[type=radio] {
+    --bs-form-check-bg-image: url("../../../assets/images/check-bg.svg");
+    padding: 4px !important;
 }
 
 .check-button input:focus {
@@ -232,6 +237,10 @@
     padding: 16px 24px;
     font-size: 16px;
     font-weight: 600;
+}
+
+.btn.btn-orange-request:disabled {
+    opacity: 0.25 !important;
 }
 
 .btn.btn-orange-outline {
@@ -382,7 +391,6 @@
 .success-icon.report-modal {
     text-align: center;
 }
-
 
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
     .card-padding-request {

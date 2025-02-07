@@ -35,6 +35,11 @@ ul {
     margin: 0 auto;
 }
 
+.swiper-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .w-90 {
     width: 90%;
 }
@@ -155,6 +160,7 @@ ul {
     border-radius: 8px;
     padding: 0 16px;
     margin-bottom: 16px;
+    color: var(--gimmel-darkBlue);
 }
 
 .form-section .form-check label {
@@ -252,6 +258,7 @@ ul {
 .right-side-content {
     width: 460px;
     height: 70vh;
+    position: relative;
 }
 
 .page-title h1 {
@@ -287,7 +294,7 @@ ul {
 }
 
 .btn-color-orange-outline {
-    background-color: #58483F;
+    background-color: #F3DACC;
     color: var(--gimmel-orange) ! important;
     border: 1px solid var(--gimmel-orange) !important;
     border-radius: 8px;
@@ -346,6 +353,7 @@ ul {
 .right-side-content .page-title h1 {
     color: var(--gimmel-darkBlue);
     margin: 0;
+    margin-bottom: 14px;
 }
 
 .pagination ul {
@@ -355,6 +363,7 @@ ul {
     justify-content: center;
     padding: 0;
     gap: 24px;
+    margin: 0;
 }
 
 .dot {
@@ -373,7 +382,7 @@ ul {
 .pagination-section {
     width: 450px;
     background-color: #ffffff !important;
-    padding: 20px 0px;
+    padding: 10px 0px;
     z-index: 99;
     position: relative;
 }
@@ -579,9 +588,10 @@ input[type="range"]::-moz-range-thumb {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: 50vh;
+    height: 300px;
     overflow: auto;
     padding: 0px 0 10px;
+    padding-bottom: 40px;
 }
 
 .checkbox-group::-webkit-scrollbar {
@@ -631,7 +641,9 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid var(--gimmel-orange);
 }
 
-
+/* .list-group-item .form-check-input:checked[type="checkbox"] {
+    background-image: url(../images/check-bg.svg);
+} */
 
 
 
@@ -756,7 +768,7 @@ input[type="range"]::-moz-range-thumb {
 
 .card-frame {
     border: 1px solid #104f5b79;
-    border-radius: 16px;
+    border-radius: 8px !important;
     padding: 24px;
 }
 

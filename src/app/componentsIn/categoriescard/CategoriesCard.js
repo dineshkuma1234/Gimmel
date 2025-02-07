@@ -248,7 +248,7 @@ function CategoriesCard() {
             </Modal>
 
             {/* New folder Modal start */}
-            <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal new-folder-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>New folder</Modal.Title>
                 </Modal.Header>

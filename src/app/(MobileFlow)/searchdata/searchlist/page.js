@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import VideoCardGrid from "../../../usecases/videogrid/VideoCardGrid";
+import VideoCardGrid from "../../../componentsIn/videogrid/VideoCardGrid";
 import BottomBar from "../../../../components/BottomBar/BottomBar";
 
 function SearchList() {

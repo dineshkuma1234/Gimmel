@@ -213,6 +213,7 @@ ul.account-list li {
     padding: 0;
     text-transform: capitalize;
     line-height: 28px;
+    margin-bottom: 8px;
 }
 
 .question-content {
@@ -242,8 +243,16 @@ ul.account-list li {
 }
 
 .question-select .form-check-input:checked {
-    background-color: var(--gimmel-orange);
+    background-color: transparent;
     border-color: var(--gimmel-orange);
+}
+
+.question-select .form-check-input:checked[type="radio"] {
+    background-image: url("../../assets/images/radio-check.svg");
+}
+
+.question-select .form-check-input:checked[type="checkbox"] {
+    background-image: url("../../assets/images/check-bg.svg");
 }
 
 .question-select .form-check-input:focus {

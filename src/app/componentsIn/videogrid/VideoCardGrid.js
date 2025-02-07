@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
+import { Form } from 'react-bootstrap';
 
 const videoData = [
     {
@@ -18,7 +19,7 @@ const videoData = [
         engagement: 'Engagement Rating',
         description:
             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: require('../../../assets/images/video-thumbnil.svg'),
+        imageSrc: 'assets/images/video-thumbnil.svg',
     },
     {
         id: 2,
@@ -28,7 +29,7 @@ const videoData = [
         engagement: 'Engagement Rating',
         description:
             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: require('../../../assets/images/minimalism.svg'),
+        imageSrc: 'assets/images/video-thumbnil.svg',
     },
     {
         id: 3,
@@ -38,7 +39,7 @@ const videoData = [
         engagement: 'Engagement Rating',
         description:
             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: require('../../../assets/images/quantum.svg'),
+        imageSrc: 'assets/images/video-thumbnil.svg',
     },
     {
         id: 4,
@@ -48,11 +49,51 @@ const videoData = [
         engagement: 'Engagement Rating',
         description:
             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: require('../../../assets/images/image.svg'),
+        imageSrc: 'assets/images/video-thumbnil.svg',
+    },
+    {
+        id: 5,
+        title: 'Dangers of smoking | Health | Biology | FuseSchool',
+        duration: '2:30',
+        rating: '8/10',
+        engagement: 'Engagement Rating',
+        description:
+            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+        imageSrc: 'assets/images/video-thumbnil.svg',
+    },
+    {
+        id: 6,
+        title: 'Dangers of smoking | Health | Biology | FuseSchool',
+        duration: '2:30',
+        rating: '8/10',
+        engagement: 'Engagement Rating',
+        description:
+            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+        imageSrc: 'assets/images/video-thumbnil.svg',
+    },
+    {
+        id: 7,
+        title: 'Dangers of smoking | Health | Biology | FuseSchool',
+        duration: '2:30',
+        rating: '8/10',
+        engagement: 'Engagement Rating',
+        description:
+            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+        imageSrc: 'assets/images/video-thumbnil.svg',
+    },
+    {
+        id: 8,
+        title: 'Dangers of smoking | Health | Biology | FuseSchool',
+        duration: '2:30',
+        rating: '8/10',
+        engagement: 'Engagement Rating',
+        description:
+            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+        imageSrc: 'assets/images/video-thumbnil.svg',
     },
 ];
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -67,10 +108,7 @@ const VideoCard = ({ video }) => {
     };
 
     useEffect(() => {
-        // Add event listener for clicks outside the dropdown
         window.addEventListener('click', handleClickOutside);
-
-        // Cleanup the event listener on unmount
         return () => {
             window.removeEventListener('click', handleClickOutside);
         };
@@ -101,6 +139,11 @@ const VideoCard = ({ video }) => {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleToggle = () => {
@@ -109,12 +152,40 @@ const VideoCard = ({ video }) => {
 
     return (
         <>
+
+            {/* New folder Modal start */}
+            <Modal show={show2} onHide={handleClose2} centered className='custom-modal new-folder-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>New folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={
+                            () => {
+                                handleClose2();
+                                addNewFolder();
+                            }
+
+                        }>Create folder</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Full summary Modal start */}
             <Modal show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className='modal-bar'>
+                    <div className='modal-bar show_mobile'>
                         <div className='bar-line'></div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
@@ -123,7 +194,8 @@ const VideoCard = ({ video }) => {
                 </Modal.Body>
             </Modal>
 
-            <Modal show={show1} onHide={handleClose1} centered className='custom-modal'>
+            {/* Save to My Library Modal start */}
+            <Modal show={show1} onHide={handleClose1} centered className='custom-modal pe-0'>
                 <Modal.Header closeButton>
                     <Modal.Title>Save to My Library</Modal.Title>
                 </Modal.Header>
@@ -190,23 +262,48 @@ const VideoCard = ({ video }) => {
                             <button
                                 type="button"
                                 className="btn btn-new-folder"
-                                onClick={addNewFolder}
+                                onClick={handleShow2}
                             >
                                 <MdAddCircleOutline /> New Folder
                             </button>
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" data-bs-dismiss="modal">Save here</button>
+                        <button type="button" className="btn-color-orange" onClick={handleClose1}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+
+
+            {/* <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+                <div className='my-interests-card'>
+                    <div className="video-card-1">
+                        <div className="video-card-content">
+                            <Link href="/videodetails">
+                                <div className="video-card-image">
+                                    <Image src={require("../../../assets/images/bg-in.png")} alt="video card" />
+                                    <div className="video-duration">{video.duration}</div>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="video-card-detail p-0">
+                            <div className='dark-text'>
+                                What are you interested about so we can suggest you better content
+                            </div>
+                            <div className='btn-color-orange-design'>
+                                <button type="button" className="btn-color-orange-outline">My interests</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+
+            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
                     <div className="video-card-content">
-                        <Link href="/watchvideo">
+                        <Link href="/videodetails">
                             <div className="video-card-image">
-                                <Image src={video.imageSrc} alt="video card" />
+                                <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>
                             </div>
                         </Link>
@@ -228,14 +325,14 @@ const VideoCard = ({ video }) => {
                                     </svg>
                                 </div>
                                 <div className="rating">
-                                    <span>{video.rating}</span>
+                                    <span>{video.engagement}/10</span>
                                 </div>
-                                <div className="eng-name">{video.engagement}</div>
+                                <div className="eng-name">{'Engagement Rating'}</div>
                             </div>
 
                             <div className="video-de-title">
                                 <div className="de-title">
-                                    <Link href="/watchvideo">{video.title}</Link>
+                                    <Link href="/videodetails">{video.title}</Link>
                                 </div>
                                 <div className="more-btn" ref={dropdownRef}>
                                     <button className="btn btn-more" onClick={toggleDropdown}>
@@ -303,10 +400,12 @@ const VideoCard = ({ video }) => {
     );
 };
 
-const VideoCardGrid = () => (
+const VideoCardGrid = ({getPost}) => (
+    console.log(getPost,"this is get post---11111"),
+    
     <div className="row">
-        {videoData.map((video) => (
-            <VideoCard key={video.id} video={video} />
+        {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
+            <VideoCard key={`video-${index}`} video={video} />
         ))}
     </div>
 );
