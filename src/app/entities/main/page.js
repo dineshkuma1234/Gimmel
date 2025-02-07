@@ -5,10 +5,10 @@ import SliderSection from "../../componentsIn/slider/slider";
 import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
 import Link from "next/link";
 
-function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
+function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,substance}) {
     return (
         <>
-            <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}/>
+            <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} />
 
             <main id="main" className="top-space">
                 <div className="custom-container">

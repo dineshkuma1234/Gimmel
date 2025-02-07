@@ -184,32 +184,46 @@ function FilterData({handleSearchCont,headerSearch}) {
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "3" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "6-8" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick("3")}
+                                onClick={() => handleClick("6-8")}
                             >
-                                3 years
+                                6-8
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "16" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "8-10" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick("16")}
+                                onClick={() => handleClick("8-10")}
                             >
-                                16 years
+                                8-10
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "18" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "10-13" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick("18")}
+                                onClick={() => handleClick("10-13")}
                             >
-                                18 years
+                                10-13
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "21" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAge === "13+" ? "active" : ""}`}
                                 id="list-settings-list"
-                                onClick={() => handleClick("21")}
+                                onClick={() => handleClick("13+")}
                             >
-                                21 years
+                                13+
+                            </button>
+                            <button
+                                className={`list-group-item list-group-item-action ${selectedAge === "16+" ? "active" : ""}`}
+                                id="list-settings-list"
+                                onClick={() => handleClick("16+")}
+                            >
+                                16+
+                            </button>
+                            <button
+                                className={`list-group-item list-group-item-action ${selectedAge === "18+" ? "active" : ""}`}
+                                id="list-settings-list"
+                                onClick={() => handleClick("18+")}
+                            >
+                                18+
                             </button>
                         </div>
                     </div>
@@ -221,34 +235,34 @@ function FilterData({handleSearchCont,headerSearch}) {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            <button
+                            {/* <button
                                 className={`list-group-item list-group-item-action ${selectedEngagement === "10" ? "active" : ""}`}
                                 id="list-home-list"
                                 onClick={() => handleClick1("10")}
                             >
                                 10
-                            </button>
+                            </button> */}
                             <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "9" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedEngagement === "9+" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick1("9")}
+                                onClick={() => handleClick1("9+")}
                             >
-                                9
+                                9+
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "8" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedEngagement === "7+" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick1("8")}
+                                onClick={() => handleClick1("7+")}
                             >
-                                8
+                                7+
                             </button>
-                            <button
+                            {/* <button
                                 className={`list-group-item list-group-item-action ${selectedEngagement === "7" ? "active" : ""}`}
                                 id="list-settings-list"
                                 onClick={() => handleClick1("7")}
                             >
                                 7
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>
@@ -259,7 +273,7 @@ function FilterData({handleSearchCont,headerSearch}) {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            <button
+                            {/* <button
                                 className={`list-group-item list-group-item-action ${selectedDate === "today" ? "active" : ""}`}
                                 id="list-home-list"
                                 onClick={() => handleClick2("today")}
@@ -286,6 +300,13 @@ function FilterData({handleSearchCont,headerSearch}) {
                                 onClick={() => handleClick2("thisYear")}
                             >
                                 This year
+                            </button> */}
+                            <button
+                                className={`list-group-item list-group-item-action ${selectedDate === "NewlyPublished" ? "active" : ""}`}
+                                id="list-settings-list"
+                                onClick={() => handleClick2("NewlyPublished")}
+                            >
+                                Newly Published
                             </button>
                         </div>
                     </div>
@@ -321,38 +342,38 @@ function FilterData({handleSearchCont,headerSearch}) {
                         {['radio'].map((type) => (
                             <div key={`default-${type}`} className="mb-3">
                                 <Form.Check
-                                    label={`Less than 4 minutes`}
+                                    label={`Under 5 Minutes`}
                                     name="group1"
                                     type={type}
                                     id={`inline-${type}-1`}
-                                    value="less-than-4"
+                                    value="under-5"
                                     onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
-                                    label={`4-20 minutes`}
+                                    label={`5-10 Minutes`}
                                     name="group1"
                                     type={type}
-                                    value="4-20"
+                                    value="5-10"
                                     id={`inline-${type}-2`}
                                     onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
                                     type={type}
-                                    label={`20-40 minutes`}
+                                    label={`10-15 Minutes`}
                                     name="group1"
                                     id={`inline-${type}-3`}
-                                    value="20-40"
+                                    value="10-15"
                                     onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
                                     type={type}
-                                    label={`More than 40 minutes`}
+                                    label={`15+`}
                                     name="group1"
                                     id={`inline-${type}-4`}
-                                    value="more-than-40"
+                                    value="15"
                                     onChange={handleSelectedChange}
                                 />
                             </div>

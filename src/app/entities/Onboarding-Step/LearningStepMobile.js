@@ -5,7 +5,7 @@ import Image from "next/image";
 import ReactSlider from "react-slider";
 import Link from "next/link";
 
-const LearningStepMobile = () => {
+const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) => {
     const images = [
         require("../../../assets/images/step-3.svg"),
         require("../../../assets/images/stap-6.svg"),
@@ -38,22 +38,31 @@ const LearningStepMobile = () => {
             setCurrentIndex(currentIndex + 1);
         }
     };
-
+    const [item,setItems]=useState([]);
     const [checkedItems, setCheckedItems] = useState({});
 
     const handleChange = (e) => {
         const { id, checked } = e.target;
-        if (id === "deselect-all") {
+
+        if (id === "select-deselect-all") {
             const newCheckedState = {};
-            if (!checked) {
-                Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
-            }
+            const newArr = filteredTopics.map((topic) => {
+                newCheckedState[topic.name] = checked
+                return topic.name
+            }); // Select/Deselect all topics
+            setItems((prevItems) => [...prevItems, ...newArr]);
             setCheckedItems(newCheckedState);
+            setSelectAll(checked); // Update button behavior
         } else {
             setCheckedItems({
                 ...checkedItems,
                 [id]: checked,
+
             });
+        
+            if(checked){
+                setItems((prevItems) => [...prevItems, id]);
+            }
         }
     };
 
@@ -178,6 +187,43 @@ const LearningStepMobile = () => {
             setMaxValue(value);
         }
     };
+  
+        const [item1,setItem1]=useState([]);
+        const [selectAll1, setSelectAll1] = useState(false);
+        console.log(checkedItems1,"this is checked1")
+     const [searchTerm, setSearchTerm] = useState('');
+        const filteredTopics = (interest || []).filter(topic =>
+            topic.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+         useEffect(() => {
+                console.log(item1, 'my item is here')
+            }, [item,item1])
+        
+        const handleChange1 = (e) => {
+            const { id, checked } = e.target;
+    
+            if (id === "select-deselect-all1") {
+                const newCheckedState = {};
+                const newArr = educationalObjective.map((topic) => {
+                    newCheckedState[topic.name] = checked
+                    return topic.name
+                }); // Select/Deselect all topics
+                setItem1((prevItems) => [...prevItems, ...newArr]);
+                setCheckedItems1(newCheckedState);
+                setSelectAll1(checked); // Update button behavior
+            } else {
+                setCheckedItems1({
+                    ...checkedItems1,
+                    [id]: checked,
+    
+                });
+            
+                if(checked){
+                    setItem1((prevItems) => [...prevItems, id]);
+                }
+            }
+        };
 
     return (
 
@@ -207,26 +253,25 @@ const LearningStepMobile = () => {
 
                                 <div className="step-data">
                                     <div className="msg-text">Select at least three topics!</div>
-                                    <input type="text" className="search-bar" placeholder="Search subject" />
+                                    <input type="text" className="search-bar" placeholder="Search subject" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
                                                 <ListGroup.Item>
                                                     <Form.Check
-                                                        type="checkbox"
-                                                        id="deselect-all"
-                                                        label="Deselect all"
-                                                        checked={Object.values(checkedItems).every((val) => !val)} // True if all items are unchecked
+                                                        id="select-deselect-all"
+                                                        label={selectAll ? "Deselect All" : "Select All"} // Toggle button text
+                                                        checked={selectAll} // True when all topics are selected
                                                         onChange={handleChange}
                                                     />
                                                 </ListGroup.Item>
-                                                {topics.map((topic) => (
-                                                    <ListGroup.Item key={topic.id}>
+                                                {filteredTopics.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={topic.id}
-                                                            label={topic.label}
-                                                            checked={!!checkedItems[topic.id]} // Default to false if undefined
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
                                                             onChange={handleChange}
                                                         />
                                                     </ListGroup.Item>
@@ -246,22 +291,34 @@ const LearningStepMobile = () => {
                                 </div>
                                 <div className="step-data mt-3">
                                     <ul className="checkbox-group">
-                                        {checkboxes.map((checkbox) => (
-                                            <li key={checkbox.id}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    id={checkbox.id}
-                                                    label={checkbox.label}
-                                                    checked={selectedItems[checkbox.id]}
-                                                    onChange={checkbox.isSelectAll ? handleSelectAllChange : handleCheckboxChange1}
-                                                    disabled={checkbox.isSelectAll && selectedItems['deselect-all']}
-                                                />
-                                            </li>
-                                        ))}
+                                        <Form>
+                                            <ListGroup>
+                                                <ListGroup.Item>
+                                                    <Form.Check
+                                                        
+                                                        id="select-deselect-all1"
+                                                        label={selectAll1 ? "Deselect All" : "Select All"} // Toggle button text
+                                                        checked={selectAll1} // True when all topics are selected
+                                                        onChange={handleChange1}
+                                                    />
+                                                </ListGroup.Item>
+                                                {educationalObjective && Array.isArray(educationalObjective) && educationalObjective.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems1[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange1}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
                                     </ul>
                                 </div>
                                 <div className="step-button">
-                                    <Link href="/successonboarding" className="btn-color-blue ">Okay</Link>
+                                    <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(item,item1)}>Okay</Link>
                                 </div>
                             </div>
                         </div>
@@ -303,9 +360,7 @@ const LearningStepMobile = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="skip-btn">
-                            <Link href="price.html" className="btn-text">Skip</Link>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

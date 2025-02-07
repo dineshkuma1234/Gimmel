@@ -15,6 +15,7 @@ export default function Home() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
+  const [substance, setSubstance] = useState([]);
 
   // Track screen width for responsive rendering
   useEffect(() => {
@@ -29,6 +30,10 @@ export default function Home() {
 
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
+
+  useEffect(()=>{
+    handleSubstance();
+  },[]);
 
   // Fetch posts when the page changes
   useEffect(() => {
@@ -160,11 +165,28 @@ const handleHistoryList = async (headerSearch) => {
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
+ 
+  const handleSubstance = async () => {
+
+    try {
+      const result = await AuthService.Substance();
+      if (result?.success) {
+
+        setSubstance(result?.data?.data);
+      } else {
+
+        AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
 
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}  />
+        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} />
       ) : (
         <MainMobile  getPost={getPost} />
         
