@@ -43,7 +43,7 @@ const videoData = [
     },
 ]
 
-function MainMobile({getPost}) {
+function MainMobile({getPost,topicPost}) {
 
     const [show2, setShow2] = useState(false);
 
@@ -223,58 +223,9 @@ function MainMobile({getPost}) {
                         <h3>Recommended for you</h3>
                     </div>
 
-                    <VideoCardGridMobile getPost={getPost}/>
+                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost}/>
 
-                    <div className="page-slider-section mb-4">
-                        <div className="slider-title">
-                            <div className="inline-gap-8">
-                                <h3>Teachers like you share this with their class about <Link href="#">addiction prevention</Link>:</h3>
-                                <div className="more-btn">
-                                    <button className="btn btn-more" type="button" onClick={handleShow2}>
-                                        <FaEllipsisV />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='library-list mt-4'>
-                            <div className='list-item-container'>
-                                {videoData.map((videoData, index) => (
-                                    <div className="video-card-container" key={index}>
-                                        <div className="video-card-content">
-                                            <Link href="/videodetails">
-                                                <div className="video-card-image">
-                                                    <Image src={videoData.image} alt="video card" />
-                                                    <div className="video-duration">{videoData.duration}</div>
-                                                </div>
-                                            </Link>
-                                            <div className="video-de-title">
-                                                <div className="de-title">
-                                                    <Link href="/videodetails">{videoData.title}</Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <VideoCardGridMobile />
-
-                    <div className="bg-orange-section">
-                        <div className="bg-orange-inner">
-                            <div className="bg-orange-title inline-gap-8">
-                                <h6>What are you interested about so we can suggest you better content</h6>
-                                <div className="remove-section">
-                                    <button className="btn-orange-close"><IoCloseSharp /></button>
-                                </div>
-                            </div>
-                            <div className="bg-orange-button">
-                                <button className="btn-orange" onClick={handleShow}>My interests</button>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </main>
 

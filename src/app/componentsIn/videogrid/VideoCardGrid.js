@@ -301,7 +301,7 @@ const VideoCard = ({ video, }) => {
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
                     <div className="video-card-content">
-                        <Link href="/videodetails">
+                        <Link href="/videodetails" >
                             <div className="video-card-image">
                                 <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>

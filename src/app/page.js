@@ -77,6 +77,27 @@ export default function Home() {
       setLoading(false);
     }
   };
+// PostSlider on home page//
+const [topicPost, setTopicPost] = useState("")
+console.log(topicPost,"topicPost---")
+useEffect(() => {
+  handleTopicPost();
+}, []);
+const handleTopicPost = async () => {
+  try {
+    const result = await AuthService.TopicPost();
+    console.log(result, 'result---')
+    if (result?.success) {
+      setTopicPost(result?.data)
+    } else {
+      AlertHelper.show('danger', 'Gimmel', result?.message);
+    }
+  } catch (error) {
+
+    console.log('Error occurred:', 'Gimmel', error);
+  }
+};
+
   ///////Search \\\\\\
   const [historyList, setHistoryList] = useState([]);
   const [selectSearchList, setSelectSearchList] = useState('')
@@ -166,7 +187,7 @@ const handleHistoryList = async (headerSearch) => {
       {deviceWidth > 991 ? (
         <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}  />
       ) : (
-        <MainMobile  getPost={getPost} />
+        <MainMobile  getPost={getPost} topicPost={topicPost} />
         
         
 

@@ -16,7 +16,7 @@ function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryLi
                         <h3>Categories</h3>
                         <Link href="/categories" className="see-all">See more categories</Link>
                     </div>
-                </div>
+                </div>  
 
                 <div className="swiper-container">
                     <SliderSection />
