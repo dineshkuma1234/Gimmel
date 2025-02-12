@@ -411,6 +411,8 @@ function FilterData({handleSearchCont,headerSearch}) {
                         </div>
                     </div>
                 </div>
+
+                <div className="hide_mobile">
                 <button type="button" className="btn-color-orange" onClick={()=>{
                     handleSearchCont(
                     headerSearch,
@@ -426,6 +428,28 @@ function FilterData({handleSearchCont,headerSearch}) {
                 )
                 console.log(headerSearch,"headerSearch---222")
                 }}>Apply Filter</button>
+                </div>
+
+                <div className="show_mobile">
+                    <div className="bottom-bar-modal">
+                        <div className="bottom-btn-bar-inner">
+                            <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={()=>{
+                                handleSearchCont(
+                                    headerSearch,
+                                    isOn,
+                                    chips,
+                                    inputValue,
+                                    selectedAge,
+                                    selectedEngagement,
+                                    selectedDate,
+                                    sliderValue,
+                                    selectedValue,
+                                    selectedAudience,
+                                )
+                            }}>Apply filters</button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </>

@@ -12,7 +12,8 @@ import { Form,ListGroup } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 
 
-const VideoCard = ({ video,index }) => {
+
+const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -54,6 +55,15 @@ const VideoCard = ({ video,index }) => {
     const handleShow = () => setShow(true);
 
     const [checkedItems, setCheckedItems] = useState({});
+    const [checkedItems1, setCheckedItems1] = useState({});
+    const [checkedItems2, setCheckedItems2] = useState({});
+    const [checkedItems3, setCheckedItems3] = useState({});
+    const [selectedSubstance,setselectedSubstance]=useState([]);
+    const [selectedHealth,setselectedHealth]=useState([]);
+    const [selectedneuroscience,setselectedNeuroscience]=useState([]);
+    const [selectSocialIssue,setselectSocialIssue]=useState([]);
+    const [interestsDescription, setInterestsDescription] = useState("");
+    
     const [show3, setShow3] = useState(false);
 
     const handleClose3 = () => setShow3(false);
@@ -76,24 +86,88 @@ const VideoCard = ({ video,index }) => {
     };
     
     const selectedCount = Object.values(checkedItems).filter(Boolean).length;
+    const selectedCount1 = Object.values(checkedItems1).filter(Boolean).length;
+    const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
+    const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
 
-    const topics = [
-        { id: "addiction", label: "Addiction" },
-        { id: "alcohol", label: "Alcohol" },
-        { id: "cannabis", label: "Cannabis" },
-        { id: "cigarettes", label: "Cigarettes" },
-        { id: "e-cigarettes", label: "E-cigarettes" },
-        { id: "nicotine", label: "Nicotine" },
-        { id: "tobacco", label: "Tobacco" },
-        { id: "vaping", label: "Vaping" },
-        { id: "Illicit Drugs", label: "Illicit Drugs" },
-    ];
     const handleChange = (e) => {
         const { id, checked } = e.target;
-        setCheckedItems((prevCheckedItems) => ({
-            ...prevCheckedItems,
+        setCheckedItems({
+            ...checkedItems,
             [id]: checked,
-        }));
+        });
+            setselectedSubstance((prevCheckedItems)=>{
+                if(checked){
+                 return [...prevCheckedItems,id]
+                }else{
+                    return prevCheckedItems.filter((item) => item!== id)
+                }
+            });
+    };
+
+    const handleChange1 = (e) => {
+        const { id, checked } = e.target;
+        setCheckedItems1({
+            ...checkedItems1,
+            [id]: checked,
+        });
+        setselectedHealth((prevCheckedItems)=>{
+            if (checked){
+            return [...prevCheckedItems,id]
+            }else{
+                return prevCheckedItems.filter((item)=>item!==id)
+            }
+        })
+    };
+    
+    const handleChange2=(e)=>{
+        const {id,checked}=e.target;
+       setCheckedItems2({
+        ...checkedItems2,
+        [id]:checked
+       })
+       setselectedNeuroscience((prevCheckedItems)=>{
+        if(checked){
+            return [...prevCheckedItems,id];
+        }else{
+            return prevCheckedItems.filter((item)=>item!==id)
+        }
+       })
+    }
+    const handleChange3=(e)=>{
+        const {id,checked}=e.target;
+        setCheckedItems3({
+            ...checkedItems3,
+            [id]:checked
+        });
+        setselectSocialIssue((prevCheckedItems)=>{
+            if(checked){
+                return [...prevCheckedItems,id]
+            }else{
+                return prevCheckedItems.filter((item)=>item!==id)
+            }
+        })
+    }
+    const handleChange4 = (event) => {
+        const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
+        if (words.length <= 60) {
+            setInterestsDescription(event.target.value);
+        }
+    };
+    console.log(selectedSubstance,"selectedSubstance-----")
+    const isButtonDisabled = () => {
+        console.log("selectedSubstance:", selectedSubstance);
+        console.log("selectedHealth:", selectedHealth);
+        console.log("selectedneuroscience:", selectedneuroscience);
+        console.log("selectSocialIssue:", selectSocialIssue);
+        console.log("interestsDescription:", interestsDescription);
+        return (
+            selectedSubstance.length === 0 || 
+            selectedHealth.length === 0 || 
+            selectedneuroscience.length === 0 || 
+            selectSocialIssue.length === 0 || 
+            interestsDescription.trim().length === 0
+        );
     };
     return (
         <>
@@ -119,13 +193,13 @@ const VideoCard = ({ video,index }) => {
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
-                                                {topics.map((topic) => (
-                                                    <ListGroup.Item key={topic.id}>
+                                                {substance.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={topic.id}
-                                                            label={topic.label}
-                                                            checked={!!checkedItems[topic.id]} // Default to false if undefined
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
                                                             onChange={handleChange}
                                                         />
                                                     </ListGroup.Item>
@@ -139,21 +213,21 @@ const VideoCard = ({ video,index }) => {
                                 <Accordion.Header>
                                     <div className="d-flex justify-content-between align-items-center w-100">
                                         <span className="accordion-title">Mental Health</span>
-                                        <div className="select-count">{selectedCount}</div>
+                                        <div className="select-count">{selectedCount1}</div>
                                     </div>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
-                                                {topics.map((topic) => (
-                                                    <ListGroup.Item key={topic.id}>
+                                                {mentalHealth.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={topic.id}
-                                                            label={topic.label}
-                                                            checked={!!checkedItems[topic.id]} // Default to false if undefined
-                                                            onChange={handleChange}
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems1[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange1}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -162,18 +236,73 @@ const VideoCard = ({ video,index }) => {
                                     </ul>
                                 </Accordion.Body>
                             </Accordion.Item>
+                            <Accordion.Item eventKey="2" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Neuroscience</span>
+                                        <div className="select-count">{selectedCount2}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {neuroScience.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems2[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange2}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="3" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Social Issues</span>
+                                        <div className="select-count">{selectedCount3}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {socialIssues.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems3[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange3}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+
                         </Accordion>
                     </div>
                     <div className="text-area mt-4">
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Give us a description of your interests</Form.Label>
-                            <Form.Control as="textarea" className="height-96 form-control" rows={3} />
-                            <p className="mt-2">0/60 words</p>
+                            <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChange4} />
+                            <p className="mt-2">{interestsDescription.length}/60 words</p>
                         </Form.Group>
                     </div>
 
                     <div className="body-footer">
-                    <button type="button" className="btn-color-orange" onClick={handleClose3}>Send</button>
+                    <button type="button" className={`btn-color-orange ${isButtonDisabled() ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length === 0 || selectedHealth.length === 0 || selectedneuroscience.length === 0 || selectSocialIssue.length === 0 || interestsDescription.trim().length === 0} >Send</button>
                     </div>
                     
                 </Modal.Body>
@@ -299,7 +428,7 @@ const VideoCard = ({ video,index }) => {
             </Modal>
 
             
-           {index === 5 && <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+           {index === 5  && <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className='my-interests-card'>
                     <div className="video-card-1">
                         <div className="video-card-content">
@@ -422,12 +551,12 @@ const VideoCard = ({ video,index }) => {
     );
 };
 
-const VideoCardGrid = ({getPost}) => (
+const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest}) => (
     console.log(getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
-            <VideoCard key={`video-${index}`} video={video} index={index}/>
+            <VideoCard key={`video-${index}`} video={video} index={index} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}/>
         ))}
     </div>
 );

@@ -5,7 +5,7 @@ import Search from '../(MobileFlow)/searchdata/page';
 
 export default function SearchScreen() {
     const [historyList, setHistoryList] = useState([]);
-     const [headerSearch, setHeaderSearch] = useState('')
+     const [headerSearch, setHeaderSearch] = useState("")
        useEffect(() => {
          if (headerSearch) {
            handleHistoryList(headerSearch);

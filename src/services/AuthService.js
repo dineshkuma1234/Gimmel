@@ -227,7 +227,7 @@ const AuthService = {
       mentalHealth: selectedHealth && selectedHealth.length > 0 ? selectedHealth : [],
       neuroScience: selectedneuroscience && selectedneuroscience.length > 0 ? selectedneuroscience : [],
       social: selectSocialIssue && selectSocialIssue.length > 0 ? selectSocialIssue : [],
-      description: interestsDescription && interestsDescription.trim().length > 0 ? interestsDescription : '',
+    ...(interestsDescription?.trim().length > 0 && { description: interestsDescription })
   };
 
     console.log(params,"params----")

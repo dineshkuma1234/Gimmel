@@ -15,7 +15,7 @@ export default function Home() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
-  const [substance, setSubstance] = useState([]);
+  
 
   // Track screen width for responsive rendering
   useEffect(() => {
@@ -31,9 +31,7 @@ export default function Home() {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  useEffect(()=>{
-    handleSubstance();
-  },[]);
+
 
   // Fetch posts when the page changes
   useEffect(() => {
@@ -166,6 +164,21 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
  
+  // My Intrest //
+
+  const [substance, setSubstance] = useState([]);
+  const [mentalHealth, setMentalHealth] = useState([]);
+  const [neuroScience, setNeuroScience] = useState([]);
+  const [socialIssues, setSocialIssues] = useState([]);
+  const [interest, setInterest] = useState(null);
+  useEffect(()=>{
+    handleSubstance();
+    handleMentalHealth();
+    handleNeuroscience();
+    handleSocialIssue();
+    getInterestFromStorage();
+  },[]);
+
   const handleSubstance = async () => {
 
     try {
@@ -175,7 +188,7 @@ const handleHistoryList = async (headerSearch) => {
         setSubstance(result?.data?.data);
       } else {
 
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
 
@@ -183,12 +196,101 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
 
+  const handleMentalHealth = async () => {
+
+    try {
+      const result = await AuthService.MentalHealth();
+      if (result?.success) {
+
+        setMentalHealth(result?.data?.data);
+      } else {
+
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+  const handleNeuroscience = async () => {
+
+    try {
+      const result = await AuthService.Neuroscience();
+      if (result?.success) {
+        setNeuroScience(result?.data?.data);
+      } else {
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+  const handleSocialIssue = async () => {
+    try {
+      const result = await AuthService.SocialIssue();
+      if (result?.success) {
+
+        setSocialIssues(result?.data?.data);
+      } else {
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+  const handleSaveIntrest = async () => {
+
+    try {
+      const result = await AuthService.SaveInt();
+      if (result?.success) {
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+      } else {
+
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+  const getInterestFromStorage =  () => {
+      
+    const value =  localStorage.getItem('interest');
+    console.log(value)
+        setInterest(value); 
+   
+};
+  const handleInterestFilter = async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
+      console.log(result,"result of interest filter ---")
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+        const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
+        localStorage.setItem('interest', isInterestValue);
+        handleSaveIntrest();
+        getInterestFromStorage();
+        handleGetPost();
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  console.log(interest,"interest---") 
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} />
+        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
       ) : (
-        <MainMobile  getPost={getPost} />
+        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
         
         
 
