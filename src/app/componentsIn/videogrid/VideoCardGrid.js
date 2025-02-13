@@ -1,7 +1,7 @@
 "use client"
 
 // VideoCardGrid.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import Image from 'next/image';
@@ -15,6 +15,7 @@ import Accordion from 'react-bootstrap/Accordion';
 
 const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
@@ -156,6 +157,14 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
         }
     };
     
+
+    // console.log(video,"video")
+    const handleNavigate = (video) => {
+
+        updateVideoDetailsState(video);
+        router.push(`/mainHome/${video?._id}/videodetails2`);
+
+      };
 
     return (
         <>
@@ -440,12 +449,12 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
                     <div className="video-card-content">
-                        <Link href="/videodetails">
+                        <div onClick={() => {handleNavigate(video)}}> 
                             <div className="video-card-image">
                                 <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>
                             </div>
-                        </Link>
+                        </div>
                         <div className="video-card-detail">
                             <div className="eng-rating">
                                 <div className="rating-icon">

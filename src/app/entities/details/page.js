@@ -16,9 +16,10 @@ import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 import Link from "next/link";
-function VideoDetails() {
+function VideoDetails({data,VideoDetailsState}) {
+ console.log(data,"nwe")
+ console.log(VideoDetailsState,"VideoDetailsState")
 
-    
 
     const [show1, setShow1] = useState(false);
 
@@ -79,6 +80,41 @@ function VideoDetails() {
         setFolders([...folders, newFolder]);
     };
 
+    const convertToKM =(num)=> {
+        if (num >= 1000000) {
+            return `${(num / 1000000).toFixed(1)}M`;
+        } else if (num >= 1000) {
+            return `${(num / 1000).toFixed(1)}K`;
+        } else {
+            return `${num}`;
+        }
+    };
+    const inputDate = data?.createdAt;
+    const formatTimeAgo = (inputDate) => {
+        // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
+    
+        const date = new Date(data?.createdAt); // Convert backend date to Date object
+        const currentDate = new Date(); // Get current date
+    
+        // Calculate the difference in months
+        const monthsDiff =
+            currentDate.getMonth() -
+            date.getMonth() +
+            12 * (currentDate.getFullYear() - date.getFullYear());
+    
+        // Calculate the difference in days
+        const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
+    
+        let timeAgo = "";
+        if (monthsDiff > 0) {
+            timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
+        } else if (daysDiff > 0) {
+            timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+        } else {
+            timeAgo = "Today";
+        }
+        return timeAgo;
+    }
     return (
         <>
             
@@ -331,7 +367,7 @@ function VideoDetails() {
                         className="react-player"
                         playing
                         controls
-                        url="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        url={data?.URL}
                     />
                 </div>
 
@@ -341,7 +377,7 @@ function VideoDetails() {
                             <div className="card-white">
                                 <div className="card-inner">
                                     <div className="video-title">
-                                        <h1>Teen Substance Use & Abuse (Alcohol, Tobacco, Vaping, Marijuana, and More)</h1>
+                                        <h1>{data?.title}</h1>
                                     </div>
                                     <div className="sec-inline-row">
                                         <div className="user-info-container">
@@ -408,29 +444,29 @@ function VideoDetails() {
                                             <li>
                                                 <div className="accout-rating">
                                                     <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
-                                                    <span>9/10</span>
+                                                    <span>{data?.engagement}/10</span>
                                                     <span>Rating</span>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div className="accout-rating">
                                                     <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
-                                                    <span>15k</span>
+                                                    <span>{convertToKM(data?.viewCount)}</span>
                                                     <span>Views</span>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div className="accout-rating">
                                                     <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
-                                                    <span>1</span>
-                                                    <span>month</span>
+                                                    <span>{formatTimeAgo(inputDate)}</span>
+                                                    {/* <span>month</span> */}
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                     <div className="video-description">
                                         <p>
-                                            Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.
+                                            {VideoDetailsState?.description}
                                             <span className="view-more">
                                                 <button className="btn btn-view" onClick={() => {
                                                     document.querySelector(".view-more").style.display = "none";
@@ -445,45 +481,49 @@ function VideoDetails() {
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Source</div>
-                                                            <div className="topic-value">YouTube</div>
+                                                            <div className="topic-value">{VideoDetailsState?.source}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Verified</div>
-                                                            <div className="topic-value">Yes</div>
+                                                            <div className="topic-value">{VideoDetailsState?.isVerified ? "Yes" : "No"}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Targeted audience</div>
-                                                            <div className="topic-value">1st - 4th grade</div>
+                                                            <div className="topic-value">1th - 4th grade</div>
                                                             <div className="topic-value">5th - 8th grade</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Age group</div>
-                                                            <div className="topic-value">14 - 21 years</div>
+                                                            <div className="topic-value">{VideoDetailsState?.ageRange}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Creator</div>
-                                                            <div className="topic-value">Ask, Listen, Learn</div>
+                                                            <div className="topic-value">{VideoDetailsState?.channelName}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Published/Uploaded</div>
-                                                            <div className="topic-value">11/16/2016</div>
+                                                            <div className="topic-value">{new Date(VideoDetailsState?.createdAt).toLocaleDateString("en-GB")}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Subject area</div>
-                                                            <div className="topic-value">Substance Use</div>
-                                                            <div className="topic-value">Neuroscience</div>
+                                                            <div className="topic-value">
+                                                            {VideoDetailsState?.topic?.length > 30
+                                                                 ? VideoDetailsState.topic.slice(0, 30) + "..."
+                                                                : VideoDetailsState?.topic}
+                                                            </div>
+                                                            {/* <div className="topic-value">Neuroscience</div> */}
                                                         </div>
                                                     </li>
                                                     <li>
@@ -553,7 +593,7 @@ function VideoDetails() {
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="first">
                                                     <div className="tab-details-container">
-                                                        <SuggestedCardGrid />
+                                                        <SuggestedCardGrid  />
                                                     </div>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="second">

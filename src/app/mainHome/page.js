@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Main from "./entities/main/page";
-import MainMobile from './(MobileFlow)/mobile-main/page';
-import AuthService from '../services/AuthService';
-import { useRouter } from "next/navigation";
-// import Home from './Home/page';
+import Main from "../entities/main/page";
+import MainMobile from '../(MobileFlow)/mobile-main/page';
+import AuthService from '../../services/AuthService';
+import { useParams, useRouter } from "next/navigation";
 
-export default function PageComponent() {
+export default function Home() {
   const router = useRouter(); 
+  const {  } = useParams();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -16,13 +16,8 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
-<<<<<<< HEAD
-  
-
-  // Track screen width for responsive rendering
-=======
+  // console.log(getvideoid,"getvideoid---")
 //   // Track screen width for responsive rendering
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -35,8 +30,6 @@ export default function PageComponent() {
 
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
-
-
 
   // Fetch posts when the page changes
   useEffect(() => {
@@ -67,6 +60,11 @@ export default function PageComponent() {
   const handleGetPost = async (page) => {
     setLoading(true);
     try {
+    
+      const data = {
+        id: video_id
+      }
+
       const result = await AuthService.GetPost(page);
       console.log(result, "result----");
 
@@ -191,146 +189,19 @@ const handleHistoryList = async (headerSearch) => {
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
- 
-  // My Intrest //
 
-  const [substance, setSubstance] = useState([]);
-  const [mentalHealth, setMentalHealth] = useState([]);
-  const [neuroScience, setNeuroScience] = useState([]);
-  const [socialIssues, setSocialIssues] = useState([]);
-  const [interest, setInterest] = useState(null);
-  useEffect(()=>{
-    handleSubstance();
-    handleMentalHealth();
-    handleNeuroscience();
-    handleSocialIssue();
-    getInterestFromStorage();
-  },[]);
-
-  const handleSubstance = async () => {
-
-    try {
-      const result = await AuthService.Substance();
-      if (result?.success) {
-
-        setSubstance(result?.data?.data);
-      } else {
-
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-
-  const handleMentalHealth = async () => {
-
-    try {
-      const result = await AuthService.MentalHealth();
-      if (result?.success) {
-
-        setMentalHealth(result?.data?.data);
-      } else {
-
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-  const handleNeuroscience = async () => {
-
-    try {
-      const result = await AuthService.Neuroscience();
-      if (result?.success) {
-        setNeuroScience(result?.data?.data);
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-  const handleSocialIssue = async () => {
-    try {
-      const result = await AuthService.SocialIssue();
-      if (result?.success) {
-
-        setSocialIssues(result?.data?.data);
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-  const handleSaveIntrest = async () => {
-
-    try {
-      const result = await AuthService.SaveInt();
-      if (result?.success) {
-        // AlertHelper.show('success', 'Gimmel', result?.message);
-      } else {
-
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-  const getInterestFromStorage =  () => {
-      
-    const value =  localStorage.getItem('interest');
-    console.log(value)
-        setInterest(value); 
-   
-};
-  const handleInterestFilter = async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
-    // LoaderHelper.loaderStatus(true);
-    try {
-      const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
-      console.log(result,"result of interest filter ---")
-      if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
-        // AlertHelper.show('success', 'Gimmel', result?.message);
-        const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-        localStorage.setItem('interest', isInterestValue);
-        handleSaveIntrest();
-        getInterestFromStorage();
-        handleGetPost();
-      } else {
-        // LoaderHelper.loaderStatus(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      // LoaderHelper.loaderStatus(false);
-      // console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
-
-  console.log(interest,"interest---") 
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
+        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} id= {video_id} />
       ) : (
-<<<<<<< HEAD
-        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
-=======
         <MainMobile  getPost={getPost} topicPost={topicPost} />
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
         
         
 
       )}
 
       {loading && <p style={{ textAlign: 'center', margin: '20px 0' }}>Loading more posts...</p>}
-
-      {/* <Home /> */}
     </>
   );
 }

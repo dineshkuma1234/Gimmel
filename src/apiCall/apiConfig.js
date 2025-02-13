@@ -61,6 +61,7 @@ export const ApiConfig = {
   RemoveSaggation:"api/removeSuggestions",
   getReviewsReply:"api/getReply/",
   getOneVideo:"api/getPost/",
+  homegetvideoid:"api/getPost",
   skipData:"api/saveGenratedContent",
   google:"api/auth/google",
 
