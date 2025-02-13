@@ -272,6 +272,12 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                                     >
                                         Parent/guardian
                                     </button>
+                                    <button
+                                        className={`btn-border ${selected === "Therapist" ? "selected" : ""}`}
+                                        onClick={() => handleSelect("Therapist")}
+                                    >
+                                        Therapist
+                                    </button>
                                 </div>
                             </div>
 
@@ -492,9 +498,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                                         </Form>
                                     </ul>
                                 </div>
-                                <div className="step-button">
-                                    <Link href="/successonboarding" className="btn-color-blue ">Okay</Link>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -505,15 +509,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                         {/* Pagination Section */}
                         <div className="pagination-section pagination">
                             <ul className="">
-                                <li>
-                                    <button
-                                        className={`step-btn step-first ${currentIndex === 0 ? "disabled" : ""
-                                            }`}
-                                        onClick={previousSlide}
-                                    >
-                                        <FaChevronLeft />
-                                    </button>
-                                </li>
+                                
                                 {images.map((_, index) => (
                                     <li key={index}>
                                         <button
@@ -525,15 +521,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                                         </button>
                                     </li>
                                 ))}
-                                <li>
-                                    <button
-                                        className={`step-btn step-last ${currentIndex === images.length - 1 ? "disabled" : ""
-                                            }`}
-                                        onClick={nextSlide}
-                                    >
-                                        <FaChevronRight />
-                                    </button>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div className="step-button">

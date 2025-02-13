@@ -1,5 +1,5 @@
 "use client";
-
+ 
 // VideoCardGrid.js
 import React, { useState, useEffect, useRef } from "react";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
@@ -11,7 +11,7 @@ import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
-
+ 
 const videoData = [
   {
     id: 1,
@@ -54,37 +54,37 @@ const videoData = [
     imageSrc: require("../../../assets/images/image.svg"),
   },
 ];
-
-const VideoCard = ({ video, index, topicPost }) => {
+ 
+const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+ 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+ 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
   };
-
+ 
   useEffect(() => {
     // Add event listener for clicks outside the dropdown
     window.addEventListener("click", handleClickOutside);
-
+ 
     // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+ 
   const [folders, setFolders] = useState([
     { id: 1, name: "My Library" },
     { id: 2, name: "Work Documents" },
     { id: 3, name: "Personal Files" },
   ]);
-
+ 
   // Function to add a new folder
   const addNewFolder = () => {
     const newFolder = {
@@ -93,59 +93,120 @@ const VideoCard = ({ video, index, topicPost }) => {
     };
     setFolders([...folders, newFolder]);
   };
-
+ 
   const [show, setShow] = useState(false);
-
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+ 
   const [show1, setShow1] = useState(false);
-
+ 
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-
+ 
   const [show2, setShow2] = useState(false);
-
+ 
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
+ 
   const [show3, setShow3] = useState(false);
-
+ 
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
-
+ 
   const [isExpanded, setIsExpanded] = useState(false);
-
+ 
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
-
+ 
   const [checkedItems, setCheckedItems] = useState({});
-
+   const [checkedItems1, setCheckedItems1] = useState({});
+      const [checkedItems2, setCheckedItems2] = useState({});
+      const [checkedItems3, setCheckedItems3] = useState({});
+      const [selectedSubstance,setselectedSubstance]=useState([]);
+      const [selectedHealth,setselectedHealth]=useState([]);
+      const [selectedneuroscience,setselectedNeuroscience]=useState([]);
+      const [selectSocialIssue,setselectSocialIssue]=useState([]);
+      const [interestsDescription, setInterestsDescription] = useState("");
+      const [showContent, setShowContent] = useState(true);
+ 
   // Handle checkbox state change
   const handleChange = (e) => {
     const { id, checked } = e.target;
-    setCheckedItems((prevCheckedItems) => ({
-      ...prevCheckedItems,
-      [id]: checked,
-    }));
-  };
+    setCheckedItems({
+        ...checkedItems,
+        [id]: checked,
+    });
+        setselectedSubstance((prevCheckedItems)=>{
+            if(checked){
+             return [...prevCheckedItems,id]
+            }else{
+                return prevCheckedItems.filter((item) => item!== id)
+            }
+        });
+};
 
+const handleChange1 = (e) => {
+    const { id, checked } = e.target;
+    setCheckedItems1({
+        ...checkedItems1,
+        [id]: checked,
+    });
+    setselectedHealth((prevCheckedItems)=>{
+        if (checked){
+        return [...prevCheckedItems,id]
+        }else{
+            return prevCheckedItems.filter((item)=>item!==id)
+        }
+    })
+};
+
+const handleChange2=(e)=>{
+    const {id,checked}=e.target;
+   setCheckedItems2({
+    ...checkedItems2,
+    [id]:checked
+   })
+   setselectedNeuroscience((prevCheckedItems)=>{
+    if(checked){
+        return [...prevCheckedItems,id];
+    }else{
+        return prevCheckedItems.filter((item)=>item!==id)
+    }
+   })
+}
+const handleChange3=(e)=>{
+    const {id,checked}=e.target;
+    setCheckedItems3({
+        ...checkedItems3,
+        [id]:checked
+    });
+    setselectSocialIssue((prevCheckedItems)=>{
+        if(checked){
+            return [...prevCheckedItems,id]
+        }else{
+            return prevCheckedItems.filter((item)=>item!==id)
+        }
+    })
+}
+
+const handleChange4 = (event) => {
+    const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
+    if (words.length <= 60) {
+        setInterestsDescription(event.target.value);
+    }
+};
+
+ 
   // Compute the count of selected checkboxes
   const selectedCount = Object.values(checkedItems).filter(Boolean).length;
-
-  const topics = [
-    { id: "addiction", label: "Addiction" },
-    { id: "alcohol", label: "Alcohol" },
-    { id: "cannabis", label: "Cannabis" },
-    { id: "cigarettes", label: "Cigarettes" },
-    { id: "e-cigarettes", label: "E-cigarettes" },
-    { id: "nicotine", label: "Nicotine" },
-    { id: "tobacco", label: "Tobacco" },
-    { id: "vaping", label: "Vaping" },
-    { id: "Illicit Drugs", label: "Illicit Drugs" },
-  ];
-  console.log(index, "index---");
+  const selectedCount1 = Object.values(checkedItems1).filter(Boolean).length;
+    const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
+    const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
+ 
+ 
+  
   return (
     <>
       <Modal show={show} onHide={handleClose} centered className="custom-modal">
@@ -159,7 +220,7 @@ const VideoCard = ({ video, index, topicPost }) => {
           <p>{video.description}</p>
         </Modal.Body>
       </Modal>
-
+ 
       <Modal
         show={show1}
         onHide={handleClose1}
@@ -258,7 +319,7 @@ const VideoCard = ({ video, index, topicPost }) => {
           </div>
         </Modal.Body>
       </Modal>
-
+ 
       <Modal show={show2} onHide={handleClose2} centered className="modal-dots">
         <div className="modal-bar">
           <div className="bar-line"></div>
@@ -307,7 +368,7 @@ const VideoCard = ({ video, index, topicPost }) => {
           </div>
         </ModalBody>
       </Modal>
-
+ 
       <Modal
         show={show3}
         onHide={handleClose3}
@@ -332,84 +393,125 @@ const VideoCard = ({ video, index, topicPost }) => {
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {topics.map((topic) => (
-                          <ListGroup.Item key={topic.id}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.id}
-                              label={topic.label}
-                              checked={!!checkedItems[topic.id]} // Default to false if undefined
-                              onChange={handleChange}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {substance.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
+                                            onChange={handleChange}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="1" className="modal-select-item">
                 <Accordion.Header>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <span className="accordion-title">Mental Health</span>
-                    <div className="select-count">{selectedCount}</div>
+                    <div className="select-count">{selectedCount1}</div>
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {topics.map((topic) => (
-                          <ListGroup.Item key={topic.id}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.id}
-                              label={topic.label}
-                              checked={!!checkedItems[topic.id]} // Default to false if undefined
-                              onChange={handleChange}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {mentalHealth.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems1[topic.name]} // Default to false if undefined
+                                            onChange={handleChange1}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="2" className="modal-select-item">
+                <Accordion.Header>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <span className="accordion-title">Neuroscience</span>
+                    <div className="select-count">{selectedCount2}</div>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {neuroScience.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems2[topic.name]} // Default to false if undefined
+                                            onChange={handleChange2}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="3" className="modal-select-item">
+                <Accordion.Header>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <span className="accordion-title">Social Issues</span>
+                    <div className="select-count">{selectedCount3}</div>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {socialIssues.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems3[topic.name]} // Default to false if undefined
+                                            onChange={handleChange3}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
           </div>
           <div className="text-area mt-4">
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Give us a description of your interests</Form.Label>
-              <Form.Control
-                as="textarea"
-                className="height-96 form-control"
-                rows={3}
-              />
-              <p className="mt-2">0/60 words</p>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Give us a description of your interests</Form.Label>
+                <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChange4} />
+                <p className="mt-2">{interestsDescription.length}/60 words</p>
             </Form.Group>
           </div>
           <div className="bottom-bar-modal">
             <div className="bottom-btn-bar-inner">
-              <button
-                type="button"
-                className="btn-color-orange"
-                onClick={handleClose3}
-              >
-                Send
-              </button>
+            <button type="button" className={`btn-color-orange ${selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription} >Send</button>
             </div>
           </div>
         </Modal.Body>
       </Modal>
-
+ 
       {/* My Interests section here  */}
-      {index === 6 && (
+      {index === 6 && showContent && (
         <div className="bg-orange-section">
           <div className="bg-orange-inner">
             <div className="bg-orange-title inline-gap-8">
@@ -424,7 +526,7 @@ const VideoCard = ({ video, index, topicPost }) => {
               </div>
             </div>
             <div className="bg-orange-button">
-              <button className="btn-orange" onClick={handleShow3}>
+              <button className="btn-orange" onClick={()=>{handleShow3(); setShowContent(false)}}>
                 My interests
               </button>
             </div>
@@ -451,7 +553,7 @@ const VideoCard = ({ video, index, topicPost }) => {
               </div>
             </div>
           </div>
-
+ 
           <div className="library-list mt-4">
             <div className="list-item-container">
               {topicPost &&
@@ -484,7 +586,7 @@ const VideoCard = ({ video, index, topicPost }) => {
           </div>
         </div>
       )}
-
+ 
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="video-card">
           <div className="video-card-content">
@@ -532,7 +634,7 @@ const VideoCard = ({ video, index, topicPost }) => {
                 </div>
                 <div className="eng-name">{"Engagement Rating"}</div>
               </div>
-
+ 
               <div className="video-de-title">
                 <div className="de-title">
                   <Link href="/watchvideo">{video.title}</Link>
@@ -620,7 +722,7 @@ const VideoCard = ({ video, index, topicPost }) => {
                   )}
                 </div>
               </div>
-
+ 
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
@@ -640,8 +742,8 @@ const VideoCard = ({ video, index, topicPost }) => {
     </>
   );
 };
-
-const VideoCardGrid = ({ getPost, topicPost }) => (
+ 
+const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest }) => (
   console.log(getPost, "this is get post---11111"),
   (
     <div className="row">
@@ -653,10 +755,14 @@ const VideoCardGrid = ({ getPost, topicPost }) => (
             video={video}
             index={index}
             topicPost={topicPost}
+            substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}
           />
         ))}
     </div>
   )
 );
-
+ 
 export default VideoCardGrid;
+ 
+
+ 

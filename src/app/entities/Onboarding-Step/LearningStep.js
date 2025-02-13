@@ -28,12 +28,6 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     };
     console.log(currentIndex,"this is the current index")
 
-    // const previousSlide = () => {
-    //     if (currentIndex > 0) {
-    //         setCurrentIndex(currentIndex - 1);
-    //     }
-    // };
-
     const nextSlide = () => {
         if (currentIndex < images.length - 1) {
             setCurrentIndex(currentIndex + 1);
@@ -57,22 +51,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
         topic.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // const handleChange = (e) => {
-    //     const { id, checked } = e.target;
-    //     if (id === "deselect-all") {
-    //         const newCheckedState = {};
-    //         if (!checked) {
-    //             Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
-    //         }
-    //         setCheckedItems(newCheckedState);
-    //     } else {
-    //         setCheckedItems({
-    //             ...checkedItems,
-    //             [id]: checked,
-    //         });
-    //     }
-    //     // console.log(checkedItems,"this is ------")
-    // };
+   
     useEffect(() => {
         console.log(item1, 'my item is here')
     }, [item,item1])
@@ -126,109 +105,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
             }
         }
     };
-    
-    // const topics = [
-    //     { id: "alcohol", label: "Alcohol" },
-    //     { id: "anxiety", label: "Anxiety" },
-    //     { id: "addiction", label: "Addiction" },
-    //     { id: "anger", label: "Anger" },
-    //     { id: "bodyImage", label: "Body Image" },
-    //     { id: "bullying", label: "Bullying" },
-    //     { id: "cannabis", label: "Cannabis & Synthetic Cannabinoids" },
-    //     { id: "cigarettes", label: "Cigarettes" },
-    //     { id: "cyberbullying", label: "Cyberbullying" },
-    //     { id: "decisionmaking", label: "Decision making" },
-    //     { id: "depression", label: "Depression" },
-    //     { id: "dopamine", label: "Dopamine" },
-    //     { id: "eating", label: "Eating disorders" },
-    //     { id: "E-cigarettes", label: "E-cigarettes" },
-    // ];
-    
-
-    
-
-    // const topicsSecond = [
-    //     { id: "abuse", label: "Abuse" },
-    //     { id: "death", label: "Death" },
-    //     { id: "discussions", label: "Discussions or Depictions of Self-Harm" },
-    //     { id: "disturbing", label: "Disturbing Images" },
-    //     { id: "gore", label: "Gore" },
-    //     { id: "sexual", label: "Sexual Imagery" },
-    //     { id: "sexualLanguage", label: "Sexual Language/Explicit" },
-    // ];
-
-    // Handle individual checkbox changes
-    // const handleCheckboxChange = (e) => {
-    //     const { id, checked } = e.target;
-    //     if (id === "select-all") {
-    //         const newState = {};
-    //         topics.forEach((topic) => {
-    //             newState[topic.id] = checked;
-    //         });
-    //         setCheckedItems1(newState);
-    //         setSelectAll(checked);
-    //     } else {
-    //         setCheckedItems1((prevState) => ({
-    //             ...prevState,
-    //             [id]: checked,
-    //         }));
-    //         setSelectAll(Object.values(checkedItems1).every((val) => val) && checked);
-    //     }
-    // };
-
-    // const states = [
-    //     "Alabama",
-    //     "Alaska",
-    //     "Arizona",
-    //     "Arkansas",
-    //     "California",
-    //     "Colorado",
-    //     "Connecticut",
-    //     "Delaware",
-    //     "District of Columbia",
-    //     "Florida",
-    //     "Georgia",
-    // ];
-
-    // const [selectedItems, setSelectedItems] = useState({
-    //     'deselect-all': false,
-    //     'abuse': false,
-    //     'death': false,
-    //     'discussions': false,
-    //     'disturbing': false,
-    //     'gore': false,
-    //     'sexual': false,
-    // });
-
-    // const handleSelectAllChange = (e) => {
-    //     const isChecked = e.target.checked;
-    //     setSelectedItems((prevState) => {
-    //         const newState = Object.keys(prevState).reduce((acc, key) => {
-    //             acc[key] = isChecked;
-    //             return acc;
-    //         }, {});
-    //         return newState;
-    //     });
-    // };
-
-    // const handleCheckboxChange1 = (e) => {
-    //     const { id, checked } = e.target;
-    //     setSelectedItems((prevState) => ({
-    //         ...prevState,
-    //         [id]: checked,
-    //     }));
-    // };
-
-    // const checkboxes = [
-    //     { id: 'deselect-all', label: 'Select all', isSelectAll: true },
-    //     { id: 'abuse', label: 'Student Academic Success' },
-    //     { id: 'death', label: 'Enhance Learning Environments' },
-    //     { id: 'discussions', label: 'Student Social Success' },
-    //     { id: 'disturbing', label: 'Student Relationship with Self' },
-    //     { id: 'gore', label: 'Student Knowledge of High-Risk Behaviors' },
-    //     { id: 'sexual', label: 'Student Manageability of Life' },
-    // ];
-
+ 
     const [minValue, setMinValue] = useState(12);
     const [maxValue, setMaxValue] = useState(30);
 
@@ -250,11 +127,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     };
 
 
-    // const filteredTopics1 = (educationalObjective|| []).filter(topic =>
-    //     topic.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
-    // console.log(educationalObjective,"this is education 222")
-    // console.log(checkedItems,'this is checked items')
+
     return (
         <div className="main-screen">
             <div className="row align-items-center">

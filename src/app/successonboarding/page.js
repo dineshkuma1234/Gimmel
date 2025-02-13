@@ -8,7 +8,7 @@ function Success() {
     return (
         <>
             <div className="main-screen bg-blue">
-                <div className="row align-items-center">
+                <div className="d-flex align-items-center">
                     <div className="col-md-7">
                         <div className="left-banner remove-shadow">
                             <div className="left-banner-content">

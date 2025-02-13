@@ -1827,7 +1827,21 @@ a.see-all {
   padding: 0;
   margin: 0;
 }
+.disabled-btn {
+    background-color: #87A0A5 !important;
+    cursor: not-allowed;
+    border-color: #87A0A5 !important;
+}
 
+.active-btn {
+    background-color: #FF8C00;
+}
+
+.disabled-btn:hover  {
+  background-color: #87A0A5 !important;
+  cursor: not-allowed;
+  border-color: #87A0A5 !important;
+}
 .modal-btn-list-item ul li {
   margin-bottom: 24px;
 }

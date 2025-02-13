@@ -8,95 +8,12 @@ import Image from 'next/image';
 import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
-import { Form } from 'react-bootstrap';
-import {VideoDetailsContext} from '../../Context/VideoDetails/videoDetailsContext';
-import { useRouter } from 'next/navigation';
+import { Form,ListGroup } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 
 
-//     {
-//         id: 1,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 2,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 3,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 4,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 5,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 6,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 7,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 8,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-// ];
 
-const VideoCard = ({ video,video_id,getvideoid}) => {
-    const router = useRouter();
+const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
@@ -138,6 +55,22 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [checkedItems, setCheckedItems] = useState({});
+    const [checkedItems1, setCheckedItems1] = useState({});
+    const [checkedItems2, setCheckedItems2] = useState({});
+    const [checkedItems3, setCheckedItems3] = useState({});
+    const [selectedSubstance,setselectedSubstance]=useState([]);
+    const [selectedHealth,setselectedHealth]=useState([]);
+    const [selectedneuroscience,setselectedNeuroscience]=useState([]);
+    const [selectSocialIssue,setselectSocialIssue]=useState([]);
+    const [interestsDescription, setInterestsDescription] = useState("");
+    const [showContent, setShowContent] = useState(true);
+    
+    const [show3, setShow3] = useState(false);
+
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
+
     const [show1, setShow1] = useState(false);
 
     const handleClose1 = () => setShow1(false);
@@ -153,6 +86,77 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
     const handleToggle = () => {
         setIsExpanded(!isExpanded);
     };
+    
+    const selectedCount = Object.values(checkedItems).filter(Boolean).length;
+    const selectedCount1 = Object.values(checkedItems1).filter(Boolean).length;
+    const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
+    const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
+
+    const handleChange = (e) => {
+        const { id, checked } = e.target;
+        setCheckedItems({
+            ...checkedItems,
+            [id]: checked,
+        });
+            setselectedSubstance((prevCheckedItems)=>{
+                if(checked){
+                 return [...prevCheckedItems,id]
+                }else{
+                    return prevCheckedItems.filter((item) => item!== id)
+                }
+            });
+    };
+
+    const handleChange1 = (e) => {
+        const { id, checked } = e.target;
+        setCheckedItems1({
+            ...checkedItems1,
+            [id]: checked,
+        });
+        setselectedHealth((prevCheckedItems)=>{
+            if (checked){
+            return [...prevCheckedItems,id]
+            }else{
+                return prevCheckedItems.filter((item)=>item!==id)
+            }
+        })
+    };
+    
+    const handleChange2=(e)=>{
+        const {id,checked}=e.target;
+       setCheckedItems2({
+        ...checkedItems2,
+        [id]:checked
+       })
+       setselectedNeuroscience((prevCheckedItems)=>{
+        if(checked){
+            return [...prevCheckedItems,id];
+        }else{
+            return prevCheckedItems.filter((item)=>item!==id)
+        }
+       })
+    }
+    const handleChange3=(e)=>{
+        const {id,checked}=e.target;
+        setCheckedItems3({
+            ...checkedItems3,
+            [id]:checked
+        });
+        setselectSocialIssue((prevCheckedItems)=>{
+            if(checked){
+                return [...prevCheckedItems,id]
+            }else{
+                return prevCheckedItems.filter((item)=>item!==id)
+            }
+        })
+    }
+    const handleChange4 = (event) => {
+        const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
+        if (words.length <= 60) {
+            setInterestsDescription(event.target.value);
+        }
+    };
+    
 
     // console.log(video,"video")
     const handleNavigate = (video) => {
@@ -164,6 +168,142 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
 
     return (
         <>
+        {/* New folder Modal start */}
+        <Modal show={show3} onHide={handleClose3} centered className='custom-modal filter-modal'>
+        <Modal.Header closeButton>
+                    <Modal.Title>Select some categories</Modal.Title>
+                </Modal.Header>
+               
+                <div className="dropdown-divider mb-0"></div>
+                <Modal.Body className="">
+                    
+                    <div className="custom-modal-body">
+                        <Accordion defaultActiveKey="0">
+                            <Accordion.Item eventKey="0" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Substance Use</span>
+                                        <div className="select-count">{selectedCount}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {substance.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Mental Health</span>
+                                        <div className="select-count">{selectedCount1}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {mentalHealth.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems1[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange1}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="2" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Neuroscience</span>
+                                        <div className="select-count">{selectedCount2}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {neuroScience.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems2[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange2}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="3" className='modal-select-item'>
+                                <Accordion.Header>
+                                    <div className="d-flex justify-content-between align-items-center w-100">
+                                        <span className="accordion-title">Social Issues</span>
+                                        <div className="select-count">{selectedCount3}</div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="checkbox-group">
+                                        <Form>
+                                            <ListGroup>
+                                                {socialIssues.map((topic,index) => (
+                                                    <ListGroup.Item key={index}>
+                                                        <Form.Check
+                                                            type="checkbox"
+                                                            id={topic.name}
+                                                            label={topic.name}
+                                                            checked={!!checkedItems3[topic.name]} // Default to false if undefined
+                                                            onChange={handleChange3}
+                                                        />
+                                                    </ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Form>
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+
+                        </Accordion>
+                    </div>
+                    <div className="text-area mt-4">
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Give us a description of your interests</Form.Label>
+                            <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChange4} />
+                            <p className="mt-2">{interestsDescription.length}/60 words</p>
+                        </Form.Group>
+                    </div>
+
+                    <div className="body-footer">
+                    <button type="button" className={`btn-color-orange ${selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription} >Send</button>
+                    </div>
+                    
+                </Modal.Body>
+            </Modal>
 
             {/* New folder Modal start */}
             <Modal show={show2} onHide={handleClose2} centered className='custom-modal new-folder-modal'>
@@ -200,9 +340,7 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
                     <div className='modal-bar show_mobile'>
                         <div className='bar-line'></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
-                    <p>Nulla in libero eget ex tristique pellentesque. Sed ex massa, cursus sagittis interdum ac, iaculis eget est. Vestibulum leo neque, eleifend et pretium vehicula, finibus sit amet dui. Phasellus nec eros a orci ultrices sagittis sit amet in lacus. Morbi nec commodo justo. Cras at varius risus. Cras nec libero consequat, vulputate felis ut, pharetra libero. Fusce ornare arcu ultrices lectus vulputate ultrices. Aenean purus nisl, bibendum vel massa eget, porttitor gravida ligula. Sed ut ante convallis, pretium quam pretium, eleifend ante. </p>
-                    <p>Donec tempus mollis quam, quis molestie neque pretium ut. In eu venenatis nisi. Nam tristique sed nisi a aliquet. Praesent mauris neque, ornare nec commodo sed, aliquam at mi. Vivamus sit amet libero et felis pretium tempor tincidunt vel dui. Suspendisse tincidunt pharetra bibendum.</p>
+                    <p>{video.description}</p>
                 </Modal.Body>
             </Modal>
 
@@ -286,29 +424,27 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
                 </Modal.Body>
             </Modal>
 
-
-            {/* <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+            
+           {index === 5  && showContent&& <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className='my-interests-card'>
                     <div className="video-card-1">
                         <div className="video-card-content">
-                            <Link href="/videodetails">
-                                <div className="video-card-image">
-                                    <Image src={require("../../../assets/images/bg-in.png")} alt="video card" />
-                                    <div className="video-duration">{video.duration}</div>
-                                </div>
-                            </Link>
+                            <div className="video-card-image">
+                                <Image src={require("../../../assets/images/bg-in.png")} alt="video card" />
+                            </div>
                         </div>
                         <div className="video-card-detail p-0">
                             <div className='dark-text'>
                                 What are you interested about so we can suggest you better content
                             </div>
                             <div className='btn-color-orange-design'>
-                                <button type="button" className="btn-color-orange-outline">My interests</button>
+                                <button type="button" className="btn-color-orange-outline" onClick={()=>{handleShow3(); setShowContent(false);}}>My interests</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>}
+            
 
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
@@ -412,12 +548,12 @@ const VideoCard = ({ video,video_id,getvideoid}) => {
     );
 };
 
-const VideoCardGrid = ({getPost,video_id,getvideoid}) => (
+const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest}) => (
     console.log(getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
-            <VideoCard key={`video-${index}`} video={video}  id={video_id} getvideoid={getvideoid} />
+            <VideoCard key={`video-${index}`} video={video} index={index} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}/>
         ))}
     </div>
 );

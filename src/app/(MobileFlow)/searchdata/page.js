@@ -50,11 +50,7 @@ console.log(headerSearch,"headerSearch====")
                             </div>
                         </div>
                     </div>
-                    <div className="bottom-bar-modal">
-                        <div className="bottom-btn-bar-inner">
-                            <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={handleClose}>Apply filters</button>
-                        </div>
-                    </div>
+                   
                 </Modal.Body>
             </Modal>
 
@@ -106,9 +102,9 @@ console.log(headerSearch,"headerSearch====")
                                             {item.title}
                                         </div>
                                         <div className="inline-search">
-                                            <div className='search-history-img'>
+                                            {/* <div className='search-history-img'>
                                                 <Image src={item.thumbnail} alt="slider thumbnil" />
-                                            </div>
+                                            </div> */}
                                             <div className='search-history-icon'>
                                                 <Image src={require("../../../assets/images/north_east.svg")} alt="slider thumbnil" />
                                             </div>
