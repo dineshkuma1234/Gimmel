@@ -142,6 +142,19 @@ const AuthService = {
     };
     return ApiCallGet(url, params, headers);
   },
+  getvideoid: async (postId) => {
+    const token = await localStorage.getItem('token');
+    console.log(token, 'token---');
+    const { authBaseUrl, homegetvideoid } = ApiConfig;
+    const url = authBaseUrl + homegetvideoid + '/' + postId;
+    console.log(url, 'url----');
+    const params = {};
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
 
   NotIntrested: async (id) => {
     const token = await localStorage.getItem('token');

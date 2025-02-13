@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Main from "./entities/main/page";
-import MainMobile from './(MobileFlow)/mobile-main/page';
-import AuthService from '../services/AuthService';
-import { useRouter } from "next/navigation";
-// import Home from './Home/page';
+import Main from "../entities/main/page";
+import MainMobile from '../(MobileFlow)/mobile-main/page';
+import AuthService from '../../services/AuthService';
+import { useParams, useRouter } from "next/navigation";
 
-export default function PageComponent() {
+export default function Home() {
   const router = useRouter(); 
+  const {  } = useParams();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -16,6 +16,7 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
+  // console.log(getvideoid,"getvideoid---")
 //   // Track screen width for responsive rendering
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -59,6 +60,11 @@ export default function PageComponent() {
   const handleGetPost = async (page) => {
     setLoading(true);
     try {
+    
+      const data = {
+        id: video_id
+      }
+
       const result = await AuthService.GetPost(page);
       console.log(result, "result----");
 
@@ -187,7 +193,7 @@ const handleHistoryList = async (headerSearch) => {
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}  />
+        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} id= {video_id} />
       ) : (
         <MainMobile  getPost={getPost} topicPost={topicPost} />
         
@@ -196,8 +202,6 @@ const handleHistoryList = async (headerSearch) => {
       )}
 
       {loading && <p style={{ textAlign: 'center', margin: '20px 0' }}>Loading more posts...</p>}
-
-      {/* <Home /> */}
     </>
   );
 }

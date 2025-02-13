@@ -1,7 +1,7 @@
 "use client"
 
 // VideoCardGrid.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import Image from 'next/image';
@@ -9,92 +9,96 @@ import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
 import { Form } from 'react-bootstrap';
+import {VideoDetailsContext} from '../../Context/VideoDetails/videoDetailsContext';
+import { useRouter } from 'next/navigation';
 
-const videoData = [
-    {
-        id: 1,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 2,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 3,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 4,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 5,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 6,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 7,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 8,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-];
 
-const VideoCard = ({ video, }) => {
+//     {
+//         id: 1,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 2,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 3,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 4,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 5,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 6,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 7,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 8,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+// ];
+
+const VideoCard = ({ video,video_id,getvideoid}) => {
+    const router = useRouter();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
@@ -149,6 +153,14 @@ const VideoCard = ({ video, }) => {
     const handleToggle = () => {
         setIsExpanded(!isExpanded);
     };
+
+    // console.log(video,"video")
+    const handleNavigate = (video) => {
+
+        updateVideoDetailsState(video);
+        router.push(`/mainHome/${video?._id}/videodetails2`);
+
+      };
 
     return (
         <>
@@ -301,12 +313,12 @@ const VideoCard = ({ video, }) => {
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className="video-card">
                     <div className="video-card-content">
-                        <Link href="/videodetails" >
+                        <div onClick={() => {handleNavigate(video)}}> 
                             <div className="video-card-image">
                                 <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>
                             </div>
-                        </Link>
+                        </div>
                         <div className="video-card-detail">
                             <div className="eng-rating">
                                 <div className="rating-icon">
@@ -400,12 +412,12 @@ const VideoCard = ({ video, }) => {
     );
 };
 
-const VideoCardGrid = ({getPost}) => (
+const VideoCardGrid = ({getPost,video_id,getvideoid}) => (
     console.log(getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
-            <VideoCard key={`video-${index}`} video={video} />
+            <VideoCard key={`video-${index}`} video={video}  id={video_id} getvideoid={getvideoid} />
         ))}
     </div>
 );

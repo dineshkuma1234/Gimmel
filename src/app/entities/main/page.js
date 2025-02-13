@@ -5,7 +5,7 @@ import SliderSection from "../../componentsIn/slider/slider";
 import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
 import Link from "next/link";
 
-function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
+function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,getvideoid,video_id}) {
     return (
         <>
             <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont}/>
@@ -26,7 +26,7 @@ function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryLi
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-                    <VideoCardGrid getPost={getPost}   />
+                    <VideoCardGrid getPost={getPost} getvideoid={getvideoid} id={video_id}  />
 
                     {/* <div className="page-main-title">
                         <h3>Recommended for you</h3>

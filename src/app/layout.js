@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
 import "../assets/css/style.css";
 import "../assets/css/responsive.css";
-
+import {VideoDetailsProvider} from "./Context/VideoDetails/videoDetailsContext";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,7 +26,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+         <VideoDetailsProvider>
         {children}
+        </VideoDetailsProvider>
       </body>
     </html>
   );
