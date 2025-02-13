@@ -129,6 +129,7 @@ const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScien
       const [selectedneuroscience,setselectedNeuroscience]=useState([]);
       const [selectSocialIssue,setselectSocialIssue]=useState([]);
       const [interestsDescription, setInterestsDescription] = useState("");
+      const [showContent, setShowContent] = useState(true);
  
   // Handle checkbox state change
   const handleChange = (e) => {
@@ -205,21 +206,7 @@ const handleChange4 = (event) => {
     const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
  
  
-  console.log(index, "index---");
-  const isButtonDisabled = () => {
-    console.log("selectedSubstance:", selectedSubstance);
-    console.log("selectedHealth:", selectedHealth);
-    console.log("selectedneuroscience:", selectedneuroscience);
-    console.log("selectSocialIssue:", selectSocialIssue);
-    console.log("interestsDescription:", interestsDescription);
-    return (
-        selectedSubstance.length === 0 || 
-        selectedHealth.length === 0 || 
-        selectedneuroscience.length === 0 || 
-        selectSocialIssue.length === 0 || 
-        interestsDescription.trim().length === 0
-    );
-};
+  
   return (
     <>
       <Modal show={show} onHide={handleClose} centered className="custom-modal">
@@ -517,14 +504,14 @@ const handleChange4 = (event) => {
           </div>
           <div className="bottom-bar-modal">
             <div className="bottom-btn-bar-inner">
-            <button type="button" className={`btn-color-orange ${isButtonDisabled() ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={isButtonDisabled()} >Send</button>
+            <button type="button" className={`btn-color-orange ${selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription} >Send</button>
             </div>
           </div>
         </Modal.Body>
       </Modal>
  
       {/* My Interests section here  */}
-      {index === 6 && (
+      {index === 6 && showContent && (
         <div className="bg-orange-section">
           <div className="bg-orange-inner">
             <div className="bg-orange-title inline-gap-8">
@@ -539,7 +526,7 @@ const handleChange4 = (event) => {
               </div>
             </div>
             <div className="bg-orange-button">
-              <button className="btn-orange" onClick={handleShow3}>
+              <button className="btn-orange" onClick={()=>{handleShow3(); setShowContent(false)}}>
                 My interests
               </button>
             </div>

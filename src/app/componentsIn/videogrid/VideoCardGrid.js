@@ -63,6 +63,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
     const [selectedneuroscience,setselectedNeuroscience]=useState([]);
     const [selectSocialIssue,setselectSocialIssue]=useState([]);
     const [interestsDescription, setInterestsDescription] = useState("");
+    const [showContent, setShowContent] = useState(true);
     
     const [show3, setShow3] = useState(false);
 
@@ -154,21 +155,8 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
             setInterestsDescription(event.target.value);
         }
     };
-    console.log(selectedSubstance,"selectedSubstance-----")
-    const isButtonDisabled = () => {
-        console.log("selectedSubstance:", selectedSubstance);
-        console.log("selectedHealth:", selectedHealth);
-        console.log("selectedneuroscience:", selectedneuroscience);
-        console.log("selectSocialIssue:", selectSocialIssue);
-        console.log("interestsDescription:", interestsDescription);
-        return (
-            selectedSubstance.length === 0 || 
-            selectedHealth.length === 0 || 
-            selectedneuroscience.length === 0 || 
-            selectSocialIssue.length === 0 || 
-            interestsDescription.trim().length === 0
-        );
-    };
+    
+
     return (
         <>
         {/* New folder Modal start */}
@@ -302,7 +290,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                     </div>
 
                     <div className="body-footer">
-                    <button type="button" className={`btn-color-orange ${isButtonDisabled() ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length === 0 || selectedHealth.length === 0 || selectedneuroscience.length === 0 || selectSocialIssue.length === 0 || interestsDescription.trim().length === 0} >Send</button>
+                    <button type="button" className={`btn-color-orange ${selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription} >Send</button>
                     </div>
                     
                 </Modal.Body>
@@ -428,7 +416,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
             </Modal>
 
             
-           {index === 5  && <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+           {index === 5  && showContent&& <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className='my-interests-card'>
                     <div className="video-card-1">
                         <div className="video-card-content">
@@ -441,7 +429,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                 What are you interested about so we can suggest you better content
                             </div>
                             <div className='btn-color-orange-design'>
-                                <button type="button" className="btn-color-orange-outline" onClick={handleShow3}>My interests</button>
+                                <button type="button" className="btn-color-orange-outline" onClick={()=>{handleShow3(); setShowContent(false);}}>My interests</button>
                             </div>
                         </div>
                     </div>
