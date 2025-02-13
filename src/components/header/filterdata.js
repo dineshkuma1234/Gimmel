@@ -41,7 +41,7 @@ const options = [
 ];
 
 function FilterData({handleSearchCont,headerSearch}) {
-    const [selectedAge, setSelectedAge] = useState("18");
+    const [selectedAge, setSelectedAge] = useState("");
 
     const handleClick = (age) => {
         setSelectedAge(age);
@@ -112,7 +112,16 @@ function FilterData({handleSearchCont,headerSearch}) {
 
     const [isOn,setIsOn]=useState(false)
 
+    console.log(isOn,"this is chips---")
     console.log(chips,"this is chips---")
+    console.log( inputValue,"this is inputValue---")
+
+    console.log(selectedAge,"this is selectedAge---")
+    console.log(selectedEngagement,"this is selectedEngagement---")
+    console.log(selectedDate,"this is selectedDate---")
+    console.log(sliderValue,"this is sliderValue---")
+    console.log(selectedValue,"this is selectedValue---")
+    console.log(selectedAudience,"this is selectedAudience---")
     return (
         <>
             <div className="middle-section">
@@ -159,7 +168,7 @@ function FilterData({handleSearchCont,headerSearch}) {
                             )}
                         </div>
 
-                        <div className='search-container m-0'>
+                        <div className='search-container d-flex m-0'>
                             <input
                                 type="text"
                                 className="search-input"
@@ -273,36 +282,9 @@ function FilterData({handleSearchCont,headerSearch}) {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            {/* <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "today" ? "active" : ""}`}
-                                id="list-home-list"
-                                onClick={() => handleClick2("today")}
-                            >
-                                Today
-                            </button>
+                            
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "thisWeek" ? "active" : ""}`}
-                                id="list-profile-list"
-                                onClick={() => handleClick2("thisWeek")}
-                            >
-                                This week
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "thisMonth" ? "active" : ""}`}
-                                id="list-messages-list"
-                                onClick={() => handleClick2("thisMonth")}
-                            >
-                                This month
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "thisYear" ? "active" : ""}`}
-                                id="list-settings-list"
-                                onClick={() => handleClick2("thisYear")}
-                            >
-                                This year
-                            </button> */}
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "NewlyPublished" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action w-100 ${selectedDate === "NewlyPublished" ? "active" : ""}`}
                                 id="list-settings-list"
                                 onClick={() => handleClick2("NewlyPublished")}
                             >
@@ -433,7 +415,7 @@ function FilterData({handleSearchCont,headerSearch}) {
                 <div className="show_mobile">
                     <div className="bottom-bar-modal">
                         <div className="bottom-btn-bar-inner">
-                            <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={()=>{
+                            <button type="button" className="btn-color-orange" data-bs-dismiss="modal"  onClick={()=>{
                                 handleSearchCont(
                                     headerSearch,
                                     isOn,
