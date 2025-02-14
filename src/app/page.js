@@ -5,7 +5,7 @@ import Main from "./entities/main/page";
 import MainMobile from './(MobileFlow)/mobile-main/page';
 import AuthService from '../services/AuthService';
 import { useRouter } from "next/navigation";
-import LoaderHelper from '@/LoaderHelper/LoaderHelper';
+// import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
 
@@ -121,15 +121,15 @@ const handleTopicPost = async () => {
   
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
-    LoaderHelper.loaderStatus(true);
+    // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
