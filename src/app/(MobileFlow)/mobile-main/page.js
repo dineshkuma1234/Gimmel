@@ -16,42 +16,13 @@ import Accordion from 'react-bootstrap/Accordion';
  
  
 
-<<<<<<< HEAD
 function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest }) {
  
-=======
 
-const videoData = [
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: require("../../../assets/images/video-thumbnil.svg"),
-    },
-    {
-        title: "Recognizing the Signs: How to Prevent Substance Abuse",
-        duration: "3:45",
-        image: require("../../../assets/images/image.svg"),
-    },
-    {
-        title: "Understanding the Risks: A Guide to Addiction Prevention",
-        duration: "1:15",
-        image: require("../../../assets/images/quantum.svg"),
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "4:20",
-        image: require("../../../assets/images/minimalism.svg"),
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: require("../../../assets/images/video-thumbnil.svg"),
-    },
-]
 
-function MainMobile({getPost,topicPost}) {
 
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
+
+
     const [show2, setShow2] = useState(false);
  
     const handleClose2 = () => setShow2(false);
@@ -124,17 +95,16 @@ function MainMobile({getPost,topicPost}) {
                     <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
-<<<<<<< HEAD
+
  
                     <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
  
-                   
-=======
 
-                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost}/>
 
-                    
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
+
+ 
+ 
+
                 </div>
             </main>
  

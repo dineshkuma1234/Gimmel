@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
-function Step1() {
+function Step1({getQuiz}) {
+console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
     const [show, setShow] = useState(false);
 
@@ -38,40 +39,50 @@ function Step1() {
 
                 <div className="question-container">
                     <div className="question-list">
-                        <div className="question">
-                            <div className="question-title">Question 1</div>
+                    {Array.isArray(getQuiz) && getQuiz.map((item, index) => (
+                        <div className="question" key={`question-${index}`}>
+                            <div className="question-title">{item?.number}</div>
                             <div className="question-content">
-                                Smoking can lead to numerous health problems. Which of the following is a primary effect of smoking on the respiratory system?
+                                {/* Smoking can lead to numerous health problems. Which of the following is a primary effect of smoking on the respiratory system? */}
+                            {item?.question}
                             </div>
                             <Form className="question-select">
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
+                                        {item?.options?.map((option, optionIndex) => (
                                         <Form.Check
+                                        key={`inline-${type}-${index}-${optionIndex}`}
                                             inline
-                                            label="Chronic Obstructive Pulmonary Disease (COPD)"
-                                            name="group1"
+                                            label={option?.answer}
+                                            name={`group-${index}`}
                                             type={type}
-                                            id={`inline-${type}-1`}
+                                            id={`inline-${type}-${index}-${optionIndex}`}
                                         />
-                                        <Form.Check
-                                            inline
-                                            label="Improved lung function"
-                                            name="group1"
-                                            type={type}
-                                            id={`inline-${type}-2`}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Reduced risk of respiratory infections"
-                                            name="group1"
-                                            type={type}
-                                            id={`inline-${type}-3`}
-                                        />
+                                        // <Form.Check
+                                        //     inline
+                                        //     label="Improved lung function"
+                                        //     name="group1"
+                                        //     type={type}
+                                        //     id={`inline-${type}-2`}
+                                        // />
+                                        // <Form.Check
+                                        //     inline
+                                        //     label="Reduced risk of respiratory infections"
+                                        //     name="group1"
+                                        //     type={type}
+                                        //     id={`inline-${type}-3`}
+                                        // />
+                                    ))}
+ 
                                     </div>
+                                    
                                 ))}
                             </Form>
+                            
                         </div>
-                        <div className="question">
+                    ))}
+
+                        {/* <div className="question">
                             <div className="question-title">Question 2</div>
                             <div className="question-content">
                                 Explain how smoking affects cardiovascular health.
@@ -113,8 +124,10 @@ function Step1() {
                                     </div>
                                 ))}
                             </Form>
-                        </div>
+                        </div> */}
+                        
                     </div>
+                    
                 </div>
 
                 <div className="bottom-btn-bar">

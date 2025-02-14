@@ -5,6 +5,7 @@ import Main from "../entities/main/page";
 import MainMobile from '../(MobileFlow)/mobile-main/page';
 import AuthService from '../../services/AuthService';
 import { useParams, useRouter } from "next/navigation";
+import LoaderHelper from '../../LoaderHelper/page'
 
 export default function Home() {
   const router = useRouter(); 
@@ -123,15 +124,15 @@ const handleTopicPost = async () => {
   
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
-    // LoaderHelper.loaderStatus(true);
+    LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -151,7 +152,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedAudience,
   ) => {
     console.log(headerSearch,"usecase--0000")
-    // LoaderHelper.loaderStatus(true);
+    LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.SearchResult(
         headerSearch,
@@ -166,7 +167,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      // LoaderHelper.loaderStatus(false);
+      LoaderHelper.loaderStatus(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -185,7 +186,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      LoaderHelper.loaderStatus(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };

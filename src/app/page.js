@@ -5,7 +5,9 @@ import Main from "./entities/main/page";
 import MainMobile from './(MobileFlow)/mobile-main/page';
 import AuthService from '../services/AuthService';
 import { useRouter } from "next/navigation";
+import LoaderHelper from '@/LoaderHelper/LoaderHelper';
 // import Home from './Home/page';
+// import LoaderHelper from '../LoaderHelper/page'
 
 export default function PageComponent() {
   const router = useRouter(); 
@@ -16,13 +18,7 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
-<<<<<<< HEAD
-  
 
-  // Track screen width for responsive rendering
-=======
-//   // Track screen width for responsive rendering
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -125,15 +121,15 @@ const handleTopicPost = async () => {
   
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
-    // LoaderHelper.loaderStatus(true);
+    LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -168,7 +164,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      // LoaderHelper.loaderStatus(false);
+      LoaderHelper.loaderStatus(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -187,7 +183,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      LoaderHelper.loaderStatus(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
@@ -290,12 +286,12 @@ const handleHistoryList = async (headerSearch) => {
    
 };
   const handleInterestFilter = async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
-    // LoaderHelper.loaderStatus(true);
+    LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
       console.log(result,"result of interest filter ---")
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
         localStorage.setItem('interest', isInterestValue);
@@ -303,26 +299,27 @@ const handleHistoryList = async (headerSearch) => {
         getInterestFromStorage();
         handleGetPost();
       } else {
-        // LoaderHelper.loaderStatus(false);
+        LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      LoaderHelper.loaderStatus(false);
       // console.log('Error occurred:', 'Gimmel', error);
     }
   };
 
   console.log(interest,"interest---") 
+
   return (
     <>
       {deviceWidth > 991 ? (
         <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
       ) : (
-<<<<<<< HEAD
+
+        
+
         <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
-=======
-        <MainMobile  getPost={getPost} topicPost={topicPost} />
->>>>>>> 28b5e0b14a27316cd32952608a4b18f5c6832d68
+
         
         
 
