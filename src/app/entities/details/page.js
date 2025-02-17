@@ -16,9 +16,9 @@ import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 import Link from "next/link";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,value,handleCreateFolder,handleDeleteFolder,handleRename,handleSaveVideo}) {
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleRename,handleSaveVideo,setSelectedFolderId}) {
  console.log(data,"nwe")
- console.log(VideoDetailsState,"VideoDetailsState")
+ console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
 
     const [show1, setShow1] = useState(false);
@@ -65,20 +65,16 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
         };
     }, []);
 
-    const [folders, setFolders] = useState([
-        { id: 1, name: 'My Library' },
-        { id: 2, name: 'Work Documents' },
-        { id: 3, name: 'Personal Files' },
-    ]);
-
+     const [folders, setFolders] = useState('');
     // Function to add a new folder
-    const addNewFolder = () => {
-        const newFolder = {
-            id: folders.length + 1,
-            name: `New Folder ${folders.length + 1}`,
-        };
-        setFolders([...folders, newFolder]);
-    };
+    // const addNewFolder = () => {
+    //     const newFolder = {
+    //         id: folders.length + 1,
+    //         name: `New Folder ${folders.length + 1}`,
+    //     };
+    //     setFolders([...folders, newFolder]);
+    // };
+ 
 
     const convertToKM =(num)=> {
         if (num >= 1000000) {
@@ -115,6 +111,15 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
         }
         return timeAgo;
     }
+    const handleChange = (e) => {
+        setFolders(e.target.value);
+    }
+
+    const handleNavigateSave = (_id) => {
+        setSelectedFolderId(_id);
+        // console.log('Clicked Folder ID:', folderId);
+    }; 
+    console.log('folders====00000098888', folders)
     return (
         <>
             
@@ -284,8 +289,8 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                     </div>
                     <div className='body-middle'>
                         <div className='folder-lists'>
-                            {folders.map((folder) => (
-                                <div key={folder.id} className='folder-view'>
+                        {Array.isArray(getFolder) && getFolder.map((item,index) => (
+                                <div key={index} className='folder-view'>
                                     <div className='folder-inner'>
                                         <div className='folder-content-inline'>
                                             <div className='folder-content-left'>
@@ -303,8 +308,10 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                                                         />
                                                     </svg>
                                                 </div>
-                                                <div className='folder-name'>
-                                                    <p>{folder.name}</p>
+                                                <div className='folder-name' onClick={()=>
+                                                     handleNavigateSave(item?._id)
+                                                } >
+                                                    <p>{item.name}</p>
                                                 </div>
                                             </div>
                                             <div className='folder-content-right'>
@@ -328,7 +335,10 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" onClick={handleClose1}>Save here</button>
+                        <button type="button" className="btn-color-orange" onClick={ () =>{
+                        handleClose1
+                        handleSaveVideo()
+                        }}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
@@ -343,7 +353,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         <div className="input-container modal-input">
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder=""  onChange={(e) => handleChange(e)}  />
                             </Form.Group>
                         </div>
                     </div>
@@ -351,7 +361,9 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         <button className="btn btn-color-orange" onClick={
                             () => {
                                 handleClose5();
-                                addNewFolder();
+                                // addNewFolder();
+                                handleCreateFolder(folders);
+
                             }
 
                         }>Create folder</button>

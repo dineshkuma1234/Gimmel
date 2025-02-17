@@ -19,13 +19,15 @@ function PageComponent() {
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
 
-  console.log('getQuiz', getQuiz)
+  console.log('selectedFolderId', selectedFolderId)
   useEffect(() => {
      
           handleGetPostid();
           handleQuiz()
           // handleSave()
           handleGetFolder(value);
+          handleCreateFolder()
+          handleSaveVideo()
 
   }, []);
   
@@ -76,6 +78,7 @@ function PageComponent() {
       try {
         const result = await AuthService.GetFolder(value);
         if (result?.success) {
+          // console.log(result,"result of get folder")
           // LoaderHelper.loaderStatus(false);
           setGetFolder(result?.data?.data);
         } else {
@@ -87,10 +90,10 @@ function PageComponent() {
       }
     };
   
-    const handleCreateFolder = async (addnewFolder) => {
+    const handleCreateFolder = async (folders) => {
       // LoaderHelper.loaderStatus(true);
       try {
-        const result = await AuthService.createFolder(addnewFolder);
+        const result = await AuthService.createFolder(folders);
         console.log(result, 'result');
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
@@ -148,12 +151,12 @@ function PageComponent() {
     const handleSaveVideo = async () => {
       
       if(!selectedFolderId){
-        AlertHelper.show('warning', 'Gimmel',"Please select folder");
+        // AlertHelper.show('warning', 'Gimmel',"Please select folder");
         return;
       }
       // LoaderHelper.loaderStatus(true);
       try {
-        const result = await AuthService.SaveVideo(selectedFolderId, postId);
+        const result = await AuthService.SaveVideo(selectedFolderId, id);
         console.log(result,"result of save video ---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
@@ -175,7 +178,7 @@ function PageComponent() {
   
 
   return (
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo}/>
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId}/>
   )
 }
 
