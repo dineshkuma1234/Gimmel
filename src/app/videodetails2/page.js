@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import VideoDetails from "../../../entities/details/page"
+import VideoDetails from '@/app/entities/details/page';
 import AuthService from "@/services/AuthService";
 import { useParams, useRouter } from 'next/navigation';
 
@@ -12,7 +12,8 @@ function PageComponent() {
   const [getvideoid, setgetvideoid] = useState([]);
   const [data , setdata] = useState();
   const [loading,setLoading] = useState(false);
-  console.log('data', datas)
+
+  // console.log('getQuiz+++++++++++++', getQuiz)
   useEffect(() => {
      
           // handleGetPostid();
@@ -42,9 +43,11 @@ function PageComponent() {
         setLoading(false);
       }
     };
+
+    
     
   return (
-    <VideoDetails getvideoid={getvideoid} data={data} />
+    <VideoDetails getvideoid={getvideoid} data={data}  />
   )
 }
 

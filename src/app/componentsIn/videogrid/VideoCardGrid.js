@@ -11,13 +11,19 @@ import Link from 'next/link';
 import { Form,ListGroup } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 
+import {VideoDetailsContext} from '../../Context/VideoDetails/videoDetailsContext';
+import { useRouter } from 'next/navigation';
+
+
+
 
 
 const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
-
+    
+    const router = useRouter();
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
@@ -160,11 +166,11 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
 
     // console.log(video,"video")
     const handleNavigate = (video) => {
-
         updateVideoDetailsState(video);
         router.push(`/mainHome/${video?._id}/videodetails2`);
 
       };
+
 
     return (
         <>

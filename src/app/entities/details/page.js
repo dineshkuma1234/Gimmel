@@ -16,7 +16,7 @@ import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 import Link from "next/link";
-function VideoDetails({data,VideoDetailsState}) {
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,value,handleCreateFolder,handleDeleteFolder,handleRename,handleSaveVideo}) {
  console.log(data,"nwe")
  console.log(VideoDetailsState,"VideoDetailsState")
 
@@ -567,7 +567,7 @@ function VideoDetails({data,VideoDetailsState}) {
                                         <Col sm={12}>
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="first">
-                                                    <Stap1 />
+                                                    <Stap1 getQuiz={getQuiz} />
                                                 </Tab.Pane>
                                             </Tab.Content>
                                         </Col>
