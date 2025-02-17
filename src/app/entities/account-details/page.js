@@ -42,7 +42,7 @@ const videoData = [
     },
 ]
 
-function AccountDetails() {
+function AccountDetails({profileInfo}) {
 
     const [isYearly, setIsYearly] = useState(false);
 
@@ -214,7 +214,7 @@ function AccountDetails() {
                                                 <Form.Label>Email address</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="exam.p@gmail.com" />
+                                                <Form.Control type="email" placeholder="exam.p@gmail.com" value={profileInfo?.email|| ''} />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
@@ -222,7 +222,7 @@ function AccountDetails() {
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" />
+                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" value={profileInfo?.phone||''}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -238,7 +238,7 @@ function AccountDetails() {
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="12-18" />
+                                                <Form.Control type="text" placeholder="12-18" value={`${profileInfo?.onboarding?.ageFrom?.toString()} - ${profileInfo?.onboarding?.ageTo?.toString()}` || ""} />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput5">
@@ -254,7 +254,7 @@ function AccountDetails() {
                                                 <Form.Label>Teaching interests</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Neurobiology, Alcohol, Anger, Body Image" />
+                                                <Form.Control type="text" placeholder="Neurobiology, Alcohol, Anger, Body Image" value={profileInfo?.onboarding?.teachingTopics}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput7">
@@ -270,7 +270,7 @@ function AccountDetails() {
                                                 <Form.Label>Educational objectives</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Student Academic Success" />
+                                                <Form.Control type="text" placeholder="Student Academic Success" value={profileInfo?.onboarding?.educationalObjectives} />
                                             </div>
                                         </Form.Group>
 

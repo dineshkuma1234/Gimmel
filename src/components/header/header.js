@@ -106,8 +106,13 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
                             //     handleShowHistory();
                             //     handleHistoryList(headerSearch);
                             //   }}
-                            onClick={()=>handleHistoryList()}
+                            onClick={()=>{handleHistoryList();  }}
                             onFocus={()=>handleShowHistory()}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleSearchCont(headerSearch);
+                                }}
+                            }    
 
                         />
                         <button className="search-button" onClick={handleShowFilter}>
