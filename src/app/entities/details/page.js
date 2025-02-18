@@ -150,18 +150,18 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
            }
        };
    
-       const showAlert = (item) => {
-        Alert.alart(
-            'Delete',
-            'Are you sure you want to delete this folder',
-            [
-                { text: 'Delete', onPress: () => handleDeleteFolder(item._id), style: 'destructive' },
-                { text: 'Cancel', style: 'cancel' },
-            ],
-            { cancelable: true }
-        );
+    //    const showAlert = (item) => {
+    //     Alert.alart(
+    //         'Delete',
+    //         'Are you sure you want to delete this folder',
+    //         [
+    //             { text: 'Delete', onPress: () => handleDeleteFolder(item._id), style: 'destructive' },
+    //             { text: 'Cancel', style: 'cancel' },
+    //         ],
+    //         { cancelable: true }
+    //     );
 
-    };
+    // };
 
        useEffect(() => {
            window.addEventListener("click", handleClickOutsidenwe);
