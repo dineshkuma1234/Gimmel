@@ -11,16 +11,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 
 
-const historyItems = [
-    "The Impact of Alcohol on Mental Health",
-    "Alcohol's Impact on Physical Health",
-    "Recognizing Alcohol Abuse and Dependence",
-    "Strategies for Reducing Alcohol Consumption",
-    "Alcohol and Youth: Risks and Prevention",
-    "Cognitive Behavioral Therapy for Depression",
-    "Exploring Dopamine's Role in Motivation",
-    "Risks of E-cigarettes and Vaping",
-];
+
 
 function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
 

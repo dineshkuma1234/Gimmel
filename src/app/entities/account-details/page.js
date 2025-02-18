@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
+import { MultiSelect } from "react-multi-select-component";
 import Header from "../../../components/header/header";
 import "./account.css";
 import { Form } from "react-bootstrap";
@@ -14,37 +14,13 @@ import Link from 'next/link';
 import { Modal } from 'react-bootstrap';
 
 
-const videoData = [
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Recognizing the Signs: How to Prevent Substance Abuse",
-        duration: "3:45",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Understanding the Risks: A Guide to Addiction Prevention",
-        duration: "1:15",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "4:20",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: "https://via.placeholder.com/150",
-    },
-]
-
-function AccountDetails({profileInfo}) {
+function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic}) {
 
     const [isYearly, setIsYearly] = useState(false);
+
+    const [selected, setSelected] = useState([]);
+    const [isEditable, setIsEditable] = useState(false);
+
 
     const togglePricing = () => {
         setIsYearly(!isYearly);
@@ -60,6 +36,32 @@ function AccountDetails({profileInfo}) {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
+    const handleEditClick = () => {
+        setIsEditable(!isEditable);
+    };
+
+    const [options,setOptions]= useState([]);
+     useEffect(()=>{
+        if (teachingTopic && Array.isArray(teachingTopic)){
+            const transformedOptions = teachingTopic.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions(transformedOptions);
+        }
+     },[teachingTopic]);
+     useEffect(() => {
+        if (profileInfo?.onboarding?.teachingTopics) {
+            const preSelected = profileInfo.onboarding.teachingTopics.map((topic) => ({
+                label: topic,
+                value: topic,
+            }));
+            setSelected(preSelected);
+        }
+    }, [profileInfo]);
+    const handleSelectChange = (selectedItems) => {
+        setSelected(selectedItems);
+    };
 
     return (
         <>
@@ -214,7 +216,7 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>Email address</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="exam.p@gmail.com" value={profileInfo?.email|| ''} />
+                                                <Form.Control type="email" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}  readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
@@ -222,7 +224,7 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" value={profileInfo?.phone||''}/>
+                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" defaultValue={profileInfo?.phone||''} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -230,7 +232,7 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>School Name</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="" />
+                                                <Form.Control type="text" placeholder="" defaultValue={profileInfo?.school||""} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput4">
@@ -238,23 +240,38 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="12-18" value={`${profileInfo?.onboarding?.ageFrom?.toString()} - ${profileInfo?.onboarding?.ageTo?.toString()}` || ""} />
+                                                <Form.Control type="text" placeholder="12-18" defaultValue={`${profileInfo?.onboarding?.ageFrom?.toString()} - ${profileInfo?.onboarding?.ageTo?.toString()}` || ""} readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
-                                        <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput5">
-                                            <div className="col-3">
-                                                <Form.Label>State</Form.Label>
-                                            </div>
-                                            <div className="col-9">
-                                                <Form.Control type="text" placeholder="Texas" />
-                                            </div>
-                                        </Form.Group>
+                                      
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput6">
                                             <div className="col-3">
                                                 <Form.Label>Teaching interests</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Neurobiology, Alcohol, Anger, Body Image" value={profileInfo?.onboarding?.teachingTopics}/>
+                                                {/* <Form.Control type="text"  defaultValue={profileInfo?.onboarding?.teachingTopics?.join(', ')||""} readOnly={!isEditable}/> */}
+                                                {!isEditable ? (
+                                                    // Display as text when not editable
+                                                    <Form.Control
+                                                        type="text"
+                                                        defaultValue={selected.map((item) => item.label).join(", ")}
+                                                        readOnly
+                                                    />
+                                                ) : (
+                                                    // MultiSelect when editable
+                                                    <MultiSelect
+                                                        options={options}
+                                                        value={selected}
+                                                        onChange={handleSelectChange}
+                                                        labelledBy="Select"
+                                                        overrideStrings={{
+                                                            selectSomeItems: "Select topics",
+                                                        }}
+                                                        className="multi-select"
+                                                        hasSelectAll={false} // Disable "Select All"
+                                                        disableSearch={true} // Disable search box
+                                                    />
+                                                )}
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput7">
@@ -262,7 +279,7 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>Maturity restrictions</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Abuse, Gore" />
+                                                <Form.Control type="text" defaultValue={profileInfo?.onboarding?.contentMaturityRestrictions?.join(', ')||""} readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput8">
@@ -270,12 +287,13 @@ function AccountDetails({profileInfo}) {
                                                 <Form.Label>Educational objectives</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Student Academic Success" value={profileInfo?.onboarding?.educationalObjectives} />
+                                                <Form.Control type="text"  defaultValue={profileInfo?.onboarding?.educationalObjectives?.join(', ')|| ""} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
+                                      
 
                                         <div className="text-right" style={{ textAlign: "right" }}>
-                                            <button className="btn btn-form-orange">Edit data</button>
+                                            <button className="btn btn-form-orange" onClick={handleEditClick} type='button'>{isEditable ? 'Save Changes' : 'Edit data'}</button>
                                         </div>
                                     </Form>
                                 </div>
@@ -401,21 +419,21 @@ function AccountDetails({profileInfo}) {
                                     slidesPerView={4}
                                     className="mySwiper category-swiper library-swiper"
                                 >
-                                    {videoData.map((videoData, index) => (
+                                    {libraryVideo && Array.isArray(libraryVideo) && libraryVideo.map((item, index) => (
                                         <SwiperSlide key={index}>
                                             <div className="col-md-12">
                                                 <div className="video-card">
                                                     <div className="video-card-content">
                                                         <Link href="/videodetails">
                                                             <div className="video-card-image">
-                                                                <Image src={SliderThumbnil} alt="video card" />
-                                                                <div className="video-duration">{videoData.duration}</div>
+                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
+                                                                <div className="video-duration">{item?.duration}</div>
                                                             </div>
                                                         </Link>
                                                         <div className="video-card-detail">
                                                             <div className="video-de-title">
                                                                 <div className="de-title">
-                                                                    <Link href="/videodetails">{videoData.title}</Link>
+                                                                    <Link href="/videodetails">{item?.title}</Link>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -445,21 +463,21 @@ function AccountDetails({profileInfo}) {
                                     slidesPerView={4}
                                     className="mySwiper category-swiper library-swiper"
                                 >
-                                    {videoData.map((videoData, index) => (
+                                    {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
                                         <SwiperSlide key={index}>
                                             <div className="col-md-12">
                                                 <div className="video-card">
                                                     <div className="video-card-content">
-                                                        <Link href="/videodetails">
+                                                        <Link href="/videodetails2">
                                                             <div className="video-card-image">
-                                                                <Image src={SliderThumbnil} alt="video card" />
-                                                                <div className="video-duration">{videoData.duration}</div>
+                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
+                                                                <div className="video-duration">{item?.duration}</div>
                                                             </div>
                                                         </Link>
                                                         <div className="video-card-detail">
                                                             <div className="video-de-title">
                                                                 <div className="de-title">
-                                                                    <Link href="/videodetails">{videoData.title}</Link>
+                                                                    <Link href="/videodetails2">{item?.title}</Link>
                                                                 </div>
                                                             </div>
                                                         </div>

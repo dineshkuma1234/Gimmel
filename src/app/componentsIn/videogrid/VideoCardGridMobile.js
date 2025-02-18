@@ -12,48 +12,6 @@ import Accordion from "react-bootstrap/Accordion";
 import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
  
-const videoData = [
-  {
-    id: 1,
-    title: "Dangers of smoking | Health | Biology | FuseSchool",
-    duration: "2:30",
-    rating: "8/10",
-    engagement: "Engagement Rating",
-    description:
-      "Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.",
-    imageSrc: require("../../../assets/images/video-thumbnil.svg"),
-  },
-  {
-    id: 2,
-    title: "Dangers of smoking | Health | Biology | FuseSchool",
-    duration: "2:30",
-    rating: "8/10",
-    engagement: "Engagement Rating",
-    description:
-      "Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.",
-    imageSrc: require("../../../assets/images/minimalism.svg"),
-  },
-  {
-    id: 3,
-    title: "Dangers of smoking | Health | Biology | FuseSchool",
-    duration: "2:30",
-    rating: "8/10",
-    engagement: "Engagement Rating",
-    description:
-      "Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.",
-    imageSrc: require("../../../assets/images/quantum.svg"),
-  },
-  {
-    id: 4,
-    title: "Dangers of smoking | Health | Biology | FuseSchool",
-    duration: "2:30",
-    rating: "8/10",
-    engagement: "Engagement Rating",
-    description:
-      "Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.",
-    imageSrc: require("../../../assets/images/image.svg"),
-  },
-];
  
 const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

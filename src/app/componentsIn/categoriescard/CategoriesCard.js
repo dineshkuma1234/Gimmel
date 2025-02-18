@@ -64,7 +64,7 @@ const categories = [
     },
 ];
 
-function CategoriesCard() {
+function CategoriesCard({watchHistoryData}) {
 
     const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -316,14 +316,14 @@ function CategoriesCard() {
 
 
 
-            {categories.map((category) => (
-                <div className="categories-card" key={category.id}>
+            {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
+                <div className="categories-card" key={index}>
                     <div className="row">
                         <div className="col-md-6">
                             <Link href="/videodetails">
                                 <div className="categories-card__thumbnail">
-                                    <Image src={SliderThumbnil} alt="video card" />
-                                    <div className="video-duration">{category.duration}</div>
+                                    <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                    <div className="video-duration">{item?.duration}</div>
                                 </div>
                             </Link>
                         </div>
@@ -332,13 +332,13 @@ function CategoriesCard() {
 
                                 <div className="categories-card__inline">
                                     <div className="categories-card__title">
-                                        <h3>{category.title}</h3>
+                                        <h3>{item?.title}</h3>
                                     </div>
                                     <div className="more-btn">
-                                        <button className="btn btn-more" onClick={() => toggleDropdown(category.id)}>
+                                        <button className="btn btn-more" onClick={() => toggleDropdown(item?.id)}>
                                             <FaEllipsisV />
                                         </button>
-                                        {openDropdownId === category.id && (
+                                        {openDropdownId === item?.id && (
                                             <div className="dropdown-menu-card">
                                                 <ul>
                                                     <li>
@@ -386,7 +386,7 @@ function CategoriesCard() {
                                         </svg>
                                     </div>
                                     <div className="rating-category">
-                                        <span>{category.rating}</span>
+                                        <span>{item?.rating}/10</span>
                                     </div>
                                     <div className="eng-name-category">Engagement Rating</div>
                                 </div>
@@ -394,7 +394,7 @@ function CategoriesCard() {
                                 <div className='summary'>
                                     <div className='summary-title'>Short Summary</div>
                                     <div className='summary-content'>
-                                        <p>{category.description}</p>
+                                        <p>{item?.description}</p>
                                     </div>
                                 </div>
                             </div>
