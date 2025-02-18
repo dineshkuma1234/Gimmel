@@ -18,6 +18,7 @@ function PageComponent() {
   const [rename, setRename] = useState("")
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
+  const postId = id?.video_id|| id;
 
   console.log('selectedFolderId', selectedFolderId)
   useEffect(() => {
@@ -149,14 +150,13 @@ function PageComponent() {
     };
   
     const handleSaveVideo = async () => {
-      
       if(!selectedFolderId){
         // AlertHelper.show('warning', 'Gimmel',"Please select folder");
         return;
       }
       // LoaderHelper.loaderStatus(true);
       try {
-        const result = await AuthService.SaveVideo(selectedFolderId, id);
+        const result = await AuthService.SaveVideo(selectedFolderId, postId);
         console.log(result,"result of save video ---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);

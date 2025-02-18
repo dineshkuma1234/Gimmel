@@ -541,15 +541,15 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  SaveVideo: async (selectedFolderId, id) => {
-    console.log(selectedFolderId, id, "selectedFolderId id ----")
+  SaveVideo: async (selectedFolderId, postId) => {
+    console.log(selectedFolderId, postId, "selectedFolderId id ----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
 
     const params = {
       folderId: selectedFolderId,
-      _id: id,
+      _id: postId,
     };
 
     console.log(params, "params---")
