@@ -119,7 +119,7 @@ const handleTopicPost = async () => {
   // },[]);
 
   
-  console.log(historyList,"historyList--------");
+  console.log(searchList,"headerSearch--------");
 const handleHistoryList = async (headerSearch) => {
     // LoaderHelper.loaderStatus(true);
     try {
@@ -164,7 +164,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      LoaderHelper.loaderStatus(false);
+      // LoaderHelper.loaderStatus(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -183,7 +183,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      LoaderHelper.loaderStatus(false);
+      // LoaderHelper.loaderStatus(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
@@ -291,7 +291,7 @@ const handleHistoryList = async (headerSearch) => {
       const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
       console.log(result,"result of interest filter ---")
       if (result?.success) {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
         localStorage.setItem('interest', isInterestValue);
@@ -299,11 +299,11 @@ const handleHistoryList = async (headerSearch) => {
         getInterestFromStorage();
         handleGetPost();
       } else {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      LoaderHelper.loaderStatus(false);
+      // LoaderHelper.loaderStatus(false);
       // console.log('Error occurred:', 'Gimmel', error);
     }
   };

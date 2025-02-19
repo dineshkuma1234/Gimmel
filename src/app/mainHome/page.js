@@ -129,10 +129,10 @@ const handleHistoryList = async (headerSearch) => {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        LoaderHelper.loaderStatus(false);
+        // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -167,7 +167,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      LoaderHelper.loaderStatus(false);
+      // LoaderHelper.loaderStatus(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -186,7 +186,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      LoaderHelper.loaderStatus(false);
+      // LoaderHelper.loaderStatus(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };

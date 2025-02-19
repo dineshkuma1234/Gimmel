@@ -24,7 +24,7 @@ function SignupScreen() {
             // AlertHelper.show('danger', 'Gimmel', result?.message);
           }
         } catch (error) {
-        //   LoaderHelper.loaderStatus(false);
+          // LoaderHelper.loaderStatus(false);
         //   console.log('Error occurred:', 'Gimmel', error);
         }
       };

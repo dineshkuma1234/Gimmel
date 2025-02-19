@@ -5,7 +5,7 @@ import "../../CommenStyle/filter.css";
 import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 
-function WatchHistoryData() {
+function WatchHistoryData({watchHistoryData}) {
 
 
     return (
@@ -32,7 +32,7 @@ function WatchHistoryData() {
                         </div>
 
                         <div className="video-list-container">
-                            <CategoriesCard  />
+                            <CategoriesCard watchHistoryData={watchHistoryData} />
                         </div>
                     </div>
                 </div>
