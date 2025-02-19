@@ -342,13 +342,13 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  createFolder: async (addnewFolder) => {
+  createFolder: async (folders) => {
     const token = await localStorage.getItem('token');
     console.log(token, 'token');
     const { authBaseUrl, createFolder } = ApiConfig;
     const url = authBaseUrl + createFolder;
     const params = {
-      folderName: addnewFolder,
+      folderName: folders,
     };
     const headers = {
       'Content-Type': 'application/json',
@@ -542,7 +542,7 @@ const AuthService = {
   },
 
   SaveVideo: async (selectedFolderId, postId) => {
-    console.log(selectedFolderId, postId, "selectedFolderId postId ----")
+    console.log(selectedFolderId, postId, "selectedFolderId id ----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;

@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Header from "../../../components/header/header";
 import ReactPlayer from "react-player";
 import "../../CommenStyle/details.css";
-import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline, MdDeleteOutline } from "react-icons/md";
 import Image from "next/image";
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
@@ -14,11 +14,13 @@ import Stap1 from "../../componentsIn/details-step/step1";
 import SuggestedCardGrid from "../../componentsIn/Suggested/Suggested";
 import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from 'react-bootstrap/Modal';
-import { Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import Link from "next/link";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,value,handleCreateFolder,handleDeleteFolder,handleRename,handleSaveVideo}) {
+import { TbEdit } from "react-icons/tb";
+import { FiAlertOctagon } from "react-icons/fi";
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename}) {
  console.log(data,"nwe")
- console.log(VideoDetailsState,"VideoDetailsState")
+ console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
 
     const [show1, setShow1] = useState(false);
@@ -65,20 +67,16 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
         };
     }, []);
 
-    const [folders, setFolders] = useState([
-        { id: 1, name: 'My Library' },
-        { id: 2, name: 'Work Documents' },
-        { id: 3, name: 'Personal Files' },
-    ]);
-
+     const [folders, setFolders] = useState('');
     // Function to add a new folder
-    const addNewFolder = () => {
-        const newFolder = {
-            id: folders.length + 1,
-            name: `New Folder ${folders.length + 1}`,
-        };
-        setFolders([...folders, newFolder]);
-    };
+    // const addNewFolder = () => {
+    //     const newFolder = {
+    //         id: folders.length + 1,
+    //         name: `New Folder ${folders.length + 1}`,
+    //     };
+    //     setFolders([...folders, newFolder]);
+    // };
+ 
 
     const convertToKM =(num)=> {
         if (num >= 1000000) {
@@ -115,9 +113,106 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
         }
         return timeAgo;
     }
+    const handleChange = (e) => {
+        setFolders(e.target.value);
+    }
+
+    const handleNavigateSave = (_id) => {
+        console.log('_id', _id)
+        setSelectedFolderId(_id);
+        // console.log('Clicked Folder ID:', folderId);
+    }; 
+    console.log('folders====00000098888', folders)
+    const [deleteModel, setDeleteModel] = useState(false)
+    const [selectedItem, setSelectedItem] = useState(null);
+
+     const [show, setShow] = useState(false);
+    
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+    
+        const [show6, setShow6] = useState(false);
+    
+        const handleClose6 = () => setShow6(false);
+        const handleShow6 = () => setShow6(true);
+    
+      const dropdownRefnwe = useRef(null);
+   
+       const [isDropdownOpennwe, setIsDropdownOpennwe] = useState(null);
+   
+       const toggleDropdownnwe = (id) => {
+           setIsDropdownOpennwe((prev) => (prev === id ? null : id));
+       };
+   
+       const handleClickOutsidenwe = (event) => {
+           if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
+               setIsDropdownOpennwe(null);
+           }
+       };
+   
+    //    const showAlert = (item) => {
+    //     Alert.alart(
+    //         'Delete',
+    //         'Are you sure you want to delete this folder',
+    //         [
+    //             { text: 'Delete', onPress: () => handleDeleteFolder(item._id), style: 'destructive' },
+    //             { text: 'Cancel', style: 'cancel' },
+    //         ],
+    //         { cancelable: true }
+    //     );
+
+    // };
+
+       useEffect(() => {
+           window.addEventListener("click", handleClickOutsidenwe);
+           return () => {
+               window.removeEventListener("click", handleClickOutsidenwe);
+           };
+       }, []);
+   
     return (
         <>
-            
+               {/* Rename folder modal start */}
+               <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Rename folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={handleClose}>Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Delete folder modal start */}
+            <Modal open={deleteModel} show={show6} onHide={handleClose6} centered className='custom-modal'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="icon-container d-flex justify-content-center">
+                            <FiAlertOctagon />
+                        </div>
+                        <div className="title-container d-flex justify-content-center align-items-center">
+                            <p className='modal-title'>Are you sure?</p>
+                        </div>
+                        <div className="input-container modal-input">
+                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div className="btn-container d-flex gap-3">
+                        <button className="btn btn-color-orange" onClick={()=>{   showAlert(selectedItem),setDeleteModel(true);}}>Delete</button>
+                        <button className="btn btn-color-orange-outline" onClick={handleClose6}>Cancel</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
 
             {/* Share Modal */}
             <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
@@ -283,40 +378,70 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         </div>
                     </div>
                     <div className='body-middle'>
-                        <div className='folder-lists'>
-                            {folders.map((folder) => (
-                                <div key={folder.id} className='folder-view'>
-                                    <div className='folder-inner'>
-                                        <div className='folder-content-inline'>
-                                            <div className='folder-content-left'>
-                                                <div className='folder-icon'>
-                                                    <svg
-                                                        width="32"
-                                                        height="32"
-                                                        viewBox="0 0 32 32"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                                            fill="#104E5B"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div className='folder-name'>
-                                                    <p>{folder.name}</p>
-                                                </div>
-                                            </div>
-                                            <div className='folder-content-right'>
-                                                <div className='folder-icon'>
-                                                    <MdMoreVert />
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div className='folder-lists'>
+                        {Array.isArray(getFolder) && getFolder.map((item, index) => (
+                            <div key={index} className='folder-view'>
+                            <div className='folder-inner'>
+                                <div className='folder-content-inline'>
+                                <div className='folder-content-left'>
+                                    <div className='folder-icon'>
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 32 32"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                        fill="#104E5B"
+                                        />
+                                    </svg>
+                                    </div>
+                                    <div className='folder-name' onClick={() => handleNavigateSave(item?._id)}>
+                                    <p>{item.name}</p>
                                     </div>
                                 </div>
-                            ))}
+
+                                <div className='folder-content-right'>
+                                    <div className='folder-icon'>
+                                    <div className="folder-content-right" ref={dropdownRefnwe}>
+                                        <button
+                                        className="folder-icon"
+                                        onClick={() => toggleDropdownnwe(item.id)} // Use item.id here
+                                        >
+                                        <MdMoreVert />
+                                        </button>
+
+                                        {/* Show the dropdown only if it matches the current item's ID */}
+                                        {isDropdownOpennwe === item.id && (
+                                        <div className="dropdown-menu-card">
+                                            <ul>
+                                            <li>
+                                                <button variant="primary" onClick={handleShow}>
+                                                <TbEdit />
+                                                Rename
+                                                </button>
+                                            </li>
+                                            <li className="hide_mobile">
+                                                <button variant="primary" onClick={handleShow6}>
+                                                <MdDeleteOutline />
+                                                Delete
+                                                </button>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                        )}
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        ))}
                         </div>
+
+
                         <div className='add-new-folder'>
                             <button
                                 type="button"
@@ -328,7 +453,10 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" onClick={handleClose1}>Save here</button>
+                        <button type="button" className="btn-color-orange" onClick={ () =>{
+                        handleClose1
+                        handleSaveVideo()
+                        }}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
@@ -343,7 +471,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         <div className="input-container modal-input">
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder=""  onChange={(e) => handleChange(e)}  />
                             </Form.Group>
                         </div>
                     </div>
@@ -351,7 +479,9 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,rename,setValue,
                         <button className="btn btn-color-orange" onClick={
                             () => {
                                 handleClose5();
-                                addNewFolder();
+                                // addNewFolder();
+                                handleCreateFolder(folders);
+
                             }
 
                         }>Create folder</button>
