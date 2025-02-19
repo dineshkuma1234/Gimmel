@@ -9,12 +9,16 @@ function PageComponent() {
     const [watchHistoryData,setWatchHistoryData]=useState('')
     const [libraryVideo, setLibraryVideo] = useState('')
     const [teachingTopic, setTeachingTopic] = useState([])
+    const [contentMaturity, setContentMaturity] = useState([])
+    const [eduction, setEducation] = useState([])
 
     useEffect(()=>{
         handleUserInfo();
         handleWatchHistory();
         handleLibraryVideos();
         handleTeachingToic();
+        handleContentmaturity();
+        handleEducationalObjectives();
         // console.log("this is console")
     },[]);
    
@@ -105,11 +109,45 @@ function PageComponent() {
         }
     };
 
-    console.log(teachingTopic,"teachingTopic----");
+    const handleContentmaturity = async () => {
+        // LoaderHelper.loaderStatus(true);
+        try {
+            const result = await AuthService.Contentmaturity();
+            if (result?.success) {
+                // LoaderHelper.loaderStatus(false);
+                setContentMaturity(result?.data?.contMaturity)
+            } else {
+                // LoaderHelper.loaderStatus(false);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+            }
+        } catch (error) {
+            // LoaderHelper.loaderStatus(false);
+            console.log('Error occurred:', 'Gimmel', error);
+        }
+    };
+
+    const handleEducationalObjectives = async () => {
+        // LoaderHelper.loaderStatus(true);
+        try {
+            const result = await AuthService.EducationalObjectives();
+            if (result?.success) {
+                // LoaderHelper.loaderStatus(false);
+                setEducation(result?.data?.education)
+            } else {
+                // LoaderHelper.loaderStatus(false);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+            }
+        } catch (error) {
+            // LoaderHelper.loaderStatus(false);
+            console.log('Error occurred:', 'Gimmel', error);
+        }
+    };
+
+    // console.log(contentMaturity,"contentMaturity----");
     
     return (
         <>
-            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic}/>
+            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction}/>
         </>
     );
 }

@@ -244,6 +244,15 @@
     z-index: 99;
 }
 
+.rmsc .item-renderer {
+    display: flex;
+    align-items: center !important;
+}
+
+.multi-select {
+    z-index: auto !important;
+}
+
 @media screen and (min-width: 280px) and (max-width: 767px) {
     .account-user-info {
         margin-bottom: 0;

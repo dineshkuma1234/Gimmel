@@ -14,13 +14,20 @@ import Link from 'next/link';
 import { Modal } from 'react-bootstrap';
 
 
-function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic}) {
+function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction}) {
 
     const [isYearly, setIsYearly] = useState(false);
 
     const [selected, setSelected] = useState([]);
+    const [selected1, setSelected1] = useState([]);
+    const [selected2, setSelected2] = useState([]);
+    const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
     const [isEditable, setIsEditable] = useState(false);
 
+    const handleChange = (e) => {
+        setPhoneNumber(e.target.value);
+      };
+    console.log(phoneNumber,"phoneNumber++++++++++++")
 
     const togglePricing = () => {
         setIsYearly(!isYearly);
@@ -41,6 +48,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     };
 
     const [options,setOptions]= useState([]);
+    const [options1,setOptions1]= useState([]);
+    const [options2,setOptions2]= useState([]);
      useEffect(()=>{
         if (teachingTopic && Array.isArray(teachingTopic)){
             const transformedOptions = teachingTopic.map(item=>({
@@ -49,8 +58,24 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
             }));
                 setOptions(transformedOptions);
         }
-     },[teachingTopic]);
+        if (contentMaturity && Array.isArray(contentMaturity)){
+            const transformedOptions1 = contentMaturity.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions1(transformedOptions1);
+        }
+        if (eduction && Array.isArray(eduction)){
+            const transformedOptions2 = eduction.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions2(transformedOptions2);
+        }
+     },[teachingTopic,contentMaturity]);
+
      useEffect(() => {
+       if (profileInfo?.onboarding){
         if (profileInfo?.onboarding?.teachingTopics) {
             const preSelected = profileInfo.onboarding.teachingTopics.map((topic) => ({
                 label: topic,
@@ -58,9 +83,31 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
             }));
             setSelected(preSelected);
         }
+        if (profileInfo?.onboarding?.contentMaturityRestrictions){
+            const preSelected= profileInfo?.onboarding?.contentMaturityRestrictions.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected1(preSelected);
+        }
+        if (profileInfo?.onboarding?.educationalObjectives){
+            const preSelected= profileInfo?.onboarding?.educationalObjectives.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected2(preSelected);
+        }
+       }
     }, [profileInfo]);
+
     const handleSelectChange = (selectedItems) => {
         setSelected(selectedItems);
+    };
+    const handleSelectChange1 = (selectedItems) => {
+        setSelected1(selectedItems);
+    };
+    const handleSelectChange2 = (selectedItems) => {
+        setSelected2(selectedItems);
     };
 
     return (
@@ -216,7 +263,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Email address</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}  readOnly={!isEditable} />
+                                                <Form.Control type="email" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}   />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
@@ -224,7 +271,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" defaultValue={profileInfo?.phone||''} readOnly={!isEditable}/>
+                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" defaultValue={profileInfo?.phone||''} readOnly={!isEditable} value={phoneNumber} onChange={handleChange}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -232,7 +279,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>School Name</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="" defaultValue={profileInfo?.school||""} readOnly={!isEditable}/>
+                                                <Form.Control type="text" placeholder="" defaultValue={profileInfo?.school || ""} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput4">
@@ -266,10 +313,14 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                         labelledBy="Select"
                                                         overrideStrings={{
                                                             selectSomeItems: "Select topics",
+                                                            allItemsAreSelected: "",
                                                         }}
                                                         className="multi-select"
                                                         hasSelectAll={false} // Disable "Select All"
                                                         disableSearch={true} // Disable search box
+                                                        valueRenderer={(selected) => 
+                                                            selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                                          }
                                                     />
                                                 )}
                                             </div>
@@ -279,7 +330,31 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Maturity restrictions</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" defaultValue={profileInfo?.onboarding?.contentMaturityRestrictions?.join(', ')||""} readOnly={!isEditable} />
+                                                {/* <Form.Control type="text" defaultValue={profileInfo?.onboarding?.contentMaturityRestrictions?.join(', ')||""} readOnly={!isEditable} /> */}
+                                                {!isEditable ?(
+                                                     <Form.Control
+                                                     type="text"
+                                                     defaultValue={selected1.map((item) => item.label).join(", ")}
+                                                     readOnly
+                                                 />
+                                                ) : (
+                                                    <MultiSelect
+                                                    options={options1}
+                                                    value={selected1}
+                                                    onChange={handleSelectChange1}
+                                                    labelledBy="Select"
+                                                    overrideStrings={{
+                                                        selectSomeItems: "Select topics",
+                                                    }}
+                                                    className="multi-select"
+                                                    hasSelectAll={false} // Disable "Select All"
+                                                    disableSearch={true} // Disable search box
+                                                    valueRenderer={(selected) => 
+                                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                                      }
+                                                />
+                                               
+                                                )}
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput8">
@@ -287,13 +362,38 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Educational objectives</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text"  defaultValue={profileInfo?.onboarding?.educationalObjectives?.join(', ')|| ""} readOnly={!isEditable}/>
+                                                {/* <Form.Control type="text"  defaultValue={profileInfo?.onboarding?.educationalObjectives?.join(', ')|| ""} readOnly={!isEditable}/> */}
+                                                {!isEditable ?(
+                                                     <Form.Control
+                                                     type="text"
+                                                     defaultValue={selected2.map((item) => item.label).join(", ")}
+                                                     readOnly
+                                                 />
+                                                ) : (
+                                                    <MultiSelect
+                                                    options={options2}
+                                                    value={selected2}
+                                                    onChange={handleSelectChange2}
+                                                    labelledBy="Select"
+                                                    overrideStrings={{
+                                                        selectSomeItems: "Select topics",
+                                                    }}
+                                                    className="multi-select"
+                                                    hasSelectAll={false} // Disable "Select All"
+                                                    disableSearch={true} // Disable search box
+                                                    valueRenderer={(selected) => 
+                                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                                      }
+                                                    
+                                                />
+                                               
+                                                )}
                                             </div>
                                         </Form.Group>
                                       
 
                                         <div className="text-right" style={{ textAlign: "right" }}>
-                                            <button className="btn btn-form-orange" onClick={handleEditClick} type='button'>{isEditable ? 'Save Changes' : 'Edit data'}</button>
+                                            <button className="btn btn-form-orange" onClick={handleEditClick} type='button'> {isEditable ? 'Save Changes' : 'Edit data'}</button>
                                         </div>
                                     </Form>
                                 </div>
