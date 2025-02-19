@@ -18,8 +18,8 @@ import { Alert, Form } from "react-bootstrap";
 import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename}) {
- console.log(data,"nwe")
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink}) {
+ console.log(shareLink,"shareLink++++++++++++++________")
  console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
 
@@ -77,6 +77,9 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
+    const copyUrl = () => {
+        navigator.clipboard.writeText(shareLink);
+    };
 
     const convertToKM =(num)=> {
         if (num >= 1000000) {
@@ -122,10 +125,11 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
         setSelectedFolderId(_id);
         // console.log('Clicked Folder ID:', folderId);
     }; 
-    console.log('folders====00000098888', folders)
+    // console.log('folders====00000098888', folders)
     const [deleteModel, setDeleteModel] = useState(false)
-    const [selectedItem, setSelectedItem] = useState(null);
-
+    // const [selectedItem, setSelectedItem] = useState(null);
+    const [renameModel, setRenameModel] = useState(false);
+    const [inputValue, setInputValue] = useState("");
      const [show, setShow] = useState(false);
     
         const handleClose = () => setShow(false);
@@ -138,29 +142,23 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     
       const dropdownRefnwe = useRef(null);
    
-       const [isDropdownOpennwe, setIsDropdownOpennwe] = useState(null);
+       const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
    
-       const toggleDropdownnwe = (id) => {
-           setIsDropdownOpennwe((prev) => (prev === id ? null : id));
+       const toggleDropdownnwe = (item) => {
+        console.log(item,"if")
+           setisDropdownOpenid((prev) => (prev === item ? null : item));
+
        };
-   
+    //    console.log(isDropdownOpenid,"isDropdownOpenid")
        const handleClickOutsidenwe = (event) => {
            if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
-               setIsDropdownOpennwe(null);
+               setisDropdownOpenid(item);
            }
        };
    
-    //    const showAlert = (item) => {
-    //     Alert.alart(
-    //         'Delete',
-    //         'Are you sure you want to delete this folder',
-    //         [
-    //             { text: 'Delete', onPress: () => handleDeleteFolder(item._id), style: 'destructive' },
-    //             { text: 'Cancel', style: 'cancel' },
-    //         ],
-    //         { cancelable: true }
-    //     );
-
+       
+   
+console.log(isDropdownOpenid,"getfolder")
     // };
 
        useEffect(() => {
@@ -173,7 +171,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     return (
         <>
                {/* Rename folder modal start */}
-               <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+               <Modal open={renameModel} show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Rename folder</Modal.Title>
                 </Modal.Header>
@@ -182,12 +180,12 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                         <div className="input-container modal-input">
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder="" value={rename}  onChange={(event) => setRename(event.target.value)} />
                             </Form.Group>
                         </div>
                     </div>
                     <div className="btn-container">
-                        <button className="btn btn-color-orange" onClick={handleClose}>Save</button>
+                        <button className="btn btn-color-orange" onClick={()=>{handleClose(); handleRename( rename, isDropdownOpenid?._id); setRenameModel(false); }}>Save</button>
                     </div>
                 </Modal.Body>
             </Modal>
@@ -207,7 +205,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                         </div>
                     </div>
                     <div className="btn-container d-flex gap-3">
-                        <button className="btn btn-color-orange" onClick={()=>{   showAlert(selectedItem),setDeleteModel(true);}}>Delete</button>
+                        <button className="btn btn-color-orange" onClick={()=>{handleDeleteFolder(isDropdownOpenid?._id) ;setDeleteModel(true); handleClose6()}}>Delete</button>
                         <button className="btn btn-color-orange-outline" onClick={handleClose6}>Cancel</button>
                     </div>
                 </Modal.Body>
@@ -277,7 +275,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button className="btn btn-color-orange" onClick={handleClose2}>Copy Link</button>
+                            <button className="btn btn-color-orange" onClick={()=>{handleClose2();copyUrl()}}>Copy Link</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -408,13 +406,13 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                     <div className="folder-content-right" ref={dropdownRefnwe}>
                                         <button
                                         className="folder-icon"
-                                        onClick={() => toggleDropdownnwe(item.id)} // Use item.id here
+                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
                                         >
                                         <MdMoreVert />
                                         </button>
 
                                         {/* Show the dropdown only if it matches the current item's ID */}
-                                        {isDropdownOpennwe === item.id && (
+                                        {isDropdownOpenid?._id === item._id && (
                                         <div className="dropdown-menu-card">
                                             <ul>
                                             <li>
@@ -430,7 +428,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                                 </button>
                                             </li>
                                             </ul>
-                                        </div>
+                                        </div> 
                                         )}
                                     </div>
                                     </div>

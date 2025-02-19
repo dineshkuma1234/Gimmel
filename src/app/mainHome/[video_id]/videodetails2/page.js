@@ -18,6 +18,7 @@ function PageComponent() {
   const [rename, setRename] = useState("")
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
+  const [shareLink,setShareLink] = useState("")
   const postId = id?.video_id|| id;
 
   console.log('selectedFolderId', selectedFolderId)
@@ -131,10 +132,12 @@ function PageComponent() {
     };
   
     const handleRename = async (rename, id) => {
+      console.log(rename, id, "rename and id --------------")
       // LoaderHelper.loaderStatus(true);
       try {
         const result = await AuthService.renames(rename, id);
         if (result?.success) {
+          console.log(result, "result of rename")
           // LoaderHelper.loaderStatus(false);
           handleGetFolder();
           setRename("");
@@ -175,10 +178,27 @@ function PageComponent() {
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
-  
+    const handleSharePost = async (id, selectedTopics) => {
+      console.log(handleSharePost, "handleSharePost")
+      try {
+          const result = await AuthService.SharePost(id, selectedTopics);
+          if (result?.success) {
+            setShareLink(result?.data)
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.data);
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          LoaderHelper.loaderStatus(false);
+          console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
+    
 
   return (
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId}/>
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink}  />
   )
 }
 
