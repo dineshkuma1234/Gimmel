@@ -41,7 +41,7 @@ console.log('getQuiz___________++++++++++++++))))', getQuiz)
                     <div className="question-list">
                     {Array.isArray(getQuiz) && getQuiz.map((item, index) => (
                         <div className="question" key={`question-${index}`}>
-                            <div className="question-title">{item?.number}</div>
+                            <div className="question-title">Question {item?.number}</div>
                             <div className="question-content">
                                 {/* Smoking can lead to numerous health problems. Which of the following is a primary effect of smoking on the respiratory system? */}
                             {item?.question}
