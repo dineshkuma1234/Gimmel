@@ -3,6 +3,7 @@ import React from 'react'
 import Signup from '../entities/signup/page'
 import AuthService from '../../services/AuthService';   
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
 
 function SignupScreen() {
     const router = useRouter(); 
@@ -21,7 +22,7 @@ function SignupScreen() {
             router.push("/onboarding");
           } else {
             // LoaderHelper.loaderStatus(false);
-            // AlertHelper.show('danger', 'Gimmel', result?.message);
+            toast.error(result?.message,{className: "custom-toast",});
           }
         } catch (error) {
           // LoaderHelper.loaderStatus(false);
@@ -29,7 +30,11 @@ function SignupScreen() {
         }
       };
   return (
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
     <Signup  handleSignUp={handleSignUp} />
+    </>
+    
   )
 }
 

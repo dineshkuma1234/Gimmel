@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import Login from "../entities/login/page";
 import AuthService from '../../services/AuthService';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function PageComponent() {
@@ -17,7 +18,7 @@ function PageComponent() {
             console.log(result,"result----")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('success', 'Gimmel', result?.message);
+                toast.success( result?.message,{className: "custom-toast-success"});
                 localStorage.setItem( 'token', result?.data?.token);
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 console.log(result?.data?.token,"this the value")
@@ -26,7 +27,7 @@ function PageComponent() {
                 
             } else {
                 // LoaderHelper.loaderStatus(false);
-                AlertHelper.show('danger', 'Gimmel', result?.message);
+                toast.error(result?.message,{className: "custom-toast",});
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
@@ -34,7 +35,11 @@ function PageComponent() {
         }
     };
     return (
+        <>
+        <Toaster position="top-right" reverseOrder={false} />
         <Login handleLogIn={handleLogIn}/>
+        </>
+        
     );
 }
 

@@ -420,30 +420,28 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  editProfile: async (selectedHealth, selectContent, selectObjective, selectstate, phoneNumber, schoolName, minAge, maxAge, profileInfo) => {
+  editProfile: async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
     const params = {
       phone: phoneNumber?.value,
-      school: schoolName?.value,
+      school: school?.value,
       ageFrom: minAge
         ? minAge
         : profileInfo?.onboarding?.ageFrom,
       ageTo: maxAge
         ? maxAge
         : profileInfo?.onboarding?.ageTo,
-      contentMaturityRestrictions: selectContent
-        ? selectContent
+      contentMaturityRestrictions: selected1
+        ? selected1
         : profileInfo?.onboarding?.contentMaturityRestrictions,
-      teachingTopics: selectedHealth
-        ? selectedHealth
+      teachingTopics: selected
+        ? selected
         : profileInfo?.onboarding?.teachingTopics,
-      teachLocation: selectstate
-        ? selectstate
-        : profileInfo?.onboarding?.teachLocation,
-      educationalObjectives: selectObjective
-        ? selectObjective
+      
+      educationalObjectives: selected2
+        ? selected2
         : profileInfo?.onboarding?.educationalObjectives,
     };
     const headers = {

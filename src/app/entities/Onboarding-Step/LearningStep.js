@@ -153,7 +153,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                                     }`}
                             >
                                 <div className="page-title">
-                                    <h1>Select teaching topics of interest</h1>
+                                    <h1>Select topics of personal intrest</h1>
                                 </div>
 
                                 <div className="step-data">
@@ -193,7 +193,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                                     }`}
                             >
                                 <div className="page-title">
-                                    <h1>Educational Objectives for Students</h1>
+                                    <h1>Educational Objectives</h1>
                                 </div>
                                 <div className="step-data mt-3">
                                 <ul className="checkbox-group">

@@ -186,6 +186,10 @@ ul {
     justify-content: center;
 }
 
+.btn-color-blue:disabled {
+    opacity: 0.5;
+}
+
 .btn-color-blue:hover {
     background-color: var(--gimmel-darkBlue);
     color: var(--white-color);

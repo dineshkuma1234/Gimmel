@@ -80,11 +80,9 @@ const Login = ({handleLogIn}) => {
                                                 <Link href="/reset-email" className="btn-link">Forgot Password?</Link>
                                             </div>
                                             <div className="form-group">
-                                                <div className="btn-color-blue">
-                                                <button style={{background: 'none', border: 'none', color: "#fff"}} type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={disable}>
+                                                <button type="submit" className="btn-color-blue" onClick={handleSubmit} disabled={disable}>
                                                     Login
                                                 </button>
-                                                </div>
                                             </div>
                                         </form>
                                         <div className="form-group">
