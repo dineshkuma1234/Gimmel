@@ -10,7 +10,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
         
         require("../../../assets/images/Artwork.svg"),
         require("../../../assets/images/step-3.svg"),
-        // require("../../../assets/images/step-4.svg"),
+        require("../../../assets/images/step-4.svg"),
         require("../../../assets/images/18+.svg"),
         require("../../../assets/images/stap-6.svg"),
     ];
@@ -68,25 +68,10 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
 
     const [checkedItems, setCheckedItems] = useState({});
 
-    // const handleChange = (e) => {
-    //     const { id, checked } = e.target;
-    //     if (id === "deselect-all") {
-    //         const newCheckedState = {};
-    //         if (!checked) {
-    //             Object.keys(checkedItems).forEach((key) => (newCheckedState[key] = false));
-    //         }
-    //         setCheckedItems(newCheckedState);
-    //     } else {
-    //         setCheckedItems({
-    //             ...checkedItems,
-    //             [id]: checked,
-    //         });
-    //     }
-    // };
     const [item,setItems]=useState([]);
     const [selectedmaturity,setselectedMaturity] =useState([])
     const [slectedEducation,setSelectedEducation]=useState([])
-    // console.log(slectedEducation,"selectedMaturity-----")
+    console.log(slectedEducation,"slectedEducation-----")
 
     useEffect(()=>{
         // console.log(item, 'my item is here')
@@ -108,59 +93,17 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                 ...checkedItems,
                 [id]: checked,
             });
-            if(checked){
-                setItems((prevItems) => [...prevItems, id]);
-            }
+            setItems((prevItems) =>{
+                if(checked){
+                return [...prevItems, id]
+                }else{
+                    return prevItems.filter((item)=>item!==id)
+                }
+            });
         }
     };
 
-    // const topics = [
-    //     { id: "alcohol", label: "Alcohol" },
-    //     { id: "anxiety", label: "Anxiety" },
-    //     { id: "addiction", label: "Addiction" },
-    //     { id: "anger", label: "Anger" },
-    //     { id: "bodyImage", label: "Body Image" },
-    //     { id: "bullying", label: "Bullying" },
-    //     { id: "cannabis", label: "Cannabis & Synthetic Cannabinoids" },
-    //     { id: "cigarettes", label: "Cigarettes" },
-    //     { id: "cyberbullying", label: "Cyberbullying" },
-    //     { id: "decisionmaking", label: "Decision making" },
-    //     { id: "depression", label: "Depression" },
-    //     { id: "dopamine", label: "Dopamine" },
-    //     { id: "eating", label: "Eating disorders" },
-    //     { id: "E-cigarettes", label: "E-cigarettes" },
-    // ];
-
    
-
-    // const topicsSecond = [
-    //     { id: "abuse", label: "Abuse" },
-    //     { id: "death", label: "Death" },
-    //     { id: "discussions", label: "Discussions or Depictions of Self-Harm" },
-    //     { id: "disturbing", label: "Disturbing Images" },
-    //     { id: "gore", label: "Gore" },
-    //     { id: "sexual", label: "Sexual Imagery" },
-    //     { id: "sexualLanguage", label: "Sexual Language/Explicit" },
-    // ];
-
-    // Handle individual checkbox changes
-    // const handleCheckboxChange = (e) => {
-    //     const { id, checked } = e.target;
-    //     if (id === "select-all") {
-    //         const newState = {};
-    //         topics.forEach((topic) => {
-    //             newState[topic.id] = checked;
-    //         });
-    //         setCheckedItems1(newState);
-    //         setSelectAll(checked);
-    //     } else {
-    //         setCheckedItems1((prevState) => ({
-    //             ...prevState,
-    //             [id]: checked,
-    //         }));
-    //         setSelectAll(Object.values(checkedItems1).every((val) => val) && checked);
-    //     }
-    // };
    
     const handleCheckboxChange = (e) => {
         const { id, checked } = e.target;
@@ -178,9 +121,18 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                 ...checkedItems1,
                 [id]: checked,
             });
-            if(checked){
-                setselectedMaturity((prevItems)=>[...prevItems,id])
-            }
+            // if(checked){
+            //     setselectedMaturity((prevItems)=>{
+            //         [...prevItems,id]
+            //     })
+            // }
+            setselectedMaturity((prevItems)=>{
+                if(checked){
+                    return [...prevItems,id]
+                }else{
+                    return prevItems.filter((item)=>item!==id)
+                }
+            })
         }
     };
 
@@ -195,15 +147,19 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
             }); // Select/Deselect all topics
             setSelectedEducation((prev)=>[...prev,...newArr])
             setCheckedItems3(newCheckedState);
-            setSelectAll3(checked); // Update button behavior
+            setSelectAll3(checked); 
         } else {
             setCheckedItems3({
                 ...checkedItems3,
                 [id]: checked,
             });
-            if(checked){
-                setSelectedEducation((prevItems)=>[...prevItems,id])
-            }
+            setSelectedEducation((prevItems) => {
+                if (checked) {
+                    return [...prevItems, id]; 
+                } else {
+                    return prevItems.filter((item) => item !== id); 
+                }
+            });
         }
     };
 
@@ -250,17 +206,6 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
         }));
     };
 
-    // const checkboxes = [
-    //     { id: 'deselect-all', label: 'Select all', isSelectAll: true },
-    //     { id: 'abuse', label: 'Student Academic Success' },
-    //     { id: 'death', label: 'Enhance Learning Environments' },
-    //     { id: 'discussions', label: 'Student Social Success' },
-    //     { id: 'disturbing', label: 'Student Relationship with Self' },
-    //     { id: 'gore', label: 'Student Knowledge of High-Risk Behaviors' },
-    //     { id: 'sexual', label: 'Student Manageability of Life' },
-    // ];
-
-    
 
     const handleInputChange = (e, type) => {
         const value = parseInt(e.target.value, 10);
@@ -278,7 +223,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
         topic.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const [maturity, setMaturity] = useState('')
+    const [maturity, setMaturity] = useState("")
     const filterContentMaturity = contentMaturity.filter(item =>
         item.name.toLowerCase().includes(maturity.toLowerCase())
     );
@@ -288,7 +233,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
 
     return (
         <div className="main-screen">
-            <div className="row">
+            <div className="row align-items-center">
                 {/* Left Banner Section */}
                 <div className="col-md-7">
                     <div className="left-banner remove-shadow">
@@ -302,7 +247,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
 
                 {/* Right Banner Section */}
                 <div className="col-md-5">
-                    <div className="right-banner mt-150">
+                    <div className="right-banner">
                         <div className="right-side-content question-select">
                             {/* Content Sections */}
                             <div
@@ -461,7 +406,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                                     <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={item.name}
+                                                            id={item.index}
                                                             label={item.name}
                                                             checked={checkedItems1[item.name] }
                                                             onChange={handleCheckboxChange}
@@ -474,30 +419,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                 </div>
                             </div>
 
-                            {/* <div
-                                className={`content-section ${currentIndex === 4 ? "active" : ""
-                                    }`}
-                            >
-                                <div className="page-title">
-                                    <h1>Where do you teach?</h1>
-                                </div>
-
-                                <div className="step-data">
-                                    <input type="text" className="search-bar" placeholder="Search subject" />
-                                    <ul className="checkbox-group">
-                                        {states.map((state, index) => (
-                                            <Form.Check
-                                                key={state}
-                                                type="radio"
-                                                id={state.toLowerCase().replace(/\s+/g, "")}
-                                                name="stateGroup"
-                                                label={state}
-                                                className="mb-2"
-                                            />
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div> */}
+                           
 
                             <div
                                 className={`content-section ${currentIndex === 4 ? "active" : ""
@@ -507,20 +429,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                     <h1>Educational Objectives for Students</h1>
                                 </div>
                                 <div className="step-data mt-3">
-                                    {/* <ul className="checkbox-group">
-                                        {eduction && Array.isArray(eduction) && eduction.map((item, index) => (
-                                            <li key={index}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    id={item.name}
-                                                    label={item.name}
-                                                    checked={selectedItems[item.name]}
-                                                    onChange={item.isSelectAll ? handleSelectAllChange : handleCheckboxChange1}
-                                                    disabled={item.isSelectAll && selectedItems['deselect-all']}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul> */}
+                                    
                                     <ul className="checkbox-group">
                                         <Form>
                                             <ListGroup>
@@ -590,7 +499,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                     currentIndex === images.length - 1 ? (
                                         <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation)}>Finish</Link>
                                     ) : (
-                                        <button type="button" className="btn-color-blue" onClick={nextSlide}>Next</button>
+                                        <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={currentIndex === 2 &&item.length<3}>Next</button>
                                     )
                                 }
                             </div>
