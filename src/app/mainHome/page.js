@@ -62,7 +62,7 @@ export default function Home() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
-    setLoader(false);
+    setLoader(true);
     setLoading(true);
     try {
     
@@ -102,8 +102,7 @@ useEffect(() => {
   handleTopicPost();
 }, []);
 const handleTopicPost = async () => {
-  const {setLoader} = useLoader()
-  setLoader(false);
+  setLoader(true);
   try {
     const result = await AuthService.TopicPost();
     console.log(result, 'result---')
@@ -139,7 +138,7 @@ const handleTopicPost = async () => {
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
 
-  setLoader(false);
+  setLoader(true);
   try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
@@ -167,7 +166,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedAudience,
   ) => {
     console.log(headerSearch,"usecase--0000")
-    setLoader(false);
+    setLoader(true);
       try {
       const result = await AuthService.SearchResult(
         headerSearch,

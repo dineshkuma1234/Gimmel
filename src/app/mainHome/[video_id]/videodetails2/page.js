@@ -46,11 +46,11 @@ function PageComponent() {
         try {
         const result = await AuthService.getvideoid(id);
         console.log(result, "getvideoid----");
-        setLoader(true);
+        setLoader(false);
 
         if (result?.success) {
           // setgetvideoid(result?.data);
-          setLoader(true);
+          setLoader(false);
 
           
          setdata(result.data)
@@ -60,7 +60,7 @@ function PageComponent() {
           // } else {
           //   console.warn("postId not found in API response");
           // }
-          setLoader(true);
+          setLoader(false);
 
         }
       } catch (error) {
@@ -77,13 +77,13 @@ function PageComponent() {
           console.log(result,"result of quize-----")
           if (result?.success) {
               setGetQuiz(result?.questions)
-              setLoader(true);
+              setLoader(false);
             } else {
-            setLoader(true);
-            // AlertHelper.show('danger', 'Gimmel', result?.message);
+              setLoader(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
           }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         // console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -98,9 +98,10 @@ function PageComponent() {
           // LoaderHelper.loaderStatus(false);
           setGetFolder(result?.data?.data);
         } else {
-          setLoader(true);        }
+          setLoader(false);
+        }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -112,15 +113,15 @@ function PageComponent() {
         const result = await AuthService.createFolder(folders);
         console.log(result, 'result');
         if (result?.success) {
-          setLoader(true);
+          setLoader(false);
           handleGetFolder();
           AlertHelper.show('success', 'Gimmel', result?.data);
         } else {
-          setLoader(true);
+          setLoader(false);
           AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -133,15 +134,15 @@ function PageComponent() {
         
         console.log(result, "result---")
         if (result?.success) {
-          setLoader(true);
+          setLoader(false);
           handleGetFolder();
           AlertHelper.show('success', 'Gimmel',result?.message);
         } else {
-          setLoader(true);
+          setLoader(false);
           AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -154,16 +155,16 @@ function PageComponent() {
         const result = await AuthService.renames(rename, id);
         if (result?.success) {
           console.log(result, "result of rename")
-          setLoader(true);
+          setLoader(false);
           handleGetFolder();
           setRename("");
           AlertHelper.show('success', 'Gimmel', result?.message);
         } else {
-          setLoader(true);
+          setLoader(false);
           AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -179,7 +180,7 @@ function PageComponent() {
         const result = await AuthService.SaveVideo(selectedFolderId, postId);
         console.log(result,"result of save video ---")
         if (result?.success) {
-          setLoader(true);
+          setLoader(false);
           setSelectedFolderId(null)
           navigation.navigate("Home");
           navigation.setParams({
@@ -187,11 +188,11 @@ function PageComponent() {
           });
           // AlertHelper.show('success', 'Gimmel', result?.data);
         } else {
-          setLoader(true);
+          setLoader(false);
           // AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
         console.log('Error occurred:', 'Gimmel', error);
       }
     };
@@ -202,14 +203,14 @@ function PageComponent() {
           const result = await AuthService.SharePost(id, selectedTopics);
           if (result?.success) {
             setShareLink(result?.data)
-            setLoader(true);
+            setLoader(false);
               // AlertHelper.show('success', 'Gimmel', result?.data);
           } else {
-            setLoader(true);
+            setLoader(false);
               // AlertHelper.show('danger', 'Gimmel', result?.message);
           }
       } catch (error) {
-        setLoader(true);
+        setLoader(false);
           // console.log('Error occurred:', 'Gimmel', error);
       }
     };

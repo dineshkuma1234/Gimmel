@@ -9,7 +9,7 @@ function SignupScreen() {
     const router = useRouter(); 
     const handleSignUp = async (data) => {
           const {setLoader} = useLoader()
-          setLoader(false)
+          setLoader(true)
           try {
           const result = await AuthService.SignUp(data);
           console.log(result, "result----")

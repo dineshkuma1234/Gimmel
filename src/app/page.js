@@ -269,7 +269,7 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
   const handleNeuroscience = async () => {
-    setLoader(false);
+    setLoader(true);
 
     try {
       const result = await AuthService.Neuroscience();
@@ -336,7 +336,7 @@ const handleHistoryList = async (headerSearch) => {
    
 };
   const handleInterestFilter = async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
-    LoaderHelper.loaderStatus(true);
+    setLoader(true);
     try {
       const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
       console.log(result,"result of interest filter ---")
