@@ -18,7 +18,7 @@ import { Alert, Form } from "react-bootstrap";
 import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink}) {
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics}) {
  console.log(shareLink,"shareLink++++++++++++++________")
  console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
@@ -77,9 +77,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
-    const copyUrl = () => {
-        navigator.clipboard.writeText(shareLink);
-    };
+    
 
     const convertToKM =(num)=> {
         if (num >= 1000000) {
@@ -167,7 +165,70 @@ console.log(isDropdownOpenid,"getfolder")
                window.removeEventListener("click", handleClickOutsidenwe);
            };
        }, []);
-   
+
+       const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+       
+
+    const deselectAll = () => {
+        if (!setIsSelectTeachingAll) {
+            // Select all topics
+            setIsSelectTeachingAll(true);
+            setSelectedTopics(Share.map(topic => topic.text));
+        } else {
+            // Deselect all topics
+            setIsSelectTeachingAll(false);
+            setSelectedTopics([]);
+        }
+    };
+
+    const toggleSelection = (topicText) => {
+        setSelectedTopics((prevSelected) => {
+            if (prevSelected.includes(topicText)) {
+                // Remove topic if already selected
+                return prevSelected.filter(item => item !== topicText);
+            } else {
+                // Add topic if not selected
+                return [...prevSelected, topicText];
+            }
+        });
+    };
+
+    const handleTranscript = (topic) => {
+        if (transcript.includes(topic)) {
+            setTranscript(transcript.filter(item => item !== topic));
+        } else {
+            setTranscript([...transcript, topic]);
+        }
+    };
+
+    const isTranscript = (topic) => transcript.includes(topic);
+
+
+    const toggleCheckbox = (itemName) => {
+        if (selectedValues.includes(itemName)) {
+
+            setSelectedValues(selectedValues.filter(item => item !== itemName));
+        } else {
+
+            setSelectedValues([...selectedValues, itemName]);
+        }
+    };
+
+    const isTopicSelectedTeach = (itemName) => {
+        return selectedValues.includes(itemName);
+    };
+
+    const copyUrl = () => {
+        navigator.clipboard.writeText(shareLink);
+    };
+    const Share = [
+        { id: 1, text: 'Discussion points', value: 'discussionPoints' },
+        { id: 2, text: 'Quizzes', value: 'Quizzes' },
+        { id: 3, text: 'Tests', value: 'Tests' },
+        { id: 4, text: 'Exercises', value: 'Exercises' },
+        { id: 5, text: 'Homework assignments', value: 'homeworkAssignments' },
+    ];
+    
     return (
         <>
                {/* Rename folder modal start */}
@@ -224,51 +285,25 @@ console.log(isDropdownOpenid,"getfolder")
                                 Do you want to attach the generated materials to the shared link?
                             </div>
                             <div className="checkbox-container">
-                                <Form className="question-select">
-                                    {['checkbox'].map((type) => (
-                                        <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
-                                            <Form.Check
+                                              <Form.Check className="question-select mb-3"
                                                 inline
                                                 label="Deselect all"
                                                 name="group2"
-                                                type={type}
-                                                id={`inline-${type}-4`}
+                                                type={"checkbox"}
+                                                id={`inline-deselect-4`}
+                                                onClick={deselectAll}
                                             />
+                                <Form className="question-select">
+                                    {Share.map((topic, index) => (
+                                        <div key={`inline-${topic}-${index}`} className=" d-flex flex-column">
+                                          
                                             <Form.Check
                                                 inline
-                                                label="Discussion points"
+                                                label={topic.text}
                                                 name="group2"
-                                                type={type}
-                                                id={`inline-${type}-5`}
-                                            />
-                                            <Form.Check
-                                                inline
-                                                label="Quizzes"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-6`}
-                                            />
-                                            <Form.Check
-                                                inline
-                                                label="Tests"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-7`}
-                                            />
-                                            <Form.Check
-                                                inline
-                                                label="Exercises"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-8`}
-                                            />
-                                            <Form.Check
-                                                inline
-                                                label="Homework assignments"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-9`}
-                                            />
+                                                type={"checkbox"}
+                                                id={`inline-${topic}-5`}
+                                                onClick={() => toggleSelection(topic.text)}/>
                                         </div>
                                     ))}
                                 </Form>

@@ -5,6 +5,7 @@ import Main from "./entities/main/page";
 import MainMobile from './(MobileFlow)/mobile-main/page';
 import AuthService from '../services/AuthService';
 import { useRouter } from "next/navigation";
+import { useLoader } from './LoderHelper/context/loaderHelperContext';
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
@@ -18,6 +19,7 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
+  const {setLoader} = useLoader()
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -62,6 +64,8 @@ export default function PageComponent() {
 
   const handleGetPost = async (page) => {
     setLoading(true);
+    setLoader(true);
+
     try {
       const result = await AuthService.GetPost(page);
       console.log(result, "result----");
@@ -72,8 +76,12 @@ export default function PageComponent() {
 
         if (newPosts.length === 0) {
           setNoLoad(true); // Stop further API calls when no more data
+          setLoader(false);
+
         } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);
+          setLoader(false);
+
         }
       }
     } catch (error) {
@@ -90,15 +98,23 @@ useEffect(() => {
   handleTopicPost();
 }, []);
 const handleTopicPost = async () => {
+  setLoader(true);
+
+
   try {
     const result = await AuthService.TopicPost();
     console.log(result, 'result---')
     if (result?.success) {
       setTopicPost(result?.data)
+      setLoader(false);
+
     } else {
       AlertHelper.show('danger', 'Gimmel', result?.message);
+      setLoader(false);
+
     }
   } catch (error) {
+    setLoader(false);
 
     console.log('Error occurred:', 'Gimmel', error);
   }
@@ -121,15 +137,16 @@ const handleTopicPost = async () => {
   
   console.log(searchList,"headerSearch--------");
 const handleHistoryList = async (headerSearch) => {
-    // LoaderHelper.loaderStatus(true);
-    try {
+  setLoader(true);
+
+  try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -149,7 +166,8 @@ const handleHistoryList = async (headerSearch) => {
     selectedAudience,
   ) => {
     console.log(headerSearch,"usecase--0000")
-    // LoaderHelper.loaderStatus(true);
+    setLoader(true);
+
     try {
       const result = await AuthService.SearchResult(
         headerSearch,
@@ -164,7 +182,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -181,9 +199,11 @@ const handleHistoryList = async (headerSearch) => {
         }
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
@@ -204,59 +224,83 @@ const handleHistoryList = async (headerSearch) => {
   },[]);
 
   const handleSubstance = async () => {
+    setLoader(true);
 
     try {
       const result = await AuthService.Substance();
       if (result?.success) {
+        setLoader(false);
+
 
         setSubstance(result?.data?.data);
       } else {
 
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+
       }
     } catch (error) {
+      setLoader(false);
 
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
 
   const handleMentalHealth = async () => {
+    setLoader(true);
 
     try {
       const result = await AuthService.MentalHealth();
       if (result?.success) {
+        setLoader(false);
+
 
         setMentalHealth(result?.data?.data);
       } else {
 
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+
       }
     } catch (error) {
+      setLoader(false);
 
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
   const handleNeuroscience = async () => {
+    setLoader(false);
 
     try {
       const result = await AuthService.Neuroscience();
       if (result?.success) {
         setNeuroScience(result?.data?.data);
+        setLoader(false);
+
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+
       }
     } catch (error) {
+      setLoader(false);
+
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
   const handleSocialIssue = async () => {
+    setLoader(true);
+
     try {
       const result = await AuthService.SocialIssue();
       if (result?.success) {
+        setLoader(false);
 
         setSocialIssues(result?.data?.data);
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+
       }
     } catch (error) {
 
@@ -264,16 +308,22 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
   const handleSaveIntrest = async () => {
+    setLoader(true);
 
     try {
       const result = await AuthService.SaveInt();
       if (result?.success) {
+        setLoader(false);
+
         // AlertHelper.show('success', 'Gimmel', result?.message);
       } else {
+        setLoader(false);
+
 
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
+      setLoader(false);
 
       console.log('Error occurred:', 'Gimmel', error);
     }
@@ -291,7 +341,7 @@ const handleHistoryList = async (headerSearch) => {
       const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
       console.log(result,"result of interest filter ---")
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
         localStorage.setItem('interest', isInterestValue);
@@ -299,11 +349,11 @@ const handleHistoryList = async (headerSearch) => {
         getInterestFromStorage();
         handleGetPost();
       } else {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       // console.log('Error occurred:', 'Gimmel', error);
     }
   };

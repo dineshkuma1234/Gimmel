@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import VideoDetails from '@/app/entities/details/page';
 import AuthService from "@/services/AuthService";
 import { useParams, useRouter } from 'next/navigation';
+import { useLoader } from '../LoderHelper/context/loaderHelperContext';
 
 function PageComponent() {
   const router = useRouter();
@@ -12,6 +13,7 @@ function PageComponent() {
   const [getvideoid, setgetvideoid] = useState([]);
   const [data , setdata] = useState();
   const [loading,setLoading] = useState(false);
+  const {setLoader} = useLoader()
 
   // console.log('getQuiz+++++++++++++', getQuiz)
   useEffect(() => {
@@ -25,8 +27,10 @@ function PageComponent() {
       try {
         const result = await AuthService.getvideoid(id);
         console.log(result, "getvideoid----");
-    
+    setLoader(false);
         if (result?.success) {
+          setLoader(false);
+
           // setgetvideoid(result?.data);
           
          setdata(result.data)
@@ -41,6 +45,8 @@ function PageComponent() {
         console.error("Error occurred:", error);
       } finally {
         setLoading(false);
+        setLoader(false);
+
       }
     };
 

@@ -486,7 +486,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
 
                             <div className="video-de-title">
                                 <div className="de-title">
-                                    <Link href="/videodetails">{video.title}</Link>
+                                    <Link href="/videodetails2">{video.title}</Link>
                                 </div>
                                 <div className="more-btn" ref={dropdownRef}>
                                     <button className="btn btn-more" onClick={toggleDropdown}>

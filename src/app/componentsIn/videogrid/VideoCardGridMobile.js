@@ -519,7 +519,7 @@ const handleChange4 = (event) => {
                 topicPost?.map((topicPost, index) => (
                   <div className="video-card-container" key={index}>
                     <div className="video-card-content">
-                      <Link href="/videodetails">
+                      <Link href="/videodetails2">
                         <div className="video-card-image">
                           <Image
                             src={topicPost.thumbnail}
@@ -534,7 +534,7 @@ const handleChange4 = (event) => {
                       </Link>
                       <div className="video-de-title">
                         <div className="de-title">
-                          <Link href="/videodetails">{topicPost.title}</Link>
+                          <Link href="/videodetails2">{topicPost.title}</Link>
                         </div>
                       </div>
                     </div>

@@ -236,7 +236,7 @@ function Suggested({ video }) {
             <div className="video-card suggested-card">
                 <div className="video-card-content row">
                     <div className='col-6'>
-                        <Link href="/videodetails">
+                        <Link href="/videodetails2">
                             <div className="video-card-image">
                                 <Image src={SliderThumbnil} alt="video card" />
                                 <div className="video-duration">{video.duration}</div>
@@ -248,7 +248,7 @@ function Suggested({ video }) {
                             <div className="video-de-title">
                                 <div className="de-title">
                                     <h4>
-                                        <Link href="/videodetails">{video.title}</Link>
+                                        <Link href="/videodetails2">{video.title}</Link>
                                     </h4>
                                 </div>
                                 <div className="more-btn">
