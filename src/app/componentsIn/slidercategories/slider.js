@@ -379,7 +379,7 @@ const SliderCategories = ({ video }) => {
                             <div className="col-md-12">
                                 <div className="video-card">
                                     <div className="video-card-content">
-                                        <Link href="/videodetails2">
+                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                             <div className="video-card-image">
                                                 <Image src={SliderThumbnil} alt="video card" />
                                                 <div className="video-duration">{video.duration}</div>
@@ -410,7 +410,7 @@ const SliderCategories = ({ video }) => {
 
                                             <div className="video-de-title">
                                                 <div className="de-title">
-                                                    <Link href="videodetails2">{video.title}</Link>
+                                                    <Link href={`/mainHome/${video?._id}/videodetails2`}>{video.title}</Link>
                                                 </div>
                                                 <div className="more-btn">
                                                     <button className="btn btn-more" onClick={() => toggleDropdown(video.id)}>

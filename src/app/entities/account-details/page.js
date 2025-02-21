@@ -568,7 +568,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                             <div className="col-md-12">
                                                 <div className="video-card">
                                                     <div className="video-card-content">
-                                                        <Link href="/videodetails2">
+                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                                             <div className="video-card-image">
                                                                 <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
                                                                 <div className="video-duration">{item?.duration}</div>
@@ -577,7 +577,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                         <div className="video-card-detail">
                                                             <div className="video-de-title">
                                                                 <div className="de-title">
-                                                                    <Link href="/videodetails2">{item?.title}</Link>
+                                                                    <Link href={`/mainHome/${video?._id}/videodetails2`}>{item?.title}</Link>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -170,12 +170,14 @@ function PageComponent() {
     };
   
     const handleSaveVideo = async () => {
+      setLoader(true);
 
       if(!selectedFolderId){
         // AlertHelper.show('warning', 'Gimmel',"Please select folder");
         return;
       }
-      setLoader(true);
+      setLoader(false);
+
       try {
         const result = await AuthService.SaveVideo(selectedFolderId, postId);
         console.log(result,"result of save video ---")

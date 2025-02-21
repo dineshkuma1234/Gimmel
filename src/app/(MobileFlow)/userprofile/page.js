@@ -338,7 +338,7 @@ function UserProfile() {
                                 {videoData.map((videoData, index) => (
                                     <div className="video-card-container" key={index}>
                                         <div className="video-card-content">
-                                            <Link href="/videodetails2">
+                                            <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                                 <div className="video-card-image">
                                                     <Image src={SliderThumbnil} alt="video card" />
                                                     <div className="video-duration">{videoData.duration}</div>
@@ -347,7 +347,7 @@ function UserProfile() {
                                             <div className="video-card-detail">
                                                 <div className="video-de-title">
                                                     <div className="de-title">
-                                                        <Link href="/videodetails2">{videoData.title}</Link>
+                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>{videoData.title}</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,7 +374,7 @@ function UserProfile() {
                                 {videoData.map((videoData, index) => (
                                     <div className="video-card-container" key={index}>
                                         <div className="video-card-content">
-                                            <Link href="/videodetails2">
+                                            <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                                 <div className="video-card-image">
                                                     <Image src={SliderThumbnil} alt="video card" />
                                                     <div className="video-duration">{videoData.duration}</div>
@@ -383,7 +383,7 @@ function UserProfile() {
                                             <div className="video-card-detail">
                                                 <div className="video-de-title">
                                                     <div className="de-title">
-                                                        <Link href="/videodetails2">{videoData.title}</Link>
+                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>{videoData.title}</Link>
                                                     </div>
                                                 </div>
                                             </div>
