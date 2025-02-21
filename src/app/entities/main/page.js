@@ -3,6 +3,7 @@ import Header from "../../../components/header/header";
 import BottomBar from "../../../components/BottomBar/BottomBar";
 import SliderSection from "../../componentsIn/slider/slider";
 import VideoCardGrid from "../../componentsIn/videogrid/VideoCardGrid";
+import LoderHelper from "../../../app/LoderHelper/page"
 import Link from "next/link";
 
 
@@ -10,6 +11,7 @@ function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryLi
 
     return (
         <>
+            <LoderHelper/>
             <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} />
 
             <main id="main" className="top-space">

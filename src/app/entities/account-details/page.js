@@ -571,27 +571,28 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <Link href="/watchhistory" className='view-all-btn'>View all</Link>
                         </div>
 
-                        <div className='library-list mt-4'>
-                            <Swiper
-                                spaceBetween={14}
-                                slidesPerView={4}
-                                className="mySwiper category-swiper library-swiper"
-                            >
-                                {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
-                                    <SwiperSlide key={index}>
-                                        <div className="col-md-12">
-                                            <div className="video-card">
-                                                <div className="video-card-content">
-                                                    <Link href="/videodetails2">
-                                                        <div className="video-card-image">
-                                                            <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
-                                                            <div className="video-duration">{item?.duration}</div>
-                                                        </div>
-                                                    </Link>
-                                                    <div className="video-card-detail">
-                                                        <div className="video-de-title">
-                                                            <div className="de-title">
-                                                                <Link href="/videodetails2">{item?.title}</Link>
+                            <div className='library-list mt-4'>
+                                <Swiper
+                                    spaceBetween={14}
+                                    slidesPerView={4}
+                                    className="mySwiper category-swiper library-swiper"
+                                >
+                                    {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
+                                        <SwiperSlide key={index}>
+                                            <div className="col-md-12">
+                                                <div className="video-card">
+                                                    <div className="video-card-content">
+                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                                                            <div className="video-card-image">
+                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
+                                                                <div className="video-duration">{item?.duration}</div>
+                                                            </div>
+                                                        </Link>
+                                                        <div className="video-card-detail">
+                                                            <div className="video-de-title">
+                                                                <div className="de-title">
+                                                                    <Link href={`/mainHome/${video?._id}/videodetails2`}>{item?.title}</Link>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

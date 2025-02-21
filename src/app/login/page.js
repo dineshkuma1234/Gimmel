@@ -3,22 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import Login from "../entities/login/page";
 import AuthService from '../../services/AuthService';
-import toast, { Toaster } from 'react-hot-toast';
+import { useLoader } from '../LoderHelper/context/loaderHelperContext';
 
 
 function PageComponent() {
     const router = useRouter(); 
-
+    const {setLoader} = useLoader()
     const handleLogIn = async( data) => {
         console.log(data,"this the data")
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         
         try {
             const result = await AuthService.LogIn(data?.signId, data?.password);
             console.log(result,"result----")
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
-                toast.success( result?.message,{className: "custom-toast-success"});
+                setLoader(false);
+                // AlertHelper.show('success', 'Gimmel', result?.message);
                 localStorage.setItem( 'token', result?.data?.token);
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 console.log(result?.data?.token,"this the value")
@@ -26,11 +26,11 @@ function PageComponent() {
                 router.push("/");
                 
             } else {
-                // LoaderHelper.loaderStatus(false);
-                toast.error(result?.message,{className: "custom-toast",});
+                setLoader(false);
+                AlertHelper.show('danger', 'Gimmel', result?.message);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
+            setLoader(false);
             console.log('Error occurred:', 'Gimmel', error);
         }
     };

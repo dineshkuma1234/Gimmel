@@ -320,7 +320,7 @@ function CategoriesCard({watchHistoryData}) {
                 <div className="categories-card" key={index}>
                     <div className="row">
                         <div className="col-md-6">
-                            <Link href="/videodetails">
+                            <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                 <div className="categories-card__thumbnail">
                                     <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
                                     <div className="video-duration">{item?.duration}</div>

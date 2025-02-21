@@ -6,6 +6,7 @@ import MainMobile from '../(MobileFlow)/mobile-main/page';
 import AuthService from '../../services/AuthService';
 import { useParams, useRouter } from "next/navigation";
 import LoaderHelper from '../../LoaderHelper/page'
+import { useLoader } from '../LoderHelper/context/loaderHelperContext';
 
 export default function Home() {
   const router = useRouter(); 
@@ -17,6 +18,8 @@ export default function Home() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
+  const {setLoader} = useLoader()
+
   // console.log(getvideoid,"getvideoid---")
 //   // Track screen width for responsive rendering
   useEffect(() => {
@@ -59,6 +62,7 @@ export default function Home() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
+    setLoader(true);
     setLoading(true);
     try {
     
@@ -72,9 +76,12 @@ export default function Home() {
       if (result?.success) {
         setTotal(result?.data?.totalPosts);
         const newPosts = result?.data?.posts || [];
+        setLoader(false);
 
         if (newPosts.length === 0) {
           setNoLoad(true); // Stop further API calls when no more data
+          setLoader(false);
+
         } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);
         }
@@ -83,6 +90,8 @@ export default function Home() {
       console.error('Error occurred:', error);
     } finally {
       setLoading(false);
+      setLoader(false);
+
     }
   };
  
@@ -93,17 +102,21 @@ useEffect(() => {
   handleTopicPost();
 }, []);
 const handleTopicPost = async () => {
+  setLoader(true);
   try {
     const result = await AuthService.TopicPost();
     console.log(result, 'result---')
     if (result?.success) {
       setTopicPost(result?.data)
     } else {
-      AlertHelper.show('danger', 'Gimmel', result?.message);
+      setLoader(false);
+
+      // AlertHelper.show('danger', 'Gimmel', result?.message);
     }
   } catch (error) {
+    setLoader(false);
 
-    console.log('Error occurred:', 'Gimmel', error);
+    // console.log('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -124,15 +137,16 @@ const handleTopicPost = async () => {
   
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
-    LoaderHelper.loaderStatus(true);
-    try {
+
+  setLoader(true);
+  try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -152,8 +166,8 @@ const handleHistoryList = async (headerSearch) => {
     selectedAudience,
   ) => {
     console.log(headerSearch,"usecase--0000")
-    LoaderHelper.loaderStatus(true);
-    try {
+    setLoader(true);
+      try {
       const result = await AuthService.SearchResult(
         headerSearch,
         isOn,
@@ -167,7 +181,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -186,7 +200,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
