@@ -19,6 +19,8 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
+  const [sliderData, setSliderData] = useState([]);
+  const [noSuggetion, setNoSuggetion] = useState("")
   const {setLoader} = UseLoader()
 
   useEffect(() => {
@@ -221,6 +223,7 @@ const handleHistoryList = async (headerSearch) => {
     handleNeuroscience();
     handleSocialIssue();
     getInterestFromStorage();
+    handleSliderData();
   },[]);
 
   const handleSubstance = async () => {
@@ -358,6 +361,81 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
 
+
+
+  const handleSliderData = async () => {
+    try {
+      const result = await AuthService.HomeSlider();
+      if (result?.success) {
+        setSliderData(result?.data?.posts);
+      } else {
+        AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+
+  const handleMoreLike = async () => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.MoreLike();
+      console.log(result,"result of more int video ----")
+      if (result) {
+        // LoaderHelper.loaderStatus(false);
+        setTopicPost(result?.data)
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+        handleSliderData();
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  const handleNotInterestedTopic = async () => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.Notintrested();
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+        handleSliderData();
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  const handleRemoveSuggation = async () => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.removeSuggation();
+      if (result) {
+        // LoaderHelper.loaderStatus(false);
+        // console.log(result,"result")
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+        handleSliderData();
+        setNoSuggetion(result)
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+
   console.log(interest,"interest---") 
 
   return (
@@ -368,7 +446,7 @@ const handleHistoryList = async (headerSearch) => {
 
         
 
-        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
+        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} topicPost={topicPost} handleMoreLike={handleMoreLike} sliderData={sliderData} handleNotInterestedTopic={handleNotInterestedTopic}  handleRemoveSuggation={handleRemoveSuggation}noSuggetion={noSuggetion}   />
 
         
         

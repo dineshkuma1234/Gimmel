@@ -580,6 +580,7 @@ span.user-name {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 
 .video-card-image {
@@ -2248,7 +2249,7 @@ button.folder-icon {
   transform: translate(10%, 2%);
 }
 .custom-toast {
-  background: red !important;
+  background: rgb(223, 18, 18) !important;
   color: white !important;
   font-weight: bold !important;
   text-align: center !important;

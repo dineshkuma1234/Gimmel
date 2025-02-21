@@ -5,6 +5,7 @@ import AuthService from "@/services/AuthService";
 import { useParams } from 'next/navigation';
 import { VideoDetailsContext } from '@/app/Context/VideoDetails/videoDetailsContext';
 import { UseLoader } from '@/app/LoderHelper/context/loaderHelperContext';
+import { useRouter } from "next/navigation";
 // import LoaderHelper from '../../../../../src/LoaderHelper/LoaderHelper';
 function PageComponent() {
 
@@ -24,6 +25,8 @@ function PageComponent() {
   const postId = id?.video_id|| id;
   const {setLoader} = UseLoader()
   console.log('selectedFolderId', selectedFolderId)
+  const router = useRouter(); 
+
   useEffect(() => {
      
           handleGetPostid();
@@ -216,10 +219,30 @@ function PageComponent() {
           // console.log('Error occurred:', 'Gimmel', error);
       }
     };
+    const handleReportPost = async (selectedValues,text,postId) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+          const result = await AuthService.ReportPost(selectedValues,text, postId);
+          if (result?.success) {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.data);
+              // navigation.navigate('TabNavigation', {
+              //   screen: 'Home',
+              // })
+              router.push("/")
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
     
 
   return (
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics}  />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} />
   )
 }
 
