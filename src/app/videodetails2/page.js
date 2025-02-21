@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import VideoDetails from '@/app/entities/details/page';
 import AuthService from "@/services/AuthService";
 import { useParams, useRouter } from 'next/navigation';
-import { useLoader } from '../LoderHelper/context/loaderHelperContext';
+import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
 
 function PageComponent() {
   const router = useRouter();
@@ -13,7 +13,7 @@ function PageComponent() {
   const [getvideoid, setgetvideoid] = useState([]);
   const [data , setdata] = useState();
   const [loading,setLoading] = useState(false);
-  const {setLoader} = useLoader()
+  const {setLoader} = UseLoader()
 
   // console.log('getQuiz+++++++++++++', getQuiz)
   useEffect(() => {

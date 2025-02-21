@@ -598,10 +598,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
+                            
                         </div>
                     </div>
                 </div>

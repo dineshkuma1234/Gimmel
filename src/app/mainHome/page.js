@@ -5,8 +5,7 @@ import Main from "../entities/main/page";
 import MainMobile from '../(MobileFlow)/mobile-main/page';
 import AuthService from '../../services/AuthService';
 import { useParams, useRouter } from "next/navigation";
-import LoaderHelper from '../../LoaderHelper/page'
-import { useLoader } from '../LoderHelper/context/loaderHelperContext';
+import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
 
 export default function Home() {
   const router = useRouter(); 
@@ -18,7 +17,7 @@ export default function Home() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
-  const {setLoader} = useLoader()
+  const {setLoader} = UseLoader()
 
   // console.log(getvideoid,"getvideoid---")
 //   // Track screen width for responsive rendering

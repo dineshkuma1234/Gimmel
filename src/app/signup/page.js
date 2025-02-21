@@ -3,12 +3,14 @@ import React from 'react'
 import Signup from '../entities/signup/page'
 import AuthService from '../../services/AuthService';   
 import { useRouter } from "next/navigation";
-import { useLoader } from '../LoderHelper/context/loaderHelperContext';
+import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
+import { Toaster } from 'react-hot-toast';
 
 function SignupScreen() {
     const router = useRouter(); 
+    const {setLoader} = UseLoader()
     const handleSignUp = async (data) => {
-          const {setLoader} = useLoader()
+        
           setLoader(true)
           try {
           const result = await AuthService.SignUp(data);

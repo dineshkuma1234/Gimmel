@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
-import { useLoader } from "./context/loaderHelperContext"; // Import context
+import { UseLoader } from "./context/loaderHelperContext"; // Import context
 import "./loder.css";
 
 const Loader = () => {
-  const { loaderState } = useLoader(); // Get loader state from context
+  const { loaderState } = UseLoader(); // Get loader state from context
 
   if (!loaderState) return null; // Hide loader when false
 

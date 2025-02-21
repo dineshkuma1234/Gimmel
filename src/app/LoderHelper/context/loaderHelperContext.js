@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, useContext, useState } from "react";
  
 // Create Context
@@ -20,6 +21,6 @@ export const LoaderProvider = ({ children }) => {
 };
  
 // Custom hook to use the loader context
-export const useLoader = () => {
+export const UseLoader = () => {
   return useContext(LoaderContext);
 };

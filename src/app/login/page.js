@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import Login from "../entities/login/page";
 import AuthService from '../../services/AuthService';
-import { useLoader } from '../LoderHelper/context/loaderHelperContext';
+import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
+import { Toaster } from 'react-hot-toast';
 
 
 function PageComponent() {
     const router = useRouter(); 
-    const {setLoader} = useLoader()
+    const {setLoader} = UseLoader()
     const handleLogIn = async( data) => {
         console.log(data,"this the data")
         setLoader(true);

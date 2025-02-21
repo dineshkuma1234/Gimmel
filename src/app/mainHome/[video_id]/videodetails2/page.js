@@ -4,7 +4,7 @@ import VideoDetails from '@/app/entities/details/page';
 import AuthService from "@/services/AuthService";
 import { useParams } from 'next/navigation';
 import { VideoDetailsContext } from '@/app/Context/VideoDetails/videoDetailsContext';
-import { useLoader } from '@/app/LoderHelper/context/loaderHelperContext';
+import { UseLoader } from '@/app/LoderHelper/context/loaderHelperContext';
 // import LoaderHelper from '../../../../../src/LoaderHelper/LoaderHelper';
 function PageComponent() {
 
@@ -22,7 +22,7 @@ function PageComponent() {
   const [shareLink,setShareLink] = useState("")
   const [selectedTopics, setSelectedTopics] = useState([]);
   const postId = id?.video_id|| id;
-  const {setLoader} = useLoader()
+  const {setLoader} = UseLoader()
   console.log('selectedFolderId', selectedFolderId)
   useEffect(() => {
      

@@ -7,7 +7,7 @@ import "./globals.css";
 import "../assets/css/style.css";
 import "../assets/css/responsive.css";
 import { SearchListProvider } from "./Context/searchlist/searchListContext";
-import { LoaderProvider, useLoader } from "../app/LoderHelper/context/loaderHelperContext";  // Import loader context provider
+import { LoaderProvider, UseLoader } from "../app/LoderHelper/context/loaderHelperContext";  // Import loader context provider
 import Loader from "../app/LoderHelper/page";  // Import your loader component
 import LoaderHelper from "../app/LoderHelper/LoaderHelper";  // Import loader helper
 
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
 
 // ✅ Create a separate component for useEffect
 const LoaderSetup = () => {
-  const { setLoader } = useLoader();
+  const { setLoader } = UseLoader();
 
   useEffect(() => {
     LoaderHelper.setLoader(setLoader);

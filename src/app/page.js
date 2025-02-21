@@ -5,7 +5,7 @@ import Main from "./entities/main/page";
 import MainMobile from './(MobileFlow)/mobile-main/page';
 import AuthService from '../services/AuthService';
 import { useRouter } from "next/navigation";
-import { useLoader } from './LoderHelper/context/loaderHelperContext';
+import { UseLoader } from './LoderHelper/context/loaderHelperContext';
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
@@ -19,7 +19,7 @@ export default function PageComponent() {
   const [noLoad, setNoLoad] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
-  const {setLoader} = useLoader()
+  const {setLoader} = UseLoader()
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
