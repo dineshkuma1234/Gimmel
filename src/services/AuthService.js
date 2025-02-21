@@ -572,14 +572,14 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  ReportPost: async (reportDiscription, selectedValues, id) => {
+  ReportPost: async (selectedValues,text, id) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, reportPost } = ApiConfig;
     const url = authBaseUrl + reportPost;
     const params = {
       postId: id,
-      reportType: selectedValues[0],
-      description: reportDiscription
+      reportType: selectedValues,
+      description: text
     };
     console.log(params, "params----")
     const headers = {
