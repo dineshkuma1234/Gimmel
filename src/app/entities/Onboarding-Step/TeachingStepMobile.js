@@ -10,7 +10,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
         require("../../../assets/images/pixel.svg"),
         require("../../../assets/images/Artwork.svg"),
         require("../../../assets/images/step-3.svg"),
-        // require("../../../assets/images/step-4.svg"),
+        require("../../../assets/images/step-4.svg"),
         require("../../../assets/images/step-5.svg"),
         require("../../../assets/images/stap-6.svg"),
     ];
@@ -414,7 +414,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                                                     <ListGroup.Item key={index}>
                                                         <Form.Check
                                                              type="checkbox"
-                                                             id={item.name}
+                                                             id={item.index}
                                                              label={item.name}
                                                              checked={checkedItems1[item.name] }
                                                              onChange={handleCheckboxChange}
@@ -529,7 +529,7 @@ const TeachingStepMobile = ({ handleOnboarding, teachingTopic, contentMaturity, 
                                     currentIndex === images.length - 1 ? (
                                         <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation)}>Finish</Link>
                                     ) : (
-                                        <button type="button" className="btn-color-blue" onClick={nextSlide}>Next</button>
+                                        <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={currentIndex === 2 &&item.length<3}>Next</button>
                                     )
                                 }
                             </div>

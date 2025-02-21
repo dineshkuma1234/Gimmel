@@ -31,7 +31,11 @@ function SignupScreen() {
         }
       };
   return (
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
     <Signup  handleSignUp={handleSignUp} />
+    </>
+    
   )
 }
 

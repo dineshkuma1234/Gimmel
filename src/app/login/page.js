@@ -35,7 +35,11 @@ function PageComponent() {
         }
     };
     return (
+        <>
+        <Toaster position="top-right" reverseOrder={false} />
         <Login handleLogIn={handleLogIn}/>
+        </>
+        
     );
 }
 

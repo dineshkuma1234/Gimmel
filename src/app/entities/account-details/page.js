@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { Modal } from 'react-bootstrap';
 
 
-function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction}) {
+function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
     const [isYearly, setIsYearly] = useState(false);
 
@@ -22,11 +22,17 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [selected1, setSelected1] = useState([]);
     const [selected2, setSelected2] = useState([]);
     const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
+    const [school, setSchool] = useState(profileInfo?.school || "");
+    const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
+    const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
     const [isEditable, setIsEditable] = useState(false);
 
-    const handleChange = (e) => {
-        setPhoneNumber(e.target.value);
-      };
+    useEffect(() => {
+        setPhoneNumber(profileInfo?.phone || "");
+        setSchool(profileInfo?.school || "");
+        setMinAge(profileInfo?.onboarding?.ageFrom || "");
+        setMaxAge(profileInfo?.onboarding?.ageTo || "");
+      }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
     console.log(phoneNumber,"phoneNumber++++++++++++")
 
     const togglePricing = () => {
@@ -44,6 +50,11 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const handleShow2 = () => setShow2(true);
 
     const handleEditClick = () => {
+        // if (isEditable) {
+        //     console.log("is this fxn call")
+        //     // Runs only when clicking "Save Changes"
+        //     handleEditProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge);
+        // }
         setIsEditable(!isEditable);
     };
 
@@ -271,7 +282,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="+1 (713) 892-5638" defaultValue={profileInfo?.phone||''} readOnly={!isEditable} value={phoneNumber} onChange={handleChange}/>
+                                                <Form.Control type="text" placeholder="+1 (713) 892-5638"   value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -279,7 +290,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>School Name</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="" defaultValue={profileInfo?.school || ""} readOnly={!isEditable}/>
+                                                <Form.Control type="text" placeholder="Enter school name" value={school}  onChange={(e) => setSchool(e.target.value)}readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput4">
@@ -287,7 +298,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="12-18" defaultValue={`${profileInfo?.onboarding?.ageFrom?.toString()} - ${profileInfo?.onboarding?.ageTo?.toString()}` || ""} readOnly={!isEditable} />
+                                                <Form.Control type="text" placeholder="12-18" value={`${minAge} - ${maxAge}`} onChange={(e) => { const [newMin, newMax] = e.target.value.split(" - ");setMinAge(newMin || ""); setMaxAge(newMax || ""); }} readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
                                       
@@ -503,59 +514,62 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             </div>
                         </div>
                     </div>
+                    {libraryVideo?.length > 0 ?
                     <div className="card-white overflow-hidden">
-                        <div className="card-inner-padding">
-                            <div className='inline- d-flex align-items-center justify-content-between'>
-                                <div className="card-white-title">
-                                    <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
-                                    <h3>My Library</h3>
-                                </div>
-                                <Link href="/library" className='view-all-btn'>View all</Link>
+                    <div className="card-inner-padding">
+                        <div className='inline- d-flex align-items-center justify-content-between'>
+                            <div className="card-white-title">
+                                <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
+                                <h3>My Library</h3>
                             </div>
+                            <Link href="/library" className='view-all-btn'>View all</Link>
+                        </div>
 
-                            <div className='library-list mt-4'>
-                                <Swiper
-                                    spaceBetween={14}
-                                    slidesPerView={4}
-                                    className="mySwiper category-swiper library-swiper"
-                                >
-                                    {libraryVideo && Array.isArray(libraryVideo) && libraryVideo.map((item, index) => (
-                                        <SwiperSlide key={index}>
-                                            <div className="col-md-12">
-                                                <div className="video-card">
-                                                    <div className="video-card-content">
-                                                        <Link href="/videodetails">
-                                                            <div className="video-card-image">
-                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
-                                                                <div className="video-duration">{item?.duration}</div>
-                                                            </div>
-                                                        </Link>
-                                                        <div className="video-card-detail">
-                                                            <div className="video-de-title">
-                                                                <div className="de-title">
-                                                                    <Link href="/videodetails">{item?.title}</Link>
-                                                                </div>
+                        <div className='library-list mt-4'>
+                            <Swiper
+                                spaceBetween={14}
+                                slidesPerView={4}
+                                className="mySwiper category-swiper library-swiper"
+                            >
+                                {libraryVideo && Array.isArray(libraryVideo) && libraryVideo.map((item, index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className="col-md-12">
+                                            <div className="video-card">
+                                                <div className="video-card-content">
+                                                    <Link href="/videodetails">
+                                                        <div className="video-card-image">
+                                                            <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
+                                                            <div className="video-duration">{item?.duration}</div>
+                                                        </div>
+                                                    </Link>
+                                                    <div className="video-card-detail">
+                                                        <div className="video-de-title">
+                                                            <div className="de-title">
+                                                                <Link href="/videodetails">{item?.title}</Link>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
-
+                </div>
+                    :null}
+                    
+                    {watchHistoryData?.length > 0 ?
                     <div className="card-white overflow-hidden">
-                        <div className="card-inner-padding">
-                            <div className='inline- d-flex align-items-center justify-content-between'>
-                                <div className="card-white-title">
-                                    <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
-                                    <h3>Watch history</h3>
-                                </div>
-                                <Link href="/watchhistory" className='view-all-btn'>View all</Link>
+                    <div className="card-inner-padding">
+                        <div className='inline- d-flex align-items-center justify-content-between'>
+                            <div className="card-white-title">
+                                <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
+                                <h3>Watch history</h3>
                             </div>
+                            <Link href="/watchhistory" className='view-all-btn'>View all</Link>
+                        </div>
 
                             <div className='library-list mt-4'>
                                 <Swiper
@@ -584,12 +598,15 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     </div>
                                                 </div>
                                             </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
+                </div>
+                     : null}
+                    
                 </div>
             </main>
         </>

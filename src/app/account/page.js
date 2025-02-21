@@ -142,12 +142,31 @@ function PageComponent() {
             console.log('Error occurred:', 'Gimmel', error);
         }
     };
+    
+    const handleEditProfile = async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge) => {
+        // LoaderHelper.loaderStatus(true);
+        try {
+            const result = await AuthService.editProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo);
+            // console.log(result, "result")
+            if (result?.success) {
+                // LoaderHelper.loaderStatus(false);
+                // AlertHelper.show('success', 'Gimmel', result?.data);
+                handleUserInfo();
+            } else {
+                // LoaderHelper.loaderStatus(false);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+            }
+        } catch (error) {
+            // LoaderHelper.loaderStatus(false);
+            console.log('Error occurred:', 'Gimmel', error);
+        }
+    };
 
     // console.log(contentMaturity,"contentMaturity----");
     
     return (
         <>
-            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction}/>
+            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile}/>
         </>
     );
 }

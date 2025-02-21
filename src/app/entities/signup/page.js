@@ -27,40 +27,7 @@ const Signup = ({handleSignUp}) => {
         };
         console.log(data?.firstName.value,"data000=====");
 
-        // // Date validation
-        // if (!date) {
-        //     setDateError('Date of Birth is required.');
-        //     return;
-        // } else if (date > new Date()) {
-        //     setDateError('Date of Birth cannot be in the future.');
-        //     return;
-        // } else if (date >= cutOffDate) {
-        //     setDateError('Date of Birth must be before January 1, 2020.');
-        //     return;
-        // } else {
-        //     setDateError('');
-        // }
-
-        // if (!data?.firstName?.value) {
-        //     // Toast.show('First Name is required');
-        //     return;
-        // } else if (!data?.lastName.value) {
-        //     // Toast.show('Last Name is required');
-        //     return;
-        // } else if (!data?.email.value) {
-        //     // Toast.show('Email is required');
-        //     return;
-        // } else if (
-        //     !data.password.value ||
-        //     data.password.value !== data?.confirmPassword?.value
-        // ) {
-        //     // Toast.show('Password And ConfirmPassword should be same');
-        //     return;
-        // } else if (!regEx.test(data?.password?.value)) {
-        //     // Toast.show('Password only allows alphanumeric format with special characters.');
-        //     return;
-        // } else {
-            handleSignUp(signUpData);
+                   handleSignUp(signUpData);
         
     };
 

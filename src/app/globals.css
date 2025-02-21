@@ -2247,7 +2247,22 @@ button.folder-icon {
   width: 90%;
   transform: translate(10%, 2%);
 }
-
+.custom-toast {
+  background: red !important;
+  color: white !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+}
+.custom-toast-success {
+  background: rgb(17, 130, 17) !important;
+  color: white !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+}
 /* .multi-video-slider {
   position: relative;
 }
