@@ -79,6 +79,7 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
      }
      console.log(headerSearch,"headerSearch---")
      const [isAuthenticated, setIsAuthenticated] = useState(false);
+     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
     return (
         <header className="header" id="header">
@@ -218,7 +219,7 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
                     <span className="burger-line"></span>
                 </div> */}
                  <div className="sec-center">
-                    {isAuthenticated ? (
+                 {token ? (
                         <Link href="/account" className="logo">
                             <div className="for-dropdown profile-btn-view active">
                                 <div className="user-image">

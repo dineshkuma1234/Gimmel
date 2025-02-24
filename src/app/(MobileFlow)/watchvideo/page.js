@@ -15,7 +15,7 @@ import { Form, ModalBody } from "react-bootstrap";
 import { useState } from "react";
 import Link from "next/link";
 
-function WatchVideo(data,VideoDetailsState,getQuiz,) {
+function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,) {
     console.log(data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
 
@@ -71,6 +71,70 @@ function WatchVideo(data,VideoDetailsState,getQuiz,) {
         }
         return timeAgo;
     }
+    const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+       
+
+    const deselectAll = () => {
+        if (!setIsSelectTeachingAll) {
+            // Select all topics
+            setIsSelectTeachingAll(true);
+            setSelectedTopics(Share.map(topic => topic.text));
+        } else {
+            // Deselect all topics
+            setIsSelectTeachingAll(false);
+            setSelectedTopics([]);
+        }
+    };
+
+    const toggleSelection = (topicText) => {
+        setSelectedTopics((prevSelected) => {
+            if (prevSelected.includes(topicText)) {
+                // Remove topic if already selected
+                return prevSelected.filter(item => item !== topicText);
+            } else {
+                // Add topic if not selected
+                return [...prevSelected, topicText];
+            }
+        });
+    };
+
+    const handleTranscript = (topic) => {
+        if (transcript.includes(topic)) {
+            setTranscript(transcript.filter(item => item !== topic));
+        } else {
+            setTranscript([...transcript, topic]);
+        }
+    };
+
+    const isTranscript = (topic) => transcript.includes(topic);
+
+
+    const toggleCheckbox = (itemName) => {
+        if (selectedValues.includes(itemName)) {
+
+            setSelectedValues(selectedValues.filter(item => item !== itemName));
+        } else {
+
+            setSelectedValues([...selectedValues, itemName]);
+        }
+    };
+
+    const isTopicSelectedTeach = (itemName) => {
+        return selectedValues.includes(itemName);
+    };
+
+    const copyUrl = () => {
+        navigator.clipboard.writeText(shareLink);
+    };
+    const Share = [
+        { id: 1, text: 'Discussion points', value: 'discussionPoints' },
+        { id: 2, text: 'Quizzes', value: 'Quizzes' },
+        { id: 3, text: 'Tests', value: 'Tests' },
+        { id: 4, text: 'Exercises', value: 'Exercises' },
+        { id: 5, text: 'Homework assignments', value: 'homeworkAssignments' },
+    ];
+
+    
     return (
         <>
             <Modal show={show2} onHide={handleClose2} centered className='modal-dots'>
@@ -137,7 +201,7 @@ function WatchVideo(data,VideoDetailsState,getQuiz,) {
             </Modal>
 
             {/* Share Modal */}
-            <Modal show={show} onHide={handleClose} centered className='modal-dots'>
+            {/* <Modal show={show} onHide={handleClose} centered className='modal-dots'>
                 <div className='modal-bar'>
                     <div className='bar-line'></div>
                 </div>
@@ -219,6 +283,49 @@ function WatchVideo(data,VideoDetailsState,getQuiz,) {
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal> */}
+
+    {/* Share Modal */}
+    <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Share</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container share-modal">
+                        <div className="share-comtent">
+                            <div className="share-alart">
+                                Do you want to attach the generated materials to the shared link?
+                            </div>
+                            <div className="checkbox-container">
+                                              <Form.Check className="question-select mb-3"
+                                                inline
+                                                label="Deselect all"
+                                                name="group2"
+                                                type={"checkbox"}
+                                                id={`inline-deselect-4`}
+                                                onClick={deselectAll}
+                                            />
+                                <Form className="question-select">
+                                    {Share.map((topic, index) => (
+                                        <div key={`inline-${topic}-${index}`} className=" d-flex flex-column">
+                                          
+                                            <Form.Check
+                                                inline
+                                                label={topic.text}
+                                                name="group2"
+                                                type={"checkbox"}
+                                                id={`inline-${topic}-5`}
+                                                onClick={() => toggleSelection(topic.text)}/>
+                                        </div>
+                                    ))}
+                                </Form>
+                            </div>
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn btn-color-orange" onClick={()=>{copyUrl();handleClose2()}}>Copy Link</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -389,7 +496,9 @@ function WatchVideo(data,VideoDetailsState,getQuiz,) {
                             </div>
 
                             <div className="btn-container mt-4 mb-5">
-                                <button className="btn btn-color-orange">
+                                <button className="btn btn-color-orange"
+                                onClick={()=>{handleClose3(),handleReportPost(selectedValue,text,data?._id)}}
+                                >
                                     Send Report
                                 </button>
                             </div>
@@ -452,7 +561,7 @@ function WatchVideo(data,VideoDetailsState,getQuiz,) {
                     <div className="card-inner">
                         <div className="inline-gap-8">
                             <div className="video-title">
-                                <h2>Dangers of smoking | Health | Biology | FuseSchool</h2>
+                                <h2>{data.data?.title}</h2>
                             </div>
                             <div className="video-item-actions">
                                 <div className="video-item-icon" onClick={handleShow2}>
