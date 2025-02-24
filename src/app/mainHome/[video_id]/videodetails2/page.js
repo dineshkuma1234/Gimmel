@@ -245,6 +245,26 @@ function PageComponent() {
           // console.log('Error occurred:', 'Gimmel', error);
       }
     };
+    const handleReportPost = async (selectedValues,text,postId) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+          const result = await AuthService.ReportPost(selectedValues,text, postId);
+          if (result?.success) {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.data);
+              // navigation.navigate('TabNavigation', {
+              //   screen: 'Home',
+              // })
+              router.push("/")
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
     
 
   return (

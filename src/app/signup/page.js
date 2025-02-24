@@ -4,7 +4,7 @@ import Signup from '../entities/signup/page'
 import AuthService from '../../services/AuthService';   
 import { useRouter } from "next/navigation";
 import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 function SignupScreen() {
     const router = useRouter(); 
@@ -26,6 +26,9 @@ function SignupScreen() {
           } else {
             // setLoader(false)
             // AlertHelper.show('danger', 'Gimmel', result?.message);
+            toast.error(result?.message, {
+              className: "custom-toast", // Apply the custom class
+          });
           }
         } catch (error) {
           // setLoader(false)
