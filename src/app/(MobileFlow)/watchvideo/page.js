@@ -15,8 +15,8 @@ import { Form, ModalBody } from "react-bootstrap";
 import { useState } from "react";
 import Link from "next/link";
 
-function WatchVideo() {
-
+function WatchVideo(data,VideoDetailsState,getQuiz,) {
+    console.log(data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -36,6 +36,41 @@ function WatchVideo() {
 
     const handleClose4 = () => setShow4(false);
     const handleShow4 = () => setShow4(true);
+    const convertToKM =(num)=> {
+        if (num >= 1000000) {
+            return `${(num / 1000000).toFixed(1)}M`;
+        } else if (num >= 1000) {
+            return `${(num / 1000).toFixed(1)}K`;
+        } else {
+            return `${num}`;
+        }
+    };
+    const inputDate = data.data?.createdAt;
+    const formatTimeAgo = (inputDate) => {
+        // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
+    
+        const date = new Date(data.data?.createdAt); // Convert backend date to Date object
+        const currentDate = new Date(); // Get current date
+    
+        // Calculate the difference in months
+        const monthsDiff =
+            currentDate.getMonth() -
+            date.getMonth() +
+            12 * (currentDate.getFullYear() - date.getFullYear());
+    
+        // Calculate the difference in days
+        const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
+    
+        let timeAgo = "";
+        if (monthsDiff > 0) {
+            timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
+        } else if (daysDiff > 0) {
+            timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+        } else {
+            timeAgo = "Today";
+        }
+        return timeAgo;
+    }
     return (
         <>
             <Modal show={show2} onHide={handleClose2} centered className='modal-dots'>
@@ -204,18 +239,20 @@ function WatchVideo() {
                     <div className="modal-body-container">
                         <div className="share-comtent">
                             <div className="short-summary light-text">
-                                Short Summary
+                                {/* Short Summary */}
                             </div>
                             <div className="short-summary description">
-                                Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.
+                            {data?.description}
                             </div>
                             <div className="dropdown-divider"></div>
                             <div className="details-item">
                                 <div className="light-text">
                                     Source
+                                    {/* {data?.source} */}
                                 </div>
                                 <div className="bold-text">
-                                    YouTube
+                                    {/* YouTube */}
+                                    {data?.source}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -224,16 +261,17 @@ function WatchVideo() {
                                     Creator
                                 </div>
                                 <div className="bold-text">
-                                    Creator Name
+                                {data?.channelName}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
                             <div className="details-item">
                                 <div className="light-text">
                                     Verified
+                                    {data?.isVerified ? "Yes" : "No"}
                                 </div>
                                 <div className="bold-text">
-                                    Yes
+                                    {/* Yes */}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -242,8 +280,7 @@ function WatchVideo() {
                                     Published/Uploaded
                                 </div>
                                 <div className="bold-text">
-                                    11/16/2016
-                                </div>
+                                {new Date(data?.createdAt).toLocaleDateString("en-GB")}                                </div>
                                 <div className="dropdown-divider"></div>
                             </div>
                             <div className="details-item">
@@ -263,7 +300,7 @@ function WatchVideo() {
                                     Age group
                                 </div>
                                 <div className="bold-text">
-                                    14 - 21 years
+                                {data?.ageRange}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -407,7 +444,7 @@ function WatchVideo() {
                         className="react-player"
                         playing
                         controls
-                        url="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        url={data.data?.URL}
                     />
                 </div>
 
@@ -428,27 +465,28 @@ function WatchVideo() {
                                 <li>
                                     <div className="accout-rating">
                                         <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
-                                        <span>9/10</span>
+                                        <span>{data.data?.engagement}/10</span>
                                         <span>Rating</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="accout-rating">
                                         <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
-                                        <span>15k</span>
+                                        <span>{convertToKM(data.data?.viewCount)}</span>
                                         <span>Views</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="accout-rating">
                                         <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
-                                        <span>1</span>
-                                        <span>month</span>
+                                        <span>{formatTimeAgo(inputDate)}</span>
+                                        {/* <span>month</span> */}
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div className="btn-list-container gap-8-flex">
+
                             <button className="btn btn-light-bg" >
                                 <Image src={require("../../../assets/images/share.svg")} alt="Share" />
                                 Share
@@ -504,7 +542,7 @@ function WatchVideo() {
                                                     <Col sm={12}>
                                                         <Tab.Content>
                                                             <Tab.Pane eventKey="first">
-                                                                <Step1 />
+                                                                <Step1 getQuiz={data.getQuiz} />
                                                             </Tab.Pane>
                                                         </Tab.Content>
                                                     </Col>
