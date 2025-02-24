@@ -78,6 +78,8 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
         setHeaderSearch(item.title);
      }
      console.log(headerSearch,"headerSearch---")
+     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">
@@ -215,22 +217,39 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
                     <span className="burger-line"></span>
                     <span className="burger-line"></span>
                 </div> */}
-                <div className="sec-center">
-                    <Link href="/account" className="logo">
-                        <div className={`for-dropdown profile-btn-view ${pathname === "/account" ? "active" : ""}`} htmlFor="dropdown">
-                            <div className="user-image">
-                                <Image
-                                    width={50}
-                                    height={50}
-                                    src={require("../../assets/images/user.png")}
-                                    className="img-responsive modal_profile_img2"
-                                    alt="User Profile"
-                                />
+                 <div className="sec-center">
+                    {isAuthenticated ? (
+                        <Link href="/account" className="logo">
+                            <div className="for-dropdown profile-btn-view active">
+                                <div className="user-image">
+                                    <Image
+                                        width={50}
+                                        height={50}
+                                        src={require("../../assets/images/user.png")}
+                                        className="img-responsive modal_profile_img2"
+                                        alt="User Profile"
+                                    />
+                                </div>
+                                <span className="user-name">Account Name</span>
                             </div>
-                            <span className="user-name"> Account Name </span>
-                        </div>
-                    </Link>
-                </div>
+                        </Link>
+                    ) : (
+                        <Link href="/login" className="logo">
+                            <div className="for-dropdown profile-btn-view">
+                                <div className="">
+                                    <Image
+                                        width={24}
+                                        height={24}
+                                        src={require("../../assets/images/login.svg")}
+                                        className="img-responsive modal_profile_img2"
+                                        alt="User Profile"
+                                    />
+                                </div>
+                                <span className="user-name">Login</span>
+                            </div>
+                        </Link>
+                    )}
+                </div>  
             </nav>
         </header>
     );

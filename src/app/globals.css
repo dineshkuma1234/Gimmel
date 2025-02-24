@@ -1048,6 +1048,10 @@ span.user-name {
   padding: 0;
 }
 
+.folder-name.active p {
+  color: var(--gimmel-orange);
+}
+
 .body-middle {
   margin: 24px 0;
   height: 400px;

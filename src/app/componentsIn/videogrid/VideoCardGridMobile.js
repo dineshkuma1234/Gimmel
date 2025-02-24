@@ -548,7 +548,7 @@ const handleChange4 = (event) => {
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="video-card">
           <div className="video-card-content">
-            <Link href="/watchvideo">
+            <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
                 <Image
                   src={video.thumbnail}
@@ -595,7 +595,7 @@ const handleChange4 = (event) => {
  
               <div className="video-de-title">
                 <div className="de-title">
-                  <Link href="/watchvideo">{video.title}</Link>
+                  <Link  href={`/mainHome/${video?._id}/videodetails2`}>{video.title}</Link>
                 </div>
                 <div className="more-btn" ref={dropdownRef}>
                   <button className="btn btn-more" onClick={toggleDropdown}>

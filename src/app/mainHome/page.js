@@ -61,7 +61,7 @@ export default function Home() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
-    setLoader(true);
+    // setLoader(true);
     setLoading(true);
     try {
     
@@ -75,11 +75,11 @@ export default function Home() {
       if (result?.success) {
         setTotal(result?.data?.totalPosts);
         const newPosts = result?.data?.posts || [];
-        setLoader(false);
+        // setLoader(false);
 
         if (newPosts.length === 0) {
           setNoLoad(true); // Stop further API calls when no more data
-          setLoader(false);
+          // setLoader(false);
 
         } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);
@@ -89,7 +89,7 @@ export default function Home() {
       console.error('Error occurred:', error);
     } finally {
       setLoading(false);
-      setLoader(false);
+      // setLoader(false);
 
     }
   };
@@ -101,19 +101,19 @@ useEffect(() => {
   handleTopicPost();
 }, []);
 const handleTopicPost = async () => {
-  setLoader(true);
+  // setLoader(true);
   try {
     const result = await AuthService.TopicPost();
     console.log(result, 'result---')
     if (result?.success) {
       setTopicPost(result?.data)
     } else {
-      setLoader(false);
+      // setLoader(false);
 
       // AlertHelper.show('danger', 'Gimmel', result?.message);
     }
   } catch (error) {
-    setLoader(false);
+    // setLoader(false);
 
     // console.log('Error occurred:', 'Gimmel', error);
   }
@@ -137,15 +137,15 @@ const handleTopicPost = async () => {
   console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
 
-  setLoader(true);
+  // setLoader(true);
   try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
       if (result?.success) {
-        setLoader(false);
+        // setLoader(false);
         setHistoryList(result?.data?.data || []);
       } else {
-        setLoader(false);
+        // setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -165,7 +165,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedAudience,
   ) => {
     console.log(headerSearch,"usecase--0000")
-    setLoader(true);
+    // setLoader(true);
       try {
       const result = await AuthService.SearchResult(
         headerSearch,
@@ -180,7 +180,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedAudience,
       );
       console.log(result, 'result---');
-      setLoader(false);
+      // setLoader(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
@@ -199,7 +199,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      setLoader(false);
+      // setLoader(false);
       console.log('Error occurred:', 'Gimmel', error);
     }
   };
