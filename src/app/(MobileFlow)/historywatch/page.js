@@ -29,7 +29,8 @@ const videoData = [
     },
 ];
 
-function HistoryWatch() {
+function HistoryWatch({ watchHistoryData}) {
+    console.log(watchHistoryData,"watchHistoryData--121")
     return (
         <>
             <div className="page-top-bar">
@@ -86,23 +87,23 @@ function HistoryWatch() {
                 <div className="custom-container">
                     <div className="save-video-list-container">
                         <div className="video-list-container">
-                            {videoData.map((video) => (
-                                <div className="video-item" key={video.id}>
-                                    <Link href={"/watch"}>
+                            {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
+                                <div className="video-item" key={(item, index)}>
+                                    <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                         <div className="video-item-inline">
                                             <div className="video-item-left">
                                                 <div className="video-item-thumbnail">
-                                                    <Image src={video.thumbnail} alt="thumbnail" />
+                                                    <Image src={item?.thumbnail} alt="thumbnail" width={300} height={150} />
                                                 </div>
                                             </div>
                                             <div className="video-item-right">
                                                 <div className="video-item-inline">
                                                     <div className="video-item-info">
                                                         <div className="video-item-title">
-                                                            <p>{video.title}</p>
+                                                            <p>{item?.title}</p>
                                                         </div>
-                                                        <div className="video-item-category">{video.category}</div>
-                                                        <div className="upload-info">{video.uploadInfo}</div>
+                                                        <div className="video-item-category">{item?.category}</div>
+                                                        <div className="upload-info">{item?.uploadInfo}</div>
                                                     </div>
                                                     <div className="video-item-actions">
                                                         <div className="video-item-icon">
