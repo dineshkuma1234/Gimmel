@@ -11,37 +11,16 @@ import { MdLogout } from "react-icons/md";
 import { Form, Modal } from 'react-bootstrap';
 import '../../CommenStyle/details.css';
 
-
-const videoData = [
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Recognizing the Signs: How to Prevent Substance Abuse",
-        duration: "3:45",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Understanding the Risks: A Guide to Addiction Prevention",
-        duration: "1:15",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "4:20",
-        image: "https://via.placeholder.com/150",
-    },
-    {
-        title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-        duration: "2:30",
-        image: "https://via.placeholder.com/150",
-    },
-]
-
-
-function UserProfile() {
+function UserProfile({
+    profileInfo,
+    watchHistoryData,
+    libraryVideo,
+    teachingTopic,
+    contentMaturity,
+    eduction,
+    handleEditProfile,
+}) {
+    // console.log(profileInfo, "profileInfo--today")
 
     const [show, setShow] = React.useState(false);
 
@@ -63,6 +42,7 @@ function UserProfile() {
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter email"
+                                    defaultValue={profileInfo?.email || ""}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
@@ -173,7 +153,7 @@ function UserProfile() {
                                     <p>Email Address</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>exam.p@gmail.com</p>
+                                    <p>{profileInfo?.email || ""}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -181,7 +161,7 @@ function UserProfile() {
                                     <p>Phone Number</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>+1 (713) 892-5638</p>
+                                    <p>{profileInfo?.phone || ""}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -189,7 +169,7 @@ function UserProfile() {
                                     <p>School Name</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p></p>
+                                    <p>{profileInfo?.school || ""}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -197,7 +177,7 @@ function UserProfile() {
                                     <p>Students age</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>12-18</p>
+                                    <p>{profileInfo?.onboarding?.ageFrom}-{profileInfo?.onboarding?.ageTo}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -205,7 +185,7 @@ function UserProfile() {
                                     <p>Teaching interests</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>Neurobiology, Alcohol, Anger, Body Image</p>
+                                    <p>{profileInfo?.onboarding?.teachingTopics?.join(', ')||""}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -213,7 +193,7 @@ function UserProfile() {
                                     <p>Maturity restrictions</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>Abuse, Gore</p>
+                                    <p>{profileInfo?.onboarding?.contentMaturityRestrictions?.join(', ')||""}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -221,7 +201,7 @@ function UserProfile() {
                                     <p>Educational objectives</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>Student Academic Success</p>
+                                    <p>{profileInfo?.onboarding?.educationalObjectives?.join(', ')|| ""}</p>
                                 </div>
                             </div>
                         </div>
@@ -324,75 +304,83 @@ function UserProfile() {
 
                     <div className="dropdown-divider"></div>
 
-                    <div className="sec-account">
-                        <div className='inline- d-flex align-items-center justify-content-between'>
-                            <div className="card-white-title">
-                                <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
-                                <h3>My Library</h3>
+                    {libraryVideo?.length > 0 ? (
+                        <div className="sec-account">
+                            <div className='inline- d-flex align-items-center justify-content-between'>
+                                <div className="card-white-title">
+                                    <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
+                                    <h3>My Library</h3>
+                                </div>
+                                <Link href="/mylibrary" className='view-all-btn'>View all</Link>
                             </div>
-                            <Link href="/mylibrary" className='view-all-btn'>View all</Link>
-                        </div>
 
-                        <div className='library-list mt-4'>
-                            <div className='list-item'>
-                                {videoData.map((videoData, index) => (
-                                    <div className="video-card-container" key={index}>
-                                        <div className="video-card-content">
-                                            <Link href={`/mainHome/${videoData?._id}/videodetails2`}>
-                                                <div className="video-card-image">
-                                                    <Image src={SliderThumbnil} alt="video card" />
-                                                    <div className="video-duration">{videoData.duration}</div>
-                                                </div>
-                                            </Link>
-                                            <div className="video-card-detail">
-                                                <div className="video-de-title">
-                                                    <div className="de-title">
-                                                        <Link href={`/mainHome/${videoData?._id}/videodetails2`}>{videoData.title}</Link>
+                            <div className='library-list mt-4'>
+                                <div className='list-item'>
+                                    {libraryVideo&&
+                                    Array.isArray(libraryVideo)&&
+                                    libraryVideo.map((item, index) => (
+                                        <div className="video-card-container" key={index}>
+                                            <div className="video-card-content">
+                                                <Link href={`/mainHome/${item?._id}/videodetails2`}>
+                                                    <div className="video-card-image">
+                                                        <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                                        <div className="video-duration">{item?.duration}</div>
+                                                    </div>
+                                                </Link>
+                                                <div className="video-card-detail">
+                                                    <div className="video-de-title">
+                                                        <div className="de-title">
+                                                            <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : null}
 
                     <div className="dropdown-divider"></div>
 
-                    <div className="sec-account">
-                        <div className='inline- d-flex align-items-center justify-content-between'>
-                            <div className="card-white-title">
-                                <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
-                                <h3>Watch history</h3>
+                    {watchHistoryData?.length > 0 ? (
+                        <div className="sec-account">
+                            <div className='inline- d-flex align-items-center justify-content-between'>
+                                <div className="card-white-title">
+                                    <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
+                                    <h3>Watch history</h3>
+                                </div>
+                                <Link href="/watchhistory" className='view-all-btn'>View all</Link>
                             </div>
-                            <Link href="/historywatch" className='view-all-btn'>View all</Link>
-                        </div>
 
-                        <div className='library-list mt-4'>
-                            <div className='list-item'>
-                                {videoData.map((videoData, index) => (
-                                    <div className="video-card-container" key={index}>
-                                        <div className="video-card-content">
-                                            <Link href={`/mainHome/${videoData?._id}/videodetails2`}>
-                                                <div className="video-card-image">
-                                                    <Image src={SliderThumbnil} alt="video card" />
-                                                    <div className="video-duration">{videoData.duration}</div>
-                                                </div>
-                                            </Link>
-                                            <div className="video-card-detail">
-                                                <div className="video-de-title">
-                                                    <div className="de-title">
-                                                        <Link href={`/mainHome/${videoData?._id}/videodetails2`}>{videoData.title}</Link>
+                            <div className='library-list mt-4'>
+                                <div className='list-item'>
+                                    {libraryVideo && 
+                                    Array.isArray(libraryVideo)&&
+                                    libraryVideo.map((item, index) => (
+                                        <div className="video-card-container" key={index}>
+                                            <div className="video-card-content">
+                                                <Link href={`/mainHome/${item?._id}/videodetails2`}>
+                                                    <div className="video-card-image">
+                                                        <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                                        <div className="video-duration">{item?.duration}</div>
+                                                    </div>
+                                                </Link>
+                                                <div className="video-card-detail">
+                                                    <div className="video-de-title">
+                                                        <div className="de-title">
+                                                            <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : null}
 
                     <div className="dropdown-divider"></div>
 

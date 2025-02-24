@@ -75,3 +75,4 @@ export const SearchListProvider = ({ children }) => {
 
 // Custom hook to use the searchList context
 export const useSearchList = () => useContext(SearchListContext);
+console.log(useSearchList,"useSearchList--1212121212")

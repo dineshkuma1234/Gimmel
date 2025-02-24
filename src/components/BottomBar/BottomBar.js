@@ -83,7 +83,7 @@ const BottomBar = () => {
                             </li>
                             <li className="menu-item">
                                 <Link
-                                    href="/userprofile"
+                                    href="/account"
                                     className={`menu-link ${pathname === "/userprofile" ? "active" : ""}`}
                                 >
                                    <Image src={require("../../assets/images/user.png")} alt="User" />
