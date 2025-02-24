@@ -12,7 +12,8 @@ import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
 import Link from 'next/link';
 import { Modal } from 'react-bootstrap';
-
+import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
@@ -26,7 +27,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
     const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
     const [isEditable, setIsEditable] = useState(false);
-
+    
     useEffect(() => {
         setPhoneNumber(profileInfo?.phone || "");
         setSchool(profileInfo?.school || "");
@@ -38,7 +39,12 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const togglePricing = () => {
         setIsYearly(!isYearly);
     };
-
+    const router = useRouter();
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // Remove authentication token
+        router.push("/login"); // Redirect to the login page
+    };
+ 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -239,7 +245,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <Image src={require("../../../assets/images/logout.svg")} alt="Success" />
                         </div>
                         <div className="btn-container">
-                            <button className="btn-color-orange" onClick={handleClose2}>Yes, I want to log out</button>
+                            <button className="btn-color-orange" onClick={()=>{handleClose2(),handleLogout()}}>Yes, I want to log out</button>
                             <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
                         </div>
                     </div>
@@ -557,7 +563,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             </Swiper>
                         </div>
                     </div>
-                </div>
+                    </div>
                     :null}
                     
                     {watchHistoryData?.length > 0 ?
@@ -604,10 +610,17 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             
                         </div>
                     </div>
-                </div>
-                     : null}
-                    
-                </div>
+                    </div>
+                        : null}
+
+
+                    <div className='log-out'>
+                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Log out</button>
+                    </div>
+                        
+                    </div>
+
+                
             </main>
         </>
     );
