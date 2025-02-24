@@ -130,7 +130,10 @@ const AuthService = {
   },
 
   GetPost: async (page) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     console.log(token, 'token---');
     const { authBaseUrl, HomeGetPost } = ApiConfig;
     const url = authBaseUrl + HomeGetPost + '?page=' + page;
@@ -540,7 +543,6 @@ const AuthService = {
   },
 
   SaveVideo: async (selectedFolderId, postId) => {
-    console.log(selectedFolderId, postId, "selectedFolderId id ----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
