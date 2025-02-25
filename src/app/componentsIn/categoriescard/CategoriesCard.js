@@ -108,6 +108,7 @@ function CategoriesCard({watchHistoryData}) {
     const handleShow3 = () => setShow3(true);
 
     const [show4, setShow4] = useState(false);
+    const [disc,setDisc] = useState(null);
 
     const handleClose4 = () => setShow4(false);
     const handleShow4 = () => setShow4(true);
@@ -141,9 +142,7 @@ function CategoriesCard({watchHistoryData}) {
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
-                    <p>Nulla in libero eget ex tristique pellentesque. Sed ex massa, cursus sagittis interdum ac, iaculis eget est. Vestibulum leo neque, eleifend et pretium vehicula, finibus sit amet dui. Phasellus nec eros a orci ultrices sagittis sit amet in lacus. Morbi nec commodo justo. Cras at varius risus. Cras nec libero consequat, vulputate felis ut, pharetra libero. Fusce ornare arcu ultrices lectus vulputate ultrices. Aenean purus nisl, bibendum vel massa eget, porttitor gravida ligula. Sed ut ante convallis, pretium quam pretium, eleifend ante. </p>
-                    <p>Donec tempus mollis quam, quis molestie neque pretium ut. In eu venenatis nisi. Nam tristique sed nisi a aliquet. Praesent mauris neque, ornare nec commodo sed, aliquam at mi. Vivamus sit amet libero et felis pretium tempor tincidunt vel dui. Suspendisse tincidunt pharetra bibendum.</p>
+                    <p> {disc}</p>
                 </Modal.Body>
             </Modal>
 
@@ -335,7 +334,7 @@ function CategoriesCard({watchHistoryData}) {
                                         <h3>{item?.title}</h3>
                                     </div>
                                     <div className="more-btn">
-                                        <button className="btn btn-more" onClick={() => toggleDropdown(item?._id) }>
+                                        <button className="btn btn-more" onClick={() => {toggleDropdown(item?._id);setDisc(item?.description)} }>
                                             <FaEllipsisV />
                                         </button>
                                         {openDropdownId === item?._id && (

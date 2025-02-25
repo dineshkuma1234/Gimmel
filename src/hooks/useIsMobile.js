@@ -28,5 +28,6 @@ export const useWindowDimensions = () => {
  
 export const useIsMobile = () => {
   const { width } = useWindowDimensions();
+  console.log(width, 'width');
   return width <= 768 && !!width;
 };

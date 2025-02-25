@@ -10,7 +10,7 @@ const Loader = () => {
 
   return (
     <div className="loader-full-width">
-      <div class="loader-1">
+      <div className="loader-1">
         
       </div>
     </div>

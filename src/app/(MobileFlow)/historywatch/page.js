@@ -5,29 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdMoreVert } from "react-icons/md";
 
-const videoData = [
-    {
-        id: 1,
-        title: "The Bystander Effect | The Science of Empathy",
-        category: "Participant",
-        uploadInfo: "4 months ago",
-        thumbnail: require("../../../assets/images/image.svg"),
-    },
-    {
-        id: 2,
-        title: "Understanding Quantum Physics",
-        category: "Science",
-        uploadInfo: "2 weeks ago",
-        thumbnail: require("../../../assets/images/quantum.svg"),
-    },
-    {
-        id: 3,
-        title: "The Art of Minimalism",
-        category: "Lifestyle",
-        uploadInfo: "1 month ago",
-        thumbnail: require("../../../assets/images/minimalism.svg"),
-    },
-];
+
 
 function HistoryWatch({ watchHistoryData}) {
     console.log(watchHistoryData,"watchHistoryData--121")
@@ -102,8 +80,8 @@ function HistoryWatch({ watchHistoryData}) {
                                                         <div className="video-item-title">
                                                             <p>{item?.title}</p>
                                                         </div>
-                                                        <div className="video-item-category">{item?.category}</div>
-                                                        <div className="upload-info">{item?.uploadInfo}</div>
+                                                        {/* <div className="video-item-category">{item?.category}</div>
+                                                        <div className="upload-info">{item?.uploadInfo}</div> */}
                                                     </div>
                                                     <div className="video-item-actions">
                                                         <div className="video-item-icon">
