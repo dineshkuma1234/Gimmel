@@ -220,18 +220,21 @@
 }
 
 .btn-logout {
-    background-color: transparent;
+    background-color: var(--gimmel-orange);
     border: none;
     font-size: 16px;
     font-weight: 600;
-    color: var(--gimmel-orange);
+    color: #fff;
     margin-bottom: 30px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 30px;
 }
 
 .btn-logout svg {
-    margin-right: 16px;
-    width: 32px;
-    height: 32px;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
 }
 
 .bottom-baar-modal {
@@ -252,6 +255,7 @@
 .multi-select {
     z-index: auto !important;
 }
+
 
 @media screen and (min-width: 280px) and (max-width: 767px) {
     .account-user-info {

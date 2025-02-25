@@ -14,11 +14,12 @@ import Modal from 'react-bootstrap/Modal';
 import { Form, ModalBody } from "react-bootstrap";
 import { useState } from "react";
 import Link from "next/link";
+import SaveLibrary from "../savelibrary/page";
 
-function WatchVideo() {
-
+function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
+    console.log(data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
-
+    const [saveVideoScreen,setSaveVideoScreen] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -36,6 +37,105 @@ function WatchVideo() {
 
     const handleClose4 = () => setShow4(false);
     const handleShow4 = () => setShow4(true);
+    const convertToKM =(num)=> {
+        if (num >= 1000000) {
+            return `${(num / 1000000).toFixed(1)}M`;
+        } else if (num >= 1000) {
+            return `${(num / 1000).toFixed(1)}K`;
+        } else {
+            return `${num}`;
+        }
+    };
+    const inputDate = data?.createdAt;
+    const formatTimeAgo = (inputDate) => {
+        // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
+    
+        const date = new Date(data?.createdAt); // Convert backend date to Date object
+        const currentDate = new Date(); // Get current date
+    
+        // Calculate the difference in months
+        const monthsDiff =
+            currentDate.getMonth() -
+            date.getMonth() +
+            12 * (currentDate.getFullYear() - date.getFullYear());
+    
+        // Calculate the difference in days
+        const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
+    
+        let timeAgo = "";
+        if (monthsDiff > 0) {
+            timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
+        } else if (daysDiff > 0) {
+            timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+        } else {
+            timeAgo = "Today";
+        }
+        return timeAgo;
+    }
+    const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+       
+
+    const deselectAll = () => {
+        if (!setIsSelectTeachingAll) {
+            // Select all topics
+            setIsSelectTeachingAll(true);
+            setSelectedTopics(Share.map(topic => topic.text));
+        } else {
+            // Deselect all topics
+            setIsSelectTeachingAll(false);
+            setSelectedTopics([]);
+        }
+    };
+
+    const toggleSelection = (topicText) => {
+        setSelectedTopics((prevSelected) => {
+            if (prevSelected.includes(topicText)) {
+                // Remove topic if already selected
+                return prevSelected.filter(item => item !== topicText);
+            } else {
+                // Add topic if not selected
+                return [...prevSelected, topicText];
+            }
+        });
+    };
+
+    const handleTranscript = (topic) => {
+        if (transcript.includes(topic)) {
+            setTranscript(transcript.filter(item => item !== topic));
+        } else {
+            setTranscript([...transcript, topic]);
+        }
+    };
+
+    const isTranscript = (topic) => transcript.includes(topic);
+
+
+    const toggleCheckbox = (itemName) => {
+        if (selectedValues.includes(itemName)) {
+
+            setSelectedValues(selectedValues.filter(item => item !== itemName));
+        } else {
+
+            setSelectedValues([...selectedValues, itemName]);
+        }
+    };
+
+    const isTopicSelectedTeach = (itemName) => {
+        return selectedValues.includes(itemName);
+    };
+
+    const copyUrl = () => {
+        navigator.clipboard.writeText(shareLink);
+    };
+    const Share = [
+        { id: 1, text: 'Discussion points', value: 'discussionPoints' },
+        { id: 2, text: 'Quizzes', value: 'Quizzes' },
+        { id: 3, text: 'Tests', value: 'Tests' },
+        { id: 4, text: 'Exercises', value: 'Exercises' },
+        { id: 5, text: 'Homework assignments', value: 'homeworkAssignments' },
+    ];
+
+    
     return (
         <>
             <Modal show={show2} onHide={handleClose2} centered className='modal-dots'>
@@ -60,14 +160,14 @@ function WatchVideo() {
                                 </button>
                             </li>
                             <li>
-                                <Link href="/savelibrary">
-                                    <button variant="primary">
+                                {/* <Link> */}
+                                    <button variant="primary" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
                                         </svg>
                                         Save
                                     </button>
-                                </Link>
+                                {/* </Link> */}
                             </li>
                             <li>
                                 <button variant="primary" onClick={
@@ -102,7 +202,7 @@ function WatchVideo() {
             </Modal>
 
             {/* Share Modal */}
-            <Modal show={show} onHide={handleClose} centered className='modal-dots'>
+            {/* <Modal show={show} onHide={handleClose} centered className='modal-dots'>
                 <div className='modal-bar'>
                     <div className='bar-line'></div>
                 </div>
@@ -187,6 +287,49 @@ function WatchVideo() {
                         </div>
                     </div>
                 </Modal.Body>
+            </Modal> */}
+
+    {/* Share Modal */}
+    <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Share</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container share-modal">
+                        <div className="share-comtent">
+                            <div className="share-alart">
+                                Do you want to attach the generated materials to the shared link?
+                            </div>
+                            <div className="checkbox-container">
+                                              <Form.Check className="question-select mb-3"
+                                                inline
+                                                label="Deselect all"
+                                                name="group2"
+                                                type={"checkbox"}
+                                                id={`inline-deselect-4`}
+                                                onClick={deselectAll}
+                                            />
+                                <Form className="question-select">
+                                    {Share.map((topic, index) => (
+                                        <div key={`inline-${topic}-${index}`} className=" d-flex flex-column">
+                                          
+                                            <Form.Check
+                                                inline
+                                                label={topic.text}
+                                                name="group2"
+                                                type={"checkbox"}
+                                                id={`inline-${topic}-5`}
+                                                onClick={() => toggleSelection(topic.text)}/>
+                                        </div>
+                                    ))}
+                                </Form>
+                            </div>
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn btn-color-orange" onClick={()=>{copyUrl();handleClose()}}>Copy Link</button>
+                        </div>
+                    </div>
+                </Modal.Body>
             </Modal>
 
             {/* Details Modal  */}
@@ -204,18 +347,20 @@ function WatchVideo() {
                     <div className="modal-body-container">
                         <div className="share-comtent">
                             <div className="short-summary light-text">
-                                Short Summary
+                                {/* Short Summary */}
                             </div>
                             <div className="short-summary description">
-                                Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers. Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.
+                            {data?.description}
                             </div>
                             <div className="dropdown-divider"></div>
                             <div className="details-item">
                                 <div className="light-text">
                                     Source
+                                    {/* {data?.source} */}
                                 </div>
                                 <div className="bold-text">
-                                    YouTube
+                                    {/* YouTube */}
+                                    {data?.source}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -224,16 +369,17 @@ function WatchVideo() {
                                     Creator
                                 </div>
                                 <div className="bold-text">
-                                    Creator Name
+                                {data?.channelName}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
                             <div className="details-item">
                                 <div className="light-text">
                                     Verified
+                                    {data?.isVerified ? "Yes" : "No"}
                                 </div>
                                 <div className="bold-text">
-                                    Yes
+                                    {/* Yes */}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -242,8 +388,7 @@ function WatchVideo() {
                                     Published/Uploaded
                                 </div>
                                 <div className="bold-text">
-                                    11/16/2016
-                                </div>
+                                {new Date(data?.createdAt).toLocaleDateString("en-GB")}                                </div>
                                 <div className="dropdown-divider"></div>
                             </div>
                             <div className="details-item">
@@ -263,7 +408,7 @@ function WatchVideo() {
                                     Age group
                                 </div>
                                 <div className="bold-text">
-                                    14 - 21 years
+                                {data?.ageRange}
                                 </div>
                                 <div className="dropdown-divider"></div>
                             </div>
@@ -352,7 +497,9 @@ function WatchVideo() {
                             </div>
 
                             <div className="btn-container mt-4 mb-5">
-                                <button className="btn btn-color-orange">
+                                <button className="btn btn-color-orange"
+                                onClick={()=>{handleClose3(),handleReportPost(selectedValue,text,data?._id)}}
+                                >
                                     Send Report
                                 </button>
                             </div>
@@ -361,7 +508,11 @@ function WatchVideo() {
                 </Modal.Body>
             </Modal>
 
-            <div className="page-top-bar">
+           { saveVideoScreen ? 
+           <SaveLibrary getFolder={getFolder} handleCreateFolder={handleCreateFolder}handleDeleteFolder={handleDeleteFolder} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} handleRename={handleRename} rename={rename} setRename={setRename}/>
+           :
+            
+            <><div className="page-top-bar">
                 <div className="page-inner">
                     <div className="page-section-left">
                         <div className="back-button">
@@ -378,8 +529,7 @@ function WatchVideo() {
                                 >
                                     <path
                                         d="M10.434 17.334L17.9007 24.8006L16.0007 26.6673L5.33398 16.0007L16.0007 5.33398L17.9007 7.20065L10.434 14.6673H26.6673V17.334H10.434Z"
-                                        fill="#104E5B"
-                                    />
+                                        fill="#104E5B" />
                                 </svg>
                             </button>
                         </div>
@@ -399,128 +549,126 @@ function WatchVideo() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><main id="main" className="top-space-filter mobile-watch-video">
+                    <div className="video-show-container">
+                        <ReactPlayer
+                            className="react-player"
+                            playing
+                            controls
+                            url={data?.URL} />
+                    </div>
 
-            <main id="main" className="top-space-filter mobile-watch-video">
-                <div className="video-show-container">
-                    <ReactPlayer
-                        className="react-player"
-                        playing
-                        controls
-                        url="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-                    />
-                </div>
-
-                <div className="card-white">
-                    <div className="card-inner">
-                        <div className="inline-gap-8">
-                            <div className="video-title">
-                                <h2>Dangers of smoking | Health | Biology | FuseSchool</h2>
-                            </div>
-                            <div className="video-item-actions">
-                                <div className="video-item-icon" onClick={handleShow2}>
-                                    <MdMoreVert />
+                    <div className="card-white">
+                        <div className="card-inner">
+                            <div className="inline-gap-8">
+                                <div className="video-title">
+                                    <h2>{data?.title}</h2>
+                                </div>
+                                <div className="video-item-actions">
+                                    <div className="video-item-icon" onClick={handleShow2}>
+                                        <MdMoreVert />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="account-info-container">
-                            <ul className="account-info-list">
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
-                                        <span>9/10</span>
-                                        <span>Rating</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
-                                        <span>15k</span>
-                                        <span>Views</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
-                                        <span>1</span>
-                                        <span>month</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="btn-list-container gap-8-flex">
-                            <button className="btn btn-light-bg" >
-                                <Image src={require("../../../assets/images/share.svg")} alt="Share" />
-                                Share
-                            </button>
-                            <button className="btn btn-light-bg">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
-                                </svg>
-                                Save
-                            </button>
-                            <button className="btn btn-light-bg">
-                                <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
-                                Summary
-                            </button>
-                        </div>
+                            <div className="account-info-container">
+                                <ul className="account-info-list">
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
+                                            <span>{data?.engagement}/10</span>
+                                            <span>Rating</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
+                                            <span>{convertToKM(data?.viewCount)}</span>
+                                            <span>Views</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
+                                            <span>{formatTimeAgo(inputDate)}</span>
+                                            {/* <span>month</span> */}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="btn-list-container gap-8-flex">
 
-                        <div className="page-tbs-container mt-3">
-                            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                                <Col sm={12}>
-                                    <Nav variant="pills" className="flex-row details-tabs-mobile">
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="first">Materials</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="second">Reviews 96</Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                </Col>
-                                <Col sm={12}>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="first">
-                                            <div className="page-tbs-container mt-3">
-                                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                                                    <Col sm={12}>
-                                                        <Nav variant="pills" className="flex-row details-tabs">
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="first">Quiz</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="second">Discussion</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="third">Homework</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="fourth">Test</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="fifth">Exercises</Nav.Link>
-                                                            </Nav.Item>
-                                                        </Nav>
-                                                    </Col>
-                                                    <Col sm={12}>
-                                                        <Tab.Content>
-                                                            <Tab.Pane eventKey="first">
-                                                                <Step1 />
-                                                            </Tab.Pane>
-                                                        </Tab.Content>
-                                                    </Col>
-                                                </Tab.Container>
-                                            </div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="second">
-                                            <Reviews />
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Tab.Container>
+                                <button className="btn btn-light-bg">
+                                    <Image src={require("../../../assets/images/share.svg")} alt="Share" />
+                                    Share
+                                </button>
+                                <button className="btn btn-light-bg" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
+                                    </svg>
+                                    Save
+                                </button>
+                                <button className="btn btn-light-bg">
+                                    <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
+                                    Summary
+                                </button>
+                            </div>
+
+                            <div className="page-tbs-container mt-3">
+                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                    <Col sm={12}>
+                                        <Nav variant="pills" className="flex-row details-tabs-mobile">
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="first">Materials</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="second">Reviews 96</Nav.Link>
+                                            </Nav.Item>
+                                        </Nav>
+                                    </Col>
+                                    <Col sm={12}>
+                                        <Tab.Content>
+                                            <Tab.Pane eventKey="first">
+                                                <div className="page-tbs-container mt-3">
+                                                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                                        <Col sm={12}>
+                                                            <Nav variant="pills" className="flex-row details-tabs">
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="first">Quiz</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="second">Discussion</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="third">Homework</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="fourth">Test</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="fifth">Exercises</Nav.Link>
+                                                                </Nav.Item>
+                                                            </Nav>
+                                                        </Col>
+                                                        <Col sm={12}>
+                                                            <Tab.Content>
+                                                                <Tab.Pane eventKey="first">
+                                                                    <Step1 getQuiz={getQuiz} />
+                                                                </Tab.Pane>
+                                                            </Tab.Content>
+                                                        </Col>
+                                                    </Tab.Container>
+                                                </div>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="second">
+                                                <Reviews />
+                                            </Tab.Pane>
+                                        </Tab.Content>
+                                    </Col>
+                                </Tab.Container>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </main></>}
         </>
     );
 }

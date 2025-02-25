@@ -53,6 +53,7 @@ function PageComponent() {
     
     
   return (
+    
     <VideoDetails getvideoid={getvideoid} data={data}  />
   )
 }

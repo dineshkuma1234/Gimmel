@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
+import defoultImages from '../../../assets/images/defoultmage.jpg';
 import Image from 'next/image';
 import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
@@ -342,7 +343,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                 <Modal.Header closeButton>
                     <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="overflow-hidden">
                     <div className='modal-bar show_mobile'>
                         <div className='bar-line'></div>
                     </div>
@@ -431,7 +432,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
             </Modal>
 
             
-           {index === 5  && showContent&& <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
+           {index === 5  && showContent&& interest === '0' && <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
                 <div className='my-interests-card'>
                     <div className="video-card-1">
                         <div className="video-card-content">
@@ -456,8 +457,8 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                 <div className="video-card">
                     <div className="video-card-content">
                         <div onClick={() => {handleNavigate(video)}}> 
-                            <div className="video-card-image">
-                                <Image src={video.thumbnail} alt="video card" width={300}  height={150} />
+                            <div className="video-card-image " >
+                                <Image src={ video?.thumbnail ?video?.thumbnail: defoultImages} alt="video card" width={300}  height={150} />
                                 <div className="video-duration">{video.duration}</div>
                             </div>
                         </div>

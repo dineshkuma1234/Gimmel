@@ -317,12 +317,12 @@ function CategoriesCard({watchHistoryData}) {
 
 
             {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
-                <div className="categories-card" key={index}>
+                <div className="categories-card" key={(item, index)}>
                     <div className="row">
                         <div className="col-md-6">
-                            <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                            <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                 <div className="categories-card__thumbnail">
-                                    <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                    <Image src={item?.thumbnail} alt="video card" width={300} height={150} />
                                     <div className="video-duration">{item?.duration}</div>
                                 </div>
                             </Link>
@@ -335,10 +335,10 @@ function CategoriesCard({watchHistoryData}) {
                                         <h3>{item?.title}</h3>
                                     </div>
                                     <div className="more-btn">
-                                        <button className="btn btn-more" onClick={() => toggleDropdown(item?.id)}>
+                                        <button className="btn btn-more" onClick={() => toggleDropdown(item?._id) }>
                                             <FaEllipsisV />
                                         </button>
-                                        {openDropdownId === item?.id && (
+                                        {openDropdownId === item?._id && (
                                             <div className="dropdown-menu-card">
                                                 <ul>
                                                     <li>

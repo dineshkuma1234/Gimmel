@@ -13,7 +13,7 @@ import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
  
  
-const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
+const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike,handleNotInterestedTopic,handleRemoveSuggation}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
  
@@ -287,7 +287,7 @@ const handleChange4 = (event) => {
           <div className="modal-btn-list-item">
             <ul>
               <li>
-                <button variant="primary">
+                <button variant="primary" onClick={()=>{handleMoreLike(),handleClose2()}}>
                   <Image
                     src={require("../../../assets/images/share-round.svg")}
                     alt="like"
@@ -298,8 +298,8 @@ const handleChange4 = (event) => {
                 </button>
               </li>
               <li>
-                <Link href="/savelibrary">
-                  <button variant="primary">
+                
+                  <button variant="primary" onClick={()=>{handleNotInterestedTopic(),handleClose2()}}>
                     <Image
                       src={require("../../../assets/images/x-Icon.svg")}
                       alt="like"
@@ -308,11 +308,11 @@ const handleChange4 = (event) => {
                     />
                     I am not interested about this topic
                   </button>
-                </Link>
+             
               </li>
-              <div className="dropdown-divider"></div>
+              <div className="dropdown-divider" ></div>
               <li>
-                <button href="#">
+                <button variant="primary" onClick={()=>{handleRemoveSuggation(),handleClose2()}}>
                   <Image
                     src={require("../../../assets/images/report-icon.svg")}
                     alt="like"
@@ -469,7 +469,7 @@ const handleChange4 = (event) => {
       </Modal>
  
       {/* My Interests section here  */}
-      {index === 6 && showContent && (
+      {index === 6   && showContent &&interest === '0' &&  (
         <div className="bg-orange-section">
           <div className="bg-orange-inner">
             <div className="bg-orange-title inline-gap-8">
@@ -492,7 +492,7 @@ const handleChange4 = (event) => {
         </div>
       )}
       {/* Video card slider section here  */}
-      {index === 4 && (
+      {index === 4 && topicPost?.data?.length > 0 ?(
         <div className="page-slider-section mb-4">
           <div className="slider-title">
             <div className="inline-gap-8">
@@ -543,12 +543,12 @@ const handleChange4 = (event) => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
  
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="video-card">
           <div className="video-card-content">
-            <Link href="/watchvideo">
+            <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
                 <Image
                   src={video.thumbnail}
@@ -595,7 +595,7 @@ const handleChange4 = (event) => {
  
               <div className="video-de-title">
                 <div className="de-title">
-                  <Link href="/watchvideo">{video.title}</Link>
+                  <Link  href={`/mainHome/${video?._id}/videodetails2`}>{video.title}</Link>
                 </div>
                 <div className="more-btn" ref={dropdownRef}>
                   <button className="btn btn-more" onClick={toggleDropdown}>
@@ -701,7 +701,7 @@ const handleChange4 = (event) => {
   );
 };
  
-const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest }) => (
+const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic,handleRemoveSuggation}) => (
   console.log(getPost, "this is get post---11111"),
   (
     <div className="row">
@@ -714,6 +714,10 @@ const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience
             index={index}
             topicPost={topicPost}
             substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}
+            handleMoreLike={handleMoreLike}
+            handleNotInterestedTopic={handleNotInterestedTopic}
+            handleRemoveSuggation={handleRemoveSuggation}
+           
           />
         ))}
     </div>

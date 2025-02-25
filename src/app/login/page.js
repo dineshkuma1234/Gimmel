@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Login from "../entities/login/page";
 import AuthService from '../../services/AuthService';
 import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 
 function PageComponent() {
@@ -20,6 +20,9 @@ function PageComponent() {
             if (result?.success) {
                 setLoader(false);
                 // AlertHelper.show('success', 'Gimmel', result?.message);
+                toast.success(result?.message || "Login successful!", {
+                    className: "custom-toast-success", 
+                });
                 localStorage.setItem( 'token', result?.data?.token);
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 console.log(result?.data?.token,"this the value")
@@ -28,7 +31,10 @@ function PageComponent() {
                 
             } else {
                 setLoader(false);
-                AlertHelper.show('danger', 'Gimmel', result?.message);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                toast.error(result?.message || "Invalid credentials!", {
+                    className: "custom-toast", // Apply the custom class
+                });
             }
         } catch (error) {
             setLoader(false);

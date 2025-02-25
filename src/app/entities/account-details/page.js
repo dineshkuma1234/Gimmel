@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +12,8 @@ import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
 import Link from 'next/link';
 import { Modal } from 'react-bootstrap';
-
+import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
@@ -121,9 +122,15 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         setSelected2(selectedItems);
     };
 
-    return (
-        <>
-            <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
+    const router = useRouter();
+    const handleLogout = () => {
+      localStorage.removeItem("token"); // Remove authentication token
+      router.push("/login"); // Redirect to the login page
+  };
+
+  return (
+    <>
+     <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Subscription Plan</Modal.Title>
                 </Modal.Header>
@@ -239,7 +246,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <Image src={require("../../../assets/images/logout.svg")} alt="Success" />
                         </div>
                         <div className="btn-container">
-                            <button className="btn-color-orange" onClick={handleClose2}>Yes, I want to log out</button>
+                            <button className="btn-color-orange" onClick={()=>{handleClose2(),handleLogout()}}>Yes, I want to log out</button>
                             <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
                         </div>
                     </div>
@@ -584,7 +591,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     <div className="video-card-content">
                                                         <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                             <div className="video-card-image">
-                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
+                                                                <Image src={item?.thumbnail} alt="video card" width={300} height={150}/>
                                                                 <div className="video-duration">{item?.duration}</div>
                                                             </div>
                                                         </Link>
@@ -606,6 +613,9 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                     </div>
                 </div>
                      : null}
+                     <div className='log-out'>
+                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Log out</button>
+                    </div>
                     
                 </div>
             </main>

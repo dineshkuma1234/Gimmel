@@ -3,15 +3,18 @@
 import React, { useEffect,useState,} from "react";
 import AccountDetails from "../entities/account-details/page";
 import AuthService from "../../services/AuthService";
+import {useIsMobile} from "../../hooks/useIsMobile"
+import UserProfile from "../(MobileFlow)/userprofile/page";
 
 function PageComponent() {
-    const [profileInfo, setProfileInfo] = useState('');
-    const [watchHistoryData,setWatchHistoryData]=useState('')
-    const [libraryVideo, setLibraryVideo] = useState('')
+    const isMobile = useIsMobile();
+    const [profileInfo, setProfileInfo] = useState("");
+    const [watchHistoryData,setWatchHistoryData]=useState("")
+    const [libraryVideo, setLibraryVideo] = useState("")
     const [teachingTopic, setTeachingTopic] = useState([])
     const [contentMaturity, setContentMaturity] = useState([])
     const [eduction, setEducation] = useState([])
-
+    // console.log("page load")
     useEffect(()=>{
         handleUserInfo();
         handleWatchHistory();
@@ -19,7 +22,7 @@ function PageComponent() {
         handleTeachingToic();
         handleContentmaturity();
         handleEducationalObjectives();
-        // console.log("this is console")
+        // console.log("this is console") 
     },[]);
    
     
@@ -163,11 +166,15 @@ function PageComponent() {
     };
 
     // console.log(contentMaturity,"contentMaturity----");
+    console.log(libraryVideo,"libraryVideo")
     
     return (
-        <>
+        <>{isMobile ? 
+            
+            <UserProfile profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} />
+            :
             <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile}/>
-        </>
+         } </>
     );
 }
 

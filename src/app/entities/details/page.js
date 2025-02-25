@@ -18,7 +18,8 @@ import { Alert, Form } from "react-bootstrap";
 import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics}) {
+import { type } from "os";
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost}) {
  console.log(shareLink,"shareLink++++++++++++++________")
  console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
@@ -77,6 +78,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
+    console.log(data,"datat9999")
     
 
     const convertToKM =(num)=> {
@@ -118,10 +120,14 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
         setFolders(e.target.value);
     }
 
+    const [active, setActive]  = useState(null)
+
     const handleNavigateSave = (_id) => {
         console.log('_id', _id)
         setSelectedFolderId(_id);
         // console.log('Clicked Folder ID:', folderId);
+
+        setActive(_id);
     }; 
     // console.log('folders====00000098888', folders)
     const [deleteModel, setDeleteModel] = useState(false)
@@ -141,30 +147,34 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
       const dropdownRefnwe = useRef(null);
    
        const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+       const [threeDotItem, setThreeDotItem] = useState(null);
+
    
        const toggleDropdownnwe = (item) => {
         console.log(item,"if")
            setisDropdownOpenid((prev) => (prev === item ? null : item));
+           setThreeDotItem(item);
+
 
        };
-    //    console.log(isDropdownOpenid,"isDropdownOpenid")
-       const handleClickOutsidenwe = (event) => {
-           if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
-               setisDropdownOpenid(item);
-           }
-       };
+    // //    console.log(isDropdownOpenid,"isDropdownOpenid")
+    //    const handleClickOutsidenwe = (event) => {
+    //        if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
+    //            setisDropdownOpenid();
+    //        }
+    //    };
    
        
    
 console.log(isDropdownOpenid,"getfolder")
     // };
 
-       useEffect(() => {
-           window.addEventListener("click", handleClickOutsidenwe);
-           return () => {
-               window.removeEventListener("click", handleClickOutsidenwe);
-           };
-       }, []);
+    //    useEffect(() => {
+    //        window.addEventListener("click", handleClickOutsidenwe);
+    //        return () => {
+    //            window.removeEventListener("click", handleClickOutsidenwe);
+    //        };
+    //    }, []);
 
        const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
        
@@ -228,7 +238,18 @@ console.log(isDropdownOpenid,"getfolder")
         { id: 4, text: 'Exercises', value: 'Exercises' },
         { id: 5, text: 'Homework assignments', value: 'homeworkAssignments' },
     ];
-    
+    const [selectedValue, setSelectedValue] = useState([]);
+
+    const handleChange1 = (e) => {
+        setSelectedValue(e.target.value);
+    };
+    const [text, setText] = useState("");
+
+    const handleChange2 = (e) => {
+        setText(e.target.value);
+    };
+    console.log(text,"text value8888")
+    console.log(selectedValue,"selectedValue value8888")
     return (
         <>
                {/* Rename folder modal start */}
@@ -310,7 +331,7 @@ console.log(isDropdownOpenid,"getfolder")
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button className="btn btn-color-orange" onClick={()=>{handleClose2();copyUrl()}}>Copy Link</button>
+                            <button className="btn btn-color-orange" onClick={()=>{copyUrl();handleClose2()}}>Copy Link</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -338,29 +359,35 @@ console.log(isDropdownOpenid,"getfolder")
                                     {['radio'].map((type) => (
                                         <div key={`inline-${type}`} className="d-flex flex-column">
                                             <Form.Check
-                                                inline
-                                                label="Bug Report"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-4`}
+                                            inline
+                                            label="Bug Report"
+                                            name="group2"
+                                            type="radio"
+                                            id="inline-radio-4"
+                                            value="Bug Report"
+                                            checked={selectedValue === "Bug Report"}
+                                            onChange={handleChange1}
                                             />
-                                            <Form.Check
-                                                inline
-                                                label="Violent content"
-                                                name="group2"
-                                                type={type}
-                                                id={`inline-${type}-5`}
-                                            />
+                                             <Form.Check
+                                                    inline
+                                                    label="Violent content"
+                                                    name="group2"
+                                                    type="radio"
+                                                    id="inline-radio-5"
+                                                    value="Violent Content"
+                                                    checked={selectedValue === "Violent Content"}
+                                                    onChange={handleChange1}
+                                                />
                                         </div>
                                     ))}
                                 </Form>
                             </div>
                             <div className="textarea-container mb-4">
-                                <Form.Control as="textarea" rows={3} placeholder="" />
+                                <Form.Control as="textarea" rows={3} placeholder="" value={text} onChange={handleChange2}/>
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button className="btn btn-color-orange" onClick={handleClose3}>Send Report</button>
+                            <button className="btn btn-color-orange" onClick={()=>{handleClose3(),handleReportPost(selectedValue,text,data?._id)}}  >Send Report</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -371,14 +398,12 @@ console.log(isDropdownOpenid,"getfolder")
                 <Modal.Header closeButton>
                     <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="overflow-hidden">
                     <div className='modal-bar show_mobile'>
                         <div className='bar-line'></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
-                    <p>Nulla in libero eget ex tristique pellentesque. Sed ex massa, cursus sagittis interdum ac, iaculis eget est. Vestibulum leo neque, eleifend et pretium vehicula, finibus sit amet dui. Phasellus nec eros a orci ultrices sagittis sit amet in lacus. Morbi nec commodo justo. Cras at varius risus. Cras nec libero consequat, vulputate felis ut, pharetra libero. Fusce ornare arcu ultrices lectus vulputate ultrices. Aenean purus nisl, bibendum vel massa eget, porttitor gravida ligula. Sed ut ante convallis, pretium quam pretium, eleifend ante. </p>
-                    <p>Donec tempus mollis quam, quis molestie neque pretium ut. In eu venenatis nisi. Nam tristique sed nisi a aliquet. Praesent mauris neque, ornare nec commodo sed, aliquam at mi. Vivamus sit amet libero et felis pretium tempor tincidunt vel dui. Suspendisse tincidunt pharetra bibendum.</p>
-                </Modal.Body>
+                    <p>{data?.description}</p>
+                 </Modal.Body>
             </Modal>
 
             {/* Save to My Library Modal start */}
@@ -416,7 +441,7 @@ console.log(isDropdownOpenid,"getfolder")
                             <div key={index} className='folder-view'>
                             <div className='folder-inner'>
                                 <div className='folder-content-inline'>
-                                <div className='folder-content-left'>
+                                <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
                                     <div className='folder-icon'>
                                     <svg
                                         width="32"
@@ -431,8 +456,8 @@ console.log(isDropdownOpenid,"getfolder")
                                         />
                                     </svg>
                                     </div>
-                                    <div className='folder-name' onClick={() => handleNavigateSave(item?._id)}>
-                                    <p>{item.name}</p>
+                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                                        <p className="">{item.name}</p>
                                     </div>
                                 </div>
 
@@ -562,7 +587,7 @@ console.log(isDropdownOpenid,"getfolder")
                                                 </svg>
                                                 Save
                                             </button>
-                                            <button className="btn btn-light-bg" onClick={handleShow3}>
+                                            <button className="btn btn-light-bg" onClick={handleShow4}>
                                                 <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
                                                 Summary
                                             </button>
@@ -629,7 +654,8 @@ console.log(isDropdownOpenid,"getfolder")
                                     </div>
                                     <div className="video-description">
                                         <p>
-                                            {VideoDetailsState?.description}
+                                        {data?.description}
+
                                             <span className="view-more">
                                                 <button className="btn btn-view" onClick={() => {
                                                     document.querySelector(".view-more").style.display = "none";
@@ -644,13 +670,13 @@ console.log(isDropdownOpenid,"getfolder")
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Source</div>
-                                                            <div className="topic-value">{VideoDetailsState?.source}</div>
+                                                            <div className="topic-value">{data?.source}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Verified</div>
-                                                            <div className="topic-value">{VideoDetailsState?.isVerified ? "Yes" : "No"}</div>
+                                                            <div className="topic-value">{data?.isVerified ? "Yes" : "No"}</div>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -663,28 +689,28 @@ console.log(isDropdownOpenid,"getfolder")
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Age group</div>
-                                                            <div className="topic-value">{VideoDetailsState?.ageRange}</div>
+                                                            <div className="topic-value">{data?.ageRange}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Creator</div>
-                                                            <div className="topic-value">{VideoDetailsState?.channelName}</div>
+                                                            <div className="topic-value">{data?.channelName}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Published/Uploaded</div>
-                                                            <div className="topic-value">{new Date(VideoDetailsState?.createdAt).toLocaleDateString("en-GB")}</div>
+                                                            <div className="topic-value">{new Date(data?.createdAt).toLocaleDateString("en-GB")}</div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="accout-list-inner">
                                                             <div className="topic-title">Subject area</div>
                                                             <div className="topic-value">
-                                                            {VideoDetailsState?.topic?.length > 30
-                                                                 ? VideoDetailsState.topic.slice(0, 30) + "..."
-                                                                : VideoDetailsState?.topic}
+                                                            {data?.topic?.length > 30
+                                                                 ? data.topic.slice(0, 30) + "..."
+                                                                : data?.topic}
                                                             </div>
                                                             {/* <div className="topic-value">Neuroscience</div> */}
                                                         </div>

@@ -130,7 +130,10 @@ const AuthService = {
   },
 
   GetPost: async (page) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     console.log(token, 'token---');
     const { authBaseUrl, HomeGetPost } = ApiConfig;
     const url = authBaseUrl + HomeGetPost + '?page=' + page;
@@ -540,7 +543,6 @@ const AuthService = {
   },
 
   SaveVideo: async (selectedFolderId, postId) => {
-    console.log(selectedFolderId, postId, "selectedFolderId id ----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
@@ -572,14 +574,14 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  ReportPost: async (reportDiscription, selectedValues, id) => {
+  ReportPost: async (selectedValues,text, id) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, reportPost } = ApiConfig;
     const url = authBaseUrl + reportPost;
     const params = {
       postId: id,
-      reportType: selectedValues[0],
-      description: reportDiscription
+      reportType: selectedValues,
+      description: text
     };
     console.log(params, "params----")
     const headers = {

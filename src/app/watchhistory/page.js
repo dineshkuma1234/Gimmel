@@ -3,8 +3,11 @@
 import React, { useEffect,useState,} from "react";
 import WatchHistoryData from "../entities/mylibrary/watchhistorydata";
 import AuthService from "../../services/AuthService";
+import {useIsMobile} from "../../hooks/useIsMobile";
+import HistoryWatch from "../(MobileFlow)/historywatch/page";
 
 const PageComponent = () => {
+    const isMobile = useIsMobile();
     const [watchHistoryData,setWatchHistoryData]=useState('')
 
     useEffect(()=>{
@@ -35,9 +38,11 @@ const PageComponent = () => {
         }
     };
     return (
-        <>  
+        <>{isMobile ?
+            <HistoryWatch  watchHistoryData={watchHistoryData}/>
+            :
             <WatchHistoryData watchHistoryData={watchHistoryData}/>
-        </>
+        }</>
     );
 };
 

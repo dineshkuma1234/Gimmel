@@ -16,7 +16,7 @@ import Accordion from 'react-bootstrap/Accordion';
  
  
 
-function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest }) {
+function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic, handleRemoveSuggation}) {
  
 
 
@@ -62,7 +62,7 @@ function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroS
                                     </button>
                                 </Link>
                             </li>
-                            <div className="dropdown-divider"></div>
+                            <div className="dropdown-divider" ></div>
                             <li>
                                 <button href="#">
                                     <Image src={require("../../../assets/images/report-icon.svg")} alt="like" width={32} height={32} />
@@ -97,7 +97,7 @@ function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroS
                     </div>
 
  
-                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
+                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} handleMoreLike={handleMoreLike} handleNotInterestedTopic={handleNotInterestedTopic} handleRemoveSuggation={handleRemoveSuggation} />
  
 
 
