@@ -10,6 +10,10 @@ import "./account.css";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
+import Link from 'next/link';
+import { Modal } from 'react-bootstrap';
+import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Modal } from "react-bootstrap";
 
@@ -204,15 +208,110 @@ function AccountDetails({
                 </div>
                 {/* CHOOSE YOU PLAN END */}
 
-                <div className="row mx-n3 justify-content-center">
-                  {/* PRICING CARD - Free Plan */}
-                  <div className="col-6 mb-4">
-                    <div className="card card-frame">
-                      <div className="row align-items-center">
-                        <div className="col-md-12">
-                          <div className="card-header bg-transparent">
-                            <div className="price-card--title">
-                              <h4>Free Plan</h4>
+    const router = useRouter();
+    const handleLogout = () => {
+      localStorage.removeItem("token"); // Remove authentication token
+      router.push("/login"); // Redirect to the login page
+  };
+
+  return (
+    <>
+     <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Subscription Plan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div id="pricingSection" className="mt-4">
+                            <div className="container">
+                                {/* CHOOSE YOUR PLAN */}
+                                <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
+                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isYearly} onChange={togglePricing} />
+                                        <span className="slider-price"></span>
+                                    </label>
+                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
+                                    <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
+                                </div>
+                                {/* CHOOSE YOU PLAN END */}
+
+                                <div className="row mx-n3 justify-content-center">
+                                    {/* PRICING CARD - Free Plan */}
+                                    <div className="col-6 mb-4">
+                                        <div className="card card-frame">
+                                            <div className="row align-items-center">
+                                                <div className="col-md-12">
+                                                    <div className="card-header bg-transparent">
+                                                        <div className="price-card--title">
+                                                            <h4>Free Plan</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <ul className="list-unstyled list-md-space mb-0">
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 1
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 2
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 3
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className='price-btn'>
+                                                        <button className='btn btn-color-orange-trans'>Current Plan</button>
+                                                    </div>
+                                                    <div className="price">
+                                                        <div className="price-number">Free</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* END PRICING CARD - Free Plan */}
+
+                                    {/* PRICING CARD - Pro Plan */}
+                                    <div className="col-6 mb-4">
+                                        <div className="card card-frame active">
+                                            <div className="row align-items-center">
+                                                <div className="col-md-12">
+                                                    <div className="card-header bg-transparent">
+                                                        <div className="price-card--title">
+                                                            <h4>Pro Plan</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <ul className="list-unstyled list-md-space mb-0">
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 1
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 2
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 3
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-12">
+                                                    <div className='price-btn'>
+                                                        <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
+                                                    </div>
+                                                    <div className="price">
+                                                        <div className="price-number">{isYearly ? '$12/month' : '$10/month'}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* END PRICING CARD - Pro Plan */}
+                                </div>
                             </div>
                           </div>
                           <div className="card-body">
@@ -255,7 +354,7 @@ function AccountDetails({
                             <Image src={require("../../../assets/images/logout.svg")} alt="Success" />
                         </div>
                         <div className="btn-container">
-                            <button className="btn-color-orange" onClick={()=>{handleClose2(),handleLog out()}}>Yes, I want to log out</button>
+                            <button className="btn-color-orange" onClick={()=>{handleClose2(),handleLogout()}}>Yes, I want to log out</button>
                             <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
                         </div>
                     </div>
@@ -484,21 +583,50 @@ function AccountDetails({
                                 <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
                                 <h3>Watch history</h3>
                             </div>
-                          </div>
+                            <Link href="/watchhistory" className='view-all-btn'>View all</Link>
+                        </div>
+
+                            <div className='library-list mt-4'>
+                                <Swiper
+                                    spaceBetween={14}
+                                    slidesPerView={4}
+                                    className="mySwiper category-swiper library-swiper"
+                                >
+                                    {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
+                                        <SwiperSlide key={index}>
+                                            <div className="col-md-12">
+                                                <div className="video-card">
+                                                    <div className="video-card-content">
+                                                        <Link href={`/mainHome/${item?._id}/videodetails2`}>
+                                                            <div className="video-card-image">
+                                                                <Image src={item?.thumbnail} alt="video card" width={300} height={150}/>
+                                                                <div className="video-duration">{item?.duration}</div>
+                                                            </div>
+                                                        </Link>
+                                                        <div className="video-card-detail">
+                                                            <div className="video-de-title">
+                                                                <div className="de-title">
+                                                                    <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                            
                         </div>
                       </div>
                     </div>
-                    </div>
-                        : null}
-
-
-                    <div className='log-out'>
+                </div>
+                     : null}
+                     <div className='log-out'>
                         <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Log out</button>
                     </div>
-                        
-                    </div>
-
-                
+                    
+                </div>
             </main>
         </>
     );

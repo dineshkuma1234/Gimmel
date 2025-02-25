@@ -11,8 +11,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
 import { FiAlertOctagon } from "react-icons/fi";
 
-function SaveLibrary(rename,getFolder) {
-
+function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
+console.log(getFolder,"getFolder+++++++++++")
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -36,13 +36,13 @@ function SaveLibrary(rename,getFolder) {
     ]);
 
     // Function to add a new folder
-    const addNewFolder = () => {
-        const newFolder = {
-            id: folders.length + 1,
-            name: `New Folder ${folders.length + 1}`,
-        };
-        setFolders([...folders, newFolder]);
-    };
+    // const addNewFolder = () => {
+    //     const newFolder = {
+    //         id: folders.length + 1,
+    //         name: `New Folder ${folders.length + 1}`,
+    //     };
+    //     setFolders([...folders, newFolder]);
+    // };
 
     const dropdownRef = useRef(null);
 
@@ -70,6 +70,7 @@ function SaveLibrary(rename,getFolder) {
         };
     }, []);
 
+        const [active, setActive]  = useState(null)
     
     const handleNavigateSave = (_id) => {
         console.log('_id', _id)
@@ -104,6 +105,10 @@ function SaveLibrary(rename,getFolder) {
     
     
            };
+
+           const handleChange = (e) => {
+            setFolders(e.target.value);
+        }
     return (
         <>
          {/* Rename folder modal start */}
@@ -205,14 +210,15 @@ function SaveLibrary(rename,getFolder) {
                         <div className="input-container modal-input">
                             <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder=""  onChange={(e) => handleChange(e)}  />
                             </Form.Group>
                         </div>
                     </div>
                     <button type="button" className="btn-color-orange mb-5" onClick={
                         () => {
-                            addNewFolder();
+                            // addNewFolder();
                             handleClose2();
+                            handleCreateFolder(folders);
                         }
                     }>Create folder</button>
                 </Modal.Body>
