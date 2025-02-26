@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation'
 
 
 function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
+    console.log(historyList,"historyList---qqq")
 
     const pathname = usePathname()
 
@@ -77,7 +78,7 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
      const handleHistoryItemClick =(item)=>{
         setHeaderSearch(item.title);
      }
-     console.log(headerSearch,"headerSearch---")
+    
      const [isAuthenticated, setIsAuthenticated] = useState(false);
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
@@ -100,8 +101,8 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
                             //     handleShowHistory();
                             //     handleHistoryList(headerSearch);
                             //   }}
-                            onClick={()=>{handleHistoryList();  }}
-                            onFocus={()=>handleShowHistory()}
+                            onClick={(e) => handleHistoryList(e.target.value)}
+                            onFocus={handleShowHistory}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     handleSearchCont(headerSearch);
@@ -117,7 +118,7 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
                                 <ul>
                                     {historyList.map((item, index) => (
                                         <li key={index} onClick={()=>handleHistoryItemClick(item)}>
-                                            <Link href="#">
+                                            <Link href="/searchlist">
                                                 <div className='search-history-left'>
                                                     <Image src={require("../../assets/images/history.svg")} alt="slider thumbnil" />
                                                     {item.title}

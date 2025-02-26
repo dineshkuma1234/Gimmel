@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Main from "./entities/main/page";
 import MainMobile from './(MobileFlow)/mobile-main/page';
 import AuthService from '../services/AuthService';
 import { useRouter } from "next/navigation";
 import { UseLoader } from './LoderHelper/context/loaderHelperContext';
 import unAuthToken from '../Constants/constant'
+import { SearchListContext } from './Context/searchlist/searchListContext';
+import toast, { Toaster } from "react-hot-toast";
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
@@ -129,7 +131,8 @@ const handleTopicPost = async () => {
   const [historyList, setHistoryList] = useState([]);
   const [selectSearchList, setSelectSearchList] = useState('')
   const [headerSearch, setHeaderSearch] = useState("")
-  const [searchList, setSearchList] = useState('');
+  // const [searchList, setSearchList] = useState('');
+  const [searchListState, updatesearchListState] = useContext(SearchListContext);
   useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
@@ -140,10 +143,9 @@ const handleTopicPost = async () => {
   // },[]);
 
   
-  console.log(searchList,"headerSearch--------");
 const handleHistoryList = async (headerSearch) => {
   // setLoader(true);
-
+  console.log(headerSearch,"headerSearch in api func")
   try {
       const result = await AuthService.SearchHistory(headerSearch);
       console.log(result.data, 'result');
@@ -153,6 +155,9 @@ const handleHistoryList = async (headerSearch) => {
       } else {
         // setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
+        toast.error(result?.message, {
+          className: "custom-toast", // Apply the custom class
+      });
       }
     } catch (error) {
       console.log('Error occurred:', 'Gimmel', error);
@@ -186,14 +191,18 @@ const handleHistoryList = async (headerSearch) => {
         selectedValue,
         selectedAudience,
       );
-      console.log(result, 'result---');
+      console.log(result, 'result---111');
       // setLoader(false);
 
       if (result?.success) {
         if (result?.data?.length <= 0) {
           // AlertHelper.show('gray', 'Gimmel', 'No data');
+          toast.error(result?.message, {
+            className: "custom-toast", // Apply the custom class
+        });
+          
         } else {
-          setSearchList(result?.data);
+          updatesearchListState(result?.data);
           // navigation.navigate('TabNavigation', {
           //   screen: 'Search',
           //   params: { data: result?.data },
@@ -445,10 +454,11 @@ const handleHistoryList = async (headerSearch) => {
   };
 
 
-  console.log(interest,"interest---") 
+  console.log(headerSearch,"interest---") 
 
   return (
     <>
+    <Toaster position="top-right" reverseOrder={false} />
       {deviceWidth > 991 ? (
         <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} />
       ) : (
