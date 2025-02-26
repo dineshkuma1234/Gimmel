@@ -130,91 +130,71 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const handleSelectChange2 = (selectedItems) => {
         setSelected2(selectedItems);
     };
+
     const handleLogout = () => {
-        localStorage.removeItem("token"); // Remove authentication token
-        router.push("/login"); // Redirect to the login page
-    };
+      localStorage.removeItem("token"); // Remove authentication token
+      router.push("/login"); // Redirect to the login page
+  };
 
-  return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        centered
-        className="custom-modal"
-        size="lg"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Subscription Plan</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="modal-body-container">
-            <div id="pricingSection" className="mt-4">
-              <div className="container">
-                {/* CHOOSE YOUR PLAN */}
-                <div
-                  id="js-pricing-switch"
-                  className="text-center my-4 py-2 relative js-pricing-switch"
-                >
-                  <span className={`switch-label ${!isYearly ? "active" : ""}`}>
-                    Yearly
-                  </span>
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={isYearly}
-                      onChange={togglePricing}
-                    />
-                    <span className="slider-price"></span>
-                  </label>
-                  <span className={`switch-label ${isYearly ? "active" : ""}`}>
-                    Monthly
-                  </span>
-                  <div className="save-money--mobile mt-3">
-                    Save 10% on Yearly Plans
-                  </div>
-                </div>
-                {/* CHOOSE YOU PLAN END */}
+    return (
+        <>
+            <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Subscription Plan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div id="pricingSection" className="mt-4">
+                            <div className="container">
+                                {/* CHOOSE YOUR PLAN */}
+                                <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
+                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isYearly} onChange={togglePricing} />
+                                        <span className="slider-price"></span>
+                                    </label>
+                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
+                                    <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
+                                </div>
+                                {/* CHOOSE YOU PLAN END */}
 
-                <div className="row mx-n3 justify-content-center">
-                  {/* PRICING CARD - Free Plan */}
-                  <div className="col-6 mb-4">
-                    <div className="card card-frame">
-                      <div className="row align-items-center">
-                        <div className="col-md-12">
-                          <div className="card-header bg-transparent">
-                            <div className="price-card--title">
-                              <h4>Free Plan</h4>
-                            </div>
-                          </div>
-                          <div className="card-body">
-                            <ul className="list-unstyled list-md-space mb-0">
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 1
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 2
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 3
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="col-md-12">
-                          <div className="price-btn">
-                            <button className="btn btn-color-orange-trans">
-                              Current Plan
-                            </button>
-                          </div>
-                          <div className="price">
-                            <div className="price-number">Free</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* END PRICING CARD - Free Plan */}
+                                <div className="row mx-n3 justify-content-center">
+                                    {/* PRICING CARD - Free Plan */}
+                                    <div className="col-6 mb-4">
+                                        <div className="card card-frame">
+                                            <div className="row align-items-center">
+                                                <div className="col-md-12">
+                                                    <div className="card-header bg-transparent">
+                                                        <div className="price-card--title">
+                                                            <h4>Free Plan</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <ul className="list-unstyled list-md-space mb-0">
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 1
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 2
+                                                            </li>
+                                                            <li className="d-flex ">
+                                                                <MdOutlineCheckCircle /> Feature 3
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className='price-btn'>
+                                                        <button className='btn btn-color-orange-trans'>Current Plan</button>
+                                                    </div>
+                                                    <div className="price">
+                                                        <div className="price-number">Free</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* END PRICING CARD - Free Plan */}
 
                                     {/* PRICING CARD - Pro Plan */}
                                     <div className="col-6 mb-4">
@@ -274,7 +254,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <Image src={require("../../../assets/images/logout.svg")} alt="Success" />
                         </div>
                         <div className="btn-container">
-                            <button className="btn-color-orange" onClick={()=>{handleClose2(),handleLogout()}}>Yes, I want to log out</button>
+                            <button className="btn-color-orange" onClick={()=>{handleClose2();handleLogout()}}>Yes, I want to log out</button>
                             <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
                         </div>
                     </div>

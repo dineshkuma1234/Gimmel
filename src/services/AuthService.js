@@ -743,6 +743,30 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
+  getSuggested: async (postId) => {
+    const token = await localStorage.getItem('token');
+    const { authBaseUrl, Suggested } = ApiConfig;
+    const url = authBaseUrl + Suggested +postId;
+    const params = {};
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+  NotIntrested: async (id) => {
+    const token = await AsyncStorage.getItem('token');
+    const { authBaseUrl, Notintrested } = ApiConfig;
+    const url = authBaseUrl + Notintrested;
+    const params = {
+      postId: id,
+    };
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallPost(url, params, headers);
+  },
   SaveSubFolderVideo: async (selectedFolderId, id, postId) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveSubFolderVideo } = ApiConfig;

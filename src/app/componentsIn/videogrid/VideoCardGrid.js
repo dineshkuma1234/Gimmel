@@ -7,23 +7,25 @@ import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import defoultImages from '../../../assets/images/defoultmage.jpg';
 import Image from 'next/image';
 import Modal from 'react-bootstrap/Modal';
-import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
+import { MdMoreVert, MdAddCircleOutline, MdDeleteOutline } from "react-icons/md";
 import Link from 'next/link';
 import { Form,ListGroup } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 
 import {VideoDetailsContext} from '../../Context/VideoDetails/videoDetailsContext';
 import { useRouter } from 'next/navigation';
+import { FiAlertOctagon } from 'react-icons/fi';
+import { TbEdit } from 'react-icons/tb';
 
 
 
 
 
-const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest}) => {
+const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
-    
+    console.log(getFolder,"getfolder++++++++++++++++++")
     const router = useRouter();
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -72,6 +74,9 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
     const [selectSocialIssue,setselectSocialIssue]=useState([]);
     const [interestsDescription, setInterestsDescription] = useState("");
     const [showContent, setShowContent] = useState(true);
+        const [saveVideoScreen,setSaveVideoScreen] = useState(false);
+        const [renameModel, setRenameModel] = useState(false);
+        const [deleteModel, setDeleteModel] = useState(false)
     
     const [show3, setShow3] = useState(false);
 
@@ -99,7 +104,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
     const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
     const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
 
-    const handleChange = (e) => {
+    const handleChang8e = (e) => {
         const { id, checked } = e.target;
         setCheckedItems({
             ...checkedItems,
@@ -172,9 +177,88 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
 
       };
 
+ const [show6, setShow6] = useState(false);
+    
+        const handleClose6 = () => setShow6(false);
+        const handleShow6 = () => setShow6(true);
+          const [active, setActive]  = useState(null)
+       const [show7, setShow7] = useState(false);
+          
+              const handleClose7 = () => setShow7(false);
+              const handleShow7 = () => setShow7(true);
+          
+          const handleNavigateSave = (_id) => {
+              console.log('_id', _id)
+              setSelectedFolderId(_id);
+              // console.log('Clicked Folder ID:', folderId);
+      
+              setActive(_id);
+          }; 
 
+             const dropdownRefnwe = useRef(null);
+              
+                  const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+                  const [threeDotItem, setThreeDotItem] = useState(null);
+           
+              
+                  const toggleDropdownnwe = (item) => {
+                   console.log(item,"if")
+                      setisDropdownOpenid((prev) => (prev === item ? null : item));
+                      setThreeDotItem(item);
+           
+           
+                  };
+
+                  const handleChange8 = (e) => {
+                    setFolders(e.target.value);
+                }
     return (
         <>
+
+
+    {/* Rename folder modal start */}
+    <Modal open={renameModel} show={show7} onHide={handleClose7} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Rename folder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="input-container modal-input">
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Folder name</Form.Label>
+                                <Form.Control type="text" placeholder="" value={rename}  onChange={(event) => setRename(event.target.value)} />
+                            </Form.Group>
+                        </div>
+                    </div>
+                    <div className="btn-container">
+                        <button className="btn btn-color-orange" onClick={()=>{handleClose7(); handleRename( rename, isDropdownOpenid?._id); setRenameModel(false); }}>Save</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Delete folder modal start */}
+            <Modal open={deleteModel} show={show6} onHide={handleClose6} centered className='custom-modal'>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="icon-container d-flex justify-content-center">
+                            <FiAlertOctagon />
+                        </div>
+                        <div className="title-container d-flex justify-content-center align-items-center">
+                            <p className='modal-title'>Are you sure?</p>
+                        </div>
+                        <div className="input-container modal-input">
+                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div className="btn-container d-flex gap-3">
+                        <button className="btn btn-color-orange" onClick={()=>{handleDeleteFolder(isDropdownOpenid?._id) ;setDeleteModel(true); handleClose6()}}>Delete</button>
+                        <button className="btn btn-color-orange-outline" onClick={handleClose6}>Cancel</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
+
         {/* New folder Modal start */}
         <Modal show={show3} onHide={handleClose3} centered className='custom-modal filter-modal'>
         <Modal.Header closeButton>
@@ -204,7 +288,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                                             id={topic.name}
                                                             label={topic.name}
                                                             checked={!!checkedItems[topic.name]} // Default to false if undefined
-                                                            onChange={handleChange}
+                                                            onChange={handleChang8e}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -231,7 +315,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                                             id={topic.name}
                                                             label={topic.name}
                                                             checked={!!checkedItems1[topic.name]} // Default to false if undefined
-                                                            onChange={handleChange1}
+                                                            onChange={handleChang8e}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -258,7 +342,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                                             id={topic.name}
                                                             label={topic.name}
                                                             checked={!!checkedItems2[topic.name]} // Default to false if undefined
-                                                            onChange={handleChange2}
+                                                            onChange={handleChang8e}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -285,7 +369,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                                             id={topic.name}
                                                             label={topic.name}
                                                             checked={!!checkedItems3[topic.name]} // Default to false if undefined
-                                                            onChange={handleChange3}
+                                                            onChange={handleChang8e}
                                                         />
                                                     </ListGroup.Item>
                                                 ))}
@@ -300,7 +384,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                     <div className="text-area mt-4">
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Give us a description of your interests</Form.Label>
-                            <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChange4} />
+                            <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChang8e} />
                             <p className="mt-2">{interestsDescription.length}/60 words</p>
                         </Form.Group>
                     </div>
@@ -322,7 +406,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                         <div className="input-container modal-input">
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control type="text" placeholder="" onChange={(e) => handleChange8(e)} />
                             </Form.Group>
                         </div>
                     </div>
@@ -330,7 +414,8 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                         <button className="btn btn-color-orange" onClick={
                             () => {
                                 handleClose2();
-                                addNewFolder();
+                                // addNewFolder();
+                                handleCreateFolder(folders);
                             }
 
                         }>Create folder</button>
@@ -357,6 +442,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                     <Modal.Title>Save to My Library</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+         
                     <div className='body-top'>
                         <div className='body-top-left'>
                             <div className='short-by'>
@@ -382,38 +468,66 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                     </div>
                     <div className='body-middle'>
                         <div className='folder-lists'>
-                            {folders.map((folder) => (
-                                <div key={folder.id} className='folder-view'>
-                                    <div className='folder-inner'>
-                                        <div className='folder-content-inline'>
-                                            <div className='folder-content-left'>
-                                                <div className='folder-icon'>
-                                                    <svg
-                                                        width="32"
-                                                        height="32"
-                                                        viewBox="0 0 32 32"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                                            fill="#104E5B"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div className='folder-name'>
-                                                    <p>{folder.name}</p>
-                                                </div>
-                                            </div>
-                                            <div className='folder-content-right'>
-                                                <div className='folder-icon'>
-                                                    <MdMoreVert />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                         {Array.isArray(getFolder) && getFolder.map((item, index) => (
+                                                   <div key={index} className='folder-view'>
+                                                   <div className='folder-inner'>
+                                                       <div className='folder-content-inline'>
+                                                       <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+                                                           <div className='folder-icon'>
+                                                           <svg
+                                                               width="32"
+                                                               height="32"
+                                                               viewBox="0 0 32 32"
+                                                               fill="none"
+                                                               xmlns="http://www.w3.org/2000/svg"
+                                                           >
+                                                               <path
+                                                               d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                                               fill="#104E5B"
+                                                               />
+                                                           </svg>
+                                                           </div>
+                                                           <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                                                               <p className="">{item.name}</p>
+                                                           </div>
+                                                       </div>
+                       
+                                                       <div className='folder-content-right'>
+                                                           <div className='folder-icon'>
+                                                           <div className="folder-content-right" ref={dropdownRefnwe}>
+                                                               <button
+                                                               className="folder-icon"
+                                                               onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                                                               >
+                                                               <MdMoreVert />
+                                                               </button>
+                       
+                                                               {/* Show the dropdown only if it matches the current item's ID */}
+                                                               {isDropdownOpenid?._id === item._id && (
+                                                               <div className="dropdown-menu-card">
+                                                                   <ul>
+                                                                   <li>
+                                                                       <button variant="primary" onClick={handleShow7}>
+                                                                       <TbEdit />
+                                                                       Rename
+                                                                       </button>
+                                                                   </li>
+                                                                   <li className="hide_mobile">
+                                                                       <button variant="primary" onClick={handleShow6}>
+                                                                       <MdDeleteOutline />
+                                                                       Delete
+                                                                       </button>
+                                                                   </li>
+                                                                   </ul>
+                                                               </div> 
+                                                               )}
+                                                           </div>
+                                                           </div>
+                                                       </div>
+                                                       </div>
+                                                   </div>
+                                                   </div>
+                                               ))}
                         </div>
                         <div className='add-new-folder'>
                             <button
@@ -426,7 +540,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" onClick={handleClose1}>Save here</button>
+                        <button type="button" className="btn-color-orange" onClick={()=>{handleClose1(), handleSaveVideo()}}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
@@ -513,18 +627,18 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                                     </button>
                                                 </li>
                                                 <li className='show_mobile'>
-                                                    <Link href="/savelibrary">
-                                                        <button variant="primary">
+                                                    {/* <Link href="/savelibrary"> */}
+                                                        <button variant="primary" onClick={() => {setSaveVideoScreen(true);setShow1(false)}}>
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
                                                             </svg>
                                                             Save
                                                         </button>
-                                                    </Link>
+                                                    {/* </Link> */}
                                                 </li>
                                                 <div className="dropdown-divider"></div>
                                                 <li>
-                                                    <button href="#">
+                                                    <button href="#" onClick={()=>{handleNotIntrested()}}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C12.9 20 13.7667 19.8542 14.6 19.5625C15.0781 19.3952 15.5342 19.1853 15.9684 18.933C16.4868 18.6317 16.5269 17.9269 16.103 17.503L6.49703 7.89703C6.07311 7.47311 5.36828 7.51324 5.06703 8.03157C4.81467 8.46577 4.60483 8.92192 4.4375 9.4C4.14583 10.2333 4 11.1 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20ZM17.503 16.103C17.9269 16.5269 18.6317 16.4868 18.933 15.9684C19.1853 15.5342 19.3952 15.0781 19.5625 14.6C19.8542 13.7667 20 12.9 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C11.1 4 10.2333 4.14583 9.4 4.4375C8.92192 4.60483 8.46577 4.81467 8.03157 5.06703C7.51324 5.36828 7.47311 6.07311 7.89703 6.49703L17.503 16.103Z" fill="#3D3D3D" />
                                                         </svg>
@@ -536,7 +650,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                                     )}
                                 </div>
                             </div>
-
+     
                             <div className="video-de-info d-flex">
                                 <div className="de-info">
                                     <p className={isExpanded ? 'expanded' : ''}>{video.description}</p>
@@ -551,16 +665,17 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
                     </div>
                 </div>
             </div>
+            
         </>
     );
 };
 
-const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest}) => (
+const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => (
     console.log(getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (
-            <VideoCard key={`video-${index}`} video={video} index={index} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}/>
+            <VideoCard key={`video-${index}`} video={video} index={index} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
         ))}
     </div>
 );

@@ -19,9 +19,9 @@ import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
 import { type } from "os";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost}) {
- console.log(shareLink,"shareLink++++++++++++++________")
- console.log(VideoDetailsState,"VideoDetailsState-----------------")
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,suggested,handleNotIntrested}) {
+//  console.log(handleGetSuggested,"handleGetSuggested++++++++++++++________")
+//  console.log(VideoDetailsState,"VideoDetailsState-----------------")
 
 
     const [show1, setShow1] = useState(false);
@@ -782,7 +782,7 @@ console.log(isDropdownOpenid,"getfolder")
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="first">
                                                     <div className="tab-details-container">
-                                                        <SuggestedCardGrid  />
+                                                        <SuggestedCardGrid suggested={suggested}  getFolder={getFolder} rename={rename} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
                                                     </div>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="second">

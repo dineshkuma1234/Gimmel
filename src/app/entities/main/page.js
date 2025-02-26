@@ -7,7 +7,7 @@ import LoderHelper from "../../../app/LoderHelper/page"
 import Link from "next/link";
 
 
-function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest}) {
+function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) {
 
     return (
         <>
@@ -31,7 +31,7 @@ function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryLi
                         <h3>Recommended for you</h3>
                     </div>
 
-                    <VideoCardGrid getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}/>
+                    <VideoCardGrid getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}/>
 
 
                     
