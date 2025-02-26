@@ -11,9 +11,10 @@ import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
+import { useRouter } from "next/navigation";
  
  
-const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike,handleNotInterestedTopic,handleRemoveSuggation}) => {
+const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike,handleNotInterestedTopic,handleRemoveSuggation,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename, handleNotIntrested}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
  
@@ -149,6 +150,17 @@ const handleChange3=(e)=>{
     })
 }
 
+const router = useRouter();
+
+const handleNavigate = () => {
+  
+  router.push("/savelibray",{
+    // setData({ userId: "", postId: "" });
+  } 
+
+  );
+};
+
 const handleChange4 = (event) => {
     const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
     if (words.length <= 60) {
@@ -179,7 +191,7 @@ const handleChange4 = (event) => {
         </Modal.Body>
       </Modal>
  
-      <Modal
+      {/* <Modal
         show={show1}
         onHide={handleClose1}
         centered
@@ -276,7 +288,7 @@ const handleChange4 = (event) => {
             </button>
           </div>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
  
       <Modal show={show2} onHide={handleClose2} centered className="modal-dots">
         <div className="modal-bar">
@@ -550,12 +562,12 @@ const handleChange4 = (event) => {
           <div className="video-card-content">
             <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
-                <Image
-                  src={video.thumbnail}
-                  alt="video card"
-                  width={300}
-                  height={150}
-                />
+                  <Image
+                    src={video.thumbnail}
+                    alt="video card"
+                    width={300}
+                    height={150}
+                  />
                 <div className="video-duration">{video.duration}</div>
               </div>
             </Link>
@@ -635,12 +647,12 @@ const handleChange4 = (event) => {
                                 fill="#242424"
                               />
                             </svg>
-                            Save
+                            Saves
                           </button>
                         </li>
                         <li className="show_mobile">
-                          <Link href="/savelibrary">
-                            <button variant="primary">
+                          {/* <Link href="/savelibrary"> */}
+                            <button variant="primary" onClick={handleNavigate}>
                               <svg
                                 width="24"
                                 height="24"
@@ -655,11 +667,11 @@ const handleChange4 = (event) => {
                               </svg>
                               Save
                             </button>
-                          </Link>
+                          {/* </Link> */}
                         </li>
                         <div className="dropdown-divider"></div>
                         <li>
-                          <button href="#">
+                          <button href="#" onClick={()=>{handleNotIntrested()}}>
                             <svg
                               width="24"
                               height="24"
@@ -701,7 +713,7 @@ const handleChange4 = (event) => {
   );
 };
  
-const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic,handleRemoveSuggation}) => (
+const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic,handleRemoveSuggation,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => (
   console.log(getPost, "this is get post---11111"),
   (
     <div className="row">
@@ -717,6 +729,7 @@ const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience
             handleMoreLike={handleMoreLike}
             handleNotInterestedTopic={handleNotInterestedTopic}
             handleRemoveSuggation={handleRemoveSuggation}
+            data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}
            
           />
         ))}

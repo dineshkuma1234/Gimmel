@@ -86,7 +86,7 @@ export default function Home() {
         }
       }
     } catch (error) {
-      console.error('Error occurred:', error);
+      // console.error('Error occurred:', error);
     } finally {
       setLoading(false);
       // setLoader(false);

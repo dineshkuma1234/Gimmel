@@ -16,7 +16,7 @@ import Accordion from 'react-bootstrap/Accordion';
  
  
 
-function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic, handleRemoveSuggation}) {
+function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic, handleRemoveSuggation, data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) {
  
 
 
@@ -97,7 +97,7 @@ function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroS
                     </div>
 
  
-                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} handleMoreLike={handleMoreLike} handleNotInterestedTopic={handleNotInterestedTopic} handleRemoveSuggation={handleRemoveSuggation} />
+                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} handleMoreLike={handleMoreLike} handleNotInterestedTopic={handleNotInterestedTopic} handleRemoveSuggation={handleRemoveSuggation}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
  
 
 

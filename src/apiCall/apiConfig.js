@@ -64,6 +64,7 @@ export const ApiConfig = {
   homegetvideoid:"api/getPost",
   skipData:"api/saveGenratedContent",
   google:"api/auth/google",
+  Suggested:"api/getSuggested/",
 
   // <----------------------->
 

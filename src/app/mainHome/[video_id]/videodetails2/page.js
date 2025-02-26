@@ -24,8 +24,9 @@ function PageComponent() {
   const [selectedTopics, setSelectedTopics] = useState([]);
   const postId = id?.video_id|| id;
   const {setLoader} = UseLoader()
-    const [deviceWidth, setDeviceWidth] = useState(0);
-  
+  const [deviceWidth, setDeviceWidth] = useState(0);
+  const [suggested,setsuggested]=useState()
+  // console.log(suggested,"suggested[[[[]]]]]]==")
   useEffect(() => {
      
           handleGetPostid();
@@ -33,8 +34,8 @@ function PageComponent() {
           // handleSave()
           handleGetFolder(value);
           handleCreateFolder()
-        
-
+          handleGetSuggested()
+          handleNotIntrested()
   }, []);
   
   useEffect(() => {
@@ -265,13 +266,50 @@ function PageComponent() {
           console.log('Error occurred:', 'Gimmel', error);
       }
     };
+    const handleGetSuggested = async () => {   
+      // setLoader(true); // Start loader
     
+      try {
+        const result = await AuthService.getSuggested(postId);
+        console.log("API Response:", result);
+    
+        if (result?.success) {
+          console.log("Suggested Data Set:", result?.data);
+          setsuggested(result?.data); // Set suggested data
+        } else {
+          console.warn("API call was not successful");
+        }
+      } catch (error) {
+        // console.error("Error occurred:", error);
+      } finally {
+        // setLoader(false); // Ensure loader stops after API call
+      }
+    };
 
+    const handleNotIntrested = async (id) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+        const result = await AuthService.NotIntrested(id);
+        console.log(result, "result---")
+        if (result?.success) {
+          // LoaderHelper.loaderStatus(false);
+          handleTopicPost();
+          // AlertHelper.show('success', 'Gimmel', result?.message);
+        } else {
+          // LoaderHelper.loaderStatus(false);
+          // AlertHelper.show('danger', 'Gimmel', result?.message);
+        }
+      } catch (error) {
+        // LoaderHelper.loaderStatus(false);
+        // console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
+    
   return (
     <>
 
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost}  />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} />
   ) : ( 
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost}/>
 
