@@ -15,7 +15,7 @@ function PageComponent() {
     const [teachingTopic, setTeachingTopic] = useState([])
     const [contentMaturity, setContentMaturity] = useState([])
     const [eduction, setEducation] = useState([])
-    const {setLoader} = UseLoader()
+    // const {setLoader} = UseLoader()
     // console.log("page load")
     useEffect(()=>{
         handleUserInfo();
@@ -30,7 +30,7 @@ function PageComponent() {
     
     const handleUserInfo = async () => {
         // LoaderHelper.loaderStatus(true);
-        setLoader(true);
+        // setLoader(true);
         console.log("object----")
         try {
             const result = await AuthService.userInfo();
@@ -38,13 +38,13 @@ function PageComponent() {
             if (result?.success) {
                 console.log(result?.data, "data")
                 // LoaderHelper.loaderStatus(false);
-                setLoader(false);
+                // setLoader(false);
                 setProfileInfo(result?.data)
                 // const register =result?.data?.isType === true ? '1' : '0'
                 // console.log(result?.data?.isType,"register----");
                 // localStorage.setItem('register', register);
             } else {
-                setLoader(false);
+                // setLoader(false);
                 // LoaderHelper.loaderStatus(false);
                 // AlertHelper.show('danger', 'Gimmel', result?.message);
             }

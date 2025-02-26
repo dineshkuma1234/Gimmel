@@ -14,11 +14,12 @@ import Modal from 'react-bootstrap/Modal';
 import { Form, ModalBody } from "react-bootstrap";
 import { useState } from "react";
 import Link from "next/link";
+import SaveLibrary from "../savelibrary/page";
 
-function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,) {
+function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
     console.log(data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
-
+    const [saveVideoScreen,setSaveVideoScreen] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -45,11 +46,11 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
             return `${num}`;
         }
     };
-    const inputDate = data.data?.createdAt;
+    const inputDate = data?.createdAt;
     const formatTimeAgo = (inputDate) => {
         // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
     
-        const date = new Date(data.data?.createdAt); // Convert backend date to Date object
+        const date = new Date(data?.createdAt); // Convert backend date to Date object
         const currentDate = new Date(); // Get current date
     
         // Calculate the difference in months
@@ -159,14 +160,14 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
                                 </button>
                             </li>
                             <li>
-                                <Link href="/savelibrary">
-                                    <button variant="primary">
+                                {/* <Link> */}
+                                    <button variant="primary" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
                                         </svg>
                                         Save
                                     </button>
-                                </Link>
+                                {/* </Link> */}
                             </li>
                             <li>
                                 <button variant="primary" onClick={
@@ -289,7 +290,7 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
             </Modal> */}
 
     {/* Share Modal */}
-    <Modal show={show2} onHide={handleClose2} centered className='custom-modal'>
+    <Modal show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Share</Modal.Title>
                 </Modal.Header>
@@ -325,7 +326,7 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button className="btn btn-color-orange" onClick={()=>{copyUrl();handleClose2()}}>Copy Link</button>
+                            <button className="btn btn-color-orange" onClick={()=>{copyUrl();handleClose()}}>Copy Link</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -507,7 +508,11 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
                 </Modal.Body>
             </Modal>
 
-            <div className="page-top-bar">
+           { saveVideoScreen ? 
+           <SaveLibrary getFolder={getFolder} handleCreateFolder={handleCreateFolder}handleDeleteFolder={handleDeleteFolder} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} handleRename={handleRename} rename={rename} setRename={setRename}/>
+           :
+            
+            <><div className="page-top-bar">
                 <div className="page-inner">
                     <div className="page-section-left">
                         <div className="back-button">
@@ -524,8 +529,7 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
                                 >
                                     <path
                                         d="M10.434 17.334L17.9007 24.8006L16.0007 26.6673L5.33398 16.0007L16.0007 5.33398L17.9007 7.20065L10.434 14.6673H26.6673V17.334H10.434Z"
-                                        fill="#104E5B"
-                                    />
+                                        fill="#104E5B" />
                                 </svg>
                             </button>
                         </div>
@@ -545,129 +549,126 @@ function WatchVideo(data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><main id="main" className="top-space-filter mobile-watch-video">
+                    <div className="video-show-container">
+                        <ReactPlayer
+                            className="react-player"
+                            playing
+                            controls
+                            url={data?.URL} />
+                    </div>
 
-            <main id="main" className="top-space-filter mobile-watch-video">
-                <div className="video-show-container">
-                    <ReactPlayer
-                        className="react-player"
-                        playing
-                        controls
-                        url={data.data?.URL}
-                    />
-                </div>
-
-                <div className="card-white">
-                    <div className="card-inner">
-                        <div className="inline-gap-8">
-                            <div className="video-title">
-                                <h2>{data.data?.title}</h2>
-                            </div>
-                            <div className="video-item-actions">
-                                <div className="video-item-icon" onClick={handleShow2}>
-                                    <MdMoreVert />
+                    <div className="card-white">
+                        <div className="card-inner">
+                            <div className="inline-gap-8">
+                                <div className="video-title">
+                                    <h2>{data?.title}</h2>
+                                </div>
+                                <div className="video-item-actions">
+                                    <div className="video-item-icon" onClick={handleShow2}>
+                                        <MdMoreVert />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="account-info-container">
-                            <ul className="account-info-list">
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
-                                        <span>{data.data?.engagement}/10</span>
-                                        <span>Rating</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
-                                        <span>{convertToKM(data.data?.viewCount)}</span>
-                                        <span>Views</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="accout-rating">
-                                        <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
-                                        <span>{formatTimeAgo(inputDate)}</span>
-                                        {/* <span>month</span> */}
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="btn-list-container gap-8-flex">
+                            <div className="account-info-container">
+                                <ul className="account-info-list">
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/rating-light.svg")} alt="Rating" /></div>
+                                            <span>{data?.engagement}/10</span>
+                                            <span>Rating</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/view.svg")} alt="Rating" /></div>
+                                            <span>{convertToKM(data?.viewCount)}</span>
+                                            <span>Views</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="accout-rating">
+                                            <div className="rating-icon"><Image src={require("../../../assets/images/time.svg")} alt="Rating" /></div>
+                                            <span>{formatTimeAgo(inputDate)}</span>
+                                            {/* <span>month</span> */}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="btn-list-container gap-8-flex">
 
-                            <button className="btn btn-light-bg" >
-                                <Image src={require("../../../assets/images/share.svg")} alt="Share" />
-                                Share
-                            </button>
-                            <button className="btn btn-light-bg">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
-                                </svg>
-                                Save
-                            </button>
-                            <button className="btn btn-light-bg">
-                                <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
-                                Summary
-                            </button>
-                        </div>
+                                <button className="btn btn-light-bg">
+                                    <Image src={require("../../../assets/images/share.svg")} alt="Share" />
+                                    Share
+                                </button>
+                                <button className="btn btn-light-bg" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
+                                    </svg>
+                                    Save
+                                </button>
+                                <button className="btn btn-light-bg">
+                                    <Image src={require("../../../assets/images/summary.svg")} alt="Share" />
+                                    Summary
+                                </button>
+                            </div>
 
-                        <div className="page-tbs-container mt-3">
-                            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                                <Col sm={12}>
-                                    <Nav variant="pills" className="flex-row details-tabs-mobile">
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="first">Materials</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="second">Reviews 96</Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                </Col>
-                                <Col sm={12}>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="first">
-                                            <div className="page-tbs-container mt-3">
-                                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                                                    <Col sm={12}>
-                                                        <Nav variant="pills" className="flex-row details-tabs">
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="first">Quiz</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="second">Discussion</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="third">Homework</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="fourth">Test</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="fifth">Exercises</Nav.Link>
-                                                            </Nav.Item>
-                                                        </Nav>
-                                                    </Col>
-                                                    <Col sm={12}>
-                                                        <Tab.Content>
-                                                            <Tab.Pane eventKey="first">
-                                                                <Step1 getQuiz={data.getQuiz} />
-                                                            </Tab.Pane>
-                                                        </Tab.Content>
-                                                    </Col>
-                                                </Tab.Container>
-                                            </div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="second">
-                                            <Reviews />
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Tab.Container>
+                            <div className="page-tbs-container mt-3">
+                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                    <Col sm={12}>
+                                        <Nav variant="pills" className="flex-row details-tabs-mobile">
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="first">Materials</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="second">Reviews 96</Nav.Link>
+                                            </Nav.Item>
+                                        </Nav>
+                                    </Col>
+                                    <Col sm={12}>
+                                        <Tab.Content>
+                                            <Tab.Pane eventKey="first">
+                                                <div className="page-tbs-container mt-3">
+                                                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                                        <Col sm={12}>
+                                                            <Nav variant="pills" className="flex-row details-tabs">
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="first">Quiz</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="second">Discussion</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="third">Homework</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="fourth">Test</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="fifth">Exercises</Nav.Link>
+                                                                </Nav.Item>
+                                                            </Nav>
+                                                        </Col>
+                                                        <Col sm={12}>
+                                                            <Tab.Content>
+                                                                <Tab.Pane eventKey="first">
+                                                                    <Step1 getQuiz={getQuiz} />
+                                                                </Tab.Pane>
+                                                            </Tab.Content>
+                                                        </Col>
+                                                    </Tab.Container>
+                                                </div>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="second">
+                                                <Reviews />
+                                            </Tab.Pane>
+                                        </Tab.Content>
+                                    </Col>
+                                </Tab.Container>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </main></>}
         </>
     );
 }
