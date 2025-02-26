@@ -7,7 +7,7 @@ import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 import Image from "next/image";
 
-function SearchList(){
+function SearchList({searchListState}){
    
 //   const router = useRouter();
 //   const { data } = router.query;
@@ -52,7 +52,7 @@ function SearchList(){
                         </div>
 
                         <div className="video-list-container">
-                            <CategoriesCard  />
+                            <CategoriesCard watchHistoryData={searchListState} />
                         </div>
                     </div>
                 </div>

@@ -1,78 +1,46 @@
 "use client";
-import { createContext, useState, useContext } from 'react';
-import AuthService from '../../../services/AuthService'
+import React, { useReducer, useMemo } from "react";
+import PropTypes from "prop-types";
 
-// Create a context for the searchList
-const SearchListContext = createContext();
+const initialState = {}; // Default to an object
 
-// Create a provider to manage the searchList state
-export const SearchListProvider = ({ children }) => {
-  const [searchList, setSearchList] = useState([]);
+const initialContext = [{ ...initialState }, () => {}];
 
-//   // Set the searchList data
-//   const setSearchListData = (data) => {
-//     setSearchList(data);
-//   };
-  const handleSearchCont = async (
-    headerSearch,
-    isOn,
-    chips,
-    inputValue,
-    selectedAge,
-    selectedEngagement,
-    selectedDate,
-    sliderValue,
-    selectedValue,
-    selectedAudience,
-  ) => {
-    console.log(headerSearch,"usecase--0000")
-    // LoaderHelper.loaderStatus(true);
-    try {
-      const result = await AuthService.SearchResult(
-        headerSearch,
-        isOn,
-        chips,
-        inputValue,
-        selectedAge,
-        selectedEngagement,
-        selectedDate,
-        sliderValue,
-        selectedValue,
-        selectedAudience,
-      );
-      console.log(result, 'result---');
-      // LoaderHelper.loaderStatus(false);
+export const SearchListContext = React.createContext(initialContext);
 
-      if (result?.success) {
-        if (result?.data?.length <= 0) {
-          // AlertHelper.show('gray', 'Gimmel', 'No data');
-        } else {
-          setSearchList(result?.data);
-          // navigation.navigate('TabNavigation', {
-          //   screen: 'Search',
-          //   params: { data: result?.data },
-          // });
-          router.push( "/searchlist",
-            // { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
-          );
-        }
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      // LoaderHelper.loaderStatus(false);
-      console.log('Error occurred:', 'Gimmel', error);
-    }
-  };
- console.log(searchList,"searchList--1212121212")
+// ✅ Fix: Handle both arrays and objects in the updater function
+const updater = (state, update) => {
+  if (Array.isArray(update)) {
+    return [...update]; // Replace with a new array
+  } else if (typeof update === "object" && update !== null) {
+    return { ...state, ...update }; // Merge objects
+  } else {
+    console.error("Error: update must be an object or array", update);
+    return state; // Return previous state if update is invalid
+  }
+};
+
+export function SearchListProvider({ children }) {
+  const [searchListState, updatesearchListState] = useReducer(
+    updater,
+    initialState
+  );
+
+  const value = useMemo(
+    () => [searchListState, updatesearchListState],
+    [searchListState]
+  );
 
   return (
-    <SearchListContext.Provider value={{ searchList, handleSearchCont }}>
+    <SearchListContext.Provider value={value}>
       {children}
     </SearchListContext.Provider>
   );
-};
+}
 
-// Custom hook to use the searchList context
-export const useSearchList = () => useContext(SearchListContext);
-console.log(useSearchList,"useSearchList--1212121212")
+SearchListProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
