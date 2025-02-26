@@ -10,14 +10,16 @@ import "./account.css";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
-import Link from 'next/link';
-import { Modal } from 'react-bootstrap';
+import Link from "next/link";
+import { Modal } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+
+
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
+    const router = useRouter(); 
     const [isYearly, setIsYearly] = useState(false);
-    const router = useRouter();
 
     const [selected, setSelected] = useState([]);
     const [selected1, setSelected1] = useState([]);
@@ -51,11 +53,18 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const handleShow2 = () => setShow2(true);
 
     const handleEditClick = () => {
-        // if (isEditable) {
-        //     console.log("is this fxn call")
-        //     // Runs only when clicking "Save Changes"
-        //     handleEditProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge);
-        // }
+        if (isEditable) {
+            console.log("is this fxn call")
+            // Runs only when clicking "Save Changes"
+            handleEditProfile( 
+            selected.map(option => option.value),  // Extract values only
+            selected1.map(option => option.value), 
+            selected2.map(option => option.value), 
+            phoneNumber, 
+            school, 
+            minAge, 
+            maxAge);
+        }
         setIsEditable(!isEditable);
     };
 
@@ -575,6 +584,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                 <h3>Watch history</h3>
                             </div>
                             <Link href="/watchhistory" className='view-all-btn'>View all</Link>
+                          </div>
                         </div>
 
                             <div className='library-list mt-4'>
@@ -610,12 +620,16 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             
                         </div>
                     </div>
-                </div>
-                     : null}
+                        : null}
+
+
                     <div className='log-out'>
-                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Log out</button>
+                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Logout</button>
                     </div>
-                </div>
+                        
+                    </div>
+
+                
             </main>
         </>
     );

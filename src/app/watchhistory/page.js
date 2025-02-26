@@ -37,6 +37,9 @@ const PageComponent = () => {
             console.log('Error occurred:', 'Gimmel', error);
         }
     };
+    console.log(watchHistoryData,"watchHistoryData--1213")
+    
+    console.log(isMobile,"isMobile--1213")
     return (
         <>{isMobile ?
             <HistoryWatch  watchHistoryData={watchHistoryData}/>
