@@ -424,12 +424,13 @@ const AuthService = {
   },
 
   editProfile: async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo) => {
+    console.log(phoneNumber,"phoneNumber")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
     const params = {
-      phone: phoneNumber?.value,
-      school: school?.value,
+      phone: phoneNumber,
+      school: school,
       ageFrom: minAge
         ? minAge
         : profileInfo?.onboarding?.ageFrom,

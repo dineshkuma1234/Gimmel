@@ -1,54 +1,25 @@
-"use client";
+"use client"
 
-import React, { useState, useRef, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
+import React, { useState, useRef, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { MultiSelect } from "react-multi-select-component";
 import Header from "../../../components/header/header";
 import "./account.css";
 import { Form } from "react-bootstrap";
 import Image from "next/image";
 import { MdOutlineCheckCircle } from "react-icons/md";
-import Link from 'next/link';
-import { Modal } from 'react-bootstrap';
-import { FiLogOut } from "react-icons/fi";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Modal } from "react-bootstrap";
+import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
-function AccountDetails({
-  profileInfo,
-  watchHistoryData,
-  libraryVideo,
-  teachingTopic,
-  contentMaturity,
-  eduction,
-  handleEditProfile,
-}) {
-  const [isYearly, setIsYearly] = useState(false);
 
-  const [selected, setSelected] = useState([]);
-  const [selected1, setSelected1] = useState([]);
-  const [selected2, setSelected2] = useState([]);
-  const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
-  const [school, setSchool] = useState(profileInfo?.school || "");
-  const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
-  const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
-  const [isEditable, setIsEditable] = useState(false);
+function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
-  useEffect(() => {
-    setPhoneNumber(profileInfo?.phone || "");
-    setSchool(profileInfo?.school || "");
-    setMinAge(profileInfo?.onboarding?.ageFrom || "");
-    setMaxAge(profileInfo?.onboarding?.ageTo || "");
-  }, [
-    profileInfo?.phone,
-    profileInfo?.school,
-    profileInfo?.onboarding?.ageFrom,
-    profileInfo?.onboarding?.ageTo,
-  ]);
-  console.log(selected, "selected++++++++++++");
+    const router = useRouter(); 
+    const [isYearly, setIsYearly] = useState(false);
 
     const [selected, setSelected] = useState([]);
     const [selected1, setSelected1] = useState([]);
@@ -58,7 +29,7 @@ function AccountDetails({
     const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
     const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
     const [isEditable, setIsEditable] = useState(false);
-    
+
     useEffect(() => {
         setPhoneNumber(profileInfo?.phone || "");
         setSchool(profileInfo?.school || "");
@@ -70,102 +41,99 @@ function AccountDetails({
     const togglePricing = () => {
         setIsYearly(!isYearly);
     };
-    const router = useRouter();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show2, setShow2] = useState(false);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
+    const handleEditClick = () => {
+        if (isEditable) {
+            console.log("is this fxn call")
+            // Runs only when clicking "Save Changes"
+            handleEditProfile( 
+            selected.map(option => option.value),  // Extract values only
+            selected1.map(option => option.value), 
+            selected2.map(option => option.value), 
+            phoneNumber, 
+            school, 
+            minAge, 
+            maxAge);
+        }
+        setIsEditable(!isEditable);
+    };
+
+    const [options,setOptions]= useState([]);
+    const [options1,setOptions1]= useState([]);
+    const [options2,setOptions2]= useState([]);
+     useEffect(()=>{
+        if (teachingTopic && Array.isArray(teachingTopic)){
+            const transformedOptions = teachingTopic.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions(transformedOptions);
+        }
+        if (contentMaturity && Array.isArray(contentMaturity)){
+            const transformedOptions1 = contentMaturity.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions1(transformedOptions1);
+        }
+        if (eduction && Array.isArray(eduction)){
+            const transformedOptions2 = eduction.map(item=>({
+                label: item.name,
+                value: item.name
+            }));
+                setOptions2(transformedOptions2);
+        }
+     },[teachingTopic,contentMaturity]);
+
+     useEffect(() => {
+       if (profileInfo?.onboarding){
+        if (profileInfo?.onboarding?.teachingTopics) {
+            const preSelected = profileInfo.onboarding.teachingTopics.map((topic) => ({
+                label: topic,
+                value: topic,
+            }));
+            setSelected(preSelected);
+        }
+        if (profileInfo?.onboarding?.contentMaturityRestrictions){
+            const preSelected= profileInfo?.onboarding?.contentMaturityRestrictions.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected1(preSelected);
+        }
+        if (profileInfo?.onboarding?.educationalObjectives){
+            const preSelected= profileInfo?.onboarding?.educationalObjectives.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected2(preSelected);
+        }
+       }
+    }, [profileInfo]);
+
+    const handleSelectChange = (selectedItems) => {
+        setSelected(selectedItems);
+    };
+    const handleSelectChange1 = (selectedItems) => {
+        setSelected1(selectedItems);
+    };
+    const handleSelectChange2 = (selectedItems) => {
+        setSelected2(selectedItems);
+    };
     const handleLogout = () => {
         localStorage.removeItem("token"); // Remove authentication token
         router.push("/login"); // Redirect to the login page
     };
- 
-    const [show, setShow] = useState(false);
-
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
-
-  const handleEditClick = () => {
-    if (isEditable) {
-      console.log("is this fxn call");
-      // Runs only when clicking "Save Changes"
-
-      handleEditProfile(
-        selected.map((option) => option.value), // Extract values only
-        selected1.map((option) => option.value),
-        selected2.map((option) => option.value),
-        phoneNumber,
-        school,
-        minAge,
-        maxAge
-      );
-    }
-    setIsEditable(!isEditable);
-  };
-
-  const [options, setOptions] = useState([]);
-  const [options1, setOptions1] = useState([]);
-  const [options2, setOptions2] = useState([]);
-  useEffect(() => {
-    if (teachingTopic && Array.isArray(teachingTopic)) {
-      const transformedOptions = teachingTopic.map((item) => ({
-        label: item.name,
-        value: item.name,
-      }));
-      setOptions(transformedOptions);
-    }
-    if (contentMaturity && Array.isArray(contentMaturity)) {
-      const transformedOptions1 = contentMaturity.map((item) => ({
-        label: item.name,
-        value: item.name,
-      }));
-      setOptions1(transformedOptions1);
-    }
-    if (eduction && Array.isArray(eduction)) {
-      const transformedOptions2 = eduction.map((item) => ({
-        label: item.name,
-        value: item.name,
-      }));
-      setOptions2(transformedOptions2);
-    }
-  }, [teachingTopic, contentMaturity]);
-
-  useEffect(() => {
-    if (profileInfo?.onboarding) {
-      if (profileInfo?.onboarding?.teachingTopics) {
-        const preSelected = profileInfo.onboarding.teachingTopics.map(
-          (topic) => ({
-            label: topic,
-            value: topic,
-          })
-        );
-        setSelected(preSelected);
-      }
-      if (profileInfo?.onboarding?.contentMaturityRestrictions) {
-        const preSelected =
-          profileInfo?.onboarding?.contentMaturityRestrictions.map((topic) => ({
-            label: topic,
-            value: topic,
-          }));
-        setSelected1(preSelected);
-      }
-      if (profileInfo?.onboarding?.educationalObjectives) {
-        const preSelected = profileInfo?.onboarding?.educationalObjectives.map(
-          (topic) => ({
-            label: topic,
-            value: topic,
-          })
-        );
-        setSelected2(preSelected);
-      }
-    }
-  }, [profileInfo]);
-
-  const handleSelectChange = (selectedItems) => {
-    setSelected(selectedItems);
-  };
-  const handleSelectChange1 = (selectedItems) => {
-    setSelected1(selectedItems);
-  };
-  const handleSelectChange2 = (selectedItems) => {
-    setSelected2(selectedItems);
-  };
 
   return (
     <>
@@ -208,71 +176,45 @@ function AccountDetails({
                 </div>
                 {/* CHOOSE YOU PLAN END */}
 
-    const router = useRouter();
-    const handleLogout = () => {
-      localStorage.removeItem("token"); // Remove authentication token
-      router.push("/login"); // Redirect to the login page
-  };
-
-  return (
-    <>
-     <Modal show={show} onHide={handleClose} centered className='custom-modal' size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>Subscription Plan</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="modal-body-container">
-                        <div id="pricingSection" className="mt-4">
-                            <div className="container">
-                                {/* CHOOSE YOUR PLAN */}
-                                <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
-                                    <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
-                                    <label className="switch">
-                                        <input type="checkbox" checked={isYearly} onChange={togglePricing} />
-                                        <span className="slider-price"></span>
-                                    </label>
-                                    <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
-                                    <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
-                                </div>
-                                {/* CHOOSE YOU PLAN END */}
-
-                                <div className="row mx-n3 justify-content-center">
-                                    {/* PRICING CARD - Free Plan */}
-                                    <div className="col-6 mb-4">
-                                        <div className="card card-frame">
-                                            <div className="row align-items-center">
-                                                <div className="col-md-12">
-                                                    <div className="card-header bg-transparent">
-                                                        <div className="price-card--title">
-                                                            <h4>Free Plan</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div className="card-body">
-                                                        <ul className="list-unstyled list-md-space mb-0">
-                                                            <li className="d-flex ">
-                                                                <MdOutlineCheckCircle /> Feature 1
-                                                            </li>
-                                                            <li className="d-flex ">
-                                                                <MdOutlineCheckCircle /> Feature 2
-                                                            </li>
-                                                            <li className="d-flex ">
-                                                                <MdOutlineCheckCircle /> Feature 3
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12">
-                                                    <div className='price-btn'>
-                                                        <button className='btn btn-color-orange-trans'>Current Plan</button>
-                                                    </div>
-                                                    <div className="price">
-                                                        <div className="price-number">Free</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* END PRICING CARD - Free Plan */}
+                <div className="row mx-n3 justify-content-center">
+                  {/* PRICING CARD - Free Plan */}
+                  <div className="col-6 mb-4">
+                    <div className="card card-frame">
+                      <div className="row align-items-center">
+                        <div className="col-md-12">
+                          <div className="card-header bg-transparent">
+                            <div className="price-card--title">
+                              <h4>Free Plan</h4>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <ul className="list-unstyled list-md-space mb-0">
+                              <li className="d-flex ">
+                                <MdOutlineCheckCircle /> Feature 1
+                              </li>
+                              <li className="d-flex ">
+                                <MdOutlineCheckCircle /> Feature 2
+                              </li>
+                              <li className="d-flex ">
+                                <MdOutlineCheckCircle /> Feature 3
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="price-btn">
+                            <button className="btn btn-color-orange-trans">
+                              Current Plan
+                            </button>
+                          </div>
+                          <div className="price">
+                            <div className="price-number">Free</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* END PRICING CARD - Free Plan */}
 
                                     {/* PRICING CARD - Pro Plan */}
                                     <div className="col-6 mb-4">
@@ -313,35 +255,13 @@ function AccountDetails({
                                     {/* END PRICING CARD - Pro Plan */}
                                 </div>
                             </div>
-                          </div>
-                          <div className="card-body">
-                            <ul className="list-unstyled list-md-space mb-0">
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 1
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 2
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 3
-                              </li>
-                            </ul>
-                          </div>
                         </div>
-                        <div className="col-md-12">
-                          <div className="price-btn">
-                            <button className="btn btn-color-orange-trans">
-                              Current Plan
-                            </button>
-                          </div>
-                          <div className="price">
-                            <div className="price-number">Free</div>
-                          </div>
+                        <div className='active-plan-info'>
+                            Currently you have an active <b className='active-plan-name'>Free Plan </b>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                  {/* END PRICING CARD - Free Plan */}
+                </Modal.Body>
+            </Modal>
 
 
             <Modal show={show2} onHide={handleClose2} centered className='custom-modal success-modal'>
@@ -524,27 +444,127 @@ function AccountDetails({
                                     </Form>
                                 </div>
                             </div>
-                          </div>
-                          <div className="card-body">
-                            <ul className="list-unstyled list-md-space mb-0">
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 1
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 2
-                              </li>
-                              <li className="d-flex ">
-                                <MdOutlineCheckCircle /> Feature 3
-                              </li>
-                            </ul>
-                          </div>
+                        </div>
+                    </div>
+                    <div className="card-white">
+                        <div className="card-inner-padding">
+                            <div className="card-white-title">
+                                <Image src={require("../../../assets/images/currency_exchange.svg")} alt="User Avatar" />
+                                <h3>Subscription Plan</h3>
+                            </div>
+                            <div id="pricingSection" className="mt-4">
+                                <div className="container">
+                                    {/* CHOOSE YOUR PLAN */}
+                                    <div id="js-pricing-switch" className="text-center my-4 py-2 relative js-pricing-switch">
+                                        <span className={`switch-label ${!isYearly ? 'active' : ''}`}>Yearly</span>
+                                        <label className="switch">
+                                            <input type="checkbox" checked={isYearly} onChange={togglePricing} />
+                                            <span className="slider-price"></span>
+                                        </label>
+                                        <span className={`switch-label ${isYearly ? 'active' : ''}`}>Monthly</span>
+                                        <div className="save-money--mobile mt-3">Save 10% on Yearly Plans</div>
+                                    </div>
+                                    {/* CHOOSE YOU PLAN END */}
+
+                                    <div className="row mx-n3 justify-content-center">
+                                        {/* PRICING CARD - Free Plan */}
+                                        <div className="col-4 px-2 mb-4">
+                                            <div className="card card-frame">
+                                                <div className="row align-items-center">
+                                                    <div className="col-md-12">
+                                                        <div className="card-header bg-transparent">
+                                                            <div className="price-card--title">
+                                                                <h4>Free Plan</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div className="card-body">
+                                                            <ul className="list-unstyled list-md-space mb-0">
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 1
+                                                                </li>
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 2
+                                                                </li>
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 3
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className='price-btn'>
+                                                            <button className='btn btn-color-orange-trans'>Current Plan</button>
+                                                        </div>
+                                                        <div className="price">
+                                                            <div className="price-number">Free</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* END PRICING CARD - Free Plan */}
+
+                                        {/* PRICING CARD - Pro Plan */}
+                                        <div className="col-4 px-2 mb-4">
+                                            <div className="card card-frame active">
+                                                <div className="row align-items-center">
+                                                    <div className="col-md-12">
+                                                        <div className="card-header bg-transparent">
+                                                            <div className="price-card--title">
+                                                                <h4>Pro Plan</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div className="card-body">
+                                                            <ul className="list-unstyled list-md-space mb-0">
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 1
+                                                                </li>
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 2
+                                                                </li>
+                                                                <li className="d-flex ">
+                                                                    <MdOutlineCheckCircle /> Feature 3
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-md-12">
+                                                        <div className='price-btn'>
+                                                            <button className='btn btn-color-orange' onClick={handleShow}>Upgrade</button>
+                                                        </div>
+                                                        <div className="price">
+                                                            <div className="price-number">{isYearly ? '$12/month' : '$10/month'}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* END PRICING CARD - Pro Plan */}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='active-plan-info'>
+                                Currently you have an active <b className='active-plan-name'>Free Plan </b>
+                            </div>
+                        </div>
+                    </div>
+                    {libraryVideo?.length > 0 ?
+                    <div className="card-white overflow-hidden">
+                    <div className="card-inner-padding">
+                        <div className='inline- d-flex align-items-center justify-content-between'>
+                            <div className="card-white-title">
+                                <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
+                                <h3>My Library</h3>
+                            </div>
+                            <Link href="/library" className='view-all-btn'>View all</Link>
                         </div>
 
-                        <div className="col-md-12">
-                          <div className="price-btn">
-                            <button
-                              className="btn btn-color-orange"
-                              onClick={handleShow}
+                        <div className='library-list mt-4'>
+                            <Swiper
+                                spaceBetween={14}
+                                slidesPerView={4}
+                                className="mySwiper category-swiper library-swiper"
                             >
                                 {libraryVideo && Array.isArray(libraryVideo) && libraryVideo.map((item, index) => (
                                     <SwiperSlide key={index}>
@@ -572,7 +592,7 @@ function AccountDetails({
                             </Swiper>
                         </div>
                     </div>
-                    </div>
+                </div>
                     :null}
                     
                     {watchHistoryData?.length > 0 ?
@@ -584,6 +604,7 @@ function AccountDetails({
                                 <h3>Watch history</h3>
                             </div>
                             <Link href="/watchhistory" className='view-all-btn'>View all</Link>
+                          </div>
                         </div>
 
                             <div className='library-list mt-4'>
@@ -618,15 +639,17 @@ function AccountDetails({
                             </Swiper>
                             
                         </div>
-                      </div>
                     </div>
-                </div>
-                     : null}
-                     <div className='log-out'>
-                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Log out</button>
+                        : null}
+
+
+                    <div className='log-out'>
+                        <button className='btn-logout' onClick={handleShow2}><FiLogOut /> Logout</button>
                     </div>
-                    
-                </div>
+                        
+                    </div>
+
+                
             </main>
         </>
     );

@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { MdLogout } from "react-icons/md";
 import { Form, Modal } from 'react-bootstrap';
 import '../../CommenStyle/details.css';
+import { MultiSelect } from "react-multi-select-component";
+import { useEffect, useState } from 'react';
 
 function UserProfile({
     profileInfo,
@@ -26,6 +28,113 @@ function UserProfile({
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [selected, setSelected] = useState([]);
+    const [selected1, setSelected1] = useState([]);
+    const [selected2, setSelected2] = useState([]);
+    const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
+    const [school, setSchool] = useState(profileInfo?.school || "");
+    const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
+    const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
+    useEffect(() => {
+    setPhoneNumber(profileInfo?.phone || "");
+    setSchool(profileInfo?.school || "");
+    setMinAge(profileInfo?.onboarding?.ageFrom || "");
+    setMaxAge(profileInfo?.onboarding?.ageTo || "");
+    const initialValue = `${profileInfo?.onboarding?.ageFrom}-${profileInfo?.onboarding?.ageTo}`;
+    setAge({ value: initialValue, error: "" });
+    }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
+    
+    const [options,setOptions]= useState([]);
+    const [options1,setOptions1]= useState([]);
+    const [options2,setOptions2]= useState([]);
+    const [age, setAge] = useState({ value: "", error: "" });
+
+    useEffect(()=>{
+    if (teachingTopic && Array.isArray(teachingTopic)){
+        const transformedOptions = teachingTopic.map(item=>({
+            label: item.name,
+            value: item.name
+        }));
+            setOptions(transformedOptions);
+    }
+    if (contentMaturity && Array.isArray(contentMaturity)){
+        const transformedOptions1 = contentMaturity.map(item=>({
+            label: item.name,
+            value: item.name
+        }));
+            setOptions1(transformedOptions1);
+    }
+    if (eduction && Array.isArray(eduction)){
+        const transformedOptions2 = eduction.map(item=>({
+            label: item.name,
+            value: item.name
+        }));
+            setOptions2(transformedOptions2);
+    }
+    },[teachingTopic,contentMaturity]);
+    
+     useEffect(() => {
+        if (profileInfo?.onboarding){
+        if (profileInfo?.onboarding?.teachingTopics) {
+            const preSelected = profileInfo.onboarding.teachingTopics.map((topic) => ({
+                label: topic,
+                value: topic,
+            }));
+            setSelected(preSelected);
+        }
+        if (profileInfo?.onboarding?.contentMaturityRestrictions){
+            const preSelected= profileInfo?.onboarding?.contentMaturityRestrictions.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected1(preSelected);
+        }
+        if (profileInfo?.onboarding?.educationalObjectives){
+            const preSelected= profileInfo?.onboarding?.educationalObjectives.map((topic)=>({
+                label: topic,
+                value: topic,
+            }))
+            setSelected2(preSelected);
+        }
+        }
+    }, [profileInfo]);
+    
+    const handleSelectChange = (selectedItems) => {
+        setSelected(selectedItems);
+    };
+    const handleSelectChange1 = (selectedItems) => {
+        setSelected1(selectedItems);
+    };
+    const handleSelectChange2 = (selectedItems) => {
+        setSelected2(selectedItems);
+    };
+
+    const handleEditClick = () => {
+        handleEditProfile( 
+
+        selected.map(option => option.value),  // Extract values only
+        selected1.map(option => option.value), 
+        selected2.map(option => option.value), 
+        phoneNumber, 
+        school, 
+        minAge, 
+        maxAge);
+    };
+ 
+    const handleAgeChange = (text) => {
+
+        const [min, max] = text?.split('-').map(value => value?.trim());
+
+        setMinAge(min || '');
+        setMaxAge(max || '');
+        setAge({
+            ...age,
+            value: text,
+            error: isNaN(min) || isNaN(max) ? 'Invalid age range' : '',
+        });
+
+    };
+
     return (
         <>
             {/* Details Modal  */}
@@ -43,6 +152,7 @@ function UserProfile({
                                     type="email"
                                     placeholder="Enter email"
                                     defaultValue={profileInfo?.email || ""}
+                                    readOnly
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
@@ -50,6 +160,8 @@ function UserProfile({
                                 <Form.Control
                                     type="number"
                                     placeholder="+1 713 892 5638"
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
@@ -57,6 +169,9 @@ function UserProfile({
                                 <Form.Control
                                     type="text"
                                     placeholder=""
+                                    // value={profileInfo?.school || ""}
+                                    value={school}  
+                                    onChange={(e) => setSchool(e.target.value)}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -64,49 +179,78 @@ function UserProfile({
                                 <Form.Control
                                     type="text"
                                     placeholder="12-18"
+                                    value={age.value}
+                                    onChange={(e) => handleAgeChange(e.target.value)}
                                 />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
-                                <Form.Label>State</Form.Label>
-                                <Form.Select aria-label="Default select example">
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>Arizona</option>
-                                    <option>Arkansas</option>
-                                    <option>California</option>
-                                    <option>Colorado</option>
-                                </Form.Select>
+                                {age.error && <span style={{ color: 'red' }}>{age.error}</span>}
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
                                 <Form.Label>Teaching interests</Form.Label>
-                                <Form.Select aria-label="Default select example">
-                                    <option>Neurobiology</option>
-                                    <option>Alcohol</option>
-                                    <option>Anger</option>
-                                    <option>Body</option>
-                                </Form.Select>
+                                <MultiSelect
+                                    options={options}
+                                    value={selected}
+                                    onChange={handleSelectChange} 
+                                    labelledBy="Select"
+                                    overrideStrings={{
+                                        selectSomeItems: "Select topics",
+                                        allItemsAreSelected: "",
+                                    }}
+                                    className="multi-select"
+                                    hasSelectAll={false} // Disable "Select All"
+                                    disableSearch={true} // Disable search box
+                                    valueRenderer={(selected) => 
+                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                        }
+                                />
+
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
                                 <Form.Label>Content Maturity Restrictions</Form.Label>
-                                <Form.Select aria-label="Default select example">
-                                    <option>Abuse</option>
-                                    <option>Gore</option>
-                                    <option>Violence</option>
-                                </Form.Select>
+                                <MultiSelect
+                                    options={options1}
+                                    value={selected1}
+                                    onChange={handleSelectChange1}
+                                    labelledBy="Select"
+                                    overrideStrings={{
+                                        selectSomeItems: "Select topics",
+                                    }}
+                                    className="multi-select"
+                                    hasSelectAll={false} // Disable "Select All"
+                                    disableSearch={true} // Disable search box
+                                    valueRenderer={(selected) => 
+                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                        }
+                                />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
                                 <Form.Label>Educational Objectives</Form.Label>
-                                <Form.Select aria-label="Default select example">
+                                {/* <Form.Select aria-label="Default select example">
                                     <option>Student Academic Success</option>
                                     <option>Student Well-Being</option>
                                     <option>Student Engagement</option>
                                     <option>Student Learning</option>
-                                </Form.Select>
+                                </Form.Select> */}
+                                <MultiSelect
+                                    options={options2}
+                                    value={selected2}
+                                    onChange={handleSelectChange2}
+                                    labelledBy="Select"
+                                    overrideStrings={{
+                                        selectSomeItems: "Select topics",
+                                    }}
+                                    className="multi-select"
+                                    hasSelectAll={false} // Disable "Select All"
+                                    disableSearch={true} // Disable search box
+                                    valueRenderer={(selected) => 
+                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                        }
+                                    
+                                />
                             </Form.Group>
                         </Form>
                         <div className="bottom-baar-modal">
                             <div className="bottom-btn-bar-inner">
-                                <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={handleClose}>Save Changes</button>
+                                <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={()=>{handleClose(); handleEditClick();}}>Save Changes</button>
                             </div>
                         </div>
                     </div>
@@ -169,7 +313,7 @@ function UserProfile({
                                     <p>School Name</p>
                                 </div>
                                 <div className="account-full-info-item-value w-50">
-                                    <p>{profileInfo?.school || ""}</p>
+                                    <p>{school}</p>
                                 </div>
                             </div>
                             <div className="account-full-info-item">
@@ -356,14 +500,14 @@ function UserProfile({
 
                             <div className='library-list mt-4'>
                                 <div className='list-item'>
-                                    {libraryVideo && 
-                                    Array.isArray(libraryVideo)&&
-                                    libraryVideo.map((item, index) => (
+                                    {watchHistoryData && 
+                                    Array.isArray(watchHistoryData)&&
+                                    watchHistoryData.map((item, index) => (
                                         <div className="video-card-container" key={index}>
                                             <div className="video-card-content">
                                                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                     <div className="video-card-image">
-                                                        <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                                        <Image src={item?.thumbnail} alt="video card" width={300} height={150} />
                                                         <div className="video-duration">{item?.duration}</div>
                                                     </div>
                                                 </Link>
