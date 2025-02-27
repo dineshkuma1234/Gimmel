@@ -17,7 +17,7 @@ import Link from "next/link";
 import SaveLibrary from "../savelibrary/page";
 
 function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
-    console.log(data,"data in mobile viwe ==========")
+    // console.log(data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
     const [saveVideoScreen,setSaveVideoScreen] = useState(false);
     const handleClose = () => setShow(false);

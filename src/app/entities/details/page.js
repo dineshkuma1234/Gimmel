@@ -78,7 +78,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
-    console.log(data,"datat9999")
+    // console.log(data,"datat9999")
     
 
     const convertToKM =(num)=> {
@@ -123,7 +123,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     const [active, setActive]  = useState(null)
 
     const handleNavigateSave = (_id) => {
-        console.log('_id', _id)
+        // console.log('_id', _id)
         setSelectedFolderId(_id);
         // console.log('Clicked Folder ID:', folderId);
 
@@ -166,7 +166,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
    
        
    
-console.log(isDropdownOpenid,"getfolder")
+// console.log(isDropdownOpenid,"getfolder")
     // };
 
     //    useEffect(() => {
@@ -248,8 +248,8 @@ console.log(isDropdownOpenid,"getfolder")
     const handleChange2 = (e) => {
         setText(e.target.value);
     };
-    console.log(text,"text value8888")
-    console.log(selectedValue,"selectedValue value8888")
+    // console.log(text,"text value8888")
+    // console.log(selectedValue,"selectedValue value8888")
     return (
         <>
                {/* Rename folder modal start */}

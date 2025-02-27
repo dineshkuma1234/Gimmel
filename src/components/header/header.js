@@ -9,12 +9,13 @@ import '../../app/CommenStyle/filter.css';
 import FilterData from "./filterdata";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'
+import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
 
 
-
-function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}) {
-    console.log(historyList,"historyList---qqq")
+function Header() {
+    const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader()
+    
 
     const pathname = usePathname()
 
@@ -76,7 +77,10 @@ function Header({historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,
     }, []);
 
      const handleHistoryItemClick =(item)=>{
+        console.log("this is called from")
+        handleSearchCont(item.title);
         setHeaderSearch(item.title);
+
      }
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);

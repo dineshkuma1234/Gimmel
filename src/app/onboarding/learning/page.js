@@ -43,7 +43,7 @@ function Learning() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     }
 
@@ -60,7 +60,7 @@ function Learning() {
                 }
             } catch (error) {
                 // LoaderHelper.loaderStatus(false);
-                console.log('Error occurred:', 'Gimmel', error);
+                // console.log('Error occurred:', 'Gimmel', error);
             }
     };
     const handleOnboarding = async (selectedTopic,selectedObjective) => {
@@ -68,7 +68,7 @@ function Learning() {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.LearningOnBoarding(selectedTopic,selectedObjective);
-            console.log(result,"result----")
+            // console.log(result,"result----")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
                 // navigation.navigate('OnBoardingSuccess');
@@ -78,7 +78,7 @@ function Learning() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
     return (

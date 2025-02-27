@@ -42,12 +42,12 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
 
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
-    console.log(video,"video")
+    // console.log(video,"video")
 
      const [active, setActive]  = useState(null)
     
         const handleNavigateSave = (_id) => {
-            console.log('_id', _id)
+            // console.log('_id', _id)
             setSelectedFolderId(_id);
             // console.log('Clicked Folder ID:', folderId);
     
@@ -65,7 +65,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
         
            
                const toggleDropdownnwe = (item) => {
-                console.log(item,"if")
+                // console.log(item,"if")
                    setisDropdownOpenid((prev) => (prev === item ? null : item));
                    setThreeDotItem(item);
         

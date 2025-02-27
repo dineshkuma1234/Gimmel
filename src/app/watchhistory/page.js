@@ -17,7 +17,7 @@ const PageComponent = () => {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.WatchHistory();
-            console.log(result, "result----");
+            // console.log(result, "result----");
     
             // if (result?.message === "No videos found in history.") {
             //     LoaderHelper.loaderStatus(false);
@@ -34,12 +34,12 @@ const PageComponent = () => {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
-    console.log(watchHistoryData,"watchHistoryData--1213")
+    // console.log(watchHistoryData,"watchHistoryData--1213")
     
-    console.log(isMobile,"isMobile--1213")
+    // console.log(isMobile,"isMobile--1213")
     return (
         <>{isMobile ?
             <HistoryWatch  watchHistoryData={watchHistoryData}/>

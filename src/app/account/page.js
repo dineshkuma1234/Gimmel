@@ -31,12 +31,12 @@ function PageComponent() {
     const handleUserInfo = async () => {
         // LoaderHelper.loaderStatus(true);
         // setLoader(true);
-        console.log("object----")
+        // console.log("object----")
         try {
             const result = await AuthService.userInfo();
-            console.log(result,"result----")
+            // console.log(result,"result----")
             if (result?.success) {
-                console.log(result?.data, "data")
+                // console.log(result?.data, "data")
                 // LoaderHelper.loaderStatus(false);
                 // setLoader(false);
                 setProfileInfo(result?.data)
@@ -57,7 +57,7 @@ function PageComponent() {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.WatchHistory();
-            console.log(result, "result----");
+            // console.log(result, "result----");
     
             // if (result?.message === "No videos found in history.") {
             //     LoaderHelper.loaderStatus(false);
@@ -74,7 +74,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
     const handleLibraryVideos = async () => {
@@ -96,7 +96,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
     
@@ -113,7 +113,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -130,7 +130,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -147,12 +147,12 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
     
     const handleEditProfile = async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge) => {
-        console.log(phoneNumber,"phoneNumber");
+        // console.log(phoneNumber,"phoneNumber");
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.editProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo);
@@ -167,12 +167,12 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
 
     // console.log(contentMaturity,"contentMaturity----");
-    console.log(libraryVideo,"libraryVideo")
+    // console.log(libraryVideo,"libraryVideo")
     
     return (
         <>{isMobile ? 

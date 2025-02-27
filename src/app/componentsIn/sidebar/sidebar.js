@@ -7,6 +7,7 @@ import { Modal } from 'react-bootstrap';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import { MultiSelect } from "react-multi-select-component";
+import { IoSearchSharp } from "react-icons/io5";
 
 const options = [
     { label: "Smoking", value: "smoking" },
@@ -19,6 +20,53 @@ const options = [
 function Sidebar() {
 
     const [selected, setSelected] = useState([]);
+    const [isOn,setIsOn]=useState(false)
+    const [chips,setChips]=useState([]);
+    const [inputValue, setInputValue] = useState('');
+    const [sliderValue, setSliderValue] = useState('');
+    const [selectedValue,setSelectedValue] =useState('');
+
+    const handleSelectedChange =(e)=>{
+        console.log("yes it call")
+        const newValue = e.target.value; // Get the new selected value
+        setSelectedValue(newValue); // Update state
+        handleSearchCont(newValue);
+    }
+    const handleSliderChange = (value)=>{
+        const newValue = value[1]; 
+        setSliderValue(newValue);
+        handleSearchCont(newValue);
+    }
+    // const addChip = () => {
+    //     if (inputValue.trim() !== '') {
+    //         setChips([...chips, inputValue]);
+    //         setInputValue('');
+    //     }
+    // };
+    // const removeChip = (index) => {
+    //     const newChips = chips.filter((_, i) => i !== index);
+    //     setChips(newChips);
+    // };
+    const addChip = () => {
+        if (inputValue.trim() !== '') {
+            const updatedChips = [...chips, inputValue]; 
+            setChips(updatedChips);
+            setInputValue('');
+            handleSearchCont(updatedChips);
+        }
+    };
+    
+    const removeChip = (index) => {
+        const updatedChips = chips.filter((_, i) => i !== index);
+        setChips(updatedChips);
+        handleSearchCont(updatedChips); 
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addChip();
+        }
+    };
 
     const handleRemove = (value) => {
         setSelected((prevSelected) =>
@@ -32,12 +80,14 @@ function Sidebar() {
 
     const handleClick = (age) => {
         setSelectedAge(age);
+        handleSearchCont(age);
     };
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
+        handleSearchCont(engagement);
     };
 
     const [selectedDate, setSelectedDate] = useState("");
@@ -55,8 +105,10 @@ function Sidebar() {
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
+        handleSearchCont(audience);
     };
 
+    console.log(selectedValue,"selectedValue")
 
 
     return (
@@ -107,6 +159,12 @@ function Sidebar() {
                         <Form.Check
                             type="switch"
                             id="custom-switch"
+                            checked={isOn}
+                            onChange={(e) => {
+                                const newValue = e.target.checked;
+                                setIsOn(newValue);
+                                handleSearchCont(newValue); 
+                            }}
                         />
                     </Form>
                 </div>
@@ -114,13 +172,13 @@ function Sidebar() {
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Topic of the content</Form.Label>
                         <div>
-                            {selected.length > 0 ? (
+                            {chips.length > 0 ? (
                                 <ul className='selected-list'>
-                                    {selected.map((item) => (
-                                        <li key={item.value}>
-                                            {item.label}{" "}
+                                    {chips.map((chip, index) => (
+                                        <li key={index}>
+                                            {chip}
                                             <button
-                                                onClick={() => handleRemove(item.value)}
+                                                onClick={() => removeChip(index)}
                                                 style={{
                                                     marginLeft: "4px",
                                                     color: "#ffffff",
@@ -138,16 +196,20 @@ function Sidebar() {
                                 ""
                             )}
                         </div>
-                        <MultiSelect
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy="Select"
-                            overrideStrings={{
-                                selectSomeItems: "Select topics",
-                            }}
-                            className="multi-select"
-                        />
+                        <div className='search-container d-flex m-0'>
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search" 
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                onBlur={addChip}
+                            />
+                            <div className='search-button'>
+                                <IoSearchSharp />
+                            </div>
+                        </div>
                     </Form.Group>
                 </div>
                 <div className="select-container">
@@ -156,34 +218,15 @@ function Sidebar() {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "3 years" ? "active" : ""}`}
-                                id="list-home-list"
-                                onClick={() => handleClick("3 years")}
-                            >
-                                3 years
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "16 years" ? "active" : ""}`}
-                                id="list-profile-list"
-                                onClick={() => handleClick("16 years")}
-                            >
-                                16 years
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "18 years" ? "active" : ""}`}
-                                id="list-messages-list"
-                                onClick={() => handleClick("18 years")}
-                            >
-                                18 years
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedAge === "21 years" ? "active" : ""}`}
-                                id="list-settings-list"
-                                onClick={() => handleClick("21 years")}
-                            >
-                                21 years
-                            </button>
+                        {["6-8", "8-10", "10-13", "13+", "16+", "18+"].map((age) => (
+                <button
+                    key={age}
+                    className={`list-group-item list-group-item-action ${selectedAge === age ? "active" : ""}`}
+                    onClick={() => handleClick(age)}
+                >
+                    {age}
+                </button>
+            ))}
                         </div>
                     </div>
                 </div>
@@ -194,34 +237,31 @@ function Sidebar() {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "10" ? "active" : ""}`}
-                                id="list-home-list"
-                                onClick={() => handleClick1("10")}
-                            >
-                                10
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "9" ? "active" : ""}`}
+                           
+                            {/* <button
+                                className={`list-group-item list-group-item-action ${selectedEngagement === "9+" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick1("9")}
+                                onClick={() => handleClick1("9+")}
                             >
-                                9
+                                9+
                             </button>
+                      
                             <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "8" ? "active" : ""}`}
-                                id="list-messages-list"
-                                onClick={() => handleClick1("8")}
-                            >
-                                8
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "7" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedEngagement === "7+" ? "active" : ""}`}
                                 id="list-settings-list"
-                                onClick={() => handleClick1("7")}
+                                onClick={() => handleClick1("7+")}
                             >
-                                7
-                            </button>
+                                7+
+                            </button> */}
+                            {["9+","7+"].map((engagement) => (
+                                <button
+                                    key={engagement}
+                                    className={`list-group-item list-group-item-action ${selectedEngagement === engagement ? "active" : ""}`}
+                                    onClick={() => handleClick1(engagement)}
+                                >
+                                    {engagement}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -232,7 +272,7 @@ function Sidebar() {
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "Today" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedDate === "NewlyPublished" ? "active" : ""}`}
                                 id="list-home-list"
                                 onClick={() => handleClick2("Today")}
                             >
@@ -241,23 +281,9 @@ function Sidebar() {
                             <button
                                 className={`list-group-item list-group-item-action ${selectedDate === "This week" ? "active" : ""}`}
                                 id="list-profile-list"
-                                onClick={() => handleClick2("This week")}
+                                onClick={() => handleClick2("NewlyPublished")}
                             >
-                                This week
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This month" ? "active" : ""}`}
-                                id="list-messages-list"
-                                onClick={() => handleClick2("This month")}
-                            >
-                                This month
-                            </button>
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This year" ? "active" : ""}`}
-                                id="list-settings-list"
-                                onClick={() => handleClick2("This year")}
-                            >
-                                This year
+                                Newly Published
                             </button>
                         </div>
                     </div>
@@ -265,7 +291,7 @@ function Sidebar() {
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput5">
                         <Form.Label>Difficulty Level</Form.Label>
-                        <Form.Control type="number" placeholder="Set difficulty" />
+                        <Form.Control type="number" placeholder="Set difficulty" value={sliderValue.toString()} readOnly/>
                     </Form.Group>
                 </div>
                 <div className="select-container">
@@ -273,9 +299,14 @@ function Sidebar() {
                         <div className='number-text'>1</div>
                         <RangeSlider
                             className="single-thumb"
-                            defaultValue={[0, 50]}
+                            min={1}
+                            max={10}
+                            step={1}
+                            defaultValue={[1,sliderValue]}    
+                            value={[1,sliderValue]}
                             thumbsDisabled={[true, false]}
                             rangeSlideDisabled={true}
+                            onInput={handleSliderChange}
                         />
                         <div className='number-text'>10</div>
                     </div>
@@ -286,31 +317,39 @@ function Sidebar() {
                         {['radio'].map((type) => (
                             <div key={`default-${type}`} className="mb-3">
                                 <Form.Check
-                                    label={`Less than 4 minutes`}
+                                    label={`Under 5 Minutes`}
                                     name="group1"
                                     type={type}
                                     id={`inline-${type}-1`}
+                                    value="under-5"
+                                    onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
-                                    label={`4-8 minutes`}
-                                    name="group1"
-                                    type={type}
-                                    id={`inline-${type}-2`}
+                                      name="group1"
+                                      label={`5-10 Minutes`}
+                                      type={type}
+                                      value="5-10"
+                                      id={`inline-${type}-2`}
+                                      onChange={handleSelectedChange}
+                                />
+
+                                <Form.Check
+                                  type={type}
+                                  label={`10-15 Minutes`}
+                                  name="group1"
+                                  id={`inline-${type}-3`}
+                                  value="10-15"
+                                  onChange={handleSelectedChange}
                                 />
 
                                 <Form.Check
                                     type={type}
-                                    label={`8-12 minutes`}
-                                    name="group1"
-                                    id={`inline-${type}-3`}
-                                />
-
-                                <Form.Check
-                                    type={type}
-                                    label={`More than 12 minutes`}
+                                    label={`15+`}
                                     name="group1"
                                     id={`inline-${type}-4`}
+                                    value="15"
+                                    onChange={handleSelectedChange}
                                 />
                             </div>
                         ))}

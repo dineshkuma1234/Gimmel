@@ -7,9 +7,13 @@ import "./globals.css";
 import "../assets/css/style.css";
 import "../assets/css/responsive.css";
 import { SearchListProvider } from "./Context/searchlist/searchListContext";
+import {HeaderProvider} from "./Context/headerContext/HeaderContext";
 import { LoaderProvider, UseLoader } from "../app/LoderHelper/context/loaderHelperContext";  // Import loader context provider
 import Loader from "../app/LoderHelper/page";  // Import your loader component
 import LoaderHelper from "../app/LoderHelper/LoaderHelper";  // Import loader helper
+import { Suspense } from 'react'
+import Loading from "../app/loading";
+import Header from "@/components/header/header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,12 +30,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
         <LoaderProvider>
+          <HeaderProvider >
           <SearchListProvider>
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
+            <Suspense fallback={<Loading />}>
+            <Header />
             {children}
+            </Suspense>
           </SearchListProvider>
+          </HeaderProvider>
         </LoaderProvider>
       </body>
     </html>

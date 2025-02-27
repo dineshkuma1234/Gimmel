@@ -59,7 +59,7 @@ function Teaching() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
     
@@ -74,7 +74,7 @@ function Teaching() {
                 // AlertHelper.show('danger', 'Gimmel', result?.message);
             }
         } catch (error) {
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -99,7 +99,7 @@ function Teaching() {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.TeachingLocations();
-            console.log(result,"result-----")
+            // console.log(result,"result-----")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
                 setTeachingLocation(result?.data?.teachLocation)

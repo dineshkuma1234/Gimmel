@@ -12,7 +12,7 @@ const Login = ({handleLogIn}) => {
     const [user, setUser] = useState(null);
 
     const handleSend = data => {
-        console.log(data,"data iss...")
+        // console.log(data,"data iss...")
         const loginData = {
             signId: data?.email?.value.toLowerCase(),
             password: data?.password.value,
@@ -32,7 +32,7 @@ const Login = ({handleLogIn}) => {
         handleSend,
     );
     const { email, password } = state;
-    console.log(email,password,"this the email.....")
+    // console.log(email,password,"this the email.....")
     return (
         <>
             <div className="main-screen">
