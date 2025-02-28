@@ -387,7 +387,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button className="btn btn-color-orange" onClick={()=>{handleClose3(),handleReportPost(selectedValue,text,data?._id)}}  >Send Report</button>
+                            <button className="btn btn-color-orange"  onClick={()=>{handleClose3(),handleReportPost(selectedValue,text,data?._id)}}  disabled={!text || !selectedValue}>Send Report</button>
                         </div>
                     </div>
                 </Modal.Body>

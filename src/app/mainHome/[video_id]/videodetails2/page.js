@@ -6,8 +6,11 @@ import { useParams } from 'next/navigation';
 import { VideoDetailsContext } from '@/app/Context/VideoDetails/videoDetailsContext';
 import { UseLoader } from '@/app/LoderHelper/context/loaderHelperContext';
 import WatchVideo from '@/app/(MobileFlow)/watchvideo/page';
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 // import LoaderHelper from '../../../../../src/LoaderHelper/LoaderHelper';
 function PageComponent() {
+  const router = useRouter();
 
   const params = useParams();
   const id = params.video_id;
@@ -288,26 +291,35 @@ function PageComponent() {
 
     const handleNotIntrested = async (id) => {
       // LoaderHelper.loaderStatus(true);
+      // console.log('function calll')
+      setLoader(true);
       try {
+      console.log("loading" )
         const result = await AuthService.NotIntrested(id);
         // console.log(result, "result---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
+          setLoader(false);
           handleTopicPost();
           // AlertHelper.show('success', 'Gimmel', result?.message);
+          toast.success(result?.message || "success", {
+            className: "custom-toast-success", 
+        });
         } else {
           // LoaderHelper.loaderStatus(false);
+          setLoader(false);
           // AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
         // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // console.log('Error occurred:', 'Gimmel', error);
       }
     };
     
   return (
     <>
-
+    <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
     <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} />
   ) : ( 

@@ -9,13 +9,14 @@ import { UseLoader } from './LoderHelper/context/loaderHelperContext';
 import unAuthToken from '../Constants/constant'
 import { SearchListContext } from './Context/searchlist/searchListContext';
 import toast, { Toaster } from "react-hot-toast";
+import Loader from './LoderHelper/page';
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
 
 export default function PageComponent() {
   const router = useRouter(); 
-
+ 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [total, setTotal] = useState();
@@ -118,10 +119,10 @@ const [topicPost, setTopicPost] = useState("")
 useEffect(() => {
   handleTopicPost();
 }, []);
+
+
 const handleTopicPost = async () => {
   setLoader(true);
-
-
   try {
     const result = await AuthService.TopicPost();
     // console.log(result, 'result---')
@@ -623,19 +624,28 @@ const handleHistoryList = async (headerSearch) => {
 
 const handleNotIntrested = async (id) => {
   // LoaderHelper.loaderStatus(true);
+  // console.log('function calll')
+  setLoader(true);
   try {
+  console.log("loading" )
     const result = await AuthService.NotIntrested(id);
     // console.log(result, "result---")
     if (result?.success) {
       // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       handleTopicPost();
       // AlertHelper.show('success', 'Gimmel', result?.message);
+      toast.success(result?.message || "success", {
+        className: "custom-toast-success", 
+    });
     } else {
       // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       // AlertHelper.show('danger', 'Gimmel', result?.message);
     }
   } catch (error) {
     // LoaderHelper.loaderStatus(false);
+    setLoader(false);
     // console.log('Error occurred:', 'Gimmel', error);
   }
 };
