@@ -826,7 +826,11 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   NotIntrested: async (id) => {
-    const token = await AsyncStorage.getItem('token');
+    // console.log(id, "id----")
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Notintrested } = ApiConfig;
     const url = authBaseUrl + Notintrested;
     const params = {
@@ -836,6 +840,7 @@ const AuthService = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
+    // console.log(url, params, headers,"fkk");
     return ApiCallPost(url, params, headers);
   },
   SaveSubFolderVideo: async (selectedFolderId, id, postId) => {

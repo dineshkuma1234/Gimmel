@@ -138,7 +138,7 @@ function Sidebar() {
                     </div>
                 </Modal.Body>
             </Modal>
-
+{/* 
             <div className="search-bar-">
                 <input
                     type="text"
@@ -154,8 +154,8 @@ function Sidebar() {
                 >
                     <MdAddCircleOutline /> New Folder
                 </button>
-            </div>
-            <div className="dropdown-divider"></div>
+            </div> */}
+            
             <div className="middle-sidebar">
                 <div className="switch-container">
                     <span className="switch-label-text">
@@ -174,6 +174,7 @@ function Sidebar() {
                         />
                     </Form>
                 </div>
+                <div className="dropdown-divider"></div>
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Topic of the content</Form.Label>

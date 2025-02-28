@@ -7,7 +7,7 @@ import LoderHelper from "../../../app/LoderHelper/page"
 import Link from "next/link";
 
 
-function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) {
+function Main({getPost,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) {
 
     return (
         <>

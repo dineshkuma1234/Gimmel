@@ -14,6 +14,10 @@ import Link from "next/link";
 import { Modal } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
@@ -255,7 +259,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                         </div>
                         <div className="btn-container">
                             <button className="btn-color-orange" onClick={()=>{handleClose2();handleLogout()}}>Yes, I want to log out</button>
-                            <button className="btn-color-orange-transprent mt-4" onClick={handleClose2}>No, I want to stay logged in</button>
+                            <button className="btn-color-orange-transprent " onClick={handleClose2}>No, I want to stay logged in</button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -289,7 +293,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Email address</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}   />
+                                                <Form.Control type="email" className="light-placeholder" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}   />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
@@ -297,7 +301,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="+1 (713) 892-5638"   value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} readOnly={!isEditable}/>
+                                                <Form.Control type="text" className="light-placeholder" placeholder="+1 (713) 892-5638"   value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -305,7 +309,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>School Name</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="Enter school name" value={school}  onChange={(e) => setSchool(e.target.value)}readOnly={!isEditable}/>
+                                                <Form.Control type="text"  className="light-placeholder" placeholder="Enter school name" value={school}  onChange={(e) => setSchool(e.target.value)}readOnly={!isEditable}/>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput4">
@@ -313,7 +317,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" placeholder="12-18" value={`${minAge} - ${maxAge}`} onChange={(e) => { const [newMin, newMax] = e.target.value.split(" - ");setMinAge(newMin || ""); setMaxAge(newMax || ""); }} readOnly={!isEditable} />
+                                                <Form.Control type="text" className="light-placeholder" placeholder="12-18" value={`${minAge} - ${maxAge}`} onChange={(e) => { const [newMin, newMax] = e.target.value.split(" - ");setMinAge(newMin || ""); setMaxAge(newMax || ""); }} readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
                                       
@@ -576,8 +580,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                     :null}
                     
                     {watchHistoryData?.length > 0 ?
-                    <div className="card-white overflow-hidden">
-                    <div className="card-inner-padding">
+                    <div className="card-white overflow-hidden card-inner-padding">
+                    <div className="">
                         <div className='inline- d-flex align-items-center justify-content-between'>
                             <div className="card-white-title">
                                 <Image src={require("../../../assets/images/history.svg")} alt="User Avatar" />
@@ -587,13 +591,18 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                           </div>
                         </div>
 
-                            <div className='library-list mt-4'>
+                            <div className='library-list mt-4 position-relative'>
                                 <Swiper
-                                    spaceBetween={14}
-                                    slidesPerView={4}
-                                    className="mySwiper category-swiper library-swiper"
+                                     spaceBetween={14}
+                                     slidesPerView={4}       // ✅ Show 4 videos at a time
+                                     slidesPerGroup={5}      // ✅ Move 5 videos per slide click
+                                     loop={false}            // ✅ Prevents looping (may cause issues if true)
+                                     navigation              // ✅ Enables prev/next buttons
+                                     modules={[Navigation]} 
+                                     className="mySwiper category-swiper library-swiper"
+                                    
                                 >
-                                    {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
+                                    {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.slice(0, 10).map((item, index) => (
                                         <SwiperSlide key={index}>
                                             <div className="col-md-12">
                                                 <div className="video-card">
