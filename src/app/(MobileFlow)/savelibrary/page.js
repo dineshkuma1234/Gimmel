@@ -12,7 +12,7 @@ import '../../CommenStyle/details.css';
 import { FiAlertOctagon } from "react-icons/fi";
 
 function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
-console.log(getFolder,"getFolder+++++++++++")
+// console.log(getFolder,"getFolder+++++++++++")
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -73,7 +73,7 @@ console.log(getFolder,"getFolder+++++++++++")
         const [active, setActive]  = useState(null)
     
     const handleNavigateSave = (_id) => {
-        console.log('_id', _id)
+        // console.log('_id', _id)
         setSelectedFolderId(_id);
         // console.log('Clicked Folder ID:', folderId);
 
@@ -99,7 +99,7 @@ console.log(getFolder,"getFolder+++++++++++")
     
        
            const toggleDropdownnwe = (item) => {
-            console.log(item,"if")
+            // console.log(item,"if")
                setisDropdownOpenid((prev) => (prev === item ? null : item));
                setThreeDotItem(item);
     

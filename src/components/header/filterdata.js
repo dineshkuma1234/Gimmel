@@ -6,39 +6,6 @@ import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
 
 
-const data = [{
-    name: 'Smoking',
-    value: 'Smoking'
-},
-{
-    name: 'Durg use prevention',
-    value: 'Durg use prevention'
-},
-{
-    name: 'Alcohol use prevention',
-    value: 'Alcohol use prevention'
-},
-{
-    name: 'Physical health',
-    value: 'Physical health'
-},
-{
-    name: 'Mental health',
-    value: 'Mental health'
-},
-{
-    name: 'Sexual health',
-    value: 'Sexual health'
-}
-];
-
-const options = [
-    { label: "Smoking", value: "smoking" },
-    { label: "Drug use prevention", value: "drug" },
-    { label: "Alcohol use prevention", value: "alcohol" },
-    { label: "Physical health", value: "physical" },
-    { label: "Mental health", value: "mental" },
-];
 
 function FilterData({handleSearchCont,headerSearch}) {
     const [selectedAge, setSelectedAge] = useState("");
@@ -59,16 +26,16 @@ function FilterData({handleSearchCont,headerSearch}) {
     const handleClick2 = (date) => {
         setSelectedDate(date);
     };
-    console.log(selectedDate,"selectedDate---")
+    // console.log(selectedDate,"selectedDate---")
     const [selectedAudience, setSelectedAudience] = useState("");
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
     };
-    console.log(selectedAudience,"Audience----");
+    // console.log(selectedAudience,"Audience----");
 
     const handleResult = (params) => {
-        console.log(params);
+        // console.log(params);
     };
 
     const [selected, setSelected] = useState([]);
@@ -80,7 +47,7 @@ function FilterData({handleSearchCont,headerSearch}) {
     };
     const [chips,setChips]=useState([]);
     const [inputValue, setInputValue] = useState('');
-    console.log(inputValue,"inputvalue---");
+    // console.log(inputValue,"inputvalue---");
     const addChip = () => {
         if (inputValue.trim() !== '') {
             setChips([...chips, inputValue]);
@@ -101,27 +68,27 @@ function FilterData({handleSearchCont,headerSearch}) {
         setSliderValue(value[1]);
     }
 
-    console.log(sliderValue,"slidervalue");
+    // console.log(sliderValue,"slidervalue");
 
     const [selectedValue,setSelectedValue] =useState('');
 
     const handleSelectedChange =(e)=>{
         setSelectedValue(e.target.value);
     }
-    console.log(selectedValue,"duration---")
+    // console.log(selectedValue,"duration---")
 
     const [isOn,setIsOn]=useState(false)
 
-    console.log(isOn,"this is chips---")
-    console.log(chips,"this is chips---")
-    console.log( inputValue,"this is inputValue---")
+    // console.log(isOn,"this is chips---")
+    // console.log(chips,"this is chips---")
+    // console.log( inputValue,"this is inputValue---")
 
-    console.log(selectedAge,"this is selectedAge---")
-    console.log(selectedEngagement,"this is selectedEngagement---")
-    console.log(selectedDate,"this is selectedDate---")
-    console.log(sliderValue,"this is sliderValue---")
-    console.log(selectedValue,"this is selectedValue---")
-    console.log(selectedAudience,"this is selectedAudience---")
+    // console.log(selectedAge,"this is selectedAge---")
+    // console.log(selectedEngagement,"this is selectedEngagement---")
+    // console.log(selectedDate,"this is selectedDate---")
+    // console.log(sliderValue,"this is sliderValue---")
+    // console.log(selectedValue,"this is selectedValue---")
+    // console.log(selectedAudience,"this is selectedAudience---")
     return (
         <>
             <div className="middle-section">
@@ -134,7 +101,7 @@ function FilterData({handleSearchCont,headerSearch}) {
                             type="switch"
                             id="custom-switch"
                             checked={isOn}
-                            onChange={(e)=>{setIsOn(e.target.value); console.log('changed to:', e.target.value);}}
+                            onChange={(e)=>{setIsOn(e.target.checked)}}
                         />
                     </Form>
                 </div>
@@ -408,7 +375,7 @@ function FilterData({handleSearchCont,headerSearch}) {
                     selectedValue,
                     selectedAudience,
                 )
-                console.log(headerSearch,"headerSearch---222")
+                // console.log(headerSearch,"headerSearch---222")
                 }}>Apply Filter</button>
                 </div>
 

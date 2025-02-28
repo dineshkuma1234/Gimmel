@@ -26,7 +26,7 @@ function PageComponent() {
       setLoading(true);
       try {
         const result = await AuthService.getvideoid(id);
-        console.log(result, "getvideoid----");
+        // console.log(result, "getvideoid----");
     setLoader(false);
         if (result?.success) {
           setLoader(false);

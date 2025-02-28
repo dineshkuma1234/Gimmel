@@ -25,7 +25,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [VideoDetailsState, updateVideoDetailsState] = useContext(VideoDetailsContext);
     const dropdownRef = useRef(null);
-    console.log(getFolder,"getfolder++++++++++++++++++")
+    // console.log(getFolder,"getfolder++++++++++++++++++")
     const router = useRouter();
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -188,7 +188,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
               const handleShow7 = () => setShow7(true);
           
           const handleNavigateSave = (_id) => {
-              console.log('_id', _id)
+            //   console.log('_id', _id)
               setSelectedFolderId(_id);
               // console.log('Clicked Folder ID:', folderId);
       
@@ -202,7 +202,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
            
               
                   const toggleDropdownnwe = (item) => {
-                   console.log(item,"if")
+                //    console.log(item,"if")
                       setisDropdownOpenid((prev) => (prev === item ? null : item));
                       setThreeDotItem(item);
            
@@ -671,7 +671,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
 };
 
 const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => (
-    console.log(getPost,"this is get post---11111"),
+    // console.log(getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (

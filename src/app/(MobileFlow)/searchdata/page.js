@@ -20,7 +20,7 @@ function Search({historyList=[], headerSearch ,setHeaderSearch ,handleHistoryLis
     const handleHistoryItemClick =(item)=>{
         setHeaderSearch(item.title);
      }
-console.log(headerSearch,"headerSearch====")
+// console.log(headerSearch,"headerSearch====")
     return (
         <>
             <Modal show={show} onHide={handleClose} centered className='custom-modal filter-modal'>

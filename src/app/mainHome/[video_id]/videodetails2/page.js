@@ -70,7 +70,7 @@ function PageComponent() {
 
           
          setdata(result?.data)
-         console.log(result, "data----nwetest");
+        //  console.log(result, "data----nwetest");
 
           // if (result?.data?.postId) {
           //   setPostId(result.data.postId);
@@ -92,7 +92,7 @@ function PageComponent() {
       setLoader(true);
       try {
           const result = await AuthService.getQuize(id);
-          console.log(result,"result of quize-----")
+          // console.log(result,"result of quize-----")
           if (result?.success) {
               setGetQuiz(result?.questions)
               setLoader(false);
@@ -112,7 +112,7 @@ function PageComponent() {
         try {
         const result = await AuthService.GetFolder(value);
         if (result?.success) {
-          console.log(result,"result of get folder")
+          // console.log(result,"result of get folder")
           // LoaderHelper.loaderStatus(false);
           setGetFolder(result?.data?.data);
         } else {
@@ -120,7 +120,7 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        console.log('Error occurred:', 'Gimmel', error);
+        // console.log('Error occurred:', 'Gimmel', error);
       }
     };
   
@@ -129,7 +129,7 @@ function PageComponent() {
       // setLoader(true);
       try {
         const result = await AuthService.createFolder(folders);
-        console.log(result, 'result');
+        // console.log(result, 'result');
         if (result?.success) {
           // setLoader(false);
           handleGetFolder();
@@ -140,7 +140,7 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        console.log('Error occurred:', 'Gimmel', error);
+        // console.log('Error occurred:', 'Gimmel', error);
       }
     };
   
@@ -150,7 +150,7 @@ function PageComponent() {
       try {
         const result = await AuthService.deleteFolder(id);
         
-        console.log(result, "result---delete")
+        // console.log(result, "result---delete")
         if (result?.success) {
           setLoader(false);
           handleGetFolder();
@@ -161,18 +161,18 @@ function PageComponent() {
         }
       } catch (error) {
         setLoader(false);
-        console.log('Error occurred:', 'Gimmel', error);
+        // console.log('Error occurred:', 'Gimmel', error);
       }
     };
   
     const handleRename = async (rename, id) => {
 
-      console.log(rename, id, "rename and id --------------")
+      // console.log(rename, id, "rename and id --------------")
       // setLoader(true);
       try {
         const result = await AuthService.renames(rename, id);
         if (result?.success) {
-          console.log(result, "result of rename")
+          // console.log(result, "result of rename")
           // setLoader(false);
           handleGetFolder();
           setRename("");
@@ -183,17 +183,17 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        console.log('Error occurred:', 'Gimmel', error);
+        // console.log('Error occurred:', 'Gimmel', error);
       }
     };
   
     const handleSaveVideo = async () => {
-      console.log("handleSaveVideo function called");
+      // console.log("handleSaveVideo function called");
 
       // setLoader(true);
 
       if(!selectedFolderId){
-        console.log("No folder selected. Exiting function.");
+        // console.log("No folder selected. Exiting function.");
 
         // AlertHelper.show('warning', 'Gimmel',"Please select folder");
         return;
@@ -201,11 +201,11 @@ function PageComponent() {
       setLoader(false);
 
       try {
-        console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+        // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
         const result = await AuthService.SaveVideo(selectedFolderId, postId);
         if (result?.success) {
-          console.log("Video saved successfully:", result);
+          // console.log("Video saved successfully:", result);
 
           // setLoader(false);
           setSelectedFolderId(null)
@@ -214,18 +214,18 @@ function PageComponent() {
           // navigation.setParams({
           //   data: null,
           // });
-          console.log("Navigation to videodetails2 triggered.");
+          // console.log("Navigation to videodetails2 triggered.");
 
           // AlertHelper.show('success', 'Gimmel', result?.data);
         } else {
           // setLoader(false);
-          console.log("Failed to save video. Error message:", result?.message);
+          // console.log("Failed to save video. Error message:", result?.message);
 
           // AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
         // setLoader(false);
-        console.log('Error occurred:', 'Gimmel', error);
+        // console.log('Error occurred:', 'Gimmel', error);
       }
     };
     const handleSharePost = async (id, selectedTopics) => {
@@ -263,7 +263,7 @@ function PageComponent() {
           }
       } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          console.log('Error occurred:', 'Gimmel', error);
+          // console.log('Error occurred:', 'Gimmel', error);
       }
     };
     const handleGetSuggested = async () => {   
@@ -271,13 +271,13 @@ function PageComponent() {
     
       try {
         const result = await AuthService.getSuggested(postId);
-        console.log("API Response:", result);
+        // console.log("API Response:", result);
     
         if (result?.success) {
-          console.log("Suggested Data Set:", result?.data);
+          // console.log("Suggested Data Set:", result?.data);
           setsuggested(result?.data); // Set suggested data
         } else {
-          console.warn("API call was not successful");
+          // console.warn("API call was not successful");
         }
       } catch (error) {
         // console.error("Error occurred:", error);
@@ -290,7 +290,7 @@ function PageComponent() {
       // LoaderHelper.loaderStatus(true);
       try {
         const result = await AuthService.NotIntrested(id);
-        console.log(result, "result---")
+        // console.log(result, "result---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
           handleTopicPost();

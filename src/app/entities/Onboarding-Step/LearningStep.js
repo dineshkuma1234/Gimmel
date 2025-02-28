@@ -26,7 +26,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
             setCurrentIndex(index);
         }
     };
-    console.log(currentIndex,"this is the current index")
+    // console.log(currentIndex,"this is the current index")
 
     const nextSlide = () => {
         if (currentIndex < images.length - 1) {
@@ -38,13 +38,13 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     const [checkedItems, setCheckedItems] = useState({});
     const [item,setItems]=useState([]);
     const [selectAll, setSelectAll] = useState(false);
-    console.log(selectAll,"this is selectAll")
-    console.log(checkedItems,"this is checked items")
+    // console.log(selectAll,"this is selectAll")
+    // console.log(checkedItems,"this is checked items")
 
     const [checkedItems1, setCheckedItems1] = useState({});
     const [item1,setItem1]=useState([]);
     const [selectAll1, setSelectAll1] = useState(false);
-    console.log(checkedItems1,"this is checked1")
+    // console.log(checkedItems1,"this is checked1")
     
     const [searchTerm, setSearchTerm] = useState('');
     const filteredTopics = (interest || []).filter(topic =>
@@ -53,7 +53,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
 
    
     useEffect(() => {
-        console.log(item1, 'my item is here')
+        // console.log(item1, 'my item is here')
     }, [item,item1])
 
     const handleChange = (e) => {

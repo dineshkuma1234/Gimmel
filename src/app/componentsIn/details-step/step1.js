@@ -3,7 +3,7 @@ import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
 function Step1({getQuiz}) {
-console.log('getQuiz___________++++++++++++++))))', getQuiz)
+// console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
     const [show, setShow] = useState(false);
 

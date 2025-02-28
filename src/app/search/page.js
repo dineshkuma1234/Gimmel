@@ -11,7 +11,7 @@ export default function SearchScreen() {
            handleHistoryList(headerSearch);
          }
        }, [headerSearch]);
- console.log(historyList,"historyList====")
+//  console.log(historyList,"historyList====")
     const handleHistoryList =async (headerSearch) =>{
         try {
             const result = await AuthService.SearchHistory(headerSearch);
@@ -19,10 +19,10 @@ export default function SearchScreen() {
                 setHistoryList(result?.data?.data || []);
             }
             else {
-                console.log(result?.message);
+                // console.log(result?.message);
             }
         }catch (error) {
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
     }
 };
   return (

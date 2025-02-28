@@ -714,7 +714,7 @@ const handleChange4 = (event) => {
 };
  
 const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic,handleRemoveSuggation,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => (
-  console.log(getPost, "this is get post---11111"),
+  // console.log(getPost, "this is get post---11111"),
   (
     <div className="row">
       {getPost &&
