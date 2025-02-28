@@ -43,7 +43,10 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
   OnBoarding: async (selectedval,sliderValues,item,selectedmaturity,slectedEducation) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, onBoarding } = ApiConfig;
     const url = authBaseUrl + onBoarding;
     const params = {
@@ -66,7 +69,10 @@ const AuthService = {
   },
 
   LearningOnBoarding: async (selectedTopic, selectedObjective) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, onBoarding } = ApiConfig;
     const url = authBaseUrl + onBoarding;
     const params = {
@@ -82,7 +88,10 @@ const AuthService = {
   },
 
   Teaching: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, teaching } = ApiConfig;
     const url = authBaseUrl + teaching;
     const params = {};
@@ -94,7 +103,10 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   Contentmaturity: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Content } = ApiConfig;
     const url = authBaseUrl + Content;
     const params = {};
@@ -118,7 +130,10 @@ const AuthService = {
   // },
 
   EducationalObjectives: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Education } = ApiConfig;
     const url = authBaseUrl + Education;
     const params = {};
@@ -146,7 +161,10 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   getvideoid: async (postId) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     console.log(token, 'token---');
     const { authBaseUrl, homegetvideoid } = ApiConfig;
     const url = authBaseUrl + homegetvideoid + '/' + postId;
@@ -160,7 +178,10 @@ const AuthService = {
   },
 
   NotIntrested: async (id) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Notintrested } = ApiConfig;
     const url = authBaseUrl + Notintrested;
     const params = {
@@ -173,7 +194,10 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
   SavePost: async (id) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, PostSave } = ApiConfig;
     const url = authBaseUrl + PostSave;
     const params = {
@@ -187,7 +211,10 @@ const AuthService = {
   },
 
   Substance: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, SubstanceUser } = ApiConfig;
     const url = authBaseUrl + SubstanceUser;
     const params = {};
@@ -199,7 +226,10 @@ const AuthService = {
   },
 
   MentalHealth: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Health } = ApiConfig;
     const url = authBaseUrl + Health;
     const params = {};
@@ -211,7 +241,10 @@ const AuthService = {
   },
 
   Neuroscience: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Neuro } = ApiConfig;
     const url = authBaseUrl + Neuro;
     const params = {};
@@ -223,7 +256,10 @@ const AuthService = {
   },
 
   SocialIssue: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Social } = ApiConfig;
     const url = authBaseUrl + Social;
     const params = {};
@@ -235,7 +271,10 @@ const AuthService = {
   },
 
   InterestFilter: async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Interestfilter } = ApiConfig;
     const url = authBaseUrl + Interestfilter;
     const params = {
@@ -267,7 +306,11 @@ const AuthService = {
     selectedAudience,
   ) => {
     console.log(headerSearch,"headerSearch--12")
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
+    
     const { authBaseUrl, Search } = ApiConfig;
 
     // Build query parameters dynamically
@@ -307,7 +350,10 @@ const AuthService = {
 
 
   HomeSlider: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, Slider } = ApiConfig;
     const url = authBaseUrl + Slider;
     const params = {};
@@ -320,7 +366,10 @@ const AuthService = {
 
   SearchHistory: async (headerSearch) => {
     console.log(headerSearch, "headerSearch---")
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, HistoryList } = ApiConfig;
     const url = authBaseUrl + HistoryList + '?' + 'search=' + headerSearch;
     console.log(url, "url----")
@@ -333,7 +382,10 @@ const AuthService = {
   },
 
   GetFolder: async (value) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, getFolder } = ApiConfig;
     const url = authBaseUrl + getFolder + "?sort=" + value;
     console.log(url, "url---")
@@ -373,7 +425,10 @@ const AuthService = {
   },
 
   getReview: async (id) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, getReviews } = ApiConfig;
     const url = authBaseUrl + getReviews + id;
     const params = {};
@@ -385,7 +440,10 @@ const AuthService = {
   },
 
   sendComment: async (commentText, PostId) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, comment } = ApiConfig;
     const url = authBaseUrl + comment;
     const params = {
@@ -400,7 +458,10 @@ const AuthService = {
   },
 
   LikeReview: async (likeId) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, reviewLike } = ApiConfig;
     const url = authBaseUrl + reviewLike + likeId;
     const params = {};
@@ -482,7 +543,10 @@ const AuthService = {
   },
 
   Interest: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, onBoardingInterest } = ApiConfig;
     const url = authBaseUrl + onBoardingInterest;
     const params = {};
@@ -576,7 +640,10 @@ const AuthService = {
   },
 
   ReportPost: async (selectedValues,text, id) => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
     const { authBaseUrl, reportPost } = ApiConfig;
     const url = authBaseUrl + reportPost;
     const params = {
@@ -620,7 +687,11 @@ const AuthService = {
   },
 
   TopicPost: async () => {
-    const token = await localStorage.getItem('token');
+    let token = await localStorage.getItem('token');
+    if(!token) {
+      token = await localStorage.getItem('unAuthToken')
+    }
+    
     const { authBaseUrl, TopicCode } = ApiConfig;
     const url = authBaseUrl + TopicCode;
     const params = {};

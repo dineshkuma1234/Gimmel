@@ -310,10 +310,17 @@ ul.account-list li {
 .suggested-card .de-title h4 {
     line-height: 18px;
     margin-bottom: 0;
+    
+
 }
 
 .suggested-card .de-title h4 a {
     font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .suggested-card .video-card-image img {

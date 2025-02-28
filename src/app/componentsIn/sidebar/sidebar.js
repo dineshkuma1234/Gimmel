@@ -169,7 +169,7 @@ function Sidebar() {
                             onChange={(e) => {
                                 const newValue = e.target.checked;
                                 setIsOn(newValue);
-                                handleSearchCont(newValue); 
+                                handleSearchCont(headerSearch,newValue); 
                             }}
                         />
                     </Form>
