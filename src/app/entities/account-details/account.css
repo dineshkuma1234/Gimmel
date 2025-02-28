@@ -1,5 +1,8 @@
 .card-inner-padding {
-    padding: 40px 155px;
+    padding: 40px 155px !important;
+}
+.card-inner-padding1{
+    padding: 40px 155px !important;
 }
 
 .account-user-avatar {

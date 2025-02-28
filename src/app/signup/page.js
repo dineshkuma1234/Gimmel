@@ -11,27 +11,29 @@ function SignupScreen() {
     const {setLoader} = UseLoader()
     const handleSignUp = async (data) => {
         
-          // setLoader(true)
+          setLoader(true);
           try {
           const result = await AuthService.SignUp(data);
           console.log(result, "result----")
           if (result?.success) {
-            // setLoader(false)
+            setLoader(false);
             localStorage.setItem('token', result?.data?.token);
+            
             // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
             // console.log(result?.data?.isInterest, "interest----")
             // localStorage.setItem('interest', isInterestValue);
             // navigation.navigate('Welcome');
             router.push("/onboarding");
+            
           } else {
-            // setLoader(false)
+            setLoader(false)
             // AlertHelper.show('danger', 'Gimmel', result?.message);
             toast.error(result?.message, {
               className: "custom-toast", // Apply the custom class
           });
           }
         } catch (error) {
-          // setLoader(false)
+          setLoader(false)
           //   console.log('Error occurred:', 'Gimmel', error);
         }
       };

@@ -602,11 +602,10 @@ span.user-name {
 
 .video-card-image img {
   width: 100%;
-  height: auto;
-  max-height: 155px;
+  max-height: 124px;
   object-fit: cover;
   object-position: center;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 8px 8px;
 }
 
 .video-card-detail {

@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
             <Suspense fallback={<Loading />}>
-            <Header />
+            {/* <Header /> */}
             {children}
             </Suspense>
             </HeaderProvider>

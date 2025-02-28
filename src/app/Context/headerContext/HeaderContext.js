@@ -42,6 +42,28 @@ export const HeaderProvider = ({ children }) => {
     //     console.log("Searching with:", value);
     //     // API call or logic here...
     // };
+   
+    const handleHistoryList = async (headerSearch) => {
+      // setLoader(true);
+      // console.log(headerSearch,"headerSearch in api func")
+      try {
+          const result = await AuthService.SearchHistory(headerSearch);
+          // console.log(result.data, 'result');
+          if (result?.success) {
+            // setLoader(false);
+            setHistoryList(result?.data?.data || []);
+          } else {
+            // setLoader(false);
+            // AlertHelper.show('danger', 'Gimmel', result?.message);
+            toast.error(result?.message, {
+              className: "custom-toast", // Apply the custom class
+          });
+          }
+        } catch (error) {
+          // console.log('Error occurred:', 'Gimmel', error);
+        }
+      };
+
     const handleSearchCont = async (
         headerSearch,
         isOn,
@@ -101,26 +123,6 @@ export const HeaderProvider = ({ children }) => {
         }
       };
 
-      const handleHistoryList = async (headerSearch) => {
-        // setLoader(true);
-        // console.log(headerSearch,"headerSearch in api func")
-        try {
-            const result = await AuthService.SearchHistory(headerSearch);
-            // console.log(result.data, 'result');
-            if (result?.success) {
-              // setLoader(false);
-              setHistoryList(result?.data?.data || []);
-            } else {
-              // setLoader(false);
-              // AlertHelper.show('danger', 'Gimmel', result?.message);
-              toast.error(result?.message, {
-                className: "custom-toast", // Apply the custom class
-            });
-            }
-          } catch (error) {
-            // console.log('Error occurred:', 'Gimmel', error);
-          }
-        };
 
     return (
         <HeaderContext.Provider value={{

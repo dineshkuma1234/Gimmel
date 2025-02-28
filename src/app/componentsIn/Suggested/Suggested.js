@@ -352,7 +352,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                                 <div className="rating">
                                     <span>{video?.rating}</span>
                                 </div>
-                                <div className="eng-name">{video?.engagement}</div>
+                                <div className="eng-name">{video?.engagement}/10 Engagement Rating</div>
                             </div>
                         </div>
                     </div>
