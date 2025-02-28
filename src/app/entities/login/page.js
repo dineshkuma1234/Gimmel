@@ -57,7 +57,7 @@ const Login = ({handleLogIn}) => {
                             <div className="login-form">
                                 <div className="login-form-inner">
                                     <div className="google-login">
-                                        <Link href="login.html" className="btn btn-primary">
+                                        <Link href="/login" className="btn btn-primary">
                                             <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" /> Google Login
                                         </Link>
                                     </div>

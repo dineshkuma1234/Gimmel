@@ -12,7 +12,7 @@ function Main({getPost,historyList,setHeaderSearch ,headerSearch,handleHistoryLi
     return (
         <>
             <LoderHelper/>
-            {/* <Header historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} /> */}
+            <Header />
 
             <main id="main" className="top-space">
                 <div className="custom-container">

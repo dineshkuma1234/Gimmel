@@ -22,6 +22,8 @@ function Sidebar() {
 
     const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader();
 
+    console.log(headerSearch,"setHeaderSearch---")
+
     const [selected, setSelected] = useState([]);
     const [isOn,setIsOn]=useState(false)
     const [chips,setChips]=useState([]);
@@ -30,15 +32,15 @@ function Sidebar() {
     const [selectedValue,setSelectedValue] =useState('');
 
     const handleSelectedChange =(e)=>{
-        console.log("yes it call")
+        // console.log("yes it call")
         const newValue = e.target.value; // Get the new selected value
         setSelectedValue(newValue); // Update state
-        handleSearchCont(newValue);
+        handleSearchCont(headerSearch,newValue);
     }
     const handleSliderChange = (value)=>{
         const newValue = value[1]; 
         setSliderValue(newValue);
-        handleSearchCont(newValue);
+        handleSearchCont(headerSearch,newValue);
     }
     // const addChip = () => {
     //     if (inputValue.trim() !== '') {
@@ -55,14 +57,14 @@ function Sidebar() {
             const updatedChips = [...chips, inputValue]; 
             setChips(updatedChips);
             setInputValue('');
-            handleSearchCont(updatedChips);
+            handleSearchCont(headerSearch,updatedChips);
         }
     };
     
     const removeChip = (index) => {
         const updatedChips = chips.filter((_, i) => i !== index);
         setChips(updatedChips);
-        handleSearchCont(updatedChips); 
+        handleSearchCont(headerSearch,updatedChips); 
     };
 
     const handleKeyDown = (event) => {
@@ -83,21 +85,21 @@ function Sidebar() {
 
     const handleClick = (age) => {
         setSelectedAge(age);
-        handleSearchCont(age);
+        handleSearchCont(headerSearch,age);
     };
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
-        handleSearchCont(engagement);
+        handleSearchCont(headerSearch,engagement);
     };
 
     const [selectedDate, setSelectedDate] = useState("");
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
-        handleSearchCont(date);
+        handleSearchCont(headerSearch,date);
     };
 
     const [show, setShow] = useState(false);
@@ -109,7 +111,7 @@ function Sidebar() {
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
-        handleSearchCont(audience);
+        handleSearchCont(headerSearch,audience);
     };
 
     console.log(selectedValue,"selectedValue")
