@@ -151,7 +151,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
 
    
        const toggleDropdownnwe = (item) => {
-        console.log(item,"if")
+        // console.log(item,"if")
            setisDropdownOpenid((prev) => (prev === item ? null : item));
            setThreeDotItem(item);
 

@@ -8,6 +8,7 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
+import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
 const options = [
     { label: "Smoking", value: "smoking" },
@@ -18,6 +19,8 @@ const options = [
 ];
 
 function Sidebar() {
+
+    const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader();
 
     const [selected, setSelected] = useState([]);
     const [isOn,setIsOn]=useState(false)
@@ -94,6 +97,7 @@ function Sidebar() {
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
+        handleSearchCont(date);
     };
 
     const [show, setShow] = useState(false);
@@ -237,22 +241,6 @@ function Sidebar() {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                           
-                            {/* <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "9+" ? "active" : ""}`}
-                                id="list-profile-list"
-                                onClick={() => handleClick1("9+")}
-                            >
-                                9+
-                            </button>
-                      
-                            <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "7+" ? "active" : ""}`}
-                                id="list-settings-list"
-                                onClick={() => handleClick1("7+")}
-                            >
-                                7+
-                            </button> */}
                             {["9+","7+"].map((engagement) => (
                                 <button
                                     key={engagement}
@@ -271,20 +259,21 @@ function Sidebar() {
                     </Form.Group>
                     <div className="tab-select">
                         <div className="list-group" id="list-tab" role="tablist">
-                            <button
+                            {/* <button
                                 className={`list-group-item list-group-item-action ${selectedDate === "NewlyPublished" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick2("Today")}
+                                onClick={() => handleClick2(date)}
                             >
                                 Today
-                            </button>
+                            </button> */}
                             <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "This week" ? "active" : ""}`}
-                                id="list-profile-list"
+                                className={`list-group-item list-group-item-action w-100 ${selectedDate === "NewlyPublished" ? "active" : ""}`}
+                                id="list-settings-list"
                                 onClick={() => handleClick2("NewlyPublished")}
                             >
                                 Newly Published
                             </button>
+                    
                         </div>
                     </div>
                 </div>

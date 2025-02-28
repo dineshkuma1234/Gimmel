@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
+import toast, { Toaster } from "react-hot-toast";
 
 // Create Context
 const HeaderContext = createContext();
@@ -27,7 +28,7 @@ export const HeaderProvider = ({ children }) => {
 
      useEffect(() => {
         if (headerSearch) {
-            console.log(headerSearch,"headerSearch in useeffect")
+            // console.log(headerSearch,"headerSearch in useeffect")
           handleHistoryList(headerSearch);
         }
       }, [headerSearch]);
@@ -35,7 +36,7 @@ export const HeaderProvider = ({ children }) => {
         handleHistoryList();
       },[]);
     
-      console.log(headerSearch,"0000")  
+      // console.log(searchListState,"searchListState--0000")  
 
     // const handleSearchCont = (value) => {
     //     console.log("Searching with:", value);
@@ -69,7 +70,7 @@ export const HeaderProvider = ({ children }) => {
             selectedValue,
             selectedAudience,
           );
-          console.log(result, 'result---111');
+          // console.log(result, 'result---111');
           // setLoader(false);
     
           if (result?.success) {

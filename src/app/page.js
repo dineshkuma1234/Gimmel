@@ -147,7 +147,7 @@ const handleTopicPost = async () => {
   const [headerSearch, setHeaderSearch] = useState("")
   // const [searchList, setSearchList] = useState('');
   const [searchListState, updatesearchListState] = useContext(SearchListContext);
-  console.log(searchListState,"searchListState--")
+  // console.log(searchListState,"searchListState--")
   useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
@@ -190,7 +190,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedValue,
     selectedAudience,
   ) => {
-    console.log(headerSearch,"usecase--0000")
+    // console.log(headerSearch,"usecase--0000")
     // setLoader(true);
 
     try {
@@ -206,7 +206,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedValue,
         selectedAudience,
       );
-      console.log(result, 'result---111');
+      // console.log(result, 'result---111');
       // setLoader(false);
 
       if (result?.success) {

@@ -5,7 +5,7 @@ import { SearchListContext } from '../Context/searchlist/searchListContext';
 
 function search() {
   const [searchListState, updatesearchListState] = useContext(SearchListContext);
-  // console.log(searchListState,"searchListState--000")
+  console.log(searchListState,"searchListState--000")
   return (
    <SearchList searchListState={searchListState}/>
   )

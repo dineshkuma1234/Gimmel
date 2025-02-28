@@ -134,7 +134,7 @@ const handleTopicPost = async () => {
   // },[]);
 
   
-  console.log(historyList,"historyList--------");
+  // console.log(historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
 
   // setLoader(true);
