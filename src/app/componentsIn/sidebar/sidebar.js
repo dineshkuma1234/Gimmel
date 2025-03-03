@@ -35,12 +35,12 @@ function Sidebar() {
         // console.log("yes it call")
         const newValue = e.target.value; // Get the new selected value
         setSelectedValue(newValue); // Update state
-        handleSearchCont(headerSearch,newValue);
+        handleSearchCont(headerSearch,"","","","","","","",newValue);
     }
     const handleSliderChange = (value)=>{
         const newValue = value[1]; 
         setSliderValue(newValue);
-        handleSearchCont(headerSearch,newValue);
+        handleSearchCont(headerSearch,"","","","","","",newValue);
     }
     // const addChip = () => {
     //     if (inputValue.trim() !== '') {
@@ -57,14 +57,14 @@ function Sidebar() {
             const updatedChips = [...chips, inputValue]; 
             setChips(updatedChips);
             setInputValue('');
-            handleSearchCont(headerSearch,updatedChips);
+            handleSearchCont(headerSearch,"",updatedChips);
         }
     };
     
     const removeChip = (index) => {
         const updatedChips = chips.filter((_, i) => i !== index);
         setChips(updatedChips);
-        handleSearchCont(headerSearch,updatedChips); 
+        handleSearchCont(headerSearch,"",updatedChips); 
     };
 
     const handleKeyDown = (event) => {
@@ -85,21 +85,21 @@ function Sidebar() {
 
     const handleClick = (age) => {
         setSelectedAge(age);
-        handleSearchCont(headerSearch,age);
+        handleSearchCont(headerSearch,"","","",age);
     };
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
-        handleSearchCont(headerSearch,engagement);
+        handleSearchCont(headerSearch,"","","","",engagement);
     };
 
     const [selectedDate, setSelectedDate] = useState("");
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
-        handleSearchCont(headerSearch,date);
+        handleSearchCont(headerSearch,"","","","","",date);
     };
 
     const [show, setShow] = useState(false);
@@ -111,10 +111,8 @@ function Sidebar() {
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
-        handleSearchCont(headerSearch,audience);
+        handleSearchCont(headerSearch,"","","","","","","","",audience);
     };
-
-    console.log(selectedValue,"selectedValue")
 
 
     return (

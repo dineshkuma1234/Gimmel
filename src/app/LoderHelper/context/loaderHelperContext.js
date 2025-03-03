@@ -12,6 +12,8 @@ export const LoaderProvider = ({ children }) => {
   const setLoader = (status) => {
     setLoaderState(status);
   };
+
+  console.log(loaderState,"loaderState");
  
   return (
 <LoaderContext.Provider value={{ loaderState, setLoader }}>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
 import toast, { Toaster } from "react-hot-toast";
+import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 
 // Create Context
 const HeaderContext = createContext();
@@ -13,18 +14,11 @@ export const HeaderProvider = ({ children }) => {
 
     const [searchListState, updatesearchListState] = useContext(SearchListContext);
     const router = useRouter(); 
+    const {setLoader} = UseLoader()
     
-    const [isOn,setIsOn]=useState(false)
-    const [chips,setChips]=useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [selectedAge, setSelectedAge] = useState("");
-    const [selectedEngagement, setSelectedEngagement] = useState("");
-    const [selectedDate, setSelectedDate] = useState("");
-    const [sliderValue, setSliderValue] = useState(5);
-    const [selectedValue,setSelectedValue] =useState('');
-    const [selectedAudience, setSelectedAudience] = useState("");
     const [historyList, setHistoryList] = useState([]);
-    const [headerSearch, setHeaderSearch] = useState("")
+    const [headerSearch, setHeaderSearch] = useState("");
+    const [topicPost, setTopicPost] = useState("");
 
      useEffect(() => {
         if (headerSearch) {
@@ -76,7 +70,7 @@ export const HeaderProvider = ({ children }) => {
         selectedValue,
         selectedAudience,
       ) => {
-        console.log(headerSearch,"usecase--0000")
+        console.log(chips,"usecase--0000")
         // setLoader(true);
     
         try {
@@ -122,15 +116,68 @@ export const HeaderProvider = ({ children }) => {
           // console.log('Error occurred:', 'Gimmel', error);
         }
       };
+      
+      const handleTopicPost = async () => {
+        setLoader(true);
+        try {
+          const result = await AuthService.TopicPost();
+          // console.log(result, 'result---')
+          if (result?.success) {
+            setTopicPost(result?.data)
+            setLoader(false);
+      
+          } else {
+            AlertHelper.show('danger', 'Gimmel', result?.message);
+            setLoader(false);
+      
+          }
+        } catch (error) {
+          setLoader(false);
+      
+          // console.log('Error occurred:', 'Gimmel', error);
+        }
+      };
+
+
+      const handleNotIntrested = async (id) => {
+        // LoaderHelper.loaderStatus(true);
+        // console.log('function calll')
+        setLoader(true);
+        try {
+        console.log("loading" )
+          const result = await AuthService.NotIntrested(id);
+          // console.log(result, "result---")
+          if (result?.success) {
+            // LoaderHelper.loaderStatus(false);
+            setLoader(false);
+            handleTopicPost();
+            // AlertHelper.show('success', 'Gimmel', result?.message);
+            toast.success(result?.message || "success", {
+              className: "custom-toast-success", 
+          });
+          } else {
+            // LoaderHelper.loaderStatus(false);
+            setLoader(false);
+            // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+        } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          setLoader(false);
+          // console.log('Error occurred:', 'Gimmel', error);
+        }
+      };
 
 
     return (
+      <>
+      <Toaster position="top-right" reverseOrder={false} />
         <HeaderContext.Provider value={{
             // isOn,setIsOn,chips,setChips,inputValue, setInputValue,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,sliderValue, setSliderValue,selectedValue,setSelectedValue,selectedAudience, setSelectedAudience,
-            handleSearchCont,handleHistoryList,headerSearch,setHeaderSearch,historyList,
+            handleSearchCont,handleHistoryList,headerSearch,setHeaderSearch,historyList,handleNotIntrested,
         }}>
             {children}
         </HeaderContext.Provider>
+        </>
     );
 };
 

@@ -29,6 +29,7 @@ function PageComponent() {
   const {setLoader} = UseLoader()
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [suggested,setsuggested]=useState()
+  const [topicPost, setTopicPost] = useState("")
   // console.log(suggested,"suggested[[[[]]]]]]==")
   useEffect(() => {
      
@@ -39,6 +40,7 @@ function PageComponent() {
           handleCreateFolder()
           handleGetSuggested()
           handleNotIntrested()
+          handleTopicPost();
   }, []);
   
   useEffect(() => {
@@ -288,6 +290,30 @@ function PageComponent() {
         // setLoader(false); // Ensure loader stops after API call
       }
     };
+
+ 
+    
+    const handleTopicPost = async () => {
+      setLoader(true);
+      try {
+        const result = await AuthService.TopicPost();
+        // console.log(result, 'result---')
+        if (result?.success) {
+          setTopicPost(result?.data)
+          setLoader(false);
+    
+        } else {
+          AlertHelper.show('danger', 'Gimmel', result?.message);
+          setLoader(false);
+    
+        }
+      } catch (error) {
+        setLoader(false);
+    
+        // console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
+    
 
     const handleNotIntrested = async (id) => {
       // LoaderHelper.loaderStatus(true);

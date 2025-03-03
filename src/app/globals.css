@@ -348,7 +348,7 @@ body {
   border: none;
   outline: none;
   font-size: 16px;
-  color: var(--gimmel-lightGray);
+  color: var(--gimmel-darkBlue);
   border-radius: 8px;
 }
 
@@ -959,13 +959,13 @@ span.user-name {
 .short-by {
   display: flex;
   align-items: center;
-  gap: 16px;
+  /* gap: 16px; */
 }
 
-.short-by select {
+.short-by .css-13cymwt-control {
   border: none;
   border-radius: 8px;
-  padding: 0 16px;
+  padding: 0 16px !important;
   font-size: 14px;
   font-weight: bold;
   color: var(--gimmel-darkBlue);
@@ -974,6 +974,50 @@ span.user-name {
   letter-spacing: 0.5px;
   text-transform: capitalize;
   background: transparent;
+}
+
+.short-by .css-t3ipsp-control {
+  border: none !important;
+  border-radius: 8px;
+  padding: 0 16px !important;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--gimmel-darkBlue);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  background: transparent;
+}
+
+.short-by .css-t3ipsp-control:hover {
+  outline: none;
+}
+
+.css-d7l1ni-option {
+  background-color: var(--gimmel-orange) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+.css-tr4s17-option {
+  background-color: var(--gimmel-orange) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+.short-by select option {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--gimmel-darkBlue);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+.short-by select:hover {
+  background: #F3F3F3;
 }
 
 .short-by select:focus-visible {
@@ -2317,4 +2361,16 @@ button.folder-icon {
 .light-placeholder::placeholder {
   color: #9ca3af !important; /* Tailwind's gray-400 */
   opacity: 1 !important;
+}
+
+.no-suggestions {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  color: #104e5b;
+  font-size: 16px;
+  font-weight: bold;
+  height: -webkit-fill-available ;
 }
