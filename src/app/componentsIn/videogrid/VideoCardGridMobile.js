@@ -366,7 +366,7 @@ const handleChange4 = (event) => {
                     <ul className="checkbox-group">
                         <Form>
                             <ListGroup>
-                                {substance.map((topic,index) => (
+                                {substance?.map((topic,index) => (
                                     <ListGroup.Item key={index}>
                                         <Form.Check
                                             type="checkbox"
@@ -393,7 +393,7 @@ const handleChange4 = (event) => {
                     <ul className="checkbox-group">
                         <Form>
                             <ListGroup>
-                                {mentalHealth.map((topic,index) => (
+                                {mentalHealth?.map((topic,index) => (
                                     <ListGroup.Item key={index}>
                                         <Form.Check
                                             type="checkbox"
@@ -420,7 +420,7 @@ const handleChange4 = (event) => {
                     <ul className="checkbox-group">
                         <Form>
                             <ListGroup>
-                                {neuroScience.map((topic,index) => (
+                                {neuroScience?.map((topic,index) => (
                                     <ListGroup.Item key={index}>
                                         <Form.Check
                                             type="checkbox"
@@ -447,7 +447,7 @@ const handleChange4 = (event) => {
                     <ul className="checkbox-group">
                         <Form>
                             <ListGroup>
-                                {socialIssues.map((topic,index) => (
+                                {socialIssues?.map((topic,index) => (
                                     <ListGroup.Item key={index}>
                                         <Form.Check
                                             type="checkbox"
@@ -671,7 +671,7 @@ const handleChange4 = (event) => {
                         </li>
                         <div className="dropdown-divider"></div>
                         <li>
-                          <button href="#" onClick={()=>{handleNotIntrested()}}>
+                          <button href="#" onClick={()=>{handleNotIntrested(video?._id)}}>
                             <svg
                               width="24"
                               height="24"

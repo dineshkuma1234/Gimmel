@@ -1,11 +1,24 @@
 'use client'
 
-import React from "react";
+import React,{useState} from "react";
 import Image from "next/image";
-import VideoCardGrid from "../../../componentsIn/videogrid/VideoCardGrid";
+import VideoCardGridMobile from "../../../componentsIn/videogrid/VideoCardGridMobile";
 import BottomBar from "../../../../components/BottomBar/BottomBar";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import { useRouter } from 'next/navigation';
+import FilterData from "@/components/header/filterdata";
 
-function SearchList() {
+function SearchList({searchListState}) {
+    const {headerSearch,setHeaderSearch,handleSearchCont} = useHeader();
+    const router = useRouter();
+    const handleFocus = () => {
+        router.push('/search');
+      };
+      const [showFilter, setShowFilter] = useState(false);
+
+      const handleButtonClick = () => {
+        setShowFilter(true);
+      };
     return (
         <>
             <div className="page-top-bar">
@@ -31,15 +44,16 @@ function SearchList() {
                             </button>
                         </div>
                         <div className="search-bar-header">
-                            <input type="text" placeholder="Search" />
+                            <input type="text" placeholder="Search" value={headerSearch} onChange={(e) =>{setHeaderSearch(e.target.value);router.push("/search")}} />
                         </div>
                     </div>
                     <div className="page-section-right">
-                        <div className="add-folder-button">
+                        <div className="add-folder-button" onClick={handleButtonClick}>
                             <button className="btn">
                                 <Image src={require("../../../../assets/images/filter.svg")} alt="add folder" />
                             </button>
                         </div>
+                        {showFilter && <FilterData handleSearchCont={handleSearchCont} headerSearch={headerSearch}/>}
                     </div>
                 </div>
             </div>
@@ -47,7 +61,7 @@ function SearchList() {
             <main id="main" className="top-space">
                 <div className="custom-container">
                     <div className="history-list-container">
-                        <VideoCardGrid />
+                        <VideoCardGridMobile getPost={searchListState}/>
                     </div>
                 </div>
             </main>

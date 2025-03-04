@@ -37,7 +37,7 @@ const options = [
                             <div className='body-top-left mt-3'>
                                 <div className='short-by'>
                                     <p>Sort by</p>
-                                    <Select options={options} menuIsOpen={true} />
+                                    <Select options={options} />
                                 </div>
                             </div>
                             <div className='body-top-right'>
