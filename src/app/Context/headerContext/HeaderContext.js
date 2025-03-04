@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
 import toast, { Toaster } from "react-hot-toast";
+import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 
 // Create Context
 const HeaderContext = createContext();
@@ -13,22 +14,15 @@ export const HeaderProvider = ({ children }) => {
 
     const [searchListState, updatesearchListState] = useContext(SearchListContext);
     const router = useRouter(); 
+    const {setLoader} = UseLoader()
     
-    const [isOn,setIsOn]=useState(false)
-    const [chips,setChips]=useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [selectedAge, setSelectedAge] = useState("");
-    const [selectedEngagement, setSelectedEngagement] = useState("");
-    const [selectedDate, setSelectedDate] = useState("");
-    const [sliderValue, setSliderValue] = useState(5);
-    const [selectedValue,setSelectedValue] =useState('');
-    const [selectedAudience, setSelectedAudience] = useState("");
     const [historyList, setHistoryList] = useState([]);
-    const [headerSearch, setHeaderSearch] = useState("")
+    const [headerSearch, setHeaderSearch] = useState("");
+    const [topicPost, setTopicPost] = useState("");
 
      useEffect(() => {
         if (headerSearch) {
-            // console.log(headerSearch,"headerSearch in useeffect")
+
           handleHistoryList(headerSearch);
         }
       }, [headerSearch]);
@@ -36,12 +30,6 @@ export const HeaderProvider = ({ children }) => {
         handleHistoryList();
       },[]);
     
-      // console.log(searchListState,"searchListState--0000")  
-
-    // const handleSearchCont = (value) => {
-    //     console.log("Searching with:", value);
-    //     // API call or logic here...
-    // };
    
     const handleHistoryList = async (headerSearch) => {
       // setLoader(true);
@@ -76,8 +64,7 @@ export const HeaderProvider = ({ children }) => {
         selectedValue,
         selectedAudience,
       ) => {
-        console.log(headerSearch,"usecase--0000")
-        // setLoader(true);
+
     
         try {
           const result = await AuthService.SearchResult(
@@ -104,10 +91,7 @@ export const HeaderProvider = ({ children }) => {
               
             } else {
               updatesearchListState(result?.data);
-              // navigation.navigate('TabNavigation', {
-              //   screen: 'Search',
-              //   params: { data: result?.data },
-              // });
+
               router.push( "/searchlist",
                 { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
               );
@@ -122,15 +106,68 @@ export const HeaderProvider = ({ children }) => {
           // console.log('Error occurred:', 'Gimmel', error);
         }
       };
+      
+      const handleTopicPost = async () => {
+        setLoader(true);
+        try {
+          const result = await AuthService.TopicPost();
+          // console.log(result, 'result---')
+          if (result?.success) {
+            setTopicPost(result?.data)
+            setLoader(false);
+      
+          } else {
+            AlertHelper.show('danger', 'Gimmel', result?.message);
+            setLoader(false);
+      
+          }
+        } catch (error) {
+          setLoader(false);
+      
+          // console.log('Error occurred:', 'Gimmel', error);
+        }
+      };
+
+
+      const handleNotIntrested = async (id) => {
+        // LoaderHelper.loaderStatus(true);
+        // console.log('function calll')
+        setLoader(true);
+        try {
+        console.log("loading" )
+          const result = await AuthService.NotIntrested(id);
+          // console.log(result, "result---")
+          if (result?.success) {
+            // LoaderHelper.loaderStatus(false);
+            setLoader(false);
+            handleTopicPost();
+            // AlertHelper.show('success', 'Gimmel', result?.message);
+            toast.success(result?.message || "success", {
+              className: "custom-toast-success", 
+          });
+          } else {
+            // LoaderHelper.loaderStatus(false);
+            setLoader(false);
+            // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+        } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          setLoader(false);
+          // console.log('Error occurred:', 'Gimmel', error);
+        }
+      };
 
 
     return (
+      <>
+      <Toaster position="top-right" reverseOrder={false} />
         <HeaderContext.Provider value={{
             // isOn,setIsOn,chips,setChips,inputValue, setInputValue,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,sliderValue, setSliderValue,selectedValue,setSelectedValue,selectedAudience, setSelectedAudience,
-            handleSearchCont,handleHistoryList,headerSearch,setHeaderSearch,historyList,
+            handleSearchCont,handleHistoryList,headerSearch,setHeaderSearch,historyList,handleNotIntrested,
         }}>
             {children}
         </HeaderContext.Provider>
+        </>
     );
 };
 

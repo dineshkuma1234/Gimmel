@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
 import Logo from "../../assets/images/logo.svg";
 import FilterIcon from "../../assets/images/filter.svg";
+import historyIcon from "../../assets/images/history.svg"
+import vectorIcon from "../../assets/images/Vector.svg";
 import './header.css';
 import '../../app/CommenStyle/filter.css';
 import FilterData from "./filterdata";
@@ -85,7 +87,9 @@ function Header() {
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    
 
+     console.log(historyList,"historyList----")
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">
@@ -119,12 +123,13 @@ function Header() {
                         </button>
                         {showHistory && (
                             <div className="search-history" id="searchHistory">
-                                <ul>
+                                {historyList.length > 0 ?(
+                                    <ul>
                                     {historyList.map((item, index) => (
                                         <li key={index} onClick={()=>handleHistoryItemClick(item)}>
-                                            <Link href="/searchlist">
+                                            <Link href="/">
                                                 <div className='search-history-left'>
-                                                    <Image src={require("../../assets/images/history.svg")} alt="slider thumbnil" />
+                                                    <Image src={item.type === "suggestion" ? vectorIcon : historyIcon} alt="history icon"  />
                                                     {item.title}
                                                 </div>
                                                 <div className='search-history-icon'>
@@ -134,6 +139,10 @@ function Header() {
                                         </li>
                                     ))}
                                 </ul>
+                                ) :(
+                                    <p className="no-suggestions">No suggestions related to your search.</p>
+                                )}
+                                
                             </div>
                         )}
 
@@ -218,11 +227,7 @@ function Header() {
                         </ul>
                     </div>
                 </div>
-                {/* <div className="burger" id="burger" onClick={toggleMenu}>
-                    <span className="burger-line"></span>
-                    <span className="burger-line"></span>
-                    <span className="burger-line"></span>
-                </div> */}
+
                  <div className="sec-center">
                  {token ? (
                         <Link href="/account" className="logo">

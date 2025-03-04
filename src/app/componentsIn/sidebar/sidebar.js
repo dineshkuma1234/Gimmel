@@ -10,19 +10,12 @@ import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
-const options = [
-    { label: "Smoking", value: "smoking" },
-    { label: "Drug use prevention", value: "drug" },
-    { label: "Alcohol use prevention", value: "alcohol" },
-    { label: "Physical health", value: "physical" },
-    { label: "Mental health", value: "mental" },
-];
 
 function Sidebar() {
 
     const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader();
 
-    console.log(headerSearch,"setHeaderSearch---")
+    // console.log(headerSearch,"setHeaderSearch---")
 
     const [selected, setSelected] = useState([]);
     const [isOn,setIsOn]=useState(false)
@@ -35,36 +28,27 @@ function Sidebar() {
         // console.log("yes it call")
         const newValue = e.target.value; // Get the new selected value
         setSelectedValue(newValue); // Update state
-        handleSearchCont(headerSearch,newValue);
+        handleSearchCont(headerSearch,"","","","","","","",newValue);
     }
     const handleSliderChange = (value)=>{
         const newValue = value[1]; 
         setSliderValue(newValue);
-        handleSearchCont(headerSearch,newValue);
+        handleSearchCont(headerSearch,"","","","","","",newValue);
     }
-    // const addChip = () => {
-    //     if (inputValue.trim() !== '') {
-    //         setChips([...chips, inputValue]);
-    //         setInputValue('');
-    //     }
-    // };
-    // const removeChip = (index) => {
-    //     const newChips = chips.filter((_, i) => i !== index);
-    //     setChips(newChips);
-    // };
+
     const addChip = () => {
         if (inputValue.trim() !== '') {
             const updatedChips = [...chips, inputValue]; 
             setChips(updatedChips);
             setInputValue('');
-            handleSearchCont(headerSearch,updatedChips);
+            handleSearchCont(headerSearch,"",updatedChips);
         }
     };
     
     const removeChip = (index) => {
         const updatedChips = chips.filter((_, i) => i !== index);
         setChips(updatedChips);
-        handleSearchCont(headerSearch,updatedChips); 
+        handleSearchCont(headerSearch,"",updatedChips); 
     };
 
     const handleKeyDown = (event) => {
@@ -85,21 +69,21 @@ function Sidebar() {
 
     const handleClick = (age) => {
         setSelectedAge(age);
-        handleSearchCont(headerSearch,age);
+        handleSearchCont(headerSearch,"","","",age);
     };
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
-        handleSearchCont(headerSearch,engagement);
+        handleSearchCont(headerSearch,"","","","",engagement);
     };
 
     const [selectedDate, setSelectedDate] = useState("");
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
-        handleSearchCont(headerSearch,date);
+        handleSearchCont(headerSearch,"","","","","",date);
     };
 
     const [show, setShow] = useState(false);
@@ -111,10 +95,8 @@ function Sidebar() {
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
-        handleSearchCont(headerSearch,audience);
+        handleSearchCont(headerSearch,"","","","","","","","",audience);
     };
-
-    console.log(selectedValue,"selectedValue")
 
 
     return (
