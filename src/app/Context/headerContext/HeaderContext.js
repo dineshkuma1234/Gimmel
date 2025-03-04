@@ -22,7 +22,7 @@ export const HeaderProvider = ({ children }) => {
 
      useEffect(() => {
         if (headerSearch) {
-            // console.log(headerSearch,"headerSearch in useeffect")
+
           handleHistoryList(headerSearch);
         }
       }, [headerSearch]);
@@ -30,12 +30,6 @@ export const HeaderProvider = ({ children }) => {
         handleHistoryList();
       },[]);
     
-      // console.log(searchListState,"searchListState--0000")  
-
-    // const handleSearchCont = (value) => {
-    //     console.log("Searching with:", value);
-    //     // API call or logic here...
-    // };
    
     const handleHistoryList = async (headerSearch) => {
       // setLoader(true);
@@ -70,8 +64,7 @@ export const HeaderProvider = ({ children }) => {
         selectedValue,
         selectedAudience,
       ) => {
-        console.log(chips,"usecase--0000")
-        // setLoader(true);
+
     
         try {
           const result = await AuthService.SearchResult(
@@ -98,10 +91,7 @@ export const HeaderProvider = ({ children }) => {
               
             } else {
               updatesearchListState(result?.data);
-              // navigation.navigate('TabNavigation', {
-              //   screen: 'Search',
-              //   params: { data: result?.data },
-              // });
+
               router.push( "/searchlist",
                 { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
               );

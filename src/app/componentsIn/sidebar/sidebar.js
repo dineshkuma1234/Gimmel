@@ -10,19 +10,12 @@ import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
-const options = [
-    { label: "Smoking", value: "smoking" },
-    { label: "Drug use prevention", value: "drug" },
-    { label: "Alcohol use prevention", value: "alcohol" },
-    { label: "Physical health", value: "physical" },
-    { label: "Mental health", value: "mental" },
-];
 
 function Sidebar() {
 
     const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader();
 
-    console.log(headerSearch,"setHeaderSearch---")
+    // console.log(headerSearch,"setHeaderSearch---")
 
     const [selected, setSelected] = useState([]);
     const [isOn,setIsOn]=useState(false)
@@ -42,16 +35,7 @@ function Sidebar() {
         setSliderValue(newValue);
         handleSearchCont(headerSearch,"","","","","","",newValue);
     }
-    // const addChip = () => {
-    //     if (inputValue.trim() !== '') {
-    //         setChips([...chips, inputValue]);
-    //         setInputValue('');
-    //     }
-    // };
-    // const removeChip = (index) => {
-    //     const newChips = chips.filter((_, i) => i !== index);
-    //     setChips(newChips);
-    // };
+
     const addChip = () => {
         if (inputValue.trim() !== '') {
             const updatedChips = [...chips, inputValue]; 
