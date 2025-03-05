@@ -65,7 +65,7 @@ export const HeaderProvider = ({ children }) => {
         selectedAudience,
       ) => {
 
-    
+        setLoader(true);
         try {
           const result = await AuthService.SearchResult(
             headerSearch,
@@ -80,7 +80,7 @@ export const HeaderProvider = ({ children }) => {
             selectedAudience,
           );
           // console.log(result, 'result---111');
-          // setLoader(false);
+          setLoader(false);
     
           if (result?.success) {
             if (result?.data?.length <= 0) {
@@ -98,11 +98,11 @@ export const HeaderProvider = ({ children }) => {
             }
           } else {
             // AlertHelper.show('danger', 'Gimmel', result?.message);
-            // setLoader(false);
+            setLoader(false);
     
           }
         } catch (error) {
-          // setLoader(false);
+          setLoader(false);
           // console.log('Error occurred:', 'Gimmel', error);
         }
       };

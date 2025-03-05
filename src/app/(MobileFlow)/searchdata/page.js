@@ -64,11 +64,9 @@ function Search() {
           </div>
           <div className="dropdown-divider"></div>
           <div className="model-custom-body">
-            <div className="filter-history" id="searchHistory">
-              <div className="filter-content">
-                <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch}/>
+          <div className="filter-content">
+                <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch} setShow={setShow}/>
               </div>
-            </div>
           </div>
         </Modal.Body>
       </Modal>
