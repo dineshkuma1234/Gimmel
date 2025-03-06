@@ -33,7 +33,6 @@ function PageComponent() {
   const [getSubFolder,setGetFolderSub]= useState();
   (getSaveVideo,"getSaveVideo++++++++++++++________")
   const [topicPost, setTopicPost] = useState("")
-  (selectedFolderId,"selectedFolderId[[[[]]]]]]==")
   useEffect(() => {
      
           handleGetPostid();

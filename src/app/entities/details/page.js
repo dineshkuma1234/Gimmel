@@ -22,8 +22,6 @@ import { type } from "os";
 import calculateMonthsAgo from "../../utils/monthsAgo/page"
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,suggested,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
- (getSaveVideo,"getSaveVideo++++++++++++++________")
- (getFolder,"VideoDetailsState-----------------")
 
 // const {}=useSave();
     const [show1, setShow1] = useState(false);
