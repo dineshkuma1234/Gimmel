@@ -25,7 +25,7 @@ const Signup = ({handleSignUp}) => {
             confirmpassword: data?.confirmPassword?.value,
             date: data.date.value,
         };
-        // console.log(data?.firstName.value,"data000=====");
+        // (data?.firstName.value,"data000=====");
 
                    handleSignUp(signUpData);
         
@@ -44,7 +44,7 @@ const Signup = ({handleSignUp}) => {
         confirmPassword,
         date
     } = state;
-// console.log(firstName,"this the f-----")
+// (firstName,"this the f-----")
     return (
         <>
             <div className="page-top-bar show_mobile">

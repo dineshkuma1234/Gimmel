@@ -190,14 +190,14 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
   
         const [item1,setItem1]=useState([]);
         const [selectAll1, setSelectAll1] = useState(false);
-        // console.log(checkedItems1,"this is checked1")
+        // (checkedItems1,"this is checked1")
      const [searchTerm, setSearchTerm] = useState('');
         const filteredTopics = (interest || []).filter(topic =>
             topic.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
          useEffect(() => {
-                // console.log(item1, 'my item is here')
+                // (item1, 'my item is here')
             }, [item,item1])
         
         const handleChange1 = (e) => {

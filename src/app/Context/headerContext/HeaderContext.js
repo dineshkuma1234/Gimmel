@@ -33,10 +33,10 @@ export const HeaderProvider = ({ children }) => {
    
     const handleHistoryList = async (headerSearch) => {
       // setLoader(true);
-      // console.log(headerSearch,"headerSearch in api func")
+      // (headerSearch,"headerSearch in api func")
       try {
           const result = await AuthService.SearchHistory(headerSearch);
-          // console.log(result.data, 'result');
+          // (result.data, 'result');
           if (result?.success) {
             // setLoader(false);
             setHistoryList(result?.data?.data || []);
@@ -48,7 +48,7 @@ export const HeaderProvider = ({ children }) => {
           });
           }
         } catch (error) {
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
 
@@ -79,7 +79,7 @@ export const HeaderProvider = ({ children }) => {
             selectedValue,
             selectedAudience,
           );
-          // console.log(result, 'result---111');
+          // (result, 'result---111');
           setLoader(false);
     
           if (result?.success) {
@@ -103,7 +103,7 @@ export const HeaderProvider = ({ children }) => {
           }
         } catch (error) {
           setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
       
@@ -111,7 +111,7 @@ export const HeaderProvider = ({ children }) => {
         setLoader(true);
         try {
           const result = await AuthService.TopicPost();
-          // console.log(result, 'result---')
+          // (result, 'result---')
           if (result?.success) {
             setTopicPost(result?.data)
             setLoader(false);
@@ -124,19 +124,19 @@ export const HeaderProvider = ({ children }) => {
         } catch (error) {
           setLoader(false);
       
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
 
 
       const handleNotIntrested = async (id) => {
         // LoaderHelper.loaderStatus(true);
-        // console.log('function calll')
+        // ('function calll')
         setLoader(true);
         try {
-        // console.log("loading" )
+        // ("loading" )
           const result = await AuthService.NotIntrested(id);
-          // console.log(result, "result---")
+          // (result, "result---")
           if (result?.success) {
             // LoaderHelper.loaderStatus(false);
             setLoader(false);
@@ -153,7 +153,7 @@ export const HeaderProvider = ({ children }) => {
         } catch (error) {
           // LoaderHelper.loaderStatus(false);
           setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
 

@@ -13,29 +13,29 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
     const handleClick = (age) => {
         setSelectedAge(age);
     };
-    console.log(selectedAge,"selectedAge---")
+    (selectedAge,"selectedAge---")
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
     const handleClick1 = (engagement) => {
         setSelectedEngagement(engagement);
     };
-    // console.log(selectedEngagement,"selectedEngagement---")
+    // (selectedEngagement,"selectedEngagement---")
     const [selectedDate, setSelectedDate] = useState("");
 
     const handleClick2 = (date) => {
         setSelectedDate(date);
     };
-    // console.log(selectedDate,"selectedDate---")
+    // (selectedDate,"selectedDate---")
     const [selectedAudience, setSelectedAudience] = useState("");
 
     const handleClick3 = (audience) => {
         setSelectedAudience(audience);
     };
-    // console.log(selectedAudience,"Audience----");
+    // (selectedAudience,"Audience----");
 
     const handleResult = (params) => {
-        // console.log(params);
+        // (params);
     };
 
     const [selected, setSelected] = useState([]);
@@ -47,7 +47,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
     };
     const [chips,setChips]=useState([]);
     const [inputValue, setInputValue] = useState('');
-    // console.log(inputValue,"inputvalue---");
+    // (inputValue,"inputvalue---");
     const addChip = () => {
         if (inputValue.trim() !== '') {
             setChips([...chips, inputValue]);
@@ -68,14 +68,14 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
         setSliderValue(value[1]);
     }
 
-    // console.log(sliderValue,"slidervalue");
+    // (sliderValue,"slidervalue");
 
     const [selectedValue,setSelectedValue] =useState('');
 
     const handleSelectedChange =(e)=>{
         setSelectedValue(e.target.value);
     }
-    // console.log(selectedValue,"duration---")
+    // (selectedValue,"duration---")
 
     const [isOn,setIsOn]=useState(false)
 
@@ -367,7 +367,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                     selectedAudience,
                 )
                 setShow(false);
-                // console.log(headerSearch,"headerSearch---222")
+                // (headerSearch,"headerSearch---222")
                 }}disabled={!headerSearch}>Apply Filter</button>
                 </div>
 

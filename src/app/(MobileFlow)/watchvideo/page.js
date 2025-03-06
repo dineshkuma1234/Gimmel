@@ -16,8 +16,8 @@ import { useState } from "react";
 import Link from "next/link";
 import SaveLibrary from "../savelibrary/page";
 
-function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
-    // console.log(data,"data in mobile viwe ==========")
+function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
+    // (data,"data in mobile viwe ==========")
     const [show, setShow] = useState(false);
     const [saveVideoScreen,setSaveVideoScreen] = useState(false);
     const handleClose = () => setShow(false);
@@ -162,9 +162,11 @@ function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics
                             <li>
                                 {/* <Link> */}
                                     <button variant="primary" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
-                                        </svg>
+                                    { data?.isSaved ?  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z" fill="#F18D51"/>
+                                            </svg> :<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z" fill="#104E5B"/>
+                                            </svg> }
                                         Save
                                     </button>
                                 {/* </Link> */}
@@ -509,7 +511,7 @@ function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics
             </Modal>
 
            { saveVideoScreen ? 
-           <SaveLibrary getFolder={getFolder} handleCreateFolder={handleCreateFolder}handleDeleteFolder={handleDeleteFolder} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} handleRename={handleRename} rename={rename} setRename={setRename}/>
+           <SaveLibrary getFolder={getFolder} handleCreateFolder={handleCreateFolder}handleDeleteFolder={handleDeleteFolder} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} handleRename={handleRename} rename={rename} setRename={setRename} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
            :
             
             <><div className="page-top-bar">
@@ -602,9 +604,11 @@ function WatchVideo({data,VideoDetailsState,getQuiz,shareLink ,setSelectedTopics
                                     Share
                                 </button>
                                 <button className="btn btn-light-bg" onClick={() => {setSaveVideoScreen(true);setShow2(false)}}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z" fill="#242424" />
-                                    </svg>
+                                { data?.isSaved ?  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z" fill="#F18D51"/>
+                                            </svg> :<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z" fill="#104E5B"/>
+                                            </svg> }
                                     Save
                                 </button>
                                 <button className="btn btn-light-bg">

@@ -1,5 +1,5 @@
 "use client";
- 
+
 // VideoCardGrid.js
 import React, { useState, useEffect, useRef } from "react";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
@@ -12,38 +12,67 @@ import Accordion from "react-bootstrap/Accordion";
 import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
- 
- 
-const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike,handleNotInterestedTopic,handleRemoveSuggation,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename, handleNotIntrested}) => {
+import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
+
+const VideoCard = ({
+  video,
+  index,
+  topicPost,
+  substance,
+  mentalHealth,
+  neuroScience,
+  socialIssues,
+  handleInterestFilter,
+  interest,
+  handleMoreLike,
+  handleNotInterestedTopic,
+  handleRemoveSuggation,
+  data,
+  getFolder,
+  rename,
+  setValue,
+  handleCreateFolder,
+  handleDeleteFolder,
+  handleRename,
+  handleSaveVideo,
+  setSelectedFolderId,
+  setRename,
+  handleNotIntrested,
+  getSaveVideo,
+  getSubFolder,
+  handleCreateFolderSub,
+  handleGetFolderSub,
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
- 
+  const [saveVideoScreen, setSaveVideoScreen] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
- 
+
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
   };
- 
+
   useEffect(() => {
     // Add event listener for clicks outside the dropdown
     window.addEventListener("click", handleClickOutside);
- 
+
     // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
- 
+
   const [folders, setFolders] = useState([
     { id: 1, name: "My Library" },
     { id: 2, name: "Work Documents" },
     { id: 3, name: "Personal Files" },
   ]);
- 
+
   // Function to add a new folder
   const addNewFolder = () => {
     const newFolder = {
@@ -52,131 +81,127 @@ const VideoCard = ({ video, index, topicPost ,substance ,mentalHealth,neuroScien
     };
     setFolders([...folders, newFolder]);
   };
- 
+
   const [show, setShow] = useState(false);
- 
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
- 
+
   const [show1, setShow1] = useState(false);
- 
+
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
- 
+
   const [show2, setShow2] = useState(false);
- 
+
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
- 
+
   const [show3, setShow3] = useState(false);
- 
+
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
- 
+
   const [isExpanded, setIsExpanded] = useState(false);
- 
+
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
- 
+
   const [checkedItems, setCheckedItems] = useState({});
-   const [checkedItems1, setCheckedItems1] = useState({});
-      const [checkedItems2, setCheckedItems2] = useState({});
-      const [checkedItems3, setCheckedItems3] = useState({});
-      const [selectedSubstance,setselectedSubstance]=useState([]);
-      const [selectedHealth,setselectedHealth]=useState([]);
-      const [selectedneuroscience,setselectedNeuroscience]=useState([]);
-      const [selectSocialIssue,setselectSocialIssue]=useState([]);
-      const [interestsDescription, setInterestsDescription] = useState("");
-      const [showContent, setShowContent] = useState(true);
- 
+  const [checkedItems1, setCheckedItems1] = useState({});
+  const [checkedItems2, setCheckedItems2] = useState({});
+  const [checkedItems3, setCheckedItems3] = useState({});
+  const [selectedSubstance, setselectedSubstance] = useState([]);
+  const [selectedHealth, setselectedHealth] = useState([]);
+  const [selectedneuroscience, setselectedNeuroscience] = useState([]);
+  const [selectSocialIssue, setselectSocialIssue] = useState([]);
+  const [interestsDescription, setInterestsDescription] = useState("");
+  const [showContent, setShowContent] = useState(true);
+
   // Handle checkbox state change
   const handleChange = (e) => {
     const { id, checked } = e.target;
     setCheckedItems({
-        ...checkedItems,
-        [id]: checked,
+      ...checkedItems,
+      [id]: checked,
     });
-        setselectedSubstance((prevCheckedItems)=>{
-            if(checked){
-             return [...prevCheckedItems,id]
-            }else{
-                return prevCheckedItems.filter((item) => item!== id)
-            }
-        });
-};
+    setselectedSubstance((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
 
-const handleChange1 = (e) => {
+  const handleChange1 = (e) => {
     const { id, checked } = e.target;
     setCheckedItems1({
-        ...checkedItems1,
-        [id]: checked,
+      ...checkedItems1,
+      [id]: checked,
     });
-    setselectedHealth((prevCheckedItems)=>{
-        if (checked){
-        return [...prevCheckedItems,id]
-        }else{
-            return prevCheckedItems.filter((item)=>item!==id)
-        }
-    })
-};
+    setselectedHealth((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
 
-const handleChange2=(e)=>{
-    const {id,checked}=e.target;
-   setCheckedItems2({
-    ...checkedItems2,
-    [id]:checked
-   })
-   setselectedNeuroscience((prevCheckedItems)=>{
-    if(checked){
-        return [...prevCheckedItems,id];
-    }else{
-        return prevCheckedItems.filter((item)=>item!==id)
-    }
-   })
-}
-const handleChange3=(e)=>{
-    const {id,checked}=e.target;
+  const handleChange2 = (e) => {
+    const { id, checked } = e.target;
+    setCheckedItems2({
+      ...checkedItems2,
+      [id]: checked,
+    });
+    setselectedNeuroscience((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
+  const handleChange3 = (e) => {
+    const { id, checked } = e.target;
     setCheckedItems3({
-        ...checkedItems3,
-        [id]:checked
+      ...checkedItems3,
+      [id]: checked,
     });
-    setselectSocialIssue((prevCheckedItems)=>{
-        if(checked){
-            return [...prevCheckedItems,id]
-        }else{
-            return prevCheckedItems.filter((item)=>item!==id)
-        }
-    })
-}
+    setselectSocialIssue((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
 
-const router = useRouter();
+  (saveVideoScreen,"saveVideflag")
 
-const handleNavigate = () => {
-  
-  router.push("/savelibray",{
-    // setData({ userId: "", postId: "" });
-  } 
+  const router = useRouter();
 
-  );
-};
+  const handleNavigate = () => {
+    router.push("/savelibray", {
+      // setData({ userId: "", postId: "" });
+    });
+  };
 
-const handleChange4 = (event) => {
+  const handleChange4 = (event) => {
     const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
     if (words.length <= 60) {
-        setInterestsDescription(event.target.value);
+      setInterestsDescription(event.target.value);
     }
-};
+  };
 
- 
   // Compute the count of selected checkboxes
   const selectedCount = Object.values(checkedItems).filter(Boolean).length;
   const selectedCount1 = Object.values(checkedItems1).filter(Boolean).length;
-    const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
-    const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
- 
- 
-  
+  const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
+  const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
+
   return (
     <>
       <Modal show={show} onHide={handleClose} centered className="custom-modal">
@@ -190,7 +215,7 @@ const handleChange4 = (event) => {
           <p>{video.description}</p>
         </Modal.Body>
       </Modal>
- 
+
       {/* <Modal
         show={show1}
         onHide={handleClose1}
@@ -289,7 +314,7 @@ const handleChange4 = (event) => {
           </div>
         </Modal.Body>
       </Modal> */}
- 
+
       <Modal show={show2} onHide={handleClose2} centered className="modal-dots">
         <div className="modal-bar">
           <div className="bar-line"></div>
@@ -299,7 +324,12 @@ const handleChange4 = (event) => {
           <div className="modal-btn-list-item">
             <ul>
               <li>
-                <button variant="primary" onClick={()=>{handleMoreLike(),handleClose2()}}>
+                <button
+                  variant="primary"
+                  onClick={() => {
+                    handleMoreLike(), handleClose2();
+                  }}
+                >
                   <Image
                     src={require("../../../assets/images/share-round.svg")}
                     alt="like"
@@ -310,21 +340,29 @@ const handleChange4 = (event) => {
                 </button>
               </li>
               <li>
-                
-                  <button variant="primary" onClick={()=>{handleNotInterestedTopic(),handleClose2()}}>
-                    <Image
-                      src={require("../../../assets/images/x-Icon.svg")}
-                      alt="like"
-                      width={32}
-                      height={32}
-                    />
-                    I am not interested about this topic
-                  </button>
-             
+                <button
+                  variant="primary"
+                  onClick={() => {
+                    handleNotInterestedTopic(), handleClose2();
+                  }}
+                >
+                  <Image
+                    src={require("../../../assets/images/x-Icon.svg")}
+                    alt="like"
+                    width={32}
+                    height={32}
+                  />
+                  I am not interested about this topic
+                </button>
               </li>
-              <div className="dropdown-divider" ></div>
+              <div className="dropdown-divider"></div>
               <li>
-                <button variant="primary" onClick={()=>{handleRemoveSuggation(),handleClose2()}}>
+                <button
+                  variant="primary"
+                  onClick={() => {
+                    handleRemoveSuggation(), handleClose2();
+                  }}
+                >
                   <Image
                     src={require("../../../assets/images/report-icon.svg")}
                     alt="like"
@@ -338,7 +376,7 @@ const handleChange4 = (event) => {
           </div>
         </ModalBody>
       </Modal>
- 
+
       <Modal
         show={show3}
         onHide={handleClose3}
@@ -466,22 +504,61 @@ const handleChange4 = (event) => {
             </Accordion>
           </div>
           <div className="text-area mt-4">
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Give us a description of your interests</Form.Label>
-                <Form.Control as="textarea" className="height-96 form-control" rows={3} value={interestsDescription} onChange={handleChange4} />
-                <p className="mt-2">{interestsDescription.length}/60 words</p>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Give us a description of your interests</Form.Label>
+              <Form.Control
+                as="textarea"
+                className="height-96 form-control"
+                rows={3}
+                value={interestsDescription}
+                onChange={handleChange4}
+              />
+              <p className="mt-2">{interestsDescription.length}/60 words</p>
             </Form.Group>
           </div>
           <div className="bottom-bar-modal">
             <div className="bottom-btn-bar-inner">
-            <button type="button" className={`btn-color-orange ${selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription ? 'disabled-btn' : 'active-btn'}`}  onClick={()=>{handleClose3(); handleInterestFilter(selectedSubstance,selectedHealth,selectedneuroscience,selectSocialIssue,interestsDescription)}} disabled={selectedSubstance.length <= 0 && selectedHealth.length <= 0 && selectedneuroscience.length <= 0 && selectSocialIssue.length <= 0 && !interestsDescription} >Send</button>
+              <button
+                type="button"
+                className={`btn-color-orange ${
+                  selectedSubstance.length <= 0 &&
+                  selectedHealth.length <= 0 &&
+                  selectedneuroscience.length <= 0 &&
+                  selectSocialIssue.length <= 0 &&
+                  !interestsDescription
+                    ? "disabled-btn"
+                    : "active-btn"
+                }`}
+                onClick={() => {
+                  handleClose3();
+                  handleInterestFilter(
+                    selectedSubstance,
+                    selectedHealth,
+                    selectedneuroscience,
+                    selectSocialIssue,
+                    interestsDescription
+                  );
+                }}
+                disabled={
+                  selectedSubstance.length <= 0 &&
+                  selectedHealth.length <= 0 &&
+                  selectedneuroscience.length <= 0 &&
+                  selectSocialIssue.length <= 0 &&
+                  !interestsDescription
+                }
+              >
+                Send
+              </button>
             </div>
           </div>
         </Modal.Body>
       </Modal>
- 
+
       {/* My Interests section here  */}
-      {index === 6   && showContent &&interest === '0' &&  (
+      {index === 6 && showContent && interest === "0" && (
         <div className="bg-orange-section">
           <div className="bg-orange-inner">
             <div className="bg-orange-title inline-gap-8">
@@ -496,7 +573,13 @@ const handleChange4 = (event) => {
               </div>
             </div>
             <div className="bg-orange-button">
-              <button className="btn-orange" onClick={()=>{handleShow3(); setShowContent(false)}}>
+              <button
+                className="btn-orange"
+                onClick={() => {
+                  handleShow3();
+                  setShowContent(false);
+                }}
+              >
                 My interests
               </button>
             </div>
@@ -504,7 +587,7 @@ const handleChange4 = (event) => {
         </div>
       )}
       {/* Video card slider section here  */}
-      {index === 4 && topicPost?.data?.length > 0 ?(
+      {index === 4 && topicPost?.data?.length > 0 ? (
         <div className="page-slider-section mb-4">
           <div className="slider-title">
             <div className="inline-gap-8">
@@ -523,7 +606,7 @@ const handleChange4 = (event) => {
               </div>
             </div>
           </div>
- 
+
           <div className="library-list mt-4">
             <div className="list-item-container">
               {topicPost &&
@@ -546,7 +629,9 @@ const handleChange4 = (event) => {
                       </Link>
                       <div className="video-de-title">
                         <div className="de-title">
-                          <Link href={`/mainHome/${video?._id}/videodetails2`}>{topicPost.title}</Link>
+                          <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                            {topicPost.title}
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -556,18 +641,18 @@ const handleChange4 = (event) => {
           </div>
         </div>
       ) : null}
- 
+
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="video-card card-height">
           <div className="video-card-content">
             <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
-                  <Image
-                    src={video.thumbnail}
-                    alt="video card"
-                    width={300}
-                    height={150}
-                  />
+                <Image
+                  src={video.thumbnail}
+                  alt="video card"
+                  width={300}
+                  height={150}
+                />
                 <div className="video-duration">{video.duration}</div>
               </div>
             </Link>
@@ -604,10 +689,12 @@ const handleChange4 = (event) => {
                 </div>
                 <div className="eng-name">{"Engagement Rating"}</div>
               </div>
- 
+
               <div className="video-de-title">
                 <div className="de-title">
-                  <Link  href={`/mainHome/${video?._id}/videodetails2`}>{video.title}</Link>
+                  <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                    {video.title}
+                  </Link>
                 </div>
                 <div className="more-btn" ref={dropdownRef}>
                   <button className="btn btn-more" onClick={toggleDropdown}>
@@ -652,26 +739,50 @@ const handleChange4 = (event) => {
                         </li>
                         <li className="show_mobile">
                           {/* <Link href="/savelibrary"> */}
-                            <button variant="primary" onClick={handleNavigate}>
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                  fill="#242424"
-                                />
-                              </svg>
-                              Save
-                            </button>
+                          <button
+                            variant="primary"
+                            onClick={() => {
+                              setSaveVideoScreen(true);
+                              setShow2(false);
+                            }}
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
+                                fill="#242424"
+                              />
+                            </svg>
+                            Save
+                          </button>
                           {/* </Link> */}
                         </li>
+                        {saveVideoScreen ? (
+                          <SaveLibrary
+                            getFolder={getFolder}
+                            handleCreateFolder={handleCreateFolder}
+                            handleDeleteFolder={handleDeleteFolder}
+                            handleSaveVideo={handleSaveVideo}
+                            setSelectedFolderId={setSelectedFolderId}
+                            handleRename={handleRename}
+                            rename={rename}
+                            setRename={setRename}
+                            getSaveVideo={getSaveVideo}
+                            getSubFolder={getSubFolder}
+                            handleCreateFolderSub={handleCreateFolderSub}
+                            handleGetFolderSub={handleGetFolderSub}
+                          />
+                        ) : (
+                          null
+                        )}
                         <div className="dropdown-divider"></div>
                         <li>
-                          <button href="#" onClick={()=>{console.log("hello"); handleNotIntrested(video?._id);setIsDropdownOpen(false)}}>
+                          <button href="#" onClick={()=>{ handleNotIntrested(video?._id);setIsDropdownOpen(false)}}>
                             <svg
                               width="24"
                               height="24"
@@ -692,7 +803,7 @@ const handleChange4 = (event) => {
                   )}
                 </div>
               </div>
- 
+
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
@@ -712,32 +823,72 @@ const handleChange4 = (event) => {
     </>
   );
 };
- 
-const VideoCardGrid = ({ getPost, topicPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic,handleRemoveSuggation,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested}) => (
-  // console.log(getPost, "this is get post---11111"),
-  (
-    <div className="row">
-      {getPost &&
-        Array.isArray(getPost) &&
-        getPost?.map((video, index) => (
-          <VideoCard
-            key={`video-${index}`}
-            video={video}
-            index={index}
-            topicPost={topicPost}
-            substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}
-            handleMoreLike={handleMoreLike}
-            handleNotInterestedTopic={handleNotInterestedTopic}
-            handleRemoveSuggation={handleRemoveSuggation}
-            data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}
-           
-          />
-        ))}
-    </div>
-  )
-);
- 
-export default VideoCardGrid;
- 
 
- 
+const VideoCardGrid = ({
+  getPost,
+  topicPost,
+  substance,
+  mentalHealth,
+  neuroScience,
+  socialIssues,
+  handleInterestFilter,
+  interest,
+  handleMoreLike,
+  handleNotInterestedTopic,
+  handleRemoveSuggation,
+  data,
+  getFolder,
+  rename,
+  setValue,
+  handleCreateFolder,
+  handleDeleteFolder,
+  handleRename,
+  handleSaveVideo,
+  setSelectedFolderId,
+  setRename,
+  handleNotIntrested,
+  getSaveVideo,
+  getSubFolder,
+  handleCreateFolderSub,
+  handleGetFolderSub,
+}) => (
+  // (getPost, "this is get post---11111"),
+  <div className="row">
+    {getPost &&
+      Array.isArray(getPost) &&
+      getPost?.map((video, index) => (
+        <VideoCard
+          key={`video-${index}`}
+          video={video}
+          index={index}
+          topicPost={topicPost}
+          substance={substance}
+          mentalHealth={mentalHealth}
+          neuroScience={neuroScience}
+          socialIssues={socialIssues}
+          handleInterestFilter={handleInterestFilter}
+          interest={interest}
+          handleMoreLike={handleMoreLike}
+          handleNotInterestedTopic={handleNotInterestedTopic}
+          handleRemoveSuggation={handleRemoveSuggation}
+          data={data}
+          getFolder={getFolder}
+          rename={rename}
+          setValue={setValue}
+          handleCreateFolder={handleCreateFolder}
+          handleDeleteFolder={handleDeleteFolder}
+          handleRename={handleRename}
+          handleSaveVideo={handleSaveVideo}
+          setSelectedFolderId={setSelectedFolderId}
+          setRename={setRename}
+          handleNotIntrested={handleNotIntrested}
+          getSaveVideo={getSaveVideo}
+          getSubFolder={getSubFolder}
+          handleCreateFolderSub={handleCreateFolderSub}
+          handleGetFolderSub={handleGetFolderSub}
+        />
+      ))}
+  </div>
+);
+
+export default VideoCardGrid;

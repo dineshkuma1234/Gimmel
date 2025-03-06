@@ -23,14 +23,14 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const [selected, setSelected] = useState('');
 
     const [selectedval, setSelectedval] = useState([])
-// ;    console.log( selected,'selected----');
+// ;    ( selected,'selected----');
     const handleSelect = (label) => {
         setSelected(label);
         const arr =[label];
         setSelectedval(arr);
-        // console.log( arr,'selected value---',);
+        // ( arr,'selected value---',);
     };
-    // console.log(handleSelect,'handleSelect----');
+    // (handleSelect,'handleSelect----');
     const [minValue, setMinValue] = useState(12);
     const [maxValue, setMaxValue] = useState(30);
     const [sliderValues, setSliderValues] = useState([])
@@ -40,7 +40,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
         setMaxValue(max);
         const arr = [min, max]
         setSliderValues(arr);
-        // console.log('min max array', arr);
+        // ('min max array', arr);
     };
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -71,10 +71,10 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const [item,setItems]=useState([]);
     const [selectedmaturity,setselectedMaturity] =useState([])
     const [slectedEducation,setSelectedEducation]=useState([])
-    console.log(slectedEducation,"slectedEducation-----")
+    (slectedEducation,"slectedEducation-----")
 
     useEffect(()=>{
-        // console.log(item, 'my item is here')
+        // (item, 'my item is here')
     },[item,selectedmaturity,slectedEducation]);
 
     const handleChange = (e) => {
@@ -136,7 +136,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
         }
     };
 
-//  console.log(slectedEducation,"slectedEducation----")
+//  (slectedEducation,"slectedEducation----")
     const handleChangeeducation = (e) => {
         const { id, checked } = e.target;
 

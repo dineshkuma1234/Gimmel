@@ -19,7 +19,7 @@ export default function Home() {
   const [getPost, setGetPost] = useState([]);
   const {setLoader} = UseLoader()
 
-  // console.log(getvideoid,"getvideoid---")
+  // (getvideoid,"getvideoid---")
 //   // Track screen width for responsive rendering
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -70,7 +70,7 @@ export default function Home() {
       }
 
       const result = await AuthService.GetPost(page);
-      // console.log(result, "result----");
+      // (result, "result----");
 
       if (result?.success) {
         setTotal(result?.data?.totalPosts);
@@ -96,7 +96,7 @@ export default function Home() {
  
 // PostSlider on home page//
 const [topicPost, setTopicPost] = useState("")
-// console.log(topicPost,"topicPost---")
+// (topicPost,"topicPost---")
 useEffect(() => {
   handleTopicPost();
 }, []);
@@ -104,7 +104,7 @@ const handleTopicPost = async () => {
   // setLoader(true);
   try {
     const result = await AuthService.TopicPost();
-    // console.log(result, 'result---')
+    // (result, 'result---')
     if (result?.success) {
       setTopicPost(result?.data)
     } else {
@@ -115,7 +115,7 @@ const handleTopicPost = async () => {
   } catch (error) {
     // setLoader(false);
 
-    // console.log('Error occurred:', 'Gimmel', error);
+    // ('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -134,13 +134,13 @@ const handleTopicPost = async () => {
   // },[]);
 
   
-  // console.log(historyList,"historyList--------");
+  // (historyList,"historyList--------");
 const handleHistoryList = async (headerSearch) => {
 
   // setLoader(true);
   try {
       const result = await AuthService.SearchHistory(headerSearch);
-      // console.log(result.data, 'result');
+      // (result.data, 'result');
       if (result?.success) {
         // setLoader(false);
         setHistoryList(result?.data?.data || []);
@@ -149,7 +149,7 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
   const handleSearchCont = async (
@@ -164,7 +164,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedValue,
     selectedAudience,
   ) => {
-    // console.log(headerSearch,"usecase--0000")
+    // (headerSearch,"usecase--0000")
     // setLoader(true);
       try {
       const result = await AuthService.SearchResult(
@@ -179,7 +179,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedValue,
         selectedAudience,
       );
-      // console.log(result, 'result---');
+      // (result, 'result---');
       // setLoader(false);
 
       if (result?.success) {
@@ -200,7 +200,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 

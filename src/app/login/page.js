@@ -11,12 +11,12 @@ function PageComponent() {
     const router = useRouter(); 
     const {setLoader} = UseLoader()
     const handleLogIn = async( data) => {
-        // console.log(data,"this the data")
+        // (data,"this the data")
         setLoader(true);
         
         try {
             const result = await AuthService.LogIn(data?.signId, data?.password);
-            // console.log(result,"result----")
+            // (result,"result----")
             if (result?.success) {
                 setLoader(false);
                 // AlertHelper.show('success', 'Gimmel', result?.message);
@@ -25,7 +25,7 @@ function PageComponent() {
                 });
                 localStorage.setItem( 'token', result?.data?.token);
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-                // console.log(result?.data?.token,"this the value")
+                // (result?.data?.token,"this the value")
                 // AsyncStorage.setItem('interest', isInterestValue);
                 router.push("/");
                 
@@ -38,7 +38,7 @@ function PageComponent() {
             }
         } catch (error) {
             setLoader(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     return (

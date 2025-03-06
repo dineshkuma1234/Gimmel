@@ -14,7 +14,7 @@ export default function SearchScreen() {
            handleHistoryList(headerSearch);
          }
        }, [headerSearch]);
-//  console.log(historyList,"historyList====")
+//  (historyList,"historyList====")
     const handleHistoryList =async (headerSearch) =>{
         try {
             const result = await AuthService.SearchHistory(headerSearch);
@@ -22,10 +22,10 @@ export default function SearchScreen() {
                 setHistoryList(result?.data?.data || []);
             }
             else {
-                // console.log(result?.message);
+                // (result?.message);
             }
         }catch (error) {
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
     }
 
     const handleSearchCont = async (
@@ -55,7 +55,7 @@ export default function SearchScreen() {
           selectedValue,
           selectedAudience,
         );
-        // console.log(result, 'result---111');
+        // (result, 'result---111');
         // setLoader(false);
   
         if (result?.success) {
@@ -79,7 +79,7 @@ export default function SearchScreen() {
         }
       } catch (error) {
         // setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
   

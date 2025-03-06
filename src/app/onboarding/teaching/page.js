@@ -30,7 +30,7 @@ function Teaching() {
     const handleNavigateOnBoardingSuccess = () => {
         navigation.navigate('OnBoardingSuccess');
     };
-    // console.log(teachingTopic,"teaching-----")
+    // (teachingTopic,"teaching-----")
     const handleNavigateHomeScreen = () => {
         navigation.navigate('TabNavigation');
     };
@@ -43,11 +43,11 @@ function Teaching() {
 
     const handleOnboarding = async (selectedval,sliderValues,item,selectedmaturity,slectedEducation) => {
         // LoaderHelper.loaderStatus(true);
-        // console.log(selectedval,"this is selected val---2");
-        // console.log(sliderValues,"sliderValues----2")
-        // console.log(item,"item----2");
-        // console.log(selectedmaturity,"selectedMaturity---2");
-        // console.log(slectedEducation,"selectedEducation---2")
+        // (selectedval,"this is selected val---2");
+        // (sliderValues,"sliderValues----2")
+        // (item,"item----2");
+        // (selectedmaturity,"selectedMaturity---2");
+        // (slectedEducation,"selectedEducation---2")
         try {
             const result = await AuthService.OnBoarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation);
             if (result?.success) {
@@ -59,7 +59,7 @@ function Teaching() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     
@@ -74,7 +74,7 @@ function Teaching() {
                 // AlertHelper.show('danger', 'Gimmel', result?.message);
             }
         } catch (error) {
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -91,7 +91,7 @@ function Teaching() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -99,7 +99,7 @@ function Teaching() {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.TeachingLocations();
-            // console.log(result,"result-----")
+            // (result,"result-----")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
                 setTeachingLocation(result?.data?.teachLocation)
@@ -109,7 +109,7 @@ function Teaching() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -126,7 +126,7 @@ function Teaching() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 

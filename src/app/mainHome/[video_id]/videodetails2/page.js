@@ -29,8 +29,10 @@ function PageComponent() {
   const {setLoader} = UseLoader()
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [suggested,setsuggested]=useState()
+  const [getSaveVideo,setGetSaveVideo] = useState([]);
+  const [getSubFolder,setGetFolderSub]= useState();
+  (getSaveVideo,"getSaveVideo++++++++++++++________")
   const [topicPost, setTopicPost] = useState("")
-  // console.log(suggested,"suggested[[[[]]]]]]==")
   useEffect(() => {
      
           handleGetPostid();
@@ -40,9 +42,16 @@ function PageComponent() {
           handleCreateFolder()
           handleGetSuggested()
           handleNotIntrested()
+          handleCreateFolderSub()
+          handleGetFolderSub()
           handleTopicPost();
+          // handleSaveVideonext(selectedFolderId)
   }, []);
-  
+  useEffect(() => {
+    if (selectedFolderId) {
+        handleSaveVideonext(selectedFolderId);
+    }
+}, [selectedFolderId]);
   useEffect(() => {
       
       
@@ -75,11 +84,11 @@ function PageComponent() {
 
           
          setdata(result?.data)
-        //  console.log(result, "data----nwetest");
+        //  (result, "data----nwetest");
 
           // if (result?.data?.postId) {
           //   setPostId(result.data.postId);
-          //   console.log("Post ID Updated:", result.data.postId);
+          //   ("Post ID Updated:", result.data.postId);
           // } else {
           //   console.warn("postId not found in API response");
           // }
@@ -97,7 +106,7 @@ function PageComponent() {
       setLoader(true);
       try {
           const result = await AuthService.getQuize(id);
-          // console.log(result,"result of quize-----")
+          // (result,"result of quize-----")
           if (result?.success) {
               setGetQuiz(result?.questions)
               setLoader(false);
@@ -107,7 +116,7 @@ function PageComponent() {
           }
       } catch (error) {
         setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
     
@@ -117,7 +126,7 @@ function PageComponent() {
         try {
         const result = await AuthService.GetFolder(value);
         if (result?.success) {
-          // console.log(result,"result of get folder")
+          // (result,"result of get folder")
           // LoaderHelper.loaderStatus(false);
           setGetFolder(result?.data?.data);
         } else {
@@ -125,7 +134,7 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
   
@@ -134,7 +143,7 @@ function PageComponent() {
       // setLoader(true);
       try {
         const result = await AuthService.createFolder(folders);
-        // console.log(result, 'result');
+        // (result, 'result');
         if (result?.success) {
           // setLoader(false);
           handleGetFolder();
@@ -145,7 +154,7 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
   
@@ -155,7 +164,7 @@ function PageComponent() {
       try {
         const result = await AuthService.deleteFolder(id);
         
-        // console.log(result, "result---delete")
+        // (result, "result---delete")
         if (result?.success) {
           setLoader(false);
           handleGetFolder();
@@ -166,18 +175,18 @@ function PageComponent() {
         }
       } catch (error) {
         setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
   
     const handleRename = async (rename, id) => {
 
-      // console.log(rename, id, "rename and id --------------")
+      // (rename, id, "rename and id --------------")
       // setLoader(true);
       try {
         const result = await AuthService.renames(rename, id);
         if (result?.success) {
-          // console.log(result, "result of rename")
+          // (result, "result of rename")
           // setLoader(false);
           handleGetFolder();
           setRename("");
@@ -188,29 +197,29 @@ function PageComponent() {
         }
       } catch (error) {
         // setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
   
     const handleSaveVideo = async () => {
-      // console.log("handleSaveVideo function called");
+      // ("handleSaveVideo function called");
 
       // setLoader(true);
 
       if(!selectedFolderId){
-        // console.log("No folder selected. Exiting function.");
+        // ("No folder selected. Exiting function.");
 
         // AlertHelper.show('warning', 'Gimmel',"Please select folder");
         return;
       }
-      setLoader(false);
+      // setLoader(false);
 
       try {
-        // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+        // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
         const result = await AuthService.SaveVideo(selectedFolderId, postId);
         if (result?.success) {
-          // console.log("Video saved successfully:", result);
+          // ("Video saved successfully:", result);
 
           // setLoader(false);
           setSelectedFolderId(null)
@@ -219,23 +228,23 @@ function PageComponent() {
           // navigation.setParams({
           //   data: null,
           // });
-          // console.log("Navigation to videodetails2 triggered.");
+          // ("Navigation to videodetails2 triggered.");
 
           // AlertHelper.show('success', 'Gimmel', result?.data);
         } else {
           // setLoader(false);
-          // console.log("Failed to save video. Error message:", result?.message);
+          // ("Failed to save video. Error message:", result?.message);
 
           // AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
         // setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
     const handleSharePost = async (id, selectedTopics) => {
       // setLoader(true);
-      // console.log(handleSharePost, "handleSharePost")
+      // (handleSharePost, "handleSharePost")
       try {
           const result = await AuthService.SharePost(id, selectedTopics);
           if (result?.success) {
@@ -248,7 +257,7 @@ function PageComponent() {
           }
       } catch (error) {
         // setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
       }
     };
     const handleReportPost = async (selectedValues,text,postId) => {
@@ -268,7 +277,7 @@ function PageComponent() {
           }
       } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
       }
     };
     const handleGetSuggested = async () => {   
@@ -276,10 +285,10 @@ function PageComponent() {
     
       try {
         const result = await AuthService.getSuggested(postId);
-        // console.log("API Response:", result);
+        // ("API Response:", result);
     
         if (result?.success) {
-          // console.log("Suggested Data Set:", result?.data);
+          // ("Suggested Data Set:", result?.data);
           setsuggested(result?.data); // Set suggested data
         } else {
           // console.warn("API call was not successful");
@@ -297,7 +306,7 @@ function PageComponent() {
       setLoader(true);
       try {
         const result = await AuthService.TopicPost();
-        // console.log(result, 'result---')
+        // (result, 'result---')
         if (result?.success) {
           setTopicPost(result?.data)
           setLoader(false);
@@ -310,19 +319,19 @@ function PageComponent() {
       } catch (error) {
         setLoader(false);
     
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
     
 
     const handleNotIntrested = async (id) => {
       // LoaderHelper.loaderStatus(true);
-      // console.log('function calll')
+      // ('function calll')
       setLoader(true);
       try {
 
         const result = await AuthService.NotIntrested(id);
-        // console.log(result, "result---")
+        // (result, "result---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
           setLoader(false);
@@ -339,17 +348,82 @@ function PageComponent() {
       } catch (error) {
         // LoaderHelper.loaderStatus(false);
         setLoader(false);
-        // console.log('Error occurred:', 'Gimmel', error);
+        // ('Error occurred:', 'Gimmel', error);
       }
     };
-    
+    const handleSaveVideonext = async (selectedFolderId) => {
+      ("Function called with Folder ID:", selectedFolderId);
+
+      // LoaderHelper.loaderStatus(true);
+      try {
+        ("Calling API to fetch saved videos...");
+        const result = await AuthService.GetSaveVideo(selectedFolderId);
+        ("API Response:", result);
+
+
+        if (result?.success) {
+          ("Videos received successfully:", result.videos);
+
+          // LoaderHelper.loaderStatus(false);
+          setGetSaveVideo(result?.videos);
+        } else {
+          ("API call was unsuccessful:", result?.message || result);
+
+          // LoaderHelper.loaderStatus(false);
+          // AlertHelper.show('danger', 'Gimmel', result?.message || result );
+        }
+      } catch (error) {
+        console.error("Error occurred while fetching videos:", error);
+
+        // LoaderHelper.loaderStatus(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
+    const handleCreateFolderSub = async (id,addnewFolder) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+        const result = await AuthService.createSubFolder(id,addnewFolder);
+        (result,"result---")
+        if (result?.success) {
+          // LoaderHelper.loaderStatus(false);
+          // AlertHelper.show('success', 'Gimmel', result?.data);
+          handleGetFolderSub(id);
+        } else {
+          // LoaderHelper.loaderStatus(false);
+          // AlertHelper.show('danger', 'Gimmel', result?.message  );
+        }
+      } catch (error) {
+        // LoaderHelper.loaderStatus(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
+    const handleGetFolderSub = async (selectedFolderId) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+        const result = await AuthService.GetSubFolder(selectedFolderId,value);
+        if (result?.success) {
+          // LoaderHelper.loaderStatus(false);
+          (result?.data?.data,"dat in api")
+          setGetFolderSub(result?.data?.data);
+        } else {
+          // LoaderHelper.loaderStatus(false);
+          // AlertHelper.show('danger', 'Gimmel', result?.message  );
+        }
+      } catch (error) {
+        // LoaderHelper.loaderStatus(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
   return (
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
   ) : ( 
-    <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost}/>
+    <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
 
   )}
   </>

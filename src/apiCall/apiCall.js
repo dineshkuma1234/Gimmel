@@ -10,7 +10,6 @@ export const ApiCallPost = async (url, parameters, headers) => {
   }
 };
 export const ApiCallGet = async (url, parameters, headers) => {
-  console.log(url,"url")
   try {
     const response = await axios.get(url, {
       params: parameters,
@@ -45,11 +44,8 @@ export const ApiCallDelete = async (url, parameters, headers) => {
       headers: headers,
       data: parameters,
     });
-    console.log(response, 'in axiosget function');
     return response?.data;
   } catch (error) {
-    console.log(error, 'eroor in axios');
-    console.error('API Call Error:', error.response?.data || error.message);
     return error;
   }
 };
@@ -59,7 +55,7 @@ export const ApiCallPut = async (url, parameters, headers) => {
     const response = await axios.put(url, parameters, {headers: headers});
 
     // Log response details
-    console.log('API Call Response:', response);
+    ('API Call Response:', response);
 
     return response?.data;
   } catch (error) {
@@ -75,7 +71,7 @@ export const ApiCallPatch = async (url, parameters, headers) => {
     const response = await axios.patch(url, parameters, {headers: headers});
 
     // Log response details
-    console.log('API Call Response (PATCH):', response);
+    ('API Call Response (PATCH):', response);
 
     return response?.data;
   } catch (error) {

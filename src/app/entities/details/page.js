@@ -19,16 +19,22 @@ import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
 import { type } from "os";
-function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,suggested,handleNotIntrested}) {
-//  console.log(handleGetSuggested,"handleGetSuggested++++++++++++++________")
-//  console.log(VideoDetailsState,"VideoDetailsState-----------------")
+import calculateMonthsAgo from "../../utils/monthsAgo/page"
+// import { useSave } from "@/app/Context/saveContext/SaveContext";
+function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,suggested,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
 
-
+// const {}=useSave();
     const [show1, setShow1] = useState(false);
-
-    const handleClose1 = () => setShow1(false);
+    useEffect(() => {
+        if (!show1) {
+            setSubfolder("");  // Jab modal close ho jaye to subfolder clear ho jaye
+        }
+    }, [show1]);
+    
+    const handleClose1 = () => {setShow1(false);setSubfolder("");setSubfolderView(false)}
     const handleShow1 = () => setShow1(true);
-
+    const [subFolderView,setSubfolderView] = useState(false);
+    const [subfolderName,setSubfolderName] = useState('');
     const [show2, setShow2] = useState(false);
 
     const handleClose2 = () => setShow2(false);
@@ -78,7 +84,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
-    // console.log(data,"datat9999")
+    // (data,"datat9999")
     
 
     const convertToKM =(num)=> {
@@ -116,20 +122,32 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
         }
         return timeAgo;
     }
+
+  
+
     const handleChange = (e) => {
-        setFolders(e.target.value);
+        if (subFolderView) {
+            setAddNewFolder(e.target.value)
+
+        }else{
+            setFolders(e.target.value);
+
+        }
     }
 
     const [active, setActive]  = useState(null)
 
-    const handleNavigateSave = (_id) => {
-        // console.log('_id', _id)
-        setSelectedFolderId(_id);
-        // console.log('Clicked Folder ID:', folderId);
-
-        setActive(_id);
+    const handleNavigateSave = (item) => {
+        // ('_id', _id)
+        setSelectedFolderId(item?._id);
+        setSubfolderName(item?.name);
+        setSubfolderView(true);
+        setActive(item?._id);
+        // handleCreateFolderSub(addnewFolder);
+        // handleGetFolderSub(item?._id)
+        
     }; 
-    // console.log('folders====00000098888', folders)
+    // ('folders====00000098888', folders)
     const [deleteModel, setDeleteModel] = useState(false)
     // const [selectedItem, setSelectedItem] = useState(null);
     const [renameModel, setRenameModel] = useState(false);
@@ -151,13 +169,13 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
 
    
        const toggleDropdownnwe = (item) => {
-        // console.log(item,"if")
+        // (item,"if")
            setisDropdownOpenid((prev) => (prev === item ? null : item));
            setThreeDotItem(item);
 
 
        };
-    // //    console.log(isDropdownOpenid,"isDropdownOpenid")
+    // //    (isDropdownOpenid,"isDropdownOpenid")
     //    const handleClickOutsidenwe = (event) => {
     //        if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
     //            setisDropdownOpenid();
@@ -166,7 +184,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
    
        
    
-// console.log(isDropdownOpenid,"getfolder")
+// (isDropdownOpenid,"getfolder")
     // };
 
     //    useEffect(() => {
@@ -228,6 +246,8 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
         return selectedValues.includes(itemName);
     };
 
+
+    (getSaveVideo,"getSaveVideo")
     const copyUrl = () => {
         navigator.clipboard.writeText(shareLink);
     };
@@ -248,8 +268,12 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     const handleChange2 = (e) => {
         setText(e.target.value);
     };
-    // console.log(text,"text value8888")
-    // console.log(selectedValue,"selectedValue value8888")
+    // (text,"text value8888")
+    // (selectedValue,"selectedValue value8888")
+    const [Subfolder,setSubfolder] = useState()
+    const [addnewFolder, setAddNewFolder] = useState('');
+
+    (getSubFolder,"Subfolder")
     return (
         <>
                {/* Rename folder modal start */}
@@ -407,9 +431,9 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
             </Modal>
 
             {/* Save to My Library Modal start */}
-            <Modal show={show1} onHide={handleClose1} centered className='custom-modal pe-0'>
+            <Modal show={show1} onHide={handleClose1} onClick={() => setSubfolder("Subfolder")}  centered className='custom-modal pe-0'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Save to My Library</Modal.Title>
+                    <Modal.Title>{subFolderView? subfolderName :`Save to My Library`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='body-top'>
@@ -437,9 +461,14 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                     </div>
                     <div className='body-middle'>
                     <div className='folder-lists'>
-                        {Array.isArray(getFolder) && getFolder.map((item, index) => (
+
+                        {/* // doesnt make sense */}
+                    {/* {getSaveVideo === "getFolder"} */}
+
+                    {Array.isArray(getFolder) &&!subFolderView ?    
+                    getFolder.map((item, index) => (
                             <div key={index} className='folder-view'>
-                            <div className='folder-inner'>
+                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item)}}>
                                 <div className='folder-content-inline'>
                                 <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
                                     <div className='folder-icon'>
@@ -492,11 +521,114 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                         )}
                                     </div>
                                     </div>
+                        
                                 </div>
+                                
                                 </div>
+                                
+                            </div>
+                            </div>
+                        )):subFolderView ?
+<>
+                       { Array.isArray(getSubFolder)&&getSubFolder?.map((item, index) => (
+                            <div key={index} className='folder-view'>
+                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item?._id)}}>
+                                <div className='folder-content-inline'>
+                                <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+                                    <div className='folder-icon'>
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 32 32"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                        fill="#104E5B"
+                                        />
+                                    </svg>
+                                    </div>
+                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                                        <p className="">{item.name}</p>
+                                    </div>
+                                </div>
+
+                                <div className='folder-content-right'>
+                                    <div className='folder-icon'>
+                                    <div className="folder-content-right" ref={dropdownRefnwe}>
+                                        <button
+                                        className="folder-icon"
+                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                                        >
+                                        <MdMoreVert />
+                                        </button>
+
+                                        {/* Show the dropdown only if it matches the current item's ID */}
+                                        {isDropdownOpenid?._id === item._id && (
+                                        <div className="dropdown-menu-card">
+                                            <ul>
+                                            <li>
+                                                <button variant="primary" onClick={handleShow}>
+                                                <TbEdit />
+                                                Rename
+                                                </button>
+                                            </li>
+                                            <li className="hide_mobile">
+                                                <button variant="primary" onClick={handleShow6}>
+                                                <MdDeleteOutline />
+                                                Delete
+                                                </button>
+                                            </li>
+                                            </ul>
+                                        </div> 
+                                        )}
+                                    </div>
+                                    </div>
+                        
+                                </div>
+                                
+                                </div>
+                                
                             </div>
                             </div>
                         ))}
+                        {Array.isArray(getSaveVideo) && getSaveVideo.map((item, index) => (
+                             <div className="video-card-container" key={index}>
+                             <div className="video-card-content">
+                                 {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
+                                     <div className="video-card-image">
+                                         <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                         <div className="video-duration">{item?.duration}</div>
+                                     </div>
+                                 {/* </Link> */}
+                                  <div className="inline-gap-8">
+                                    <div className="video-title">
+                                        <h2>{item?.title}</h2>
+                                    </div>
+                                </div>
+                                <div className="bold-text">
+                                {item?.channelName}
+                                </div>
+                                <div className="accout-rating">
+                                                    <div className="rating-icon align-items-center gap-2 "><Image src={require("../../../assets/images/time.svg")} alt="Rating" />                                                     <span>{calculateMonthsAgo(item?.createdAt)}</span>
+                                                    </div>
+                                                    {/* <span>month</span> */}
+                                                </div>
+                                 <div className="video-card-detail">
+                                     <div className="video-de-title">
+                                         <div className="de-title">
+                                             {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                        ))}
+                        </>
+                        :null
+                        }
+                        
                         </div>
 
 
@@ -512,7 +644,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                     </div>
                     <div className="body-footer">
                         <button type="button" className="btn-color-orange" onClick={ () =>{
-                        handleClose1
+                        handleClose1()
                         handleSaveVideo()
                         }}>Save here</button>
                     </div>
@@ -538,8 +670,15 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                             () => {
                                 handleClose5();
                                 // addNewFolder();
-                                handleCreateFolder(folders);
+                                if(subFolderView){
+                                    handleCreateFolderSub(active,addnewFolder)
 
+                                }
+                                else{
+                                    handleCreateFolder(folders);
+                                }
+                              
+                                
                             }
 
                         }>Create folder</button>
@@ -582,7 +721,12 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                                 Share
                                             </button>
                                             <button className="btn btn-light-bg" onClick={handleShow1}>
-                                            <Image src={require("../../../assets/images/save.svg")} alt="Share" />
+                                                
+                                            { data?.isSaved ?  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z" fill="#F18D51"/>
+                                            </svg> :<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z" fill="#104E5B"/>
+                                            </svg> }
                                                 Save
                                             </button>
                                             <button className="btn btn-light-bg" onClick={handleShow4}>
@@ -602,8 +746,12 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                                             </li>
                                                             <li>
                                                                 <button variant="primary" onClick={handleShow1}>
-                                                                    <Image src={require("../../../assets/images/save.svg")} alt="save" />
-                                                                    Save
+                                                                { data?.isSaved ?  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z" fill="#F18D51"/>
+                                                                </svg> :<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z" fill="#104E5B"/>
+                                                                </svg> } 
+                                                                Save
                                                                 </button>
                                                             </li>
                                                             <li>
@@ -780,7 +928,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="first">
                                                     <div className="tab-details-container">
-                                                        <SuggestedCardGrid suggested={suggested}  getFolder={getFolder} rename={rename} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
+                                                        <SuggestedCardGrid suggested={suggested}  getFolder={getFolder} rename={rename} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}  getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
                                                     </div>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="second">

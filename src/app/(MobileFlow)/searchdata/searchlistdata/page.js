@@ -11,7 +11,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import FilterData from "@/components/header/filterdata";
 
 function SearchList({searchListState,}) {
-  // console.log("this is conole on searchlist")
+  // ("this is conole on searchlist")
     const {headerSearch,setHeaderSearch,handleSearchCont,handleNotIntrested} = useHeader();
     const router = useRouter();
 
@@ -87,7 +87,7 @@ function SearchList({searchListState,}) {
                         </div>
                     </div>
                     <div className="page-section-right">
-                        <div className="add-folder-button" onClick={()=>{console.log("hey "); handleShow()}}>
+                        <div className="add-folder-button" onClick={()=>{("hey "); handleShow()}}>
                             <button className="btn">
                                 <Image src={require("../../../../assets/images/filter.svg")} alt="add folder" />
                             </button>

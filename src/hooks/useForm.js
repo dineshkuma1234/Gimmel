@@ -28,13 +28,13 @@ export const useForm = (formData, validation, callback) => {
       } else {
         if (!Number(value) && field.validator.regEx&&field) {
           if (!field.validator.regEx.test(value)) {
-            // console.log('value2');
+            // ('value2');
             error = field.validator.error;
           }
         }
         if (Number(value) && !!field.validator?.mobileValidate?.regEx) {
           if (!field.validator.mobileValidate.regEx.test(value)) {
-            // console.log('value1');
+            // ('value1');
             error = field.validator.mobileValidate.error;
           }
         }

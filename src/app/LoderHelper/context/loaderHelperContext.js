@@ -13,7 +13,7 @@ export const LoaderProvider = ({ children }) => {
     setLoaderState(status);
   };
 
-  // console.log(loaderState,"loaderState");
+  // (loaderState,"loaderState");
  
   return (
 <LoaderContext.Provider value={{ loaderState, setLoader }}>
