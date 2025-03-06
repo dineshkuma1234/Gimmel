@@ -11,7 +11,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import FilterData from "@/components/header/filterdata";
 
 function SearchList({searchListState,}) {
-  console.log("this is conole on searchlist")
+  // console.log("this is conole on searchlist")
     const {headerSearch,setHeaderSearch,handleSearchCont,handleNotIntrested} = useHeader();
     const router = useRouter();
 

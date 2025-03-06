@@ -134,7 +134,7 @@ export const HeaderProvider = ({ children }) => {
         // console.log('function calll')
         setLoader(true);
         try {
-        console.log("loading" )
+        // console.log("loading" )
           const result = await AuthService.NotIntrested(id);
           // console.log(result, "result---")
           if (result?.success) {
