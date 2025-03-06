@@ -9,6 +9,7 @@ import Image from "next/image";
 import Select from "react-select";
 
 function SearchList({searchListState}){
+    const [reset, setReset] = useState(false);
    
 //   const router = useRouter();
 //   const { data } = router.query;
@@ -20,7 +21,7 @@ const options = [
   ];
     return (
         <>
-            <Header />
+            <Header reset={reset} setReset={setReset}/>
 
             <main id="main" className="top-space-filter">
                 <div className="category-filter-container">

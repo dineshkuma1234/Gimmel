@@ -558,7 +558,7 @@ const handleChange4 = (event) => {
       ) : null}
  
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="video-card">
+        <div className="video-card card-height">
           <div className="video-card-content">
             <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
@@ -671,7 +671,7 @@ const handleChange4 = (event) => {
                         </li>
                         <div className="dropdown-divider"></div>
                         <li>
-                          <button href="#" onClick={()=>{handleNotIntrested(video?._id)}}>
+                          <button href="#" onClick={()=>{console.log("hello"); handleNotIntrested(video?._id);setIsDropdownOpen(false)}}>
                             <svg
                               width="24"
                               height="24"

@@ -44,7 +44,7 @@ function Header() {
     }, [menuOpen]);
 
     const [showHistory, setShowHistory] = useState(false);
-    const [showFilter, setShowFilter] = useState(false);
+    const [showFilter,setShow] = useState(false);
     const containerRef = useRef(null);
 
     const handleShowHistory = () => {
@@ -55,16 +55,16 @@ function Header() {
     };
 
     const handleShowFilter = () => {
-        setShowFilter(true);
+    setShow(true);
         // add class to search input
         const searchInput = document.querySelector('.search-container');
         searchInput.classList.add('active');
     };
 
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event) => { 
         if (containerRef.current && !containerRef.current.contains(event.target)) {
             setShowHistory(false);
-            setShowFilter(false);
+        setShow(false);
             // remove class from search input
             const searchInput = document.querySelector('.search-container');
             searchInput.classList.remove('active');
@@ -89,7 +89,7 @@ function Header() {
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     
 
-     console.log(historyList,"historyList----")
+    //  console.log(historyList,"historyList----")
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">
@@ -110,10 +110,12 @@ function Header() {
                             //     handleHistoryList(headerSearch);
                             //   }}
                             onClick={(e) => handleHistoryList(e.target.value)}
-                            onFocus={handleShowHistory}
+                            onFocus={()=>{handleShowHistory(); setShow(false); }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     handleSearchCont(headerSearch);
+                                    setShowHistory(false);
+                                      
                                 }}
                             }    
 
@@ -126,8 +128,8 @@ function Header() {
                                 {historyList.length > 0 ?(
                                     <ul>
                                     {historyList.map((item, index) => (
-                                        <li key={index} onClick={()=>handleHistoryItemClick(item)}>
-                                            <Link href="/">
+                                        <li key={index} onClick={()=>{handleHistoryItemClick(item); setShowHistory(false)}}>
+                                            <Link href="">
                                                 <div className='search-history-left'>
                                                     <Image src={item.type === "suggestion" ? vectorIcon : historyIcon} alt="history icon"  />
                                                     {item.title}
@@ -149,12 +151,12 @@ function Header() {
                         {showFilter && (
                             <div className="filter-history" id="searchHistory">
                                 <div className='filter-content'>
-                                    <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch}/>
+                                    <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch} setShow={setShow}/>
                                 </div>
                             </div>
                         )}
                     </div>
-
+                        
                     <div className='search-icon'>
                         <Link href="/search">
                         <Image src={require("../../assets/images/search-icon.svg")} alt="search icon" /> </Link>

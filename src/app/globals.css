@@ -2374,3 +2374,14 @@ button.folder-icon {
   font-weight: bold;
   height: -webkit-fill-available ;
 }
+
+
+.model-custom-body .filter-content .middle-section {
+  height: 100%;
+  overflow: auto;
+  padding-right: 0px;
+}
+
+.card-height{
+  height: fit-content !important;
+}

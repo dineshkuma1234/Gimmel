@@ -58,7 +58,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
     const handleEditClick = () => {
         if (isEditable) {
-            console.log("is this fxn call")
+            
             // Runs only when clicking "Save Changes"
             handleEditProfile( 
             selected.map(option => option.value),  // Extract values only

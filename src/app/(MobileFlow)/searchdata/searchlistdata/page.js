@@ -6,21 +6,60 @@ import VideoCardGridMobile from "../../../componentsIn/videogrid/VideoCardGridMo
 import BottomBar from "../../../../components/BottomBar/BottomBar";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import { useRouter } from 'next/navigation';
+import { Modal } from "react-bootstrap";
+import { IoCloseSharp } from "react-icons/io5";
 import FilterData from "@/components/header/filterdata";
 
-function SearchList({searchListState}) {
-    const {headerSearch,setHeaderSearch,handleSearchCont} = useHeader();
+function SearchList({searchListState,}) {
+  // console.log("this is conole on searchlist")
+    const {headerSearch,setHeaderSearch,handleSearchCont,handleNotIntrested} = useHeader();
     const router = useRouter();
-    const handleFocus = () => {
-        router.push('/search');
-      };
-      const [showFilter, setShowFilter] = useState(false);
 
-      const handleButtonClick = () => {
-        setShowFilter(true);
-      };
+
+        const [show, setShow] = useState(false);
+      
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
+
     return (
         <>
+       <Modal
+        show={show}
+        onHide={handleClose}
+        centered
+        className="custom-modal filter-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Full Summary</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="modal-bar">
+            <div className="bar-line"></div>
+          </div>
+          <div className="model-custom-header">
+            <div className="model-custom-header-left">
+              <div className="model-head-title">
+                <Image
+                  src={require("../../../../assets/images/filter.svg")}
+                  alt=""
+                />
+                <h3 className="model-title">Filters</h3>
+              </div>
+            </div>
+            <div className="model-custom-header-right">
+              <button className="btn" onClick={handleClose}>
+                <IoCloseSharp />
+              </button>
+            </div>
+          </div>
+          <div className="dropdown-divider"></div>
+          <div className="model-custom-body">
+          <div className="filter-content">
+                <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch} setShow={setShow}/>
+              </div>
+          </div>
+        </Modal.Body>
+      </Modal>
             <div className="page-top-bar">
                 <div className="page-inner">
                     <div className="page-section-left">
@@ -48,12 +87,12 @@ function SearchList({searchListState}) {
                         </div>
                     </div>
                     <div className="page-section-right">
-                        <div className="add-folder-button" onClick={handleButtonClick}>
+                        <div className="add-folder-button" onClick={()=>{console.log("hey "); handleShow()}}>
                             <button className="btn">
                                 <Image src={require("../../../../assets/images/filter.svg")} alt="add folder" />
                             </button>
                         </div>
-                        {showFilter && <FilterData handleSearchCont={handleSearchCont} headerSearch={headerSearch}/>}
+                        
                     </div>
                 </div>
             </div>
@@ -61,7 +100,7 @@ function SearchList({searchListState}) {
             <main id="main" className="top-space">
                 <div className="custom-container">
                     <div className="history-list-container">
-                        <VideoCardGridMobile getPost={searchListState}/>
+                        <VideoCardGridMobile getPost={searchListState} handleNotIntrested={handleNotIntrested}/>
                     </div>
                 </div>
             </main>
