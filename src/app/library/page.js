@@ -30,7 +30,6 @@ const PageComponent = () => {
     const [deviceWidth, setDeviceWidth] = useState(0);
     const [getSaveVideo,setGetSaveVideo] = useState([]);
     const [getSubFolder,setGetFolderSub]= useState();
-    (selectedFolderId,"selectedFolderId[[[[]]]]]]==")
     useEffect(() => {
        
             handleGetPostid();
