@@ -8,7 +8,7 @@ import { MdMoreVert } from "react-icons/md";
 
 
 function HistoryWatch({ watchHistoryData}) {
-    // console.log(watchHistoryData,"watchHistoryData--121")
+    // (watchHistoryData,"watchHistoryData--121")
     return (
         <>
             <div className="page-top-bar">

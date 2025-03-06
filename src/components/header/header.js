@@ -79,7 +79,7 @@ function Header() {
     }, []);
 
      const handleHistoryItemClick =(item)=>{
-        console.log("this is called from")
+        ("this is called from")
         handleSearchCont(item.title);
         setHeaderSearch(item.title);
 
@@ -89,7 +89,7 @@ function Header() {
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     
 
-    //  console.log(historyList,"historyList----")
+    //  (historyList,"historyList----")
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">

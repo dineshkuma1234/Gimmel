@@ -30,7 +30,7 @@ const PageComponent = () => {
     const [deviceWidth, setDeviceWidth] = useState(0);
     const [getSaveVideo,setGetSaveVideo] = useState([]);
     const [getSubFolder,setGetFolderSub]= useState();
-    console.log(selectedFolderId,"selectedFolderId[[[[]]]]]]==")
+    (selectedFolderId,"selectedFolderId[[[[]]]]]]==")
     useEffect(() => {
        
             handleGetPostid();
@@ -76,11 +76,11 @@ const PageComponent = () => {
   
             
            setdata(result?.data)
-          //  console.log(result, "data----nwetest");
+          //  (result, "data----nwetest");
   
             // if (result?.data?.postId) {
             //   setPostId(result.data.postId);
-            //   console.log("Post ID Updated:", result.data.postId);
+            //   ("Post ID Updated:", result.data.postId);
             // } else {
             //   console.warn("postId not found in API response");
             // }
@@ -101,7 +101,7 @@ const PageComponent = () => {
           try {
           const result = await AuthService.GetFolder(value);
           if (result?.success) {
-            // console.log(result,"result of get folder")
+            // (result,"result of get folder")
             // LoaderHelper.loaderStatus(false);
             setGetFolder(result?.data?.data);
           } else {
@@ -109,7 +109,7 @@ const PageComponent = () => {
           }
         } catch (error) {
           // setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
     
@@ -118,7 +118,7 @@ const PageComponent = () => {
         // setLoader(true);
         try {
           const result = await AuthService.createFolder(folders);
-          // console.log(result, 'result');
+          // (result, 'result');
           if (result?.success) {
             // setLoader(false);
             handleGetFolder();
@@ -129,7 +129,7 @@ const PageComponent = () => {
           }
         } catch (error) {
           // setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
     
@@ -139,7 +139,7 @@ const PageComponent = () => {
         try {
           const result = await AuthService.deleteFolder(id);
           
-          // console.log(result, "result---delete")
+          // (result, "result---delete")
           if (result?.success) {
             setLoader(false);
             handleGetFolder();
@@ -150,18 +150,18 @@ const PageComponent = () => {
           }
         } catch (error) {
           setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
     
       const handleRename = async (rename, id) => {
   
-        console.log(rename, id, "rename and id --------------")
+        (rename, id, "rename and id --------------")
         // setLoader(true);
         try {
           const result = await AuthService.renames(rename, id);
           if (result?.success) {
-            // console.log(result, "result of rename")
+            // (result, "result of rename")
             // setLoader(false);
             handleGetFolder();
             setRename("");
@@ -172,17 +172,17 @@ const PageComponent = () => {
           }
         } catch (error) {
           // setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
     
       const handleSaveVideo = async () => {
-        // console.log("handleSaveVideo function called");
+        // ("handleSaveVideo function called");
   
         // setLoader(true);
   
         if(!selectedFolderId){
-          // console.log("No folder selected. Exiting function.");
+          // ("No folder selected. Exiting function.");
   
           // AlertHelper.show('warning', 'Gimmel',"Please select folder");
           return;
@@ -190,11 +190,11 @@ const PageComponent = () => {
         // setLoader(false);
   
         try {
-          // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+          // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
   
           const result = await AuthService.SaveVideo(selectedFolderId, postId);
           if (result?.success) {
-            // console.log("Video saved successfully:", result);
+            // ("Video saved successfully:", result);
   
             // setLoader(false);
             setSelectedFolderId(null)
@@ -203,38 +203,38 @@ const PageComponent = () => {
             // navigation.setParams({
             //   data: null,
             // });
-            // console.log("Navigation to videodetails2 triggered.");
+            // ("Navigation to videodetails2 triggered.");
   
             // AlertHelper.show('success', 'Gimmel', result?.data);
           } else {
             // setLoader(false);
-            // console.log("Failed to save video. Error message:", result?.message);
+            // ("Failed to save video. Error message:", result?.message);
   
             // AlertHelper.show('danger', 'Gimmel', result?.message);
           }
         } catch (error) {
           // setLoader(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
      
       const handleSaveVideonext = async (selectedFolderId) => {
-        console.log("Function called with Folder ID:", selectedFolderId);
+        ("Function called with Folder ID:", selectedFolderId);
   
         // LoaderHelper.loaderStatus(true);
         try {
-          console.log("Calling API to fetch saved videos...");
+          ("Calling API to fetch saved videos...");
           const result = await AuthService.GetSaveVideo(selectedFolderId);
-          console.log("API Response:", result);
+          ("API Response:", result);
   
   
           if (result?.success) {
-            console.log("Videos received successfully:", result.videos);
+            ("Videos received successfully:", result.videos);
   
             // LoaderHelper.loaderStatus(false);
             setGetSaveVideo(result?.videos);
           } else {
-            console.log("API call was unsuccessful:", result?.message || result);
+            ("API call was unsuccessful:", result?.message || result);
   
             // LoaderHelper.loaderStatus(false);
             // AlertHelper.show('danger', 'Gimmel', result?.message || result );
@@ -243,7 +243,7 @@ const PageComponent = () => {
           console.error("Error occurred while fetching videos:", error);
   
           // LoaderHelper.loaderStatus(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
   
@@ -251,7 +251,7 @@ const PageComponent = () => {
         // LoaderHelper.loaderStatus(true);
         try {
           const result = await AuthService.createSubFolder(id,addnewFolder);
-          console.log(result,"result---")
+          (result,"result---")
           if (result?.success) {
             // LoaderHelper.loaderStatus(false);
             // AlertHelper.show('success', 'Gimmel', result?.data);
@@ -262,7 +262,7 @@ const PageComponent = () => {
           }
         } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
   
@@ -272,7 +272,7 @@ const PageComponent = () => {
           const result = await AuthService.GetSubFolder(selectedFolderId,value);
           if (result?.success) {
             // LoaderHelper.loaderStatus(false);
-            console.log(result?.data?.data,"dat in api")
+            (result?.data?.data,"dat in api")
             setGetFolderSub(result?.data?.data);
           } else {
             // LoaderHelper.loaderStatus(false);
@@ -280,7 +280,7 @@ const PageComponent = () => {
           }
         } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
     return (

@@ -13,7 +13,7 @@ function SearchList({searchListState}){
    
 //   const router = useRouter();
 //   const { data } = router.query;
-//   console.log(data,"datat")
+//   (data,"datat")
 
 const options = [
     { value: "relevancy", label: "Relevancy" },

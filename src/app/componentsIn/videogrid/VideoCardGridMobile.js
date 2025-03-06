@@ -179,7 +179,7 @@ const VideoCard = ({
     });
   };
 
-  console.log(saveVideoScreen,"saveVideflag")
+  (saveVideoScreen,"saveVideflag")
 
   const router = useRouter();
 
@@ -852,7 +852,7 @@ const VideoCardGrid = ({
   handleCreateFolderSub,
   handleGetFolderSub,
 }) => (
-  // console.log(getPost, "this is get post---11111"),
+  // (getPost, "this is get post---11111"),
   <div className="row">
     {getPost &&
       Array.isArray(getPost) &&

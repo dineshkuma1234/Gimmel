@@ -22,8 +22,8 @@ import { type } from "os";
 import calculateMonthsAgo from "../../utils/monthsAgo/page"
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,shareLink ,setSelectedTopics,selectedTopics,handleReportPost,suggested,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
- console.log(getSaveVideo,"getSaveVideo++++++++++++++________")
- console.log(getFolder,"VideoDetailsState-----------------")
+ (getSaveVideo,"getSaveVideo++++++++++++++________")
+ (getFolder,"VideoDetailsState-----------------")
 
 // const {}=useSave();
     const [show1, setShow1] = useState(false);
@@ -86,7 +86,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     //     setFolders([...folders, newFolder]);
     // };
  
-    // console.log(data,"datat9999")
+    // (data,"datat9999")
     
 
     const convertToKM =(num)=> {
@@ -140,7 +140,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     const [active, setActive]  = useState(null)
 
     const handleNavigateSave = (item) => {
-        // console.log('_id', _id)
+        // ('_id', _id)
         setSelectedFolderId(item?._id);
         setSubfolderName(item?.name);
         setSubfolderView(true);
@@ -149,7 +149,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
         // handleGetFolderSub(item?._id)
         
     }; 
-    // console.log('folders====00000098888', folders)
+    // ('folders====00000098888', folders)
     const [deleteModel, setDeleteModel] = useState(false)
     // const [selectedItem, setSelectedItem] = useState(null);
     const [renameModel, setRenameModel] = useState(false);
@@ -171,13 +171,13 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
 
    
        const toggleDropdownnwe = (item) => {
-        // console.log(item,"if")
+        // (item,"if")
            setisDropdownOpenid((prev) => (prev === item ? null : item));
            setThreeDotItem(item);
 
 
        };
-    // //    console.log(isDropdownOpenid,"isDropdownOpenid")
+    // //    (isDropdownOpenid,"isDropdownOpenid")
     //    const handleClickOutsidenwe = (event) => {
     //        if (dropdownRefnwe.current && !dropdownRefnwe.current.contains(event.target)) {
     //            setisDropdownOpenid();
@@ -186,7 +186,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
    
        
    
-// console.log(isDropdownOpenid,"getfolder")
+// (isDropdownOpenid,"getfolder")
     // };
 
     //    useEffect(() => {
@@ -249,7 +249,7 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     };
 
 
-    console.log(getSaveVideo,"getSaveVideo")
+    (getSaveVideo,"getSaveVideo")
     const copyUrl = () => {
         navigator.clipboard.writeText(shareLink);
     };
@@ -270,12 +270,12 @@ function VideoDetails({data,VideoDetailsState,getQuiz,getFolder,handleCreateFold
     const handleChange2 = (e) => {
         setText(e.target.value);
     };
-    // console.log(text,"text value8888")
-    // console.log(selectedValue,"selectedValue value8888")
+    // (text,"text value8888")
+    // (selectedValue,"selectedValue value8888")
     const [Subfolder,setSubfolder] = useState()
     const [addnewFolder, setAddNewFolder] = useState('');
 
-    console.log(getSubFolder,"Subfolder")
+    (getSubFolder,"Subfolder")
     return (
         <>
                {/* Rename folder modal start */}

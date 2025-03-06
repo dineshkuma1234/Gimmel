@@ -20,7 +20,7 @@ function SignupScreen() {
             localStorage.setItem('token', result?.data?.token);
             
             // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-            // console.log(result?.data?.isInterest, "interest----")
+            // (result?.data?.isInterest, "interest----")
             // localStorage.setItem('interest', isInterestValue);
             // navigation.navigate('Welcome');
             router.push("/onboarding");
@@ -34,7 +34,7 @@ function SignupScreen() {
           }
         } catch (error) {
           setLoader(false)
-          //   console.log('Error occurred:', 'Gimmel', error);
+          //   ('Error occurred:', 'Gimmel', error);
         }
       };
   return (

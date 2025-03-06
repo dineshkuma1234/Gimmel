@@ -13,12 +13,12 @@ const AuthService = {
   LogIn: async (email, password) => {
     const { authBaseUrl, login } = ApiConfig;
     const url = authBaseUrl + login;
-    console.log(url,"url=----")
+    (url,"url=----")
     const params = {
       email: email,
       password: password,
     };
-    console.log(params,"this is params");
+    (params,"this is params");
     
     const headers = {
       'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const AuthService = {
       // LearningTopics: selectedTopic && selectedTopic.length > 0 ? selectedTopic : [],
       // PersonaleducationalObj: selectedObjective && selectedObjective.length > 0 ? selectedObjective : [],
     };
-    console.log(params, 'params');
+    (params, 'params');
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ const AuthService = {
       LearningTopics: selectedTopic && selectedTopic.length > 0 ? selectedTopic : [],
       PersonaleducationalObj: selectedObjective && selectedObjective.length > 0 ? selectedObjective : [],
     };
-    console.log(params, 'params');
+    (params, 'params');
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ const AuthService = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    console.log(token, 'token');
+    (token, 'token');
     return ApiCallGet(url, params, headers);
   },
   Contentmaturity: async () => {
@@ -149,10 +149,10 @@ const AuthService = {
     if(!token) {
       token = await localStorage.getItem('unAuthToken')
     }
-    console.log(token, 'token---');
+    (token, 'token---');
     const { authBaseUrl, HomeGetPost } = ApiConfig;
     const url = authBaseUrl + HomeGetPost + '?page=' + page;
-    console.log(url, 'url----');
+    (url, 'url----');
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -165,10 +165,10 @@ const AuthService = {
     if(!token) {
       token = await localStorage.getItem('unAuthToken')
     }
-    console.log(token, 'token---');
+    (token, 'token---');
     const { authBaseUrl, homegetvideoid } = ApiConfig;
     const url = authBaseUrl + homegetvideoid + '/' + postId;
-    console.log(url, 'url----');
+    (url, 'url----');
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ const AuthService = {
     ...(interestsDescription?.trim().length > 0 && { description: interestsDescription })
   };
 
-    console.log(params,"params----")
+    (params,"params----")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -305,7 +305,7 @@ const AuthService = {
     selectedValue,
     selectedAudience,
   ) => {
-    console.log(headerSearch,"headerSearch--12")
+    (headerSearch,"headerSearch--12")
     let token = await localStorage.getItem('token');
     if(!token) {
       token = await localStorage.getItem('unAuthToken')
@@ -326,7 +326,7 @@ const AuthService = {
     if (chips) params.append('topic', chips);
     
     if (selectedEngagement) params.append('engagement', selectedEngagement);
-    console.log("this is console")
+    ("this is console")
     
     if (selectedDate) params.append('createdAt', selectedDate);
     if (selectedAudience) params.append('audience', selectedAudience);
@@ -342,7 +342,7 @@ const AuthService = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    console.log(url,params, "url-----")
+    (url,params, "url-----")
     return ApiCallGet(url, {}, headers);
   },
 
@@ -365,14 +365,14 @@ const AuthService = {
   },
 
   SearchHistory: async (headerSearch) => {
-    console.log(headerSearch, "headerSearch---")
+    (headerSearch, "headerSearch---")
     let token = await localStorage.getItem('token');
     if(!token) {
       token = await localStorage.getItem('unAuthToken')
     }
     const { authBaseUrl, HistoryList } = ApiConfig;
     const url = authBaseUrl + HistoryList + '?' + 'search=' + headerSearch;
-    console.log(url, "url----")
+    (url, "url----")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -388,7 +388,7 @@ const AuthService = {
     }
     const { authBaseUrl, getFolder } = ApiConfig;
     const url = authBaseUrl + getFolder + "?sort=" + value;
-    console.log(url, "url---")
+    (url, "url---")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -399,7 +399,7 @@ const AuthService = {
 
   createFolder: async (folders) => {
     const token = await localStorage.getItem('token');
-    console.log(token, 'token');
+    (token, 'token');
     const { authBaseUrl, createFolder } = ApiConfig;
     const url = authBaseUrl + createFolder;
     const params = {
@@ -485,7 +485,7 @@ const AuthService = {
   },
 
   editProfile: async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo) => {
-    console.log(phoneNumber,"phoneNumber")
+    (phoneNumber,"phoneNumber")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
@@ -573,7 +573,7 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveVideo } = ApiConfig;
     const url = authBaseUrl + saveVideo + id;
-    console.log(url, 'url----');
+    (url, 'url----');
 
     const params = {};
     const headers = {
@@ -617,7 +617,7 @@ const AuthService = {
       _id: postId,
     };
 
-    console.log(params, "params---")
+    (params, "params---")
 
     const headers = {
       'Content-Type': 'application/json',
@@ -630,7 +630,7 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, notIntrestedTopic } = ApiConfig;
     const url = authBaseUrl + notIntrestedTopic;
-    console.log(url, "url----")
+    (url, "url----")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -651,7 +651,7 @@ const AuthService = {
       reportType: selectedValues,
       description: text
     };
-    console.log(params, "params----")
+    (params, "params----")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -667,7 +667,7 @@ const AuthService = {
       postId: id,
       options: selectedTopics
     }
-    console.log(params, "params----")
+    (params, "params----")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -747,10 +747,10 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, GetSubFolders } = ApiConfig;
     const url = authBaseUrl + GetSubFolders + id + "?sort=" + value;
-    console.log(url, 'url----');
+    (url, 'url----');
 
     const params = {};
-    console.log(params, "params---")
+    (params, "params---")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -773,11 +773,11 @@ const AuthService = {
   },
 
   DeleteSubFolder: async (id, subId) => {
-    console.log(subId,"subId----")
+    (subId,"subId----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, deleteSubFolder } = ApiConfig;
     const url = authBaseUrl + deleteSubFolder + id + "/" + subId?._id;
-    console.log(url,"url----")
+    (url,"url----")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -790,11 +790,11 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, renameSubFolder } = ApiConfig;
     const url = authBaseUrl + renameSubFolder + id + "/" + SubId?._id;
-    console.log(url, "url----")
+    (url, "url----")
     const params = {
       subfolderName: rename
     }
-    console.log(params, "params--")
+    (params, "params--")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -826,7 +826,7 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   NotIntrested: async (id) => {
-    // console.log(id, "id----")
+    // (id, "id----")
     let token = await localStorage.getItem('token');
     if(!token) {
       token = await localStorage.getItem('unAuthToken')
@@ -840,19 +840,19 @@ const AuthService = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    // console.log(url, params, headers,"fkk");
+    // (url, params, headers,"fkk");
     return ApiCallPost(url, params, headers);
   },
   SaveSubFolderVideo: async (selectedFolderId, id, postId) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, saveSubFolderVideo } = ApiConfig;
     const url = authBaseUrl + saveSubFolderVideo + "/" + id;
-    console.log(url, "url---")
+    (url, "url---")
     const params = {
       subfolderId: selectedFolderId,
       postId: postId
     }
-    console.log(params, "params----")
+    (params, "params----")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -861,7 +861,7 @@ const AuthService = {
   },
 
   GetCategories: async (value1, value2, value3) => {
-    console.log(value1, value2, value3, "value of selectide category -----")
+    (value1, value2, value3, "value of selectide category -----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, getCategories } = ApiConfig;
 
@@ -879,10 +879,10 @@ const AuthService = {
       return;
     }
 
-    console.log(categoryValue, "categoryValue----")
+    (categoryValue, "categoryValue----")
 
     const url = `${authBaseUrl}${getCategories}?category=${categoryValue}`;
-    console.log(url, "url----")
+    (url, "url----")
 
     const params = {};
     const headers = {
@@ -895,14 +895,14 @@ const AuthService = {
 
 
   GetCategorie: async (value1) => {
-    console.log(value1, "value of selectide category -----")
+    (value1, "value of selectide category -----")
     const token = await localStorage.getItem('token');
     const { authBaseUrl, getCategories } = ApiConfig;
 
-    // console.log(categoryValue,"categoryValue----")
+    // (categoryValue,"categoryValue----")
 
     const url = `${authBaseUrl}${getCategories}?category=${value1}`;
-    console.log(url, "url----")
+    (url, "url----")
 
     const params = {};
     const headers = {
@@ -972,7 +972,7 @@ const AuthService = {
       videoIds: selectedItems
     };
 
-    console.log(params, "params---")
+    (params, "params---")
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -984,7 +984,7 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, quiz } = ApiConfig;
     const url = authBaseUrl + quiz + id;
-    console.log(url,"url---")
+    (url,"url---")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',
@@ -1019,7 +1019,7 @@ const AuthService = {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, getOneVideo } = ApiConfig;
     const url = authBaseUrl + getOneVideo + id;
-    console.log(url, "url---")
+    (url, "url---")
     const params = {};
     const headers = {
       'Content-Type': 'application/json',

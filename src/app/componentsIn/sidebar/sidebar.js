@@ -15,7 +15,7 @@ function Sidebar() {
 
     const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader();
 
-    // console.log(headerSearch,"setHeaderSearch---")
+    // (headerSearch,"setHeaderSearch---")
 
     const [selected, setSelected] = useState([]);
     const [isOn,setIsOn]=useState(false)
@@ -25,7 +25,7 @@ function Sidebar() {
     const [selectedValue,setSelectedValue] =useState('');
 
     const handleSelectedChange =(e)=>{
-        // console.log("yes it call")
+        // ("yes it call")
         const newValue = e.target.value; // Get the new selected value
         setSelectedValue(newValue); // Update state
         handleSearchCont(headerSearch,"","","","","","","",newValue);

@@ -112,7 +112,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                                const [active, setActive]  = useState(null)
                            
                                const handleNavigateSave = (item) => {
-                                   // console.log('_id', _id)
+                                   // ('_id', _id)
                                    setSelectedFolderId(item?._id);
                                    setSubfolderName(item?.name);
                                    setSubfolderView(true);
@@ -121,7 +121,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                                    // handleGetFolderSub(item?._id)
                                    
                                }; 
-                               // console.log('folders====00000098888', folders)
+                               // ('folders====00000098888', folders)
                                const [deleteModel, setDeleteModel] = useState(false)
                                // const [selectedItem, setSelectedItem] = useState(null);
                                const [renameModel, setRenameModel] = useState(false);
@@ -143,7 +143,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                            
                               
                                   const toggleDropdownnwe = (item) => {
-                                   // console.log(item,"if")
+                                   // (item,"if")
                                       setisDropdownOpenid((prev) => (prev === item ? null : item));
                                       setThreeDotItem(item);
                            
@@ -203,7 +203,7 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                                };
                            
                            
-                               console.log(getSaveVideo,"getSaveVideo")
+                               (getSaveVideo,"getSaveVideo")
                                const copyUrl = () => {
                                    navigator.clipboard.writeText(shareLink);
                                };
@@ -219,12 +219,12 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                                const handleChange2 = (e) => {
                                    setText(e.target.value);
                                };
-                               // console.log(text,"text value8888")
-                               // console.log(selectedValue,"selectedValue value8888")
+                               // (text,"text value8888")
+                               // (selectedValue,"selectedValue value8888")
                                const [Subfolder,setSubfolder] = useState()
                                const [addnewFolder, setAddNewFolder] = useState('');
                            
-                               console.log(getSubFolder,"Subfolder")
+                               (getSubFolder,"Subfolder")
                    
     return (
         <>

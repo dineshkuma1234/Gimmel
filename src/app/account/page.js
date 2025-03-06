@@ -16,7 +16,7 @@ function PageComponent() {
     const [contentMaturity, setContentMaturity] = useState([])
     const [eduction, setEducation] = useState([])
     // const {setLoader} = UseLoader()
-    // console.log("page load")
+    // ("page load")
     useEffect(()=>{
         handleUserInfo();
         handleWatchHistory();
@@ -24,24 +24,24 @@ function PageComponent() {
         handleTeachingToic();
         handleContentmaturity();
         handleEducationalObjectives();
-        // console.log("this is console") 
+        // ("this is console") 
     },[]);
    
     
     const handleUserInfo = async () => {
         // LoaderHelper.loaderStatus(true);
         // setLoader(true);
-        // console.log("object----")
+        // ("object----")
         try {
             const result = await AuthService.userInfo();
-            // console.log(result,"result----")
+            // (result,"result----")
             if (result?.success) {
-                // console.log(result?.data, "data")
+                // (result?.data, "data")
                 // LoaderHelper.loaderStatus(false);
                 // setLoader(false);
                 setProfileInfo(result?.data)
                 // const register =result?.data?.isType === true ? '1' : '0'
-                // console.log(result?.data?.isType,"register----");
+                // (result?.data?.isType,"register----");
                 // localStorage.setItem('register', register);
             } else {
                 // setLoader(false);
@@ -50,14 +50,14 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     const handleWatchHistory = async () => {
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.WatchHistory();
-            // console.log(result, "result----");
+            // (result, "result----");
     
             // if (result?.message === "No videos found in history.") {
             //     LoaderHelper.loaderStatus(false);
@@ -74,7 +74,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     const handleLibraryVideos = async () => {
@@ -96,7 +96,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     
@@ -113,7 +113,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -130,7 +130,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
@@ -147,16 +147,16 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
     
     const handleEditProfile = async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge) => {
-        // console.log(phoneNumber,"phoneNumber");
+        // (phoneNumber,"phoneNumber");
         // LoaderHelper.loaderStatus(true);
         try {
             const result = await AuthService.editProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo);
-            // console.log(result, "result")
+            // (result, "result")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
                 // AlertHelper.show('success', 'Gimmel', result?.data);
@@ -167,12 +167,12 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            // console.log('Error occurred:', 'Gimmel', error);
+            // ('Error occurred:', 'Gimmel', error);
         }
     };
 
-    // console.log(contentMaturity,"contentMaturity----");
-    // console.log(libraryVideo,"libraryVideo")
+    // (contentMaturity,"contentMaturity----");
+    // (libraryVideo,"libraryVideo")
     
     return (
         <>{isMobile ? 

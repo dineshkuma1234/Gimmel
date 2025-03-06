@@ -53,7 +53,7 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
       const [active, setActive]  = useState(null)
         
       const handleNavigateSave = (item) => {
-        console.log('_id', item)
+        ('_id', item)
         setSelectedFolderId(item?._id);
         setSubfolderName(item?.name);
         setSubfolderView(true);
@@ -67,14 +67,14 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
                const [threeDotItem, setThreeDotItem] = useState(null);
                const toggleDropdownnwe = (item) => {
-                // console.log(item,"item====")
-                // console.log(item,"if")
+                // (item,"item====")
+                // (item,"if")
                    setisDropdownOpenid((prev) => (prev === item ? null : item));
                    setThreeDotItem(item);
         
         
                };
-        console.log(isDropdownOpenid,"isDropdownOpenid======================")
+        (isDropdownOpenid,"isDropdownOpenid======================")
 
             
                     const [subFolderView,setSubfolderView] = useState(false);

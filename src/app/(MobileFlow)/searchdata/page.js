@@ -30,7 +30,7 @@ function Search() {
     setHeaderSearch(item.title);
     handleSearchCont(item.title);
   };
-//   console.log(historyList, "historyList====");
+//   (historyList, "historyList====");
   return (
     <>
       <Modal

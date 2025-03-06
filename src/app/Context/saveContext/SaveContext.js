@@ -22,14 +22,14 @@ export const SaveProvider=({Children})=>{
           if (result?.success) {
             LoaderHelper.loaderStatus(false);
             setGetSaveVideo(result?.videos);
-            // console.log(result,"result++++++++++++++++++++++")
+            // (result,"result++++++++++++++++++++++")
           } else {
             // LoaderHelper.loaderStatus(false);
             // AlertHelper.show('danger', 'Gimmel', result?.message || result );
           }
         } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          // console.log('Error occurred:', 'Gimmel', error);
+          // ('Error occurred:', 'Gimmel', error);
         }
       };
 

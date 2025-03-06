@@ -22,7 +22,7 @@ function UserProfile({
     eduction,
     handleEditProfile,
 }) {
-    // console.log(profileInfo, "profileInfo--today")
+    // (profileInfo, "profileInfo--today")
 
     const [show, setShow] = React.useState(false);
 

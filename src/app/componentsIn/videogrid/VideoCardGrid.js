@@ -28,7 +28,7 @@ const VideoCard = ({ video,index,substance ,mentalHealth,neuroScience, socialIss
      const [subFolderView,setSubfolderView] = useState(false);
         const [subfolderName,setSubfolderName] = useState('');
     const dropdownRef = useRef(null);
-    console.log(getSaveVideo,"getSaveVideo++++++++++++++++++")
+    (getSaveVideo,"getSaveVideo++++++++++++++++++")
     const router = useRouter();
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -183,7 +183,7 @@ const [show1, setShow1] = useState(false);
     };
     
 
-    // console.log(video,"video")
+    // (video,"video")
     const handleNavigate = (video) => {
         updateVideoDetailsState(video);
         router.push(`/mainHome/${video?._id}/videodetails2`);
@@ -208,7 +208,7 @@ const [show1, setShow1] = useState(false);
            
               
                   const toggleDropdownnwe = (item) => {
-                //    console.log(item,"if")
+                //    (item,"if")
                       setisDropdownOpenid((prev) => (prev === item ? null : item));
                       setThreeDotItem(item);
            
@@ -224,7 +224,7 @@ const [show1, setShow1] = useState(false);
             
                     }
                 }
-                // console.log(video?._id,"videoid------");
+                // (video?._id,"videoid------");
                 const inputDateVideo = getSaveVideo?.createdAt;
                 const formatTimeAgoVideo = (createdAt) => {
                     if (!createdAt) return "Invalid date"; // Handle empty/null values
@@ -260,7 +260,7 @@ const [show1, setShow1] = useState(false);
                 const [active, setActive]  = useState(null)
                 
                     const handleNavigateSave = (item) => {
-                        // console.log('_id', _id)
+                        // ('_id', _id)
                         setSelectedFolderId(item?._id);
                         setSubfolderName(item?.name);
                         setSubfolderView(true);
@@ -848,7 +848,7 @@ const [show1, setShow1] = useState(false);
 
 
 const VideoCardGrid = ({getPost,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub}) => (
-    // console.log(getPost,"this is get post---11111"),
+    // (getPost,"this is get post---11111"),
     
     <div className="row">
         {getPost && Array.isArray(getPost) && getPost?.map((video,index) => (

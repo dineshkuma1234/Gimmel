@@ -91,7 +91,6 @@ export default function PageComponent() {
 
     try {
       const result = await AuthService.GetPost(page);
-      // console.log(result, "result----");
 
       if (result?.success) {
         setTotal(result?.data?.totalPosts);
@@ -116,7 +115,6 @@ export default function PageComponent() {
  
 // PostSlider on home page//
 const [topicPost, setTopicPost] = useState("")
-// console.log(topicPost,"topicPost---")
 useEffect(() => {
   handleTopicPost();
 }, []);
@@ -126,7 +124,6 @@ const handleTopicPost = async () => {
   setLoader(true);
   try {
     const result = await AuthService.TopicPost();
-    // console.log(result, 'result---')
     if (result?.success) {
       setTopicPost(result?.data)
       setLoader(false);
@@ -139,7 +136,6 @@ const handleTopicPost = async () => {
   } catch (error) {
     setLoader(false);
 
-    // console.log('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -149,7 +145,6 @@ const handleTopicPost = async () => {
   const [headerSearch, setHeaderSearch] = useState("")
   // const [searchList, setSearchList] = useState('');
   const [searchListState, updatesearchListState] = useContext(SearchListContext);
-  // console.log(searchListState,"searchListState--")
   useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
@@ -162,10 +157,8 @@ const handleTopicPost = async () => {
   
 const handleHistoryList = async (headerSearch) => {
   // setLoader(true);
-  // console.log(headerSearch,"headerSearch in api func")
   try {
       const result = await AuthService.SearchHistory(headerSearch);
-      // console.log(result.data, 'result');
       if (result?.success) {
         // setLoader(false);
         setHistoryList(result?.data?.data || []);
@@ -177,7 +170,7 @@ const handleHistoryList = async (headerSearch) => {
       });
       }
     } catch (error) {
-      // console.log('Error occurred:', 'Gimmel', error);
+ 
     }
   };
   const handleSearchCont = async (
@@ -192,7 +185,6 @@ const handleHistoryList = async (headerSearch) => {
     selectedValue,
     selectedAudience,
   ) => {
-    // console.log(headerSearch,"usecase--0000")
     // setLoader(true);
 
     try {
@@ -208,7 +200,6 @@ const handleHistoryList = async (headerSearch) => {
         selectedValue,
         selectedAudience,
       );
-      // console.log(result, 'result---111');
       // setLoader(false);
 
       if (result?.success) {
@@ -235,7 +226,6 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
     }
   };
  
@@ -288,7 +278,6 @@ const handleHistoryList = async (headerSearch) => {
     } catch (error) {
       // setLoader(false);
 
-      // console.log('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -311,7 +300,7 @@ const handleHistoryList = async (headerSearch) => {
     } catch (error) {
       // setLoader(false);
 
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
   const handleNeuroscience = async () => {
@@ -331,7 +320,7 @@ const handleHistoryList = async (headerSearch) => {
     } catch (error) {
       // setLoader(false);
 
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
   const handleSocialIssue = async () => {
@@ -350,7 +339,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
 
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
   const handleSaveIntrest = async () => {
@@ -371,13 +360,13 @@ const handleHistoryList = async (headerSearch) => {
     } catch (error) {
       // setLoader(false);
 
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
   const getInterestFromStorage =  () => {
       
     const value =  localStorage.getItem('interest');
-    // console.log(value)
+    // (value)
         setInterest(value); 
    
 };
@@ -385,7 +374,7 @@ const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     try {
       const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
-      // console.log(result,"result of interest filter ---")
+      // (result,"result of interest filter ---")
       if (result?.success) {
         // setLoader(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
@@ -400,7 +389,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -415,7 +404,7 @@ const handleHistoryList = async (headerSearch) => {
         AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -424,7 +413,7 @@ const handleHistoryList = async (headerSearch) => {
     // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.MoreLike();
-      // console.log(result,"result of more int video ----")
+      // (result,"result of more int video ----")
       if (result) {
         // LoaderHelper.loaderStatus(false);
         setTopicPost(result?.data)
@@ -436,7 +425,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -454,7 +443,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
 
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -464,7 +453,7 @@ const handleHistoryList = async (headerSearch) => {
       const result = await AuthService.removeSuggation();
       if (result) {
         // LoaderHelper.loaderStatus(false);
-        // console.log(result,"result")
+        // (result,"result")
         // AlertHelper.show('success', 'Gimmel', result?.message);
         handleSliderData();
         setNoSuggetion(result)
@@ -474,7 +463,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -484,7 +473,7 @@ const handleHistoryList = async (headerSearch) => {
       try {
       const result = await AuthService.GetFolder(value);
       if (result?.success) {
-        // console.log(result,"result of get folder")
+        // (result,"result of get folder")
         // LoaderHelper.loaderStatus(false);
         setGetFolder(result?.data?.data);
       } else {
@@ -492,7 +481,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -501,7 +490,7 @@ const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     try {
       const result = await AuthService.createFolder(folders);
-      // console.log(result, 'result');
+      // (result, 'result');
       if (result?.success) {
         // setLoader(false);
         handleGetFolder();
@@ -512,7 +501,7 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -522,7 +511,7 @@ const handleHistoryList = async (headerSearch) => {
     try {
       const result = await AuthService.deleteFolder(id);
       
-      // console.log(result, "result---delete")
+      // (result, "result---delete")
       if (result?.success) {
         setLoader(false);
         handleGetFolder();
@@ -533,18 +522,18 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
   const handleRename = async (rename, id) => {
 
-    // console.log(rename, id, "rename and id --------------")
+    // (rename, id, "rename and id --------------")
     // setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
       if (result?.success) {
-        // console.log(result, "result of rename")
+        // (result, "result of rename")
         // setLoader(false);
         handleGetFolder();
         setRename("");
@@ -555,17 +544,17 @@ const handleHistoryList = async (headerSearch) => {
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
   const handleSaveVideo = async () => {
-    // console.log("handleSaveVideo function called");
+    // ("handleSaveVideo function called");
 
     // setLoader(true);
 
     if(!selectedFolderId){
-      // console.log("No folder selected. Exiting function.");
+      // ("No folder selected. Exiting function.");
 
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
       return;
@@ -573,11 +562,11 @@ const handleHistoryList = async (headerSearch) => {
     setLoader(false);
 
     try {
-      // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+      // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
-        // console.log("Video saved successfully:", result);
+        // ("Video saved successfully:", result);
 
         // setLoader(false);
         setSelectedFolderId(null)
@@ -586,18 +575,18 @@ const handleHistoryList = async (headerSearch) => {
         // navigation.setParams({
         //   data: null,
         // });
-        // console.log("Navigation to videodetails2 triggered.");
+        // ("Navigation to videodetails2 triggered.");
 
         // AlertHelper.show('success', 'Gimmel', result?.data);
       } else {
         // setLoader(false);
-        // console.log("Failed to save video. Error message:", result?.message);
+        // ("Failed to save video. Error message:", result?.message);
 
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
       // setLoader(false);
-      // console.log('Error occurred:', 'Gimmel', error);
+      // ('Error occurred:', 'Gimmel', error);
     }
   };
 
@@ -615,11 +604,11 @@ const handleHistoryList = async (headerSearch) => {
 
       
      setdata(result?.data)
-    //  console.log(result, "data----nwetest");
+    //  (result, "data----nwetest");
 
       // if (result?.data?.postId) {
       //   setPostId(result.data.postId);
-      //   console.log("Post ID Updated:", result.data.postId);
+      //   ("Post ID Updated:", result.data.postId);
       // } else {
       //   console.warn("postId not found in API response");
       // }
@@ -633,12 +622,12 @@ const handleHistoryList = async (headerSearch) => {
 
 const handleNotIntrested = async (id) => {
   // LoaderHelper.loaderStatus(true);
-  // console.log('function calll')
+  // ('function calll')
   setLoader(true);
   try {
-  // console.log("loading" )
+  // ("loading" )
     const result = await AuthService.NotIntrested(id);
-    // console.log(result, "result---")
+    // (result, "result---")
     if (result?.success) {
       // LoaderHelper.loaderStatus(false);
       setLoader(false);
@@ -655,27 +644,27 @@ const handleNotIntrested = async (id) => {
   } catch (error) {
     // LoaderHelper.loaderStatus(false);
     setLoader(false);
-    // console.log('Error occurred:', 'Gimmel', error);
+    // ('Error occurred:', 'Gimmel', error);
   }
 };
 
 const handleSaveVideonext = async (id) => {
-  console.log("Function called with Folder ID:", id);
+  ("Function called with Folder ID:", id);
 
   // LoaderHelper.loaderStatus(true);
   try {
-    console.log("Calling API to fetch saved videos...");
+    ("Calling API to fetch saved videos...");
     const result = await AuthService.GetSaveVideo(id);
-    console.log("API Response:", result);
+    ("API Response:", result);
 
 
     if (result?.success) {
-      console.log("Videos received successfully:", result.videos);
+      ("Videos received successfully:", result.videos);
 
       // LoaderHelper.loaderStatus(false);
       setGetSaveVideo(result?.videos);
     } else {
-      console.log("API call was unsuccessful:", result?.message || result);
+      ("API call was unsuccessful:", result?.message || result);
 
       // LoaderHelper.loaderStatus(false);
       // AlertHelper.show('danger', 'Gimmel', result?.message || result );
@@ -684,7 +673,7 @@ const handleSaveVideonext = async (id) => {
     console.error("Error occurred while fetching videos:", error);
 
     // LoaderHelper.loaderStatus(false);
-    // console.log('Error occurred:', 'Gimmel', error);
+    // ('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -692,7 +681,7 @@ const handleCreateFolderSub = async (id,addnewFolder) => {
   // LoaderHelper.loaderStatus(true);
   try {
     const result = await AuthService.createSubFolder(id,addnewFolder);
-    console.log(result,"result---")
+    (result,"result---")
     if (result?.success) {
       // LoaderHelper.loaderStatus(false);
       // AlertHelper.show('success', 'Gimmel', result?.data);
@@ -703,7 +692,7 @@ const handleCreateFolderSub = async (id,addnewFolder) => {
     }
   } catch (error) {
     // LoaderHelper.loaderStatus(false);
-    // console.log('Error occurred:', 'Gimmel', error);
+    // ('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -713,7 +702,7 @@ const handleGetFolderSub = async (id) => {
     const result = await AuthService.GetSubFolder(id,value);
     if (result?.success) {
       // LoaderHelper.loaderStatus(false);
-      console.log(result?.data?.data,"dat in api")
+      (result?.data?.data,"dat in api")
       setGetFolderSub(result?.data?.data);
     } else {
       // LoaderHelper.loaderStatus(false);
@@ -721,12 +710,12 @@ const handleGetFolderSub = async (id) => {
     }
   } catch (error) {
     // LoaderHelper.loaderStatus(false);
-    // console.log('Error occurred:', 'Gimmel', error);
+    // ('Error occurred:', 'Gimmel', error);
   }
 };
 
 
-  // console.log(headerSearch,"interest---") 
+  // (headerSearch,"interest---") 
 
   return (
     <>

@@ -15,7 +15,7 @@ function PageComponent() {
   const [loading,setLoading] = useState(false);
   const {setLoader} = UseLoader()
 
-  // console.log('getQuiz+++++++++++++', getQuiz)
+  // ('getQuiz+++++++++++++', getQuiz)
   useEffect(() => {
      
           // handleGetPostid();
@@ -26,7 +26,7 @@ function PageComponent() {
       setLoading(true);
       try {
         const result = await AuthService.getvideoid(id);
-        // console.log(result, "getvideoid----");
+        // (result, "getvideoid----");
     setLoader(false);
         if (result?.success) {
           setLoader(false);
@@ -36,7 +36,7 @@ function PageComponent() {
          setdata(result.data)
           // if (result?.data?.postId) {
           //   setPostId(result.data.postId);
-          //   console.log("Post ID Updated:", result.data.postId);
+          //   ("Post ID Updated:", result.data.postId);
           // } else {
           //   console.warn("postId not found in API response");
           // }

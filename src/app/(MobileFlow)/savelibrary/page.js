@@ -13,7 +13,7 @@ import { FiAlertOctagon } from "react-icons/fi";
 import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
 
 function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
-console.log(getSaveVideo,"getSaveVideo+++++++++++")
+(getSaveVideo,"getSaveVideo+++++++++++")
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -93,7 +93,6 @@ console.log(getSaveVideo,"getSaveVideo+++++++++++")
     
        
            const toggleDropdownnwe = (item) => {
-            // console.log(item,"if")
                setisDropdownOpenid((prev) => (prev === item ? null : item));
                setThreeDotItem(item);
     
@@ -106,7 +105,7 @@ console.log(getSaveVideo,"getSaveVideo+++++++++++")
          const [active, setActive]  = useState(null)
         
             const handleNavigateSave = (item) => {
-                // console.log('_id', _id)
+                // ('_id', _id)
                 setSelectedFolderId(item?._id);
                 setSubfolderName(item?.name);
                 setSubfolderView(true);

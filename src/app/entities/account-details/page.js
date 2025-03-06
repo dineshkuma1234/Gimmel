@@ -40,7 +40,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         setMinAge(profileInfo?.onboarding?.ageFrom || "");
         setMaxAge(profileInfo?.onboarding?.ageTo || "");
       }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
-    // console.log(phoneNumber,"phoneNumber++++++++++++")
+    // (phoneNumber,"phoneNumber++++++++++++")
 
     const togglePricing = () => {
         setIsYearly(!isYearly);
