@@ -31,7 +31,8 @@ export default function PageComponent() {
   const [rename, setRename] = useState("")
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
-
+  const [getSaveVideo,setGetSaveVideo] = useState([]);
+    const [getSubFolder,setGetFolderSub]= useState();
   useEffect(() => {
     
     checkUserLogedIn();
@@ -245,6 +246,8 @@ const handleHistoryList = async (headerSearch) => {
   const [neuroScience, setNeuroScience] = useState([]);
   const [socialIssues, setSocialIssues] = useState([]);
   const [interest, setInterest] = useState(null);
+ 
+ 
   useEffect(()=>{
     handleSubstance();
     handleMentalHealth();
@@ -252,8 +255,14 @@ const handleHistoryList = async (headerSearch) => {
     handleSocialIssue();
     getInterestFromStorage();
     handleSliderData();
+   
   },[]);
 
+    useEffect(() => {
+      if (selectedFolderId) {
+          handleSaveVideonext(selectedFolderId);
+      }
+  }, [selectedFolderId]);
   const checkUserLogedIn = () => {
     const token = localStorage.getItem('token');
     if(!token){
@@ -650,6 +659,71 @@ const handleNotIntrested = async (id) => {
   }
 };
 
+const handleSaveVideonext = async (id) => {
+  console.log("Function called with Folder ID:", id);
+
+  // LoaderHelper.loaderStatus(true);
+  try {
+    console.log("Calling API to fetch saved videos...");
+    const result = await AuthService.GetSaveVideo(id);
+    console.log("API Response:", result);
+
+
+    if (result?.success) {
+      console.log("Videos received successfully:", result.videos);
+
+      // LoaderHelper.loaderStatus(false);
+      setGetSaveVideo(result?.videos);
+    } else {
+      console.log("API call was unsuccessful:", result?.message || result);
+
+      // LoaderHelper.loaderStatus(false);
+      // AlertHelper.show('danger', 'Gimmel', result?.message || result );
+    }
+  } catch (error) {
+    console.error("Error occurred while fetching videos:", error);
+
+    // LoaderHelper.loaderStatus(false);
+    // console.log('Error occurred:', 'Gimmel', error);
+  }
+};
+
+const handleCreateFolderSub = async (id,addnewFolder) => {
+  // LoaderHelper.loaderStatus(true);
+  try {
+    const result = await AuthService.createSubFolder(id,addnewFolder);
+    console.log(result,"result---")
+    if (result?.success) {
+      // LoaderHelper.loaderStatus(false);
+      // AlertHelper.show('success', 'Gimmel', result?.data);
+      handleGetFolderSub(id);
+    } else {
+      // LoaderHelper.loaderStatus(false);
+      // AlertHelper.show('danger', 'Gimmel', result?.message  );
+    }
+  } catch (error) {
+    // LoaderHelper.loaderStatus(false);
+    // console.log('Error occurred:', 'Gimmel', error);
+  }
+};
+
+const handleGetFolderSub = async (id) => {
+  // LoaderHelper.loaderStatus(true);
+  try {
+    const result = await AuthService.GetSubFolder(id,value);
+    if (result?.success) {
+      // LoaderHelper.loaderStatus(false);
+      console.log(result?.data?.data,"dat in api")
+      setGetFolderSub(result?.data?.data);
+    } else {
+      // LoaderHelper.loaderStatus(false);
+      // AlertHelper.show('danger', 'Gimmel', result?.message  );
+    }
+  } catch (error) {
+    // LoaderHelper.loaderStatus(false);
+    // console.log('Error occurred:', 'Gimmel', error);
+  }
+};
 
 
   // console.log(headerSearch,"interest---") 
@@ -658,12 +732,12 @@ const handleNotIntrested = async (id) => {
     <>
     <Toaster position="top-right" reverseOrder={false} />
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
+        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
       ) : (
 
         
 
-        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} topicPost={topicPost} handleMoreLike={handleMoreLike} sliderData={sliderData} handleNotInterestedTopic={handleNotInterestedTopic}  handleRemoveSuggation={handleRemoveSuggation}noSuggetion={noSuggetion}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
+        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} topicPost={topicPost} handleMoreLike={handleMoreLike} sliderData={sliderData} handleNotInterestedTopic={handleNotInterestedTopic}  handleRemoveSuggation={handleRemoveSuggation}noSuggetion={noSuggetion}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
 
         
         

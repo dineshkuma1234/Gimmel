@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
 import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import Image from 'next/image';
@@ -8,89 +8,228 @@ import Link from 'next/link';
 import { Form } from 'react-bootstrap';
 import { FiAlertOctagon } from 'react-icons/fi';
 import { TbEdit } from 'react-icons/tb';
+import calculateMonthsAgo from '@/app/utils/monthsAgo/page';
+import SaveIcon from '../../../assets/images/Save-Icon.svg';
+import Saved from '../../../Assets/Images/savedVideo.svg';
 
 
-
-function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,handleNotIntrested }) {
+function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,handleNotIntrested,getSubFolder,handleCreateFolderSub,handleGetFolderSub,getSaveVideo }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const [folders, setFolders] = useState([
-        { id: 1, name: 'My Library' },
-        { id: 2, name: 'Work Documents' },
-        { id: 3, name: 'Personal Files' },
-    ]);
+    const [folders, setFolders] = useState([]);
 
-    // Function to add a new folder
-    const addNewFolder = () => {
-        const newFolder = {
-            id: folders.length + 1,
-            name: `New Folder ${folders.length + 1}`,
-        };
-        setFolders([...folders, newFolder]);
-    };
+  
 
-    const [show, setShow] = useState(false);
+   
+               
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+                             const [show1, setShow1] = useState(false);
+                               useEffect(() => {
+                                   if (!show1) {
+                                       setSubfolder("");  // Jab modal close ho jaye to subfolder clear ho jaye
+                                   }
+                               }, [show1]);
+                               
+                               const handleClose1 = () => {setShow1(false);setSubfolder("");setSubfolderView(false)}
+                               const handleShow1 = () => setShow1(true);
+                               const [subFolderView,setSubfolderView] = useState(false);
+                               const [subfolderName,setSubfolderName] = useState('');
+                              
+                               
+                           
+                               const handleClickOutside = (event) => {
+                                   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                                       setIsDropdownOpen(false);
+                                   }
+                               };
+                           
+                               useEffect(() => {
+                                   window.addEventListener('click', handleClickOutside);
+                                   return () => {
+                                       window.removeEventListener('click', handleClickOutside);
+                                   };
+                               }, []);
+                           
+                              
+                               
+                            const [show5, setShow5] = useState(false);
+                           
+                               const handleClose5 = () => setShow5(false);
+                               const handleShow5 = () => setShow5(true);
 
-    const [show1, setShow1] = useState(false);
-
-    const handleClose1 = () => setShow1(false);
-    const handleShow1 = () => setShow1(true);
-    // console.log(video,"video")
-
-     const [active, setActive]  = useState(null)
-    
-        const handleNavigateSave = (_id) => {
-            // console.log('_id', _id)
-            setSelectedFolderId(_id);
-            // console.log('Clicked Folder ID:', folderId);
-    
-            setActive(_id);
-        }; 
-    const [deleteModel, setDeleteModel] = useState(false)
-    const [renameModel, setRenameModel] = useState(false);
-          const dropdownRefnwe = useRef(null);
-          const [selectedItem, setSelectedItem] = useState(null);
-          const handleItemPress = (item) => {
-            setSelectedItem(item);
-        };
-               const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
-               const [threeDotItem, setThreeDotItem] = useState(null);
-        
-           
-               const toggleDropdownnwe = (item) => {
-                // console.log(item,"if")
-                   setisDropdownOpenid((prev) => (prev === item ? null : item));
-                   setThreeDotItem(item);
-        
-        
-               };
-
-               const [show7, setShow7] = useState(false);
-                   
-                       const handleClose7 = () => setShow7(false);
-                       const handleShow7 = () => setShow7(true);
-                   
-                       const [show6, setShow6] = useState(false);
-                   
-                       const handleClose6 = () => setShow6(false);
-                       const handleShow6 = () => setShow6(true);
-
-                        const [show5, setShow5] = useState(false);
-                       
-                           const handleClose5 = () => setShow5(false);
-                           const handleShow5 = () => setShow5(true);
+                               const convertToKM =(num)=> {
+                                   if (num >= 1000000) {
+                                       return `${(num / 1000000).toFixed(1)}M`;
+                                   } else if (num >= 1000) {
+                                       return `${(num / 1000).toFixed(1)}K`;
+                                   } else {
+                                       return `${num}`;
+                                   }
+                               };
+                               const inputDate = getSaveVideo?.createdAt;
+                               const formatTimeAgo = (inputDate) => {
+                                   // if (!getSaveVideo?.createdAt) return "Invalid date"; // Handle empty/null values
+                               
+                                   const date = new Date(getSaveVideo?.createdAt); // Convert backend date to Date object
+                                   const currentDate = new Date(); // Get current date
+                               
+                                   // Calculate the difference in months
+                                   const monthsDiff =
+                                       currentDate.getMonth() -
+                                       date.getMonth() +
+                                       12 * (currentDate.getFullYear() - date.getFullYear());
+                               
+                                   // Calculate the difference in days
+                                   const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
+                               
+                                   let timeAgo = "";
+                                   if (monthsDiff > 0) {
+                                       timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
+                                   } else if (daysDiff > 0) {
+                                       timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+                                   } else {
+                                       timeAgo = "Today";
+                                   }
+                                   return timeAgo;
+                               }
+                           
+                            
+                           
+                               const handleChange = (e) => {
+                                   if (subFolderView) {
+                                       setAddNewFolder(e.target.value)
+                           
+                                   }else{
+                                       setFolders(e.target.value);
+                           
+                                   }
+                               }
+                           
+                               const [active, setActive]  = useState(null)
+                           
+                               const handleNavigateSave = (item) => {
+                                   // console.log('_id', _id)
+                                   setSelectedFolderId(item?._id);
+                                   setSubfolderName(item?.name);
+                                   setSubfolderView(true);
+                                   setActive(item?._id);
+                                   // handleCreateFolderSub(addnewFolder);
+                                   // handleGetFolderSub(item?._id)
+                                   
+                               }; 
+                               // console.log('folders====00000098888', folders)
+                               const [deleteModel, setDeleteModel] = useState(false)
+                               // const [selectedItem, setSelectedItem] = useState(null);
+                               const [renameModel, setRenameModel] = useState(false);
+                               const [inputValue, setInputValue] = useState("");
+                                const [show, setShow] = useState(false);
+                               
+                                   const handleClose = () => setShow(false);
+                                   const handleShow = () => setShow(true);
+                               
+                                   const [show6, setShow6] = useState(false);
+                               
+                                   const handleClose6 = () => setShow6(false);
+                                   const handleShow6 = () => setShow6(true);
+                               
+                                 const dropdownRefnwe = useRef(null);
+                              
+                                  const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+                                  const [threeDotItem, setThreeDotItem] = useState(null);
+                           
+                              
+                                  const toggleDropdownnwe = (item) => {
+                                   // console.log(item,"if")
+                                      setisDropdownOpenid((prev) => (prev === item ? null : item));
+                                      setThreeDotItem(item);
+                           
+                           
+                                  };
+                          
+                                  const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+                                  
+                           
+                               const deselectAll = () => {
+                                   if (!setIsSelectTeachingAll) {
+                                       // Select all topics
+                                       setIsSelectTeachingAll(true);
+                                       setSelectedTopics(Share.map(topic => topic.text));
+                                   } else {
+                                       // Deselect all topics
+                                       setIsSelectTeachingAll(false);
+                                       setSelectedTopics([]);
+                                   }
+                               };
+                           
+                               const toggleSelection = (topicText) => {
+                                   setSelectedTopics((prevSelected) => {
+                                       if (prevSelected.includes(topicText)) {
+                                           // Remove topic if already selected
+                                           return prevSelected.filter(item => item !== topicText);
+                                       } else {
+                                           // Add topic if not selected
+                                           return [...prevSelected, topicText];
+                                       }
+                                   });
+                               };
+                           
+                               const handleTranscript = (topic) => {
+                                   if (transcript.includes(topic)) {
+                                       setTranscript(transcript.filter(item => item !== topic));
+                                   } else {
+                                       setTranscript([...transcript, topic]);
+                                   }
+                               };
+                           
+                               const isTranscript = (topic) => transcript.includes(topic);
+                           
+                           
+                               const toggleCheckbox = (itemName) => {
+                                   if (selectedValues.includes(itemName)) {
+                           
+                                       setSelectedValues(selectedValues.filter(item => item !== itemName));
+                                   } else {
+                           
+                                       setSelectedValues([...selectedValues, itemName]);
+                                   }
+                               };
+                           
+                               const isTopicSelectedTeach = (itemName) => {
+                                   return selectedValues.includes(itemName);
+                               };
+                           
+                           
+                               console.log(getSaveVideo,"getSaveVideo")
+                               const copyUrl = () => {
+                                   navigator.clipboard.writeText(shareLink);
+                               };
+                               const Share = [
+                               ]
+                               const [selectedValue, setSelectedValue] = useState([]);
+                           
+                               const handleChange1 = (e) => {
+                                   setSelectedValue(e.target.value);
+                               };
+                               const [text, setText] = useState("");
+                           
+                               const handleChange2 = (e) => {
+                                   setText(e.target.value);
+                               };
+                               // console.log(text,"text value8888")
+                               // console.log(selectedValue,"selectedValue value8888")
+                               const [Subfolder,setSubfolder] = useState()
+                               const [addnewFolder, setAddNewFolder] = useState('');
+                           
+                               console.log(getSubFolder,"Subfolder")
                    
     return (
         <>
-              {/* Rename folder modal start */}
-              <Modal open={renameModel} show={show7} onHide={handleClose7} centered className='custom-modal'>
+             {/* Rename folder modal start */}
+             <Modal open={renameModel} show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Rename folder</Modal.Title>
                 </Modal.Header>
@@ -142,9 +281,10 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                 </Modal.Body>
             </Modal>
 
-            <Modal show={show1} onHide={handleClose1} centered className='custom-modal'>
+           {/* Save to My Library Modal start */}
+           <Modal show={show1} onHide={handleClose1} onClick={() => setSubfolder("Subfolder")}  centered className='custom-modal pe-0'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Save to My Library</Modal.Title>
+                    <Modal.Title>{subFolderView? subfolderName :`Save to My Library`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='body-top'>
@@ -171,68 +311,178 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                         </div>
                     </div>
                     <div className='body-middle'>
-                        <div className='folder-lists'>
-                           {Array.isArray(getFolder) && getFolder.map((item, index) => (
-                                                       <div key={index} className='folder-view'>
-                                                       <div className='folder-inner'>
-                                                           <div className='folder-content-inline'>
-                                                           <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
-                                                               <div className='folder-icon'>
-                                                               <svg
-                                                                   width="32"
-                                                                   height="32"
-                                                                   viewBox="0 0 32 32"
-                                                                   fill="none"
-                                                                   xmlns="http://www.w3.org/2000/svg"
-                                                               >
-                                                                   <path
-                                                                   d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                                                   fill="#104E5B"
-                                                                   />
-                                                               </svg>
-                                                               </div>
-                                                               <div className={`folder-name ${active === item._id ? "active" : ""}`} >
-                                                                   <p className="">{item.name}</p>
-                                                               </div>
-                                                           </div>
-                           
-                                                           <div className='folder-content-right'>
-                                                               <div className='folder-icon'>
-                                                               <div className="folder-content-right" ref={dropdownRefnwe}>
-                                                                   <button
-                                                                   className="folder-icon"
-                                                                   onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                                                   >
-                                                                   <MdMoreVert />
-                                                                   </button>
-                           
-                                                                   {/* Show the dropdown only if it matches the current item's ID */}
-                                                                   {isDropdownOpenid?._id === item._id && (
-                                                                   <div className="dropdown-menu-card">
-                                                                       <ul>
-                                                                       <li>
-                                                                           <button variant="primary" onClick={handleShow7}>
-                                                                           <TbEdit />
-                                                                           Rename
-                                                                           </button>
-                                                                       </li>
-                                                                       <li className="hide_mobile">
-                                                                           <button variant="primary" onClick={handleShow6}>
-                                                                           <MdDeleteOutline />
-                                                                           Delete
-                                                                           </button>
-                                                                       </li>
-                                                                       </ul>
-                                                                   </div> 
-                                                                   )}
-                                                               </div>
-                                                               </div>
-                                                           </div>
-                                                           </div>
-                                                       </div>
-                                                       </div>
-                                                   ))}
+                    <div className='folder-lists'>
+
+                        {/* // doesnt make sense */}
+                    {/* {getSaveVideo === "getFolder"} */}
+
+                    {Array.isArray(getFolder) &&!subFolderView ?    
+                    getFolder.map((item, index) => (
+                            <div key={index} className='folder-view'>
+                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item)}}>
+                                <div className='folder-content-inline'>
+                                <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+                                    <div className='folder-icon'>
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 32 32"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                        fill="#104E5B"
+                                        />
+                                    </svg>
+                                    </div>
+                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                                        <p className="">{item.name}</p>
+                                    </div>
+                                </div>
+
+                                <div className='folder-content-right'>
+                                    <div className='folder-icon'>
+                                    <div className="folder-content-right" ref={dropdownRefnwe}>
+                                        <button
+                                        className="folder-icon"
+                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                                        >
+                                        <MdMoreVert />
+                                        </button>
+
+                                        {/* Show the dropdown only if it matches the current item's ID */}
+                                        {isDropdownOpenid?._id === item._id && (
+                                        <div className="dropdown-menu-card">
+                                            <ul>
+                                            <li>
+                                                <button variant="primary" onClick={handleShow}>
+                                                <TbEdit />
+                                                Rename
+                                                </button>
+                                            </li>
+                                            <li className="hide_mobile">
+                                                <button variant="primary" onClick={handleShow6}>
+                                                <MdDeleteOutline />
+                                                Delete
+                                                </button>
+                                            </li>
+                                            </ul>
+                                        </div> 
+                                        )}
+                                    </div>
+                                    </div>
+                        
+                                </div>
+                                
+                                </div>
+                                
+                            </div>
+                            </div>
+                        )):subFolderView ?
+<>
+                       { Array.isArray(getSubFolder)&&getSubFolder?.map((item, index) => (
+                            <div key={index} className='folder-view'>
+                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item?._id)}}>
+                                <div className='folder-content-inline'>
+                                <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+                                    <div className='folder-icon'>
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 32 32"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                        fill="#104E5B"
+                                        />
+                                    </svg>
+                                    </div>
+                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                                        <p className="">{item.name}</p>
+                                    </div>
+                                </div>
+
+                                <div className='folder-content-right'>
+                                    <div className='folder-icon'>
+                                    <div className="folder-content-right" ref={dropdownRefnwe}>
+                                        <button
+                                        className="folder-icon"
+                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                                        >
+                                        <MdMoreVert />
+                                        </button>
+
+                                        {/* Show the dropdown only if it matches the current item's ID */}
+                                        {isDropdownOpenid?._id === item._id && (
+                                        <div className="dropdown-menu-card">
+                                            <ul>
+                                            <li>
+                                                <button variant="primary" onClick={handleShow}>
+                                                <TbEdit />
+                                                Rename
+                                                </button>
+                                            </li>
+                                            <li className="hide_mobile">
+                                                <button variant="primary" onClick={handleShow6}>
+                                                <MdDeleteOutline />
+                                                Delete
+                                                </button>
+                                            </li>
+                                            </ul>
+                                        </div> 
+                                        )}
+                                    </div>
+                                    </div>
+                        
+                                </div>
+                                
+                                </div>
+                                
+                            </div>
+                            </div>
+                        ))}
+                        {Array.isArray(getSaveVideo) && getSaveVideo.map((item, index) => (
+                             <div className="video-card-container" key={index}>
+                             <div className="video-card-content">
+                                 {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
+                                     <div className="video-card-image">
+                                         <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                                         <div className="video-duration">{item?.duration}</div>
+                                     </div>
+                                 {/* </Link> */}
+                                  <div className="inline-gap-8">
+                                    <div className="video-title">
+                                        <h2>{item?.title}</h2>
+                                    </div>
+                                </div>
+                                <div className="bold-text">
+                                {item?.channelName}
+                                </div>
+                                <div className="accout-rating">
+                                                    <div className="rating-icon align-items-center gap-2 "><Image src={require("../../../assets/images/time.svg")} alt="Rating" /><span>{calculateMonthsAgo(item?.createdAt)}</span>
+                                                    </div>
+                                                    {/* <span>month</span> */}
+                                                </div>
+                                 <div className="video-card-detail">
+                                     <div className="video-de-title">
+                                         <div className="de-title">
+                                             {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                        ))}
+                        </>
+                        :null
+                        }
+                        
                         </div>
+
+
                         <div className='add-new-folder'>
                             <button
                                 type="button"
@@ -244,15 +494,15 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                         </div>
                     </div>
                     <div className="body-footer">
-                        <button type="button" className="btn-color-orange" data-bs-dismiss="modal" onClick={ () =>{
-                        handleClose1
+                        <button type="button" className="btn-color-orange" onClick={ () =>{
+                        handleClose1()
                         handleSaveVideo()
                         }}>Save here</button>
                     </div>
                 </Modal.Body>
             </Modal>
-               {/* New folder Modal start */}
-               <Modal show={show5} onHide={handleClose5} centered className='custom-modal new-folder-modal'>
+             {/* New folder Modal start */}
+             <Modal show={show5} onHide={handleClose5} centered className='custom-modal new-folder-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>New folder</Modal.Title>
                 </Modal.Header>
@@ -270,8 +520,15 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
                             () => {
                                 handleClose5();
                                 // addNewFolder();
-                                handleCreateFolder(folders);
+                                if(subFolderView){
+                                    handleCreateFolderSub(active,addnewFolder)
 
+                                }
+                                else{
+                                    handleCreateFolder(folders);
+                                }
+                              
+                                
                             }
 
                         }>Create folder</button>
@@ -364,10 +621,10 @@ function Suggested({ video ,getFolder,handleCreateFolder,handleDeleteFolder,hand
 }
 
 
-const SuggestedCardGrid = ({suggested,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,handleNotIntrested}) => (
+const SuggestedCardGrid = ({suggested,getFolder,handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) => (
     <div className="row">
         {suggested?.map((video) => (
-            <Suggested key={video.id} video={video}  getFolder={getFolder} rename={rename}  handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} />
+            <Suggested key={video.id} video={video}  getFolder={getFolder} rename={rename}  handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
         ))}
     </div>
 );

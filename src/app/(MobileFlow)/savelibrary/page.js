@@ -10,9 +10,10 @@ import { Form } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
 import { FiAlertOctagon } from "react-icons/fi";
+import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
 
-function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder}) {
-// console.log(getFolder,"getFolder+++++++++++")
+function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
+console.log(getSaveVideo,"getSaveVideo+++++++++++")
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -30,9 +31,9 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
 
 
     const [folders, setFolders] = useState([
-        { id: 1, name: 'My Library' },
-        { id: 2, name: 'Work Documents' },
-        { id: 3, name: 'Personal Files' },
+        // { id: 1, name: 'My Library' },
+        // { id: 2, name: 'Work Documents' },
+        // { id: 3, name: 'Personal Files' },
     ]);
 
     // Function to add a new folder
@@ -57,10 +58,12 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
             setIsDropdownOpen(null);
         }
     };
-
-     const [show1, setShow1] = useState(false);
+    const [subFolderView,setSubfolderView] = useState(false);
+    const [Subfolder,setSubfolder] = useState()
+        const [subfolderName,setSubfolderName] = useState('');
     
-        const handleClose1 = () => setShow1(false);
+     const [show1, setShow1] = useState(false);
+        const handleClose1 = () =>{ setShow1(false); setSubfolder("");setSubfolderView(false);}
         const handleShow1 = () => setShow1(true);
     
     useEffect(() => {
@@ -70,15 +73,6 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
         };
     }, []);
 
-        const [active, setActive]  = useState(null)
-    
-    const handleNavigateSave = (_id) => {
-        // console.log('_id', _id)
-        setSelectedFolderId(_id);
-        // console.log('Clicked Folder ID:', folderId);
-
-        setActive(_id);
-    }; 
 
       const [deleteModel, setDeleteModel] = useState(false)
         const [renameModel, setRenameModel] = useState(false);
@@ -109,6 +103,18 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
            const handleChange = (e) => {
             setFolders(e.target.value);
         }
+         const [active, setActive]  = useState(null)
+        
+            const handleNavigateSave = (item) => {
+                // console.log('_id', _id)
+                setSelectedFolderId(item?._id);
+                setSubfolderName(item?.name);
+                setSubfolderView(true);
+                setActive(item?._id);
+                // handleCreateFolderSub(addnewFolder);
+                // handleGetFolderSub(item?._id)
+                
+            }; 
     return (
         <>
          {/* Rename folder modal start */}
@@ -246,7 +252,7 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
                             </button>
                         </div>
                         <div className="page-title">
-                            <h5>Save to My Library</h5>
+                            <h5>{subFolderView? subfolderName :`Save to My Library`}</h5>
                         </div>
                     </div>
                     <div className="page-section-right">
@@ -273,68 +279,177 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
                         </div>
                     </div>
                     <div className='body-middle'>
-                        <div className='folder-lists'>
-                             {Array.isArray(getFolder) && getFolder.map((item, index) => (
-                                                        <div key={index} className='folder-view'>
-                                                        <div className='folder-inner'>
-                                                            <div className='folder-content-inline'>
-                                                            <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
-                                                                <div className='folder-icon'>
-                                                                <svg
-                                                                    width="32"
-                                                                    height="32"
-                                                                    viewBox="0 0 32 32"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                    d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                                                    fill="#104E5B"
-                                                                    />
-                                                                </svg>
-                                                                </div>
-                                                                <div className={`folder-name ${active === item._id ? "active" : ""}`} >
-                                                                    <p className="">{item.name}</p>
-                                                                </div>
-                                                            </div>
-                            
-                                                            <div className='folder-content-right'>
-                                                                <div className='folder-icon'>
-                                                                <div className="folder-content-right" ref={dropdownRefnwe}>
-                                                                    <button
-                                                                    className="folder-icon"
-                                                                    onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                                                    >
-                                                                    <MdMoreVert />
-                                                                    </button>
-                            
-                                                                    {/* Show the dropdown only if it matches the current item's ID */}
-                                                                    {isDropdownOpenid?._id === item._id && (
-                                                                    <div className="dropdown-menu-card">
-                                                                        <ul>
-                                                                        <li>
-                                                                            <button variant="primary" onClick={handleShow7}>
-                                                                            <TbEdit />
-                                                                            Rename
-                                                                            </button>
-                                                                        </li>
-                                                                        <li className="hide_mobile">
-                                                                            <button variant="primary" onClick={handleShow6}>
-                                                                            <MdDeleteOutline />
-                                                                            Delete
-                                                                            </button>
-                                                                        </li>
-                                                                        </ul>
-                                                                    </div> 
-                                                                    )}
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    ))}
+                    <div className='folder-lists'>
+
+{/* // doesnt make sense */}
+{/* {getSaveVideo === "getFolder"} */}
+
+{Array.isArray(getFolder) &&!subFolderView ?    
+getFolder.map((item, index) => (
+    <div key={index} className='folder-view'>
+    <div className='folder-inner' onClick={() =>{ handleNavigateSave(item)}}>
+        <div className='folder-content-inline'>
+        <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+            <div className='folder-icon'>
+            <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                fill="#104E5B"
+                />
+            </svg>
+            </div>
+            <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                <p className="">{item.name}</p>
+            </div>
+        </div>
+
+        <div className='folder-content-right'>
+            <div className='folder-icon'>
+            <div className="folder-content-right" ref={dropdownRefnwe}>
+                <button
+                className="folder-icon"
+                onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                >
+                <MdMoreVert />
+                </button>
+
+                {/* Show the dropdown only if it matches the current item's ID */}
+                {isDropdownOpenid?._id === item._id && (
+                <div className="dropdown-menu-card">
+                    <ul>
+                    <li>
+                        <button variant="primary" onClick={handleShow}>
+                        <TbEdit />
+                        Rename
+                        </button>
+                    </li>
+                    <li className="hide_mobile">
+                        <button variant="primary" onClick={handleShow6}>
+                        <MdDeleteOutline />
+                        Delete
+                        </button>
+                    </li>
+                    </ul>
+                </div> 
+                )}
+            </div>
+            </div>
+
+        </div>
+        
+        </div>
+        
+    </div>
+    </div>
+)):subFolderView ?
+<>
+{ Array.isArray(getSubFolder)&&getSubFolder?.map((item, index) => (
+    <div key={index} className='folder-view'>
+    <div className='folder-inner' onClick={() =>{ handleNavigateSave(item?._id)}}>
+        <div className='folder-content-inline'>
+        <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
+            <div className='folder-icon'>
+            <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                fill="#104E5B"
+                />
+            </svg>
+            </div>
+            <div className={`folder-name ${active === item._id ? "active" : ""}`} >
+                <p className="">{item.name}</p>
+            </div>
+        </div>
+
+        <div className='folder-content-right'>
+            <div className='folder-icon'>
+            <div className="folder-content-right" ref={dropdownRefnwe}>
+                <button
+                className="folder-icon"
+                onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                >
+                <MdMoreVert />
+                </button>
+
+                {/* Show the dropdown only if it matches the current item's ID */}
+                {isDropdownOpenid?._id === item._id && (
+                <div className="dropdown-menu-card">
+                    <ul>
+                    <li>
+                        <button variant="primary" onClick={handleShow}>
+                        <TbEdit />
+                        Rename
+                        </button>
+                    </li>
+                    <li className="hide_mobile">
+                        <button variant="primary" onClick={handleShow6}>
+                        <MdDeleteOutline />
+                        Delete
+                        </button>
+                    </li>
+                    </ul>
+                </div> 
+                )}
+            </div>
+            </div>
+
+        </div>
+        
+        </div>
+        
+    </div>
+    </div>
+))}
+{Array.isArray(getSaveVideo) && getSaveVideo.map((item, index) => (
+     <div className="video-card-container" key={index}>
+     <div className="video-card-content">
+         {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
+             <div className="video-card-image">
+                 <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
+                 <div className="video-duration">{item?.duration}</div>
+             </div>
+         {/* </Link> */}
+          <div className="inline-gap-8">
+            <div className="video-title">
+                <h2>{item?.title}</h2>
+            </div>
+        </div>
+        <div className="bold-text">
+        {item?.channelName}
+        </div>
+        <div className="accout-rating">
+                            <div className="rating-icon align-items-center gap-2 "><Image src={require("../../../assets/images/time.svg")} alt="Rating" /> <span>{calculateMonthsAgo(item?.createdAt)}</span>
+                            </div>
+                            {/* <span>month</span> */}
                         </div>
+         <div className="video-card-detail">
+             <div className="video-de-title">
+                 <div className="de-title">
+                     {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+))}
+</>
+:null
+}
+
+                    </div>
+
                         <div className='add-new-folder'>
                             <button
                                 type="button"
@@ -352,7 +467,7 @@ function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setS
                 <div className="bottom-btn-bar-inner">
                     <button type="button" className="btn-color-orange" 
                     onClick={ () =>{
-                        handleClose1
+                        handleClose1()
                         handleSaveVideo()
                         }}
                     >Save here</button>

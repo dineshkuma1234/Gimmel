@@ -14,7 +14,7 @@ import LoaderHelper from "../app/LoderHelper/LoaderHelper";  // Import loader he
 import { Suspense } from 'react'
 import Loading from "../app/loading";
 import Header from "@/components/header/header";
-
+import {SaveProvider} from "./Context/saveContext/SaveContext"
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -32,18 +32,20 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
         <LoaderProvider>
-          
           <SearchListProvider>
           <HeaderProvider >
+            
+          {/* <SaveProvider> */}
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
             <Suspense fallback={<Loading />}>
             {/* <Header /> */}
             {children}
             </Suspense>
+            {/* </SaveProvider> */}
             </HeaderProvider>
           </SearchListProvider>
-          
+         
         </LoaderProvider>
       </body>
     </html>
