@@ -6,15 +6,22 @@ import "../../CommenStyle/filter.css";
 import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 import Image from "next/image";
+import Select from "react-select";
 
 function SearchList({searchListState}){
+    const [reset, setReset] = useState(false);
    
 //   const router = useRouter();
 //   const { data } = router.query;
 //   console.log(data,"datat")
+
+const options = [
+    { value: "relevancy", label: "Relevancy" },
+    { value: "most-popular", label: "Most Popular" },
+  ];
     return (
         <>
-            <Header />
+            <Header reset={reset} setReset={setReset}/>
 
             <main id="main" className="top-space-filter">
                 <div className="category-filter-container">
@@ -24,17 +31,14 @@ function SearchList({searchListState}){
                         </div>
                     </div>
                     <div className='main-container'>
-                        <div className="page-main-title-mylibrary inline-gap-16">
+                        {/* <div className="page-main-title-mylibrary inline-gap-16">
                             <h3>My Library</h3> <Image src={require("../../../assets/images/right-svg.svg")} alt="arrow" /> <Link href="#">6th Grade</Link>
-                        </div>
+                        </div> */}
                         <div className='body-top'>
                             <div className='body-top-left mt-3'>
                                 <div className='short-by'>
                                     <p>Sort by</p>
-                                    <select name="" id="" className='short-by-select'>
-                                        <option>relevancy</option>
-                                        <option>Most popular</option>
-                                    </select>
+                                    <Select options={options} />
                                 </div>
                             </div>
                             <div className='body-top-right'>

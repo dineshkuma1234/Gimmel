@@ -7,7 +7,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 
 
-function FilterData({handleSearchCont,headerSearch}) {
+function FilterData({handleSearchCont,headerSearch,setShow}) {
     const [selectedAge, setSelectedAge] = useState("");
 
     const handleClick = (age) => {
@@ -79,16 +79,7 @@ function FilterData({handleSearchCont,headerSearch}) {
 
     const [isOn,setIsOn]=useState(false)
 
-    // console.log(isOn,"this is chips---")
-    // console.log(chips,"this is chips---")
-    // console.log( inputValue,"this is inputValue---")
-
-    // console.log(selectedAge,"this is selectedAge---")
-    // console.log(selectedEngagement,"this is selectedEngagement---")
-    // console.log(selectedDate,"this is selectedDate---")
-    // console.log(sliderValue,"this is sliderValue---")
-    // console.log(selectedValue,"this is selectedValue---")
-    // console.log(selectedAudience,"this is selectedAudience---")
+   
     return (
         <>
             <div className="middle-section">
@@ -375,8 +366,9 @@ function FilterData({handleSearchCont,headerSearch}) {
                     selectedValue,
                     selectedAudience,
                 )
+                setShow(false);
                 // console.log(headerSearch,"headerSearch---222")
-                }}>Apply Filter</button>
+                }}disabled={!headerSearch}>Apply Filter</button>
                 </div>
 
                 <div className="show_mobile">
@@ -394,8 +386,9 @@ function FilterData({handleSearchCont,headerSearch}) {
                                     sliderValue,
                                     selectedValue,
                                     selectedAudience,
-                                )
-                            }}>Apply filters</button>
+                                );
+                                setShow(false);
+                            }} >Apply filters</button>
                         </div>
                     </div>
                 </div>

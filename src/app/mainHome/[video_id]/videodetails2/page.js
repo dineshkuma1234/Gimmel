@@ -32,7 +32,7 @@ function PageComponent() {
   const [getSaveVideo,setGetSaveVideo] = useState([]);
   const [getSubFolder,setGetFolderSub]= useState();
   console.log(getSaveVideo,"getSaveVideo++++++++++++++________")
-
+  const [topicPost, setTopicPost] = useState("")
   console.log(selectedFolderId,"selectedFolderId[[[[]]]]]]==")
   useEffect(() => {
      
@@ -45,6 +45,7 @@ function PageComponent() {
           handleNotIntrested()
           handleCreateFolderSub()
           handleGetFolderSub()
+          handleTopicPost();
           // handleSaveVideonext(selectedFolderId)
   }, []);
   useEffect(() => {
@@ -300,12 +301,36 @@ function PageComponent() {
       }
     };
 
+ 
+    
+    const handleTopicPost = async () => {
+      setLoader(true);
+      try {
+        const result = await AuthService.TopicPost();
+        // console.log(result, 'result---')
+        if (result?.success) {
+          setTopicPost(result?.data)
+          setLoader(false);
+    
+        } else {
+          AlertHelper.show('danger', 'Gimmel', result?.message);
+          setLoader(false);
+    
+        }
+      } catch (error) {
+        setLoader(false);
+    
+        // console.log('Error occurred:', 'Gimmel', error);
+      }
+    };
+    
+
     const handleNotIntrested = async (id) => {
       // LoaderHelper.loaderStatus(true);
       // console.log('function calll')
       setLoader(true);
       try {
-      console.log("loading" )
+
         const result = await AuthService.NotIntrested(id);
         // console.log(result, "result---")
         if (result?.success) {

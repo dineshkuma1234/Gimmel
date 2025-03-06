@@ -401,23 +401,23 @@ const VideoCard = ({
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {substance.map((topic, index) => (
-                          <ListGroup.Item key={index}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.name}
-                              label={topic.name}
-                              checked={!!checkedItems[topic.name]} // Default to false if undefined
-                              onChange={handleChange}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {substance?.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
+                                            onChange={handleChange}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="1" className="modal-select-item">
@@ -428,23 +428,23 @@ const VideoCard = ({
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {mentalHealth.map((topic, index) => (
-                          <ListGroup.Item key={index}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.name}
-                              label={topic.name}
-                              checked={!!checkedItems1[topic.name]} // Default to false if undefined
-                              onChange={handleChange1}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {mentalHealth?.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems1[topic.name]} // Default to false if undefined
+                                            onChange={handleChange1}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="2" className="modal-select-item">
@@ -455,23 +455,23 @@ const VideoCard = ({
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {neuroScience.map((topic, index) => (
-                          <ListGroup.Item key={index}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.name}
-                              label={topic.name}
-                              checked={!!checkedItems2[topic.name]} // Default to false if undefined
-                              onChange={handleChange2}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {neuroScience?.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems2[topic.name]} // Default to false if undefined
+                                            onChange={handleChange2}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="3" className="modal-select-item">
@@ -482,23 +482,23 @@ const VideoCard = ({
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <ul className="checkbox-group">
-                    <Form>
-                      <ListGroup>
-                        {socialIssues.map((topic, index) => (
-                          <ListGroup.Item key={index}>
-                            <Form.Check
-                              type="checkbox"
-                              id={topic.name}
-                              label={topic.name}
-                              checked={!!checkedItems3[topic.name]} // Default to false if undefined
-                              onChange={handleChange3}
-                            />
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                    </Form>
-                  </ul>
+                    <ul className="checkbox-group">
+                        <Form>
+                            <ListGroup>
+                                {socialIssues?.map((topic,index) => (
+                                    <ListGroup.Item key={index}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={topic.name}
+                                            label={topic.name}
+                                            checked={!!checkedItems3[topic.name]} // Default to false if undefined
+                                            onChange={handleChange3}
+                                        />
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Form>
+                    </ul>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
@@ -643,7 +643,7 @@ const VideoCard = ({
       ) : null}
 
       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="video-card">
+        <div className="video-card card-height">
           <div className="video-card-content">
             <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
@@ -782,12 +782,7 @@ const VideoCard = ({
                         )}
                         <div className="dropdown-divider"></div>
                         <li>
-                          <button
-                            href="#"
-                            onClick={() => {
-                              handleNotIntrested();
-                            }}
-                          >
+                          <button href="#" onClick={()=>{ handleNotIntrested(video?._id);setIsDropdownOpen(false)}}>
                             <svg
                               width="24"
                               height="24"
