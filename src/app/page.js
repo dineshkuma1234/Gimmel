@@ -33,6 +33,8 @@ export default function PageComponent() {
   const [value, setValue] = useState(null);
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
+  const [categoryVideo,setgetCategoryVideo]=useState([])
+ 
   
   useEffect(() => {
     checkUserLogedIn();
@@ -54,6 +56,7 @@ export default function PageComponent() {
     // handleSave()
     handleGetFolder(value);
     handleCreateFolder();
+    handleGetCategoryVideo()
   }, []);
   // Fetch posts when the page changes
   useEffect(() => {
@@ -679,6 +682,26 @@ export default function PageComponent() {
 
   // (headerSearch,"interest---")
 
+  const handleGetCategoryVideo = async () => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.CategoryVideoList();
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        setgetCategoryVideo(result?.data)
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+ 
+
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
@@ -711,6 +734,8 @@ export default function PageComponent() {
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
+          categoryVideo={categoryVideo}
+
         />
       ) : (
         <MainMobile
