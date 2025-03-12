@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import Main from "./entities/main/page";
-import MainMobile from './(MobileFlow)/mobile-main/page';
-import AuthService from '../services/AuthService';
+import MainMobile from "./(MobileFlow)/mobile-main/page";
+import AuthService from "../services/AuthService";
 import { useRouter } from "next/navigation";
-import { UseLoader } from './LoderHelper/context/loaderHelperContext';
-import unAuthToken from '../Constants/constant'
-import { SearchListContext } from './Context/searchlist/searchListContext';
+import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
+import unAuthToken from "../Constants/constant";
+import { SearchListContext } from "./Context/searchlist/searchListContext";
 import toast, { Toaster } from "react-hot-toast";
-import Loader from './LoderHelper/page';
+import Loader from "./LoderHelper/page";
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
 
 export default function PageComponent() {
-  const router = useRouter(); 
- 
+  const router = useRouter();
+
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [total, setTotal] = useState();
@@ -24,56 +24,52 @@ export default function PageComponent() {
   const [loading, setLoading] = useState(false);
   const [getPost, setGetPost] = useState([]);
   const [sliderData, setSliderData] = useState([]);
-  const [noSuggetion, setNoSuggetion] = useState("")
-  const {setLoader} = UseLoader()
-  const [data , setdata] = useState();
-  const [getFolder, setGetFolder] = useState("")
-  const [rename, setRename] = useState("")
+  const [noSuggetion, setNoSuggetion] = useState("");
+  const { setLoader } = UseLoader();
+  const [data, setdata] = useState();
+  const [getFolder, setGetFolder] = useState("");
+  const [rename, setRename] = useState("");
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
-  const [getSaveVideo,setGetSaveVideo] = useState([]);
-    const [getSubFolder,setGetFolderSub]= useState();
+  const [getSaveVideo, setGetSaveVideo] = useState([]);
+  const [getSubFolder, setGetFolderSub] = useState();
+  
   useEffect(() => {
-    
     checkUserLogedIn();
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const updateWidth = () => {
       setDeviceWidth(window.innerWidth);
     };
 
     updateWidth();
-    window.addEventListener('resize', updateWidth);
+    window.addEventListener("resize", updateWidth);
 
-    return () => window.removeEventListener('resize', updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-
- useEffect(() => {
-     
-          handleGetPostid();
-          // handleQuiz()
-          // handleSave()
-          handleGetFolder(value);
-          handleCreateFolder()
-        
-
+  useEffect(() => {
+    handleGetPostid();
+    // handleQuiz()
+    // handleSave()
+    handleGetFolder(value);
+    handleCreateFolder();
   }, []);
   // Fetch posts when the page changes
   useEffect(() => {
     if (!noLoad) {
       handleGetPost(page);
     }
-    
   }, [page]);
 
   // Infinite Scroll - Detect when the user scrolls to the bottom
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const handleScroll = () => {
       if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 10 &&
+        window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 10 &&
         !loading &&
         !noLoad
       ) {
@@ -81,8 +77,8 @@ export default function PageComponent() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
@@ -99,65 +95,59 @@ export default function PageComponent() {
         if (newPosts.length === 0) {
           setNoLoad(true); // Stop further API calls when no more data
           setLoader(false);
-
         } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);
           setLoader(false);
-
         }
       }
     } catch (error) {
-      console.error('Error occurred:', error);
+      console.error("Error occurred:", error);
     } finally {
       setLoading(false);
     }
   };
- 
-// PostSlider on home page//
-const [topicPost, setTopicPost] = useState("")
-useEffect(() => {
-  handleTopicPost();
-}, []);
 
+  // PostSlider on home page//
+  const [topicPost, setTopicPost] = useState("");
+  useEffect(() => {
+    handleTopicPost();
+  }, []);
 
-const handleTopicPost = async () => {
-  setLoader(true);
-  try {
-    const result = await AuthService.TopicPost();
-    if (result?.success) {
-      setTopicPost(result?.data)
+  const handleTopicPost = async () => {
+    setLoader(true);
+    try {
+      const result = await AuthService.TopicPost();
+      if (result?.success) {
+        setTopicPost(result?.data);
+        setLoader(false);
+      } else {
+        AlertHelper.show("danger", "Gimmel", result?.message);
+        setLoader(false);
+      }
+    } catch (error) {
       setLoader(false);
-
-    } else {
-      AlertHelper.show('danger', 'Gimmel', result?.message);
-      setLoader(false);
-
     }
-  } catch (error) {
-    setLoader(false);
-
-  }
-};
+  };
 
   ///////Search \\\\\\
   const [historyList, setHistoryList] = useState([]);
-  const [selectSearchList, setSelectSearchList] = useState('')
-  const [headerSearch, setHeaderSearch] = useState("")
+  const [selectSearchList, setSelectSearchList] = useState("");
+  const [headerSearch, setHeaderSearch] = useState("");
   // const [searchList, setSearchList] = useState('');
-  const [searchListState, updatesearchListState] = useContext(SearchListContext);
+  const [searchListState, updatesearchListState] =
+    useContext(SearchListContext);
   useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
     }
-  }, [])
+  }, []);
   useEffect(() => {
     handleHistoryList();
-  },[]);
+  }, []);
 
-  
-const handleHistoryList = async (headerSearch) => {
-  // setLoader(true);
-  try {
+  const handleHistoryList = async (headerSearch) => {
+    // setLoader(true);
+    try {
       const result = await AuthService.SearchHistory(headerSearch);
       if (result?.success) {
         // setLoader(false);
@@ -167,11 +157,9 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         toast.error(result?.message, {
           className: "custom-toast", // Apply the custom class
-      });
+        });
       }
-    } catch (error) {
- 
-    }
+    } catch (error) {}
   };
   const handleSearchCont = async (
     headerSearch,
@@ -183,7 +171,7 @@ const handleHistoryList = async (headerSearch) => {
     selectedDate,
     sliderValue,
     selectedValue,
-    selectedAudience,
+    selectedAudience
   ) => {
     // setLoader(true);
 
@@ -198,7 +186,7 @@ const handleHistoryList = async (headerSearch) => {
         selectedDate,
         sliderValue,
         selectedValue,
-        selectedAudience,
+        selectedAudience
       );
       // setLoader(false);
 
@@ -207,28 +195,27 @@ const handleHistoryList = async (headerSearch) => {
           // AlertHelper.show('gray', 'Gimmel', 'No data');
           toast.error(result?.message, {
             className: "custom-toast", // Apply the custom class
-        });
-          
+          });
         } else {
           updatesearchListState(result?.data);
           // navigation.navigate('TabNavigation', {
           //   screen: 'Search',
           //   params: { data: result?.data },
           // });
-          router.push( "/searchlist",
-            { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
+          router.push(
+            "/searchlist",
+            { data: JSON.stringify(result?.data) } // Convert the object to a JSON string
           );
         }
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         // setLoader(false);
-
       }
     } catch (error) {
       // setLoader(false);
     }
   };
- 
+
   // My Intrest //
 
   const [substance, setSubstance] = useState([]);
@@ -236,29 +223,27 @@ const handleHistoryList = async (headerSearch) => {
   const [neuroScience, setNeuroScience] = useState([]);
   const [socialIssues, setSocialIssues] = useState([]);
   const [interest, setInterest] = useState(null);
- 
- 
-  useEffect(()=>{
+
+  useEffect(() => {
     handleSubstance();
     handleMentalHealth();
     handleNeuroscience();
     handleSocialIssue();
     getInterestFromStorage();
     handleSliderData();
-   
-  },[]);
+  }, []);
 
-    useEffect(() => {
-      if (selectedFolderId) {
-          handleSaveVideonext(selectedFolderId);
-      }
+  useEffect(() => {
+    if (selectedFolderId) {
+      handleSaveVideonext(selectedFolderId);
+    }
   }, [selectedFolderId]);
   const checkUserLogedIn = () => {
-    const token = localStorage.getItem('token');
-    if(!token){
-      localStorage.setItem('unAuthToken',unAuthToken)
+    const token = localStorage.getItem("token");
+    if (!token) {
+      localStorage.setItem("unAuthToken", unAuthToken);
     }
-  }
+  };
   const handleSubstance = async () => {
     // setLoader(true);
 
@@ -267,17 +252,13 @@ const handleHistoryList = async (headerSearch) => {
       if (result?.success) {
         // setLoader(false);
 
-
         setSubstance(result?.data?.data);
       } else {
-
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         // setLoader(false);
-
       }
     } catch (error) {
       // setLoader(false);
-
     }
   };
 
@@ -289,17 +270,13 @@ const handleHistoryList = async (headerSearch) => {
       if (result?.success) {
         // setLoader(false);
 
-
         setMentalHealth(result?.data?.data);
       } else {
-
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         // setLoader(false);
-
       }
     } catch (error) {
       // setLoader(false);
-
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -311,15 +288,12 @@ const handleHistoryList = async (headerSearch) => {
       if (result?.success) {
         setNeuroScience(result?.data?.data);
         // setLoader(false);
-
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         // setLoader(false);
-
       }
     } catch (error) {
       // setLoader(false);
-
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -335,10 +309,8 @@ const handleHistoryList = async (headerSearch) => {
       } else {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
         // setLoader(false);
-
       }
     } catch (error) {
-
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -349,37 +321,43 @@ const handleHistoryList = async (headerSearch) => {
       const result = await AuthService.SaveInt();
       if (result?.success) {
         // setLoader(false);
-
         // AlertHelper.show('success', 'Gimmel', result?.message);
       } else {
         // setLoader(false);
-
-
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
       // setLoader(false);
-
       // ('Error occurred:', 'Gimmel', error);
     }
   };
-  const getInterestFromStorage =  () => {
-      
-    const value =  localStorage.getItem('interest');
+  const getInterestFromStorage = () => {
+    const value = localStorage.getItem("interest");
     // (value)
-        setInterest(value); 
-   
-};
-  const handleInterestFilter = async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
+    setInterest(value);
+  };
+  const handleInterestFilter = async (
+    selectedSubstance,
+    selectedHealth,
+    selectedneuroscience,
+    selectSocialIssue,
+    interestsDescription
+  ) => {
     // setLoader(true);
     try {
-      const result = await AuthService.InterestFilter(selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription);
+      const result = await AuthService.InterestFilter(
+        selectedSubstance,
+        selectedHealth,
+        selectedneuroscience,
+        selectSocialIssue,
+        interestsDescription
+      );
       // (result,"result of interest filter ---")
       if (result?.success) {
         // setLoader(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
-        const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-        localStorage.setItem('interest', isInterestValue);
+        const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+        localStorage.setItem("interest", isInterestValue);
         handleSaveIntrest();
         getInterestFromStorage();
         handleGetPost();
@@ -393,21 +371,18 @@ const handleHistoryList = async (headerSearch) => {
     }
   };
 
-
-
   const handleSliderData = async () => {
     try {
       const result = await AuthService.HomeSlider();
       if (result?.success) {
         setSliderData(result?.data?.posts);
       } else {
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       // ('Error occurred:', 'Gimmel', error);
     }
   };
-
 
   const handleMoreLike = async () => {
     // LoaderHelper.loaderStatus(true);
@@ -416,7 +391,7 @@ const handleHistoryList = async (headerSearch) => {
       // (result,"result of more int video ----")
       if (result) {
         // LoaderHelper.loaderStatus(false);
-        setTopicPost(result?.data)
+        setTopicPost(result?.data);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         handleSliderData();
       } else {
@@ -442,7 +417,6 @@ const handleHistoryList = async (headerSearch) => {
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -456,7 +430,7 @@ const handleHistoryList = async (headerSearch) => {
         // (result,"result")
         // AlertHelper.show('success', 'Gimmel', result?.message);
         handleSliderData();
-        setNoSuggetion(result)
+        setNoSuggetion(result);
       } else {
         // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
@@ -468,9 +442,8 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleGetFolder = async (value) => {
-
     // setLoader(true);
-      try {
+    try {
       const result = await AuthService.GetFolder(value);
       if (result?.success) {
         // (result,"result of get folder")
@@ -486,7 +459,6 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleCreateFolder = async (folders) => {
-
     // setLoader(true);
     try {
       const result = await AuthService.createFolder(folders);
@@ -494,10 +466,10 @@ const handleHistoryList = async (headerSearch) => {
       if (result?.success) {
         // setLoader(false);
         handleGetFolder();
-        AlertHelper.show('success', 'Gimmel', result?.data);
+        AlertHelper.show("success", "Gimmel", result?.data);
       } else {
         // setLoader(false);
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       // setLoader(false);
@@ -506,19 +478,18 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleDeleteFolder = async (id) => {
-
     setLoader(true);
     try {
       const result = await AuthService.deleteFolder(id);
-      
+
       // (result, "result---delete")
       if (result?.success) {
         setLoader(false);
         handleGetFolder();
-        AlertHelper.show('success', 'Gimmel',result?.message);
+        AlertHelper.show("success", "Gimmel", result?.message);
       } else {
         setLoader(false);
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       setLoader(false);
@@ -527,7 +498,6 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleRename = async (rename, id) => {
-
     // (rename, id, "rename and id --------------")
     // setLoader(true);
     try {
@@ -537,10 +507,10 @@ const handleHistoryList = async (headerSearch) => {
         // setLoader(false);
         handleGetFolder();
         setRename("");
-        AlertHelper.show('success', 'Gimmel', result?.message);
+        AlertHelper.show("success", "Gimmel", result?.message);
       } else {
         // setLoader(false);
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       // setLoader(false);
@@ -549,11 +519,9 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleSaveVideo = async () => {
-    // ("handleSaveVideo function called");
-
     // setLoader(true);
 
-    if(!selectedFolderId){
+    if (!selectedFolderId) {
       // ("No folder selected. Exiting function.");
 
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
@@ -569,9 +537,9 @@ const handleHistoryList = async (headerSearch) => {
         // ("Video saved successfully:", result);
 
         // setLoader(false);
-        setSelectedFolderId(null)
+        setSelectedFolderId(null);
         // navigation.navigate("videodetails2");
-        handleGetPostid()
+        handleGetPostid();
         // navigation.setParams({
         //   data: null,
         // });
@@ -581,7 +549,6 @@ const handleHistoryList = async (headerSearch) => {
       } else {
         // setLoader(false);
         // ("Failed to save video. Error message:", result?.message);
-
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
@@ -591,149 +558,198 @@ const handleHistoryList = async (headerSearch) => {
   };
 
   const handleGetPostid = async () => {
-       
     setLoader(true);
 
     try {
-    const result = await AuthService.getvideoid(id);
-    setLoader(false);
-
-    if (result?.success) {
-      // setgetvideoid(result?.data);
+      const result = await AuthService.getvideoid(id);
       setLoader(false);
 
-      
-     setdata(result?.data)
-    //  (result, "data----nwetest");
+      if (result?.success) {
+        // setgetvideoid(result?.data);
+        setLoader(false);
 
-      // if (result?.data?.postId) {
-      //   setPostId(result.data.postId);
-      //   ("Post ID Updated:", result.data.postId);
-      // } else {
-      //   console.warn("postId not found in API response");
-      // }
+        setdata(result?.data);
+        //  (result, "data----nwetest");
+
+        // if (result?.data?.postId) {
+        //   setPostId(result.data.postId);
+        //   ("Post ID Updated:", result.data.postId);
+        // } else {
+        //   console.warn("postId not found in API response");
+        // }
+        setLoader(false);
+      }
+    } catch (error) {
+      // console.error("Error occurred:", error);
+    }
+  };
+
+  const handleNotIntrested = async (id) => {
+    // LoaderHelper.loaderStatus(true);
+    // ('function calll')
+    setLoader(true);
+    try {
+      // ("loading" )
+      const result = await AuthService.NotIntrested(id);
+      // (result, "result---")
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
+        handleTopicPost();
+        // AlertHelper.show('success', 'Gimmel', result?.message);
+        toast.success(result?.message || "success", {
+          className: "custom-toast-success",
+        });
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
       setLoader(false);
-
+      // ('Error occurred:', 'Gimmel', error);
     }
-  } catch (error) {
-    // console.error("Error occurred:", error);
-  } 
-};
+  };
 
-const handleNotIntrested = async (id) => {
-  // LoaderHelper.loaderStatus(true);
-  // ('function calll')
-  setLoader(true);
-  try {
-  // ("loading" )
-    const result = await AuthService.NotIntrested(id);
-    // (result, "result---")
-    if (result?.success) {
+  const handleSaveVideonext = async (id) => {
+    "Function called with Folder ID:", id;
+
+    // LoaderHelper.loaderStatus(true);
+    try {
+      ("Calling API to fetch saved videos...");
+      const result = await AuthService.GetSaveVideo(id);
+      "API Response:", result;
+
+      if (result?.success) {
+        "Videos received successfully:", result.videos;
+
+        // LoaderHelper.loaderStatus(false);
+        setGetSaveVideo(result?.videos);
+      } else {
+        "API call was unsuccessful:", result?.message || result;
+
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message || result );
+      }
+    } catch (error) {
+      console.error("Error occurred while fetching videos:", error);
+
       // LoaderHelper.loaderStatus(false);
-      setLoader(false);
-      handleTopicPost();
-      // AlertHelper.show('success', 'Gimmel', result?.message);
-      toast.success(result?.message || "success", {
-        className: "custom-toast-success", 
-    });
-    } else {
-      // LoaderHelper.loaderStatus(false);
-      setLoader(false);
-      // AlertHelper.show('danger', 'Gimmel', result?.message);
+      // ('Error occurred:', 'Gimmel', error);
     }
-  } catch (error) {
-    // LoaderHelper.loaderStatus(false);
-    setLoader(false);
-    // ('Error occurred:', 'Gimmel', error);
-  }
-};
+  };
 
-const handleSaveVideonext = async (id) => {
-  ("Function called with Folder ID:", id);
-
-  // LoaderHelper.loaderStatus(true);
-  try {
-    ("Calling API to fetch saved videos...");
-    const result = await AuthService.GetSaveVideo(id);
-    ("API Response:", result);
-
-
-    if (result?.success) {
-      ("Videos received successfully:", result.videos);
-
+  const handleCreateFolderSub = async (id, addnewFolder) => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.createSubFolder(id, addnewFolder);
+      result, "result---";
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('success', 'Gimmel', result?.data);
+        handleGetFolderSub(id);
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message  );
+      }
+    } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      setGetSaveVideo(result?.videos);
-    } else {
-      ("API call was unsuccessful:", result?.message || result);
-
-      // LoaderHelper.loaderStatus(false);
-      // AlertHelper.show('danger', 'Gimmel', result?.message || result );
+      // ('Error occurred:', 'Gimmel', error);
     }
-  } catch (error) {
-    console.error("Error occurred while fetching videos:", error);
+  };
 
-    // LoaderHelper.loaderStatus(false);
-    // ('Error occurred:', 'Gimmel', error);
-  }
-};
-
-const handleCreateFolderSub = async (id,addnewFolder) => {
-  // LoaderHelper.loaderStatus(true);
-  try {
-    const result = await AuthService.createSubFolder(id,addnewFolder);
-    (result,"result---")
-    if (result?.success) {
+  const handleGetFolderSub = async (id) => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.GetSubFolder(id, value);
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        result?.data?.data, "dat in api";
+        setGetFolderSub(result?.data?.data);
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message  );
+      }
+    } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      // AlertHelper.show('success', 'Gimmel', result?.data);
-      handleGetFolderSub(id);
-    } else {
-      // LoaderHelper.loaderStatus(false);
-      // AlertHelper.show('danger', 'Gimmel', result?.message  );
+      // ('Error occurred:', 'Gimmel', error);
     }
-  } catch (error) {
-    // LoaderHelper.loaderStatus(false);
-    // ('Error occurred:', 'Gimmel', error);
-  }
-};
+  };
 
-const handleGetFolderSub = async (id) => {
-  // LoaderHelper.loaderStatus(true);
-  try {
-    const result = await AuthService.GetSubFolder(id,value);
-    if (result?.success) {
-      // LoaderHelper.loaderStatus(false);
-      (result?.data?.data,"dat in api")
-      setGetFolderSub(result?.data?.data);
-    } else {
-      // LoaderHelper.loaderStatus(false);
-      // AlertHelper.show('danger', 'Gimmel', result?.message  );
-    }
-  } catch (error) {
-    // LoaderHelper.loaderStatus(false);
-    // ('Error occurred:', 'Gimmel', error);
-  }
-};
-
-
-  // (headerSearch,"interest---") 
+  // (headerSearch,"interest---")
 
   return (
     <>
-    <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
+        <Main
+          getPost={getPost}
+          historyList={historyList}
+          setHeaderSearch={setHeaderSearch}
+          headerSearch={headerSearch}
+          handleHistoryList={handleHistoryList}
+          handleSearchCont={handleSearchCont}
+          substance={substance}
+          mentalHealth={mentalHealth}
+          neuroScience={neuroScience}
+          socialIssues={socialIssues}
+          handleInterestFilter={handleInterestFilter}
+          interest={interest}
+          data={data}
+          getFolder={getFolder}
+          rename={rename}
+          setValue={setValue}
+          handleCreateFolder={handleCreateFolder}
+          handleDeleteFolder={handleDeleteFolder}
+          handleRename={handleRename}
+          handleSaveVideo={handleSaveVideo}
+          setSelectedFolderId={setSelectedFolderId}
+          setRename={setRename}
+          handleNotIntrested={handleNotIntrested}
+          getSaveVideo={getSaveVideo}
+          getSubFolder={getSubFolder}
+          handleCreateFolderSub={handleCreateFolderSub}
+          handleGetFolderSub={handleGetFolderSub}
+        />
       ) : (
-
-        
-
-        <MainMobile  getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} topicPost={topicPost} handleMoreLike={handleMoreLike} sliderData={sliderData} handleNotInterestedTopic={handleNotInterestedTopic}  handleRemoveSuggation={handleRemoveSuggation}noSuggetion={noSuggetion}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested}getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
-
-        
-        
-
+        <MainMobile
+          getPost={getPost}
+          substance={substance}
+          mentalHealth={mentalHealth}
+          neuroScience={neuroScience}
+          socialIssues={socialIssues}
+          handleInterestFilter={handleInterestFilter}
+          interest={interest}
+          topicPost={topicPost}
+          handleMoreLike={handleMoreLike}
+          sliderData={sliderData}
+          handleNotInterestedTopic={handleNotInterestedTopic}
+          handleRemoveSuggation={handleRemoveSuggation}
+          noSuggetion={noSuggetion}
+          data={data}
+          getFolder={getFolder}
+          rename={rename}
+          setValue={setValue}
+          handleCreateFolder={handleCreateFolder}
+          handleDeleteFolder={handleDeleteFolder}
+          handleRename={handleRename}
+          handleSaveVideo={handleSaveVideo}
+          setSelectedFolderId={setSelectedFolderId}
+          setRename={setRename}
+          handleNotIntrested={handleNotIntrested}
+          getSaveVideo={getSaveVideo}
+          getSubFolder={getSubFolder}
+          handleCreateFolderSub={handleCreateFolderSub}
+          handleGetFolderSub={handleGetFolderSub}
+        />
       )}
 
-      {loading && <p style={{ textAlign: 'center', margin: '20px 0' }}>Loading more posts...</p>}
+      {loading && (
+        <p style={{ textAlign: "center", margin: "20px 0" }}>
+          Loading more posts...
+        </p>
+      )}
 
       {/* <Home /> */}
     </>

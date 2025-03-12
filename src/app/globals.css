@@ -1048,6 +1048,10 @@ span.user-name {
   /* Adjust size as needed */
   padding-right: 30px !important;
   /* Add space for the icon */
+  border: none;
+  color: #104e5b;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
 

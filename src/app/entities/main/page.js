@@ -8,7 +8,6 @@ import Link from "next/link";
 
 
 function Main({getPost,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub}) {
-
     return (
         <>
             <LoderHelper/>
