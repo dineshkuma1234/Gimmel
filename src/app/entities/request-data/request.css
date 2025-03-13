@@ -392,6 +392,10 @@
     text-align: center;
 }
 
+.request-thumbnail img {
+    height: auto !important;
+}
+
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
     .card-padding-request {
         padding: 40px 0px;
@@ -403,3 +407,11 @@
         margin: 0px 16px;
     }
 } */
+.notified-link {
+    color: var(--gimmel-orange) !important;
+  }
+
+.notified-link .bi {
+    margin-left: 8px;
+    vertical-align: middle;
+  }

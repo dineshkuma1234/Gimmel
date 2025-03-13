@@ -11,8 +11,9 @@ import Modal from 'react-bootstrap/Modal';
 import Image from "next/image";
 import Link from "next/link";
 import VideoDetails from "../details/page";
+import { BiSolidBellRing } from "react-icons/bi";
 
-function RequestData() {
+function RequestData({handleCreateRequest,requestListData}) {
 
     const [show, setShow] = useState(false);
 
@@ -53,6 +54,11 @@ function RequestData() {
 
     const [showOverview, setShowOverview] = useState(false);
 
+    const [yourRequest, setYourRequest] = useState('')
+    const [discription, setDiscription] = useState('')
+    const [avoided, setavoided] = useState('')
+    const [details, setDetails] = useState('')
+
     const videoData = [
         {
             id: 1,
@@ -73,6 +79,7 @@ function RequestData() {
             thumbnail: require("../../../assets/images/video-thumbnil.svg"),
         },
     ];
+    console.log("data....")
 
     const [activeItem, setActiveItem] = useState(null);
     const handleActiveChange = (id) => {
@@ -104,7 +111,35 @@ function RequestData() {
         setFolders([...folders, newFolder]);
     };
 
+    const maxWords = 60;
+    const handleTextChange = (value) => {
+        const inputValue = value.target.value;
+        // Split text into words and check the length
+        const words = inputValue.trim().split(/\s+/);
+        if (words.length <= maxWords) {
+            setDiscription(inputValue);
+        }
+    };
 
+    const handleTextAvoid = (value) => {
+        const inputValue = value.target.value;
+        // Split text into words and check the length
+        const words = inputValue.trim().split(/\s+/);
+        if (words.length <= maxWords) {
+            setavoided(inputValue);
+        }
+    };
+
+    const handleTextDetails = (value) => {
+        const inputValue = value.target.value;
+        // Split text into words and check the length
+        const words = inputValue.trim().split(/\s+/);
+        if (words.length <= maxWords) {
+            setDetails(inputValue);
+        }
+    };
+
+ console.log(details,"details---")
     return (
         <>
             {/* Request sent sucesfully Modal */}
@@ -366,18 +401,21 @@ function RequestData() {
                                         </Nav.Link>
                                     </Nav.Item>
                                     <div className="dropdown-divider"></div>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="second">
-                                            Understanding and Managing Anxiety in Teenagers <MdMoreVert />
+                                    {requestListData&&Array.isArray(requestListData)&& requestListData?.map((request, index)=>(
+                                        <Nav.Item key={index}>
+                                        <Nav.Link eventKey={`request-${index}`} className={request?.isNotified===true ? "notified-link" : ""} >
+                                        {request?.isNotified && <BiSolidBellRing />}{request.title} <MdMoreVert />
                                         </Nav.Link>
                                     </Nav.Item>
+                                    ))}
+                                    
                                 </Nav>
                             </div>
                         </div>
                         <div className='main-container pt-4'>
                             <div className="card-white mt-0">
                                 <div className="card-padding-request">
-                                    <Tab.Content>
+                                    <Tab.Content >
                                         <Tab.Pane eventKey="first">
                                             <div className="row justify-content-center">
 
@@ -391,7 +429,7 @@ function RequestData() {
                                                                         <Form.Label>Title of your request</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control type="text" placeholder="" />
+                                                                        <Form.Control type="text" placeholder=""  value={yourRequest} onChange={(e) => setYourRequest(e.target.value)} />
                                                                     </div>
                                                                 </Form.Group>
                                                                 <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput2">
@@ -399,7 +437,7 @@ function RequestData() {
                                                                         <Form.Label>Material description</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={discription} onChange={handleTextChange} />
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -408,7 +446,7 @@ function RequestData() {
                                                                         <Form.Label>What should be avoided?</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={avoided} onChange={handleTextAvoid} />
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -417,7 +455,7 @@ function RequestData() {
                                                                         <Form.Label>Additional details</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={details} onChange={handleTextDetails} />
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -445,7 +483,7 @@ function RequestData() {
                                                                         <Form.Label>Title of your request</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control type="text" placeholder="" />
+                                                                        <Form.Control type="text" placeholder="" value={yourRequest} readOnly/>
                                                                     </div>
                                                                 </Form.Group>
                                                                 <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput2">
@@ -453,7 +491,7 @@ function RequestData() {
                                                                         <Form.Label>Material description</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={discription} readOnly />
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -462,7 +500,7 @@ function RequestData() {
                                                                         <Form.Label>What should be avoided?</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={avoided} readOnly/>
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -471,7 +509,7 @@ function RequestData() {
                                                                         <Form.Label>Additional details</Form.Label>
                                                                     </div>
                                                                     <div className="col-8">
-                                                                        <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                        <Form.Control as="textarea" placeholder="" className="height-96" value={details} readOnly/>
                                                                         <div className="count-text">0/60</div>
                                                                     </div>
                                                                 </Form.Group>
@@ -487,6 +525,7 @@ function RequestData() {
                                                                     () => {
                                                                         setShowOverview(false);
                                                                         handleShow();
+                                                                        handleCreateRequest(yourRequest,discription,avoided,details);
                                                                     }
                                                                 }>Send Request</button>
                                                             </div>
@@ -495,10 +534,11 @@ function RequestData() {
                                                 )}
                                             </div>
                                         </Tab.Pane>
-                                        <Tab.Pane eventKey="second">
+                                         {requestListData&&Array.isArray(requestListData)&& requestListData?.map((request, index)=>(
+                                            <Tab.Pane eventKey={`request-${index}`}>
                                             <div className="row justify-content-center">
                                                 <div className="col-11">
-                                                    <div className="page-request-title">Understanding and Managing Anxiety in Teenagers</div>
+                                                    <div className="page-request-title">{request?.title}</div>
                                                     <div className="page-request-data">
                                                         <div className="bg-green-light">
                                                             <div className="bg-green-inner">
@@ -574,7 +614,7 @@ function RequestData() {
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div className="video-card-image">
+                                                                                            <div className="video-card-image request-thumbnail">
                                                                                                 <Image src={video.thumbnail} alt="video card" />
                                                                                                 <div className="video-duration">{video.duration}</div>
                                                                                             </div>
@@ -654,7 +694,12 @@ function RequestData() {
                                                                     <Form.Label>Date posted</Form.Label>
                                                                 </div>
                                                                 <div className="col-9">
-                                                                    <Form.Control type="text" placeholder="" />
+                                                                    <Form.Control type="text" placeholder="" value={request?.createdAt ? new Date(request.createdAt).toLocaleDateString('en-US', {
+                                                                        month: '2-digit',
+                                                                        day: '2-digit',
+                                                                        year: 'numeric',
+                                                                        }).replace(/\//g, '.'): ''} 
+                                                                    />
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput2">
@@ -662,7 +707,7 @@ function RequestData() {
                                                                     <Form.Label>Material description</Form.Label>
                                                                 </div>
                                                                 <div className="col-9">
-                                                                    <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                    <Form.Control as="textarea" placeholder="" className="height-96" value={request?.description} />
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="mb-4 row" controlId="exampleForm.ControlInput3">
@@ -670,7 +715,7 @@ function RequestData() {
                                                                     <Form.Label>What should be avoided?</Form.Label>
                                                                 </div>
                                                                 <div className="col-9">
-                                                                    <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                    <Form.Control as="textarea" placeholder="" className="height-96"  value={request?.avoidedDetails}/>
                                                                 </div>
                                                             </Form.Group>
                                                             <Form.Group className="row" controlId="exampleForm.ControlInput4">
@@ -678,7 +723,7 @@ function RequestData() {
                                                                     <Form.Label>Additional details</Form.Label>
                                                                 </div>
                                                                 <div className="col-9">
-                                                                    <Form.Control as="textarea" placeholder="" className="height-96" />
+                                                                    <Form.Control as="textarea" placeholder="" className="height-96" value={request?.addDetails}/>
                                                                 </div>
                                                             </Form.Group>
                                                         </Form>
@@ -686,6 +731,9 @@ function RequestData() {
                                                 </div>
                                             </div>
                                         </Tab.Pane>
+                                            
+                                        ))}
+                                        
                                     </Tab.Content>
                                 </div>
                             </div>
