@@ -79,6 +79,7 @@ function RequestData({handleCreateRequest,requestListData}) {
             thumbnail: require("../../../assets/images/video-thumbnil.svg"),
         },
     ];
+    console.log("data....")
 
     const [activeItem, setActiveItem] = useState(null);
     const handleActiveChange = (id) => {
