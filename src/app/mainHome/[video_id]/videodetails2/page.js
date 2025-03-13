@@ -31,8 +31,8 @@ function PageComponent() {
   const [suggested,setsuggested]=useState()
   const [getSaveVideo,setGetSaveVideo] = useState([]);
   const [getSubFolder,setGetFolderSub]= useState();
-  (getSaveVideo,"getSaveVideo++++++++++++++________")
   const [topicPost, setTopicPost] = useState("")
+  // console.log(id,"id")
   useEffect(() => {
      
           handleGetPostid();
@@ -49,7 +49,7 @@ function PageComponent() {
   }, []);
   useEffect(() => {
     if (selectedFolderId) {
-        handleSaveVideonext(selectedFolderId);
+        // handleSaveVideonext(selectedFolderId);
     }
 }, [selectedFolderId]);
   useEffect(() => {
@@ -190,10 +190,10 @@ function PageComponent() {
           // setLoader(false);
           handleGetFolder();
           setRename("");
-          AlertHelper.show('success', 'Gimmel', result?.message);
+          // AlertHelper.show('success', 'Gimmel', result?.message);
         } else {
           // setLoader(false);
-          AlertHelper.show('danger', 'Gimmel', result?.message);
+          // AlertHelper.show('danger', 'Gimmel', result?.message);
         }
       } catch (error) {
         // setLoader(false);
@@ -421,7 +421,7 @@ function PageComponent() {
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId} />
   ) : ( 
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
 

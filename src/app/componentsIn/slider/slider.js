@@ -9,7 +9,8 @@ import Image from 'next/image';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Link from 'next/link';
 
-const SliderSection = () => {
+const SliderSection = ({categoryVideo}) => {
+    console.log("categoryVideo",categoryVideo)
 
     const swiperRef = useRef(null);
 
@@ -72,13 +73,7 @@ const SliderSection = () => {
                             },
                         }}
                     >
-                        {[
-                            { title: "13+ Years", imgSrc: { SliderThumbnil } },
-                            { title: "Alcohol issues", imgSrc: { SliderThumbnil } },
-                            { title: "18+ Years", imgSrc: { SliderThumbnil } },
-                            { title: "Mental health", imgSrc: { SliderThumbnil } },
-                            { title: "13+ Years", imgSrc: { SliderThumbnil } },
-                        ].map((item, index) => (
+                      {categoryVideo?.map((categories, index) => (
                             <SwiperSlide key={index}>
                                 <div className="col-md-12">
                                     <div className="category-card">
@@ -93,7 +88,7 @@ const SliderSection = () => {
                                                     </div>
                                                     <div className="category-card-image-icon">
                                                         <Image src={SliderThumbnil} alt="video card image" />
-                                                        <div className="category-card-title">{item.title}</div>
+                                                        <div className="category-card-title">{categories?.category}</div>
                                                     </div>
                                                 </div>
                                             </Link>
@@ -123,7 +118,7 @@ const SliderSection = () => {
                         </button>
                     </div>
 
-                    <Swiper
+                    {/* <Swiper
                         spaceBetween={24}
                         slidesPerView={4}
                         onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -144,13 +139,8 @@ const SliderSection = () => {
                             },
                         }}
                     >
-                        {[
-                            { title: "13+ Years", imgSrc: { SliderThumbnil } },
-                            { title: "Alcohol issues", imgSrc: { SliderThumbnil } },
-                            { title: "18+ Years", imgSrc: { SliderThumbnil } },
-                            { title: "Mental health", imgSrc: { SliderThumbnil } },
-                            { title: "13+ Years", imgSrc: { SliderThumbnil } },
-                        ].map((item, index) => (
+                     
+                        {categoryVideo?.map((categories, index) => (
                             <SwiperSlide key={index}>
                                 <div className="col-md-12">
                                     <div className="category-card">
@@ -158,14 +148,14 @@ const SliderSection = () => {
                                             <Link href="/categorie">
                                                 <div className="category-card-image">
                                                     <div className="category-card-image-icon">
-                                                        <Image src={SliderThumbnil} alt="video card image" />
+                                                        <Image src={SliderThumbnil} alt={categories?.category} />
                                                     </div>
-                                                    <div className="category-card-image-icon">
+                                                    {/* <div className="category-card-image-icon">
                                                         <Image src={SliderThumbnil} alt="video card image" />
-                                                    </div>
-                                                    <div className="category-card-image-icon">
-                                                        <Image src={SliderThumbnil} alt="video card image" />
-                                                        <div className="category-card-title">{item.title}</div>
+                                                    </div> */}
+                                                    {/* <div className="category-card-image-icon"> */}
+                                                        {/* <Image src={SliderThumbnil} alt="video card image" /> */}
+                                                        {/* <div className="category-card-title">{categories?.category}</div>
                                                     </div>
                                                 </div>
                                             </Link>
@@ -174,7 +164,7 @@ const SliderSection = () => {
                                 </div>
                             </SwiperSlide>
                         ))}
-                    </Swiper>
+                    </Swiper> */} 
                 </div>
             )}
 

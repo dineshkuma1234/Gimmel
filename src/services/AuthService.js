@@ -860,28 +860,13 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  GetCategories: async (value1, value2, value3) => {
-    (value1, value2, value3, "value of selectide category -----")
+  GetCategories: async (category) => {
     const token = await localStorage.getItem('token');
     const { authBaseUrl, getCategories } = ApiConfig;
 
-    // Determine which value to append based on the selected value
-    let categoryValue = '';
+  
 
-    if (value1 && !value2 && !value3) {
-      categoryValue = value1;
-    } else if (!value1 && value2 && !value3) {
-      categoryValue = value2;
-    } else if (!value1 && !value2 && value3) {
-      categoryValue = value3;
-    } else {
-      console.error("Invalid or multiple selections detected.");
-      return;
-    }
-
-    (categoryValue, "categoryValue----")
-
-    const url = `${authBaseUrl}${getCategories}?category=${categoryValue}`;
+    const url = `${authBaseUrl}${getCategories}?category=${category}`;
     (url, "url----")
 
     const params = {};

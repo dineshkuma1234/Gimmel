@@ -3,6 +3,7 @@ import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
 
 function Categories() {
+    
     return (
         <>
             <Header />

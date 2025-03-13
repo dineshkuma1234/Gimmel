@@ -71,7 +71,6 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const [item,setItems]=useState([]);
     const [selectedmaturity,setselectedMaturity] =useState([])
     const [slectedEducation,setSelectedEducation]=useState([])
-    (slectedEducation,"slectedEducation-----")
 
     useEffect(()=>{
         // (item, 'my item is here')

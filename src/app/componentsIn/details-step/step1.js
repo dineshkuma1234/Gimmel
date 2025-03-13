@@ -3,10 +3,9 @@ import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
 function Step1({getQuiz}) {
-// ('getQuiz___________++++++++++++++))))', getQuiz)
+console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
@@ -46,6 +45,15 @@ function Step1({getQuiz}) {
                                 {/* Smoking can lead to numerous health problems. Which of the following is a primary effect of smoking on the respiratory system? */}
                             {item?.question}
                             </div>
+
+                            {item?.type === "multiple-choice" ? (
+                            <textarea 
+                                className="form-control custom-textarea" 
+                                id="exampleFormControlTextarea1" 
+                                rows="5" 
+                                placeholder="Your answer here ..."
+                            ></textarea>
+                            ) : (
                             <Form className="question-select">
                                 {['radio'].map((type) => (
                                     <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
@@ -58,74 +66,18 @@ function Step1({getQuiz}) {
                                             type={type}
                                             id={`inline-${type}-${index}-${optionIndex}`}
                                         />
-                                        // <Form.Check
-                                        //     inline
-                                        //     label="Improved lung function"
-                                        //     name="group1"
-                                        //     type={type}
-                                        //     id={`inline-${type}-2`}
-                                        // />
-                                        // <Form.Check
-                                        //     inline
-                                        //     label="Reduced risk of respiratory infections"
-                                        //     name="group1"
-                                        //     type={type}
-                                        //     id={`inline-${type}-3`}
-                                        // />
+                                       
                                     ))}
- 
+
                                     </div>
                                     
                                 ))}
                             </Form>
-                            
+                            )}
                         </div>
                     ))}
 
-                        {/* <div className="question">
-                            <div className="question-title">Question 2</div>
-                            <div className="question-content">
-                                Explain how smoking affects cardiovascular health.
-                            </div>
-                            <div className="form-group">
-                                <textarea className="form-control custom-textarea" id="exampleFormControlTextarea1" rows="5" placeholder="Your answer here ..."></textarea>
-                                <div className="character-count">0/60 words</div>
-                            </div>
-                        </div>
-                        <div className="question">
-                            <div className="question-title">Question 3</div>
-                            <div className="question-content">
-                                Which of the following is a long-term effect of smoking on overall health?
-                            </div>
-                            <Form className="question-select">
-                                {['checkbox'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
-                                        <Form.Check
-                                            inline
-                                            label="Chronic Obstructive Pulmonary Disease (COPD)"
-                                            name="group1"
-                                            type={type}
-                                            id={`inline-${type}-1`}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Improved lung function"
-                                            name="group1"
-                                            type={type}
-                                            id={`inline-${type}-2`}
-                                        />
-                                        <Form.Check
-                                            inline
-                                            label="Reduced risk of respiratory infections"
-                                            name="group1"
-                                            type={type}
-                                            id={`inline-${type}-3`}
-                                        />
-                                    </div>
-                                ))}
-                            </Form>
-                        </div> */}
-                        
+                         
                     </div>
                     
                 </div>
