@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Main from "./entities/main/page";
 import MainMobile from "./(MobileFlow)/mobile-main/page";
 import AuthService from "../services/AuthService";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
 import unAuthToken from "../Constants/constant";
 import { SearchListContext } from "./Context/searchlist/searchListContext";
@@ -16,6 +16,7 @@ import Loader from "./LoderHelper/page";
 
 export default function PageComponent() {
   const router = useRouter();
+  const { setLoader } = UseLoader();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -25,7 +26,6 @@ export default function PageComponent() {
   const [getPost, setGetPost] = useState([]);
   const [sliderData, setSliderData] = useState([]);
   const [noSuggetion, setNoSuggetion] = useState("");
-  const { setLoader } = UseLoader();
   const [data, setdata] = useState();
   const [getFolder, setGetFolder] = useState("");
   const [rename, setRename] = useState("");
@@ -34,8 +34,6 @@ export default function PageComponent() {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo,setgetCategoryVideo]=useState([])
- 
-  
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -700,6 +698,36 @@ export default function PageComponent() {
     }
   };
 
+  const searchParams = useSearchParams(); 
+    const category = searchParams.get("category") || "No Category Selected";
+
+    const [getCategoryData, setGetCategoryData] = useState([]);
+
+    console.log("Selected Category from URL:", category);
+    console.log("getCategoryData+++++++++++", getCategoryData);
+
+    // useEffect(() => {
+    //     if (category) {
+    //         handleGetCategories(category);
+    //     }
+    // }, [category]); 
+
+    const handleGetCategories = async (category) => {
+        try {
+            const result = await AuthService.GetCategories(category);
+            console.log("API Response++++++:", result);
+
+            if (result?.success) {
+              updatesearchListState(result?.data?.posts);
+              router.push( "/searchlist",
+                { data: JSON.stringify(category) }, // Convert the object to a JSON string
+              );
+                // setGetCategoryData(result?.data?.posts);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    };
  
 
   return (
@@ -711,6 +739,7 @@ export default function PageComponent() {
           historyList={historyList}
           setHeaderSearch={setHeaderSearch}
           headerSearch={headerSearch}
+          handleGetCategories={handleGetCategories}
           handleHistoryList={handleHistoryList}
           handleSearchCont={handleSearchCont}
           substance={substance}

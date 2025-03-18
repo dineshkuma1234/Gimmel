@@ -1,9 +1,13 @@
-import React from "react";
+import React, {createContext, useContext, useState } from "react";
 import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
+import {  useSearchParams } from "next/navigation";
 
-function Categories() {
-    
+
+function Categories({handleNotIntrested,categoryVideo,categoryVideoname,img,handleGetCategories}) {
+    console.log(categoryVideoname,"test by dev gimmel");
+    // console.log(getCategoryData,"test by dev gimmel");
+   
     return (
         <>
             <Header />
@@ -11,32 +15,19 @@ function Categories() {
             <main id="main" className="top-space">
                 <div className="custom-container">
                     <div className="page-main-title">
-                        <h3>12+ years</h3>
+                        <h3>{categoryVideoname}</h3>
                     </div>
                 </div>
 
                 <div className="swiper-container">
-                    <SliderSection />
+                    <SliderSection categoryVideo={categoryVideo} categoryVideoname={categoryVideoname} handleNotIntrested={handleNotIntrested} img={img}  handleGetCategories={handleGetCategories}  />
                 </div>
-                <div className="custom-container">
-                    <div className="page-main-title">
-                        <h3>Drug prevention</h3>
-                    </div>
-                </div>
-                <div className="swiper-container">
-                    <SliderSection />
-                </div>
-                <div className="custom-container">
-                    <div className="page-main-title">
-                        <h3>Mental health</h3>
-                    </div>
-                </div>
-                <div className="swiper-container">
-                    <SliderSection />
-                </div>
+                
+
             </main>
         </>
     );
 }
 
 export default Categories;
+

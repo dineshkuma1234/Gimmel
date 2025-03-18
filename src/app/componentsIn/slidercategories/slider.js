@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
+// import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 import Image from 'next/image';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { FaEllipsisV, FaCaretDown } from 'react-icons/fa';
@@ -12,62 +12,64 @@ import Modal from 'react-bootstrap/Modal';
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from 'next/link';
 import { Form } from 'react-bootstrap';
+import SliderThumbnil from '../../../assets/images/video-thumbnil.svg';
 
-const videoData = [
-    {
-        id: 1,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 2,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 3,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 4,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-    {
-        id: 5,
-        title: 'Dangers of smoking | Health | Biology | FuseSchool',
-        duration: '2:30',
-        rating: '8/10',
-        engagement: 'Engagement Rating',
-        description:
-            'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-        imageSrc: 'assets/images/video-thumbnil.svg',
-    },
-];
+// const videoData = [
+//     {
+//         id: 1,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 2,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 3,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 4,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+//     {
+//         id: 5,
+//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
+//         duration: '2:30',
+//         rating: '8/10',
+//         engagement: 'Engagement Rating',
+//         description:
+//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
+//         imageSrc: 'assets/images/video-thumbnil.svg',
+//     },
+// ];
 
-const SliderCategories = ({ video }) => {
+const SliderCategories = ({categoryVideo, handleNotIntrested , categoryVideoname , img ,handleGetCategories}) => {
 
+    console.log("categoryVideo{{{{{{{{{{{{{{{{{{{{{", categoryVideo)
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -87,7 +89,6 @@ const SliderCategories = ({ video }) => {
     const swiperRef = useRef(null);
 
     const [openDropdownId, setOpenDropdownId] = useState(null);
-
     const toggleDropdown = (id) => {
         setOpenDropdownId((prevId) => (prevId === id ? null : id));
     };
@@ -122,8 +123,8 @@ const SliderCategories = ({ video }) => {
 
     const [expandedVideoId, setExpandedVideoId] = useState(null);
 
-    const handleToggleExpand = (id) => {
-        setExpandedVideoId(expandedVideoId === id ? null : id);
+    const handleToggleExpand = (_id) => {
+        setExpandedVideoId(expandedVideoId === _id ? null : _id);
     };
 
 
@@ -131,12 +132,10 @@ const SliderCategories = ({ video }) => {
         <>
             <Modal show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ultricies ipsum, eu imperdiet sem. Aenean dignissim ut arcu a dapibus. Fusce euismod, velit eu mattis rhoncus, ex elit efficitur ante, at viverra eros purus at tortor. Etiam finibus ipsum sit amet laoreet aliquam. Sed condimentum bibendum ex, quis tristique purus. In dictum commodo neque imperdiet pulvinar. Maecenas euismod tellus ut tincidunt tincidunt.</p>
-                    <p>Nulla in libero eget ex tristique pellentesque. Sed ex massa, cursus sagittis interdum ac, iaculis eget est. Vestibulum leo neque, eleifend et pretium vehicula, finibus sit amet dui. Phasellus nec eros a orci ultrices sagittis sit amet in lacus. Morbi nec commodo justo. Cras at varius risus. Cras nec libero consequat, vulputate felis ut, pharetra libero. Fusce ornare arcu ultrices lectus vulputate ultrices. Aenean purus nisl, bibendum vel massa eget, porttitor gravida ligula. Sed ut ante convallis, pretium quam pretium, eleifend ante. </p>
-                    <p>Donec tempus mollis quam, quis molestie neque pretium ut. In eu venenatis nisi. Nam tristique sed nisi a aliquet. Praesent mauris neque, ornare nec commodo sed, aliquam at mi. Vivamus sit amet libero et felis pretium tempor tincidunt vel dui. Suspendisse tincidunt pharetra bibendum.</p>
+                <p>{categoryVideo?.[0]?.description}</p>
                 </Modal.Body>
             </Modal>
 
@@ -273,12 +272,29 @@ const SliderCategories = ({ video }) => {
                     slidesPerView={4}
                     onSwiper={(swiper) => (swiperRef.current = swiper)}
                     className="mySwiper category-swiper"
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1,
+                        },
+                        576: {
+                            slidesPerView: 2,
+                        },
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        992: {
+                            slidesPerView: 4,
+                        },
+                    }}
                 >
-                    {/* <SwiperSlide>
+                    <SwiperSlide>
                         <div className='multi-video-slider'>
-                            <div className='multi-video-slider-inner'>
-                                <Image src={require('../../../assets/images/multi-video.svg')} alt="video card" />
-                                {videoData.slice(0, 3).map((video) =>
+                            <div className='multi-video-slider-inner'
+                             onClick={() => handleGetCategories(categoryVideoname)}
+                            >
+                                {/* <p>{categoryVideoname}</p> */}
+                                <Image src={img} alt="video card" />
+                                 {/* {videoData.slice(0, 3).map((video) =>
                                     <div className="col-md-12" key={video.id}>
                                         <div className="video-card">
                                             <div className="video-card-content">
@@ -370,19 +386,26 @@ const SliderCategories = ({ video }) => {
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                )}  */}
                             </div>
                         </div>
-                    </SwiperSlide> */}
-                    {videoData.map((video) => (
+                      
+                    </SwiperSlide>
+                     {Array.isArray(categoryVideo) && categoryVideo.map((video) => (
                         <SwiperSlide key={video.id} video={video}>
                             <div className="col-md-12">
                                 <div className="video-card">
                                     <div className="video-card-content">
                                         <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                             <div className="video-card-image">
-                                                <Image src={SliderThumbnil} alt="video card" />
-                                                <div className="video-duration">{video.duration}</div>
+                                            <Image 
+                                            src={video?.thumbnail} 
+                                            alt="video card" 
+                                            width={300} 
+                                            height={200} 
+                                            objectFit="cover" 
+                                        />                                    
+                                         <div className="video-duration">{video.duration}</div>
                                             </div>
                                         </Link>
                                         <div className="video-card-detail">
@@ -403,9 +426,9 @@ const SliderCategories = ({ video }) => {
                                                     </svg>
                                                 </div>
                                                 <div className="rating">
-                                                    <span>{video.rating}</span>
+                                                    <span>{video.engagement}/10</span>
                                                 </div>
-                                                <div className="eng-name">{video.engagement}</div>
+                                                <div className="eng-name">Engagement Rating</div>
                                             </div>
 
                                             <div className="video-de-title">
@@ -413,10 +436,10 @@ const SliderCategories = ({ video }) => {
                                                     <Link href={`/mainHome/${video?._id}/videodetails2`}>{video.title}</Link>
                                                 </div>
                                                 <div className="more-btn">
-                                                    <button className="btn btn-more" onClick={() => toggleDropdown(video.id)}>
+                                                    <button className="btn btn-more" onClick={() => toggleDropdown(video._id)}>
                                                         <FaEllipsisV />
                                                     </button>
-                                                    {openDropdownId === video.id && (
+                                                    {openDropdownId === video._id && (
                                                         <div className="dropdown-menu-card">
                                                             <ul>
                                                                 <li>
@@ -437,10 +460,15 @@ const SliderCategories = ({ video }) => {
                                                                 </li>
                                                                 <div className='dropdown-divider'></div>
                                                                 <li>
-                                                                    <button href="#">
+                                                                    <button href="#"
+                                                                      onClick={() => {
+                                                                        handleNotIntrested(video?._id);
+                                                                        }}
+                                                                    >
                                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                             <path d="M12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C12.9 20 13.7667 19.8542 14.6 19.5625C15.0781 19.3952 15.5342 19.1853 15.9684 18.933C16.4868 18.6317 16.5269 17.9269 16.103 17.503L6.49703 7.89703C6.07311 7.47311 5.36828 7.51324 5.06703 8.03157C4.81467 8.46577 4.60483 8.92192 4.4375 9.4C4.14583 10.2333 4 11.1 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20ZM17.503 16.103C17.9269 16.5269 18.6317 16.4868 18.933 15.9684C19.1853 15.5342 19.3952 15.0781 19.5625 14.6C19.8542 13.7667 20 12.9 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C11.1 4 10.2333 4.14583 9.4 4.4375C8.92192 4.60483 8.46577 4.81467 8.03157 5.06703C7.51324 5.36828 7.47311 6.07311 7.89703 6.49703L17.503 16.103Z" fill="#3D3D3D" />
                                                                         </svg>
+                                                                      
                                                                         Not interested in this channel
                                                                     </button>
                                                                 </li>
@@ -452,12 +480,12 @@ const SliderCategories = ({ video }) => {
 
                                             <div className="video-de-info d-flex">
                                                 <div className="de-info">
-                                                    <p className={expandedVideoId === video.id ? 'expanded' : ''}>
+                                                    <p className={expandedVideoId === video._id ? 'expanded' : ''}>
                                                         {video.description}
                                                     </p>
                                                 </div>
                                                 <div className="more-btn">
-                                                    <button className="btn btn-more" onClick={() => handleToggleExpand(video.id)}>
+                                                    <button className="btn btn-more" onClick={() => handleToggleExpand(video._id)}>
                                                         <FaCaretDown />
                                                     </button>
                                                 </div>
@@ -468,7 +496,7 @@ const SliderCategories = ({ video }) => {
                                 </div>
                             </div>
                         </SwiperSlide>
-                    ))}
+                    ))} 
                 </Swiper>
             </div>
         </>

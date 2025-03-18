@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
 import toast, { Toaster } from "react-hot-toast";
@@ -129,6 +129,38 @@ export const HeaderProvider = ({ children }) => {
       };
 
 
+
+      const searchParams = useSearchParams(); 
+    const category = searchParams.get("category") || "No Category Selected";
+
+    const [getCategoryData, setGetCategoryData] = useState([]);
+ 
+
+    console.log("Selected Category from URL:", category);
+    console.log("getCategoryData+++++++++++", getCategoryData);
+
+    useEffect(() => {
+        if (category) {
+            handleGetCategories(category);
+        }
+    }, [category]); 
+
+    const handleGetCategories = async (category) => {
+        try {
+            const result = await AuthService.GetCategories(category);
+            console.log("API Response++++++:", result);
+
+            if (result?.success) {
+                setGetCategoryData(result?.data?.posts);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    };
+
+
+
+
       const handleNotIntrested = async (id) => {
         // LoaderHelper.loaderStatus(true);
         // ('function calll')
@@ -146,9 +178,11 @@ export const HeaderProvider = ({ children }) => {
               className: "custom-toast-success", 
           });
           } else {
+           
             // LoaderHelper.loaderStatus(false);
             setLoader(false);
             // AlertHelper.show('danger', 'Gimmel', result?.message);
+          
           }
         } catch (error) {
           // LoaderHelper.loaderStatus(false);

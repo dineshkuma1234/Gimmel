@@ -867,7 +867,7 @@ const AuthService = {
   
 
     const url = `${authBaseUrl}${getCategories}?category=${category}`;
-    (url, "url----")
+     console.log(url, "url----")
 
     const params = {};
     const headers = {

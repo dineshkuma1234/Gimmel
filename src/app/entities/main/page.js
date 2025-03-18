@@ -7,7 +7,7 @@ import LoderHelper from "../../../app/LoderHelper/page"
 import Link from "next/link";
 
 
-function Main({getPost,substance,mentalHealth,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,categoryVideo,}) {
+function Main({getPost,substance,mentalHealth,handleGetCategories,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,categoryVideo,}) {
     return (
         <>
             <LoderHelper/>
@@ -22,7 +22,7 @@ function Main({getPost,substance,mentalHealth,neuroScience,socialIssues,handleIn
                 </div>  
 
                 <div className="swiper-container">
-                    <SliderSection categoryVideo={categoryVideo} />
+                    <SliderSection categoryVideo={categoryVideo} handleGetCategories={handleGetCategories}/>
                 </div>
 
                 <div className="custom-container">

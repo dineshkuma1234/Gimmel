@@ -18,7 +18,7 @@ function CategoriesCard({watchHistoryData}) {
 
     const {handleNotIntrested}=useHeader();
     const [openDropdownId, setOpenDropdownId] = useState(null);
-
+    
     const toggleDropdown = (id) => {
         setOpenDropdownId((prevId) => (prevId === id ? null : id));
     };
@@ -90,7 +90,7 @@ function CategoriesCard({watchHistoryData}) {
         <>
             <Modal show={show} onHide={handleClose} centered className='custom-modal'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p> {disc}</p>
@@ -336,7 +336,7 @@ function CategoriesCard({watchHistoryData}) {
                                         </svg>
                                     </div>
                                     <div className="rating-category">
-                                        <span>{item?.rating}/10</span>
+                                        <span>{item?.engagement}/10</span>
                                     </div>
                                     <div className="eng-name-category">Engagement Rating</div>
                                 </div>
