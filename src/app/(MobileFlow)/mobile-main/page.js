@@ -16,7 +16,7 @@ import Accordion from 'react-bootstrap/Accordion';
  
  
 
-function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic, handleRemoveSuggation, data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
+function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroScience, socialIssues,handleInterestFilter,interest,handleMoreLike ,handleNotInterestedTopic, handleRemoveSuggation, data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub,categoryVideo,handleGetCategories}) {
  
 
 
@@ -81,11 +81,12 @@ function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroS
                 <div className="custom-container">
                     <div className="page-main-title">
                         <h3>Categories</h3>
-                        <Link href="/categorie" className="see-all">See more categories</Link>
+                        <Link href="/categories" className="see-all">See more categories</Link>
                     </div>
  
-                    <SliderSection />
- 
+                    <div className="swiper-container">
+                    <SliderSection categoryVideo={categoryVideo} handleGetCategories={handleGetCategories}/>
+                </div> 
                     {/* <div className="page-main-title">
                         <h3>Recommended for you</h3>
                     </div>
@@ -97,7 +98,7 @@ function MainMobile({getPost,topicPost,getvedioid,substance,mentalHealth, neuroS
                     </div>
 
  
-                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} handleMoreLike={handleMoreLike} handleNotInterestedTopic={handleNotInterestedTopic} handleRemoveSuggation={handleRemoveSuggation}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} />
+                    <VideoCardGridMobile getPost={getPost} topicPost={topicPost} getvedioid={getvedioid} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} handleMoreLike={handleMoreLike} handleNotInterestedTopic={handleNotInterestedTopic} handleRemoveSuggation={handleRemoveSuggation}  data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} categoryVideo={categoryVideo} handleGetCategories={handleGetCategories} />
  
 
 

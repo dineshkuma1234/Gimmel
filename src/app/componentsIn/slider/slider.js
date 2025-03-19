@@ -134,7 +134,7 @@ console.log("selectedCategory",selectedCategory)
                         </button>
                     </div>
 
-                    {/* <Swiper
+                     <Swiper
                         spaceBetween={24}
                         slidesPerView={4}
                         onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -161,26 +161,28 @@ console.log("selectedCategory",selectedCategory)
                                 <div className="col-md-12">
                                     <div className="category-card">
                                         <div className="category-card-content">
-                                            <Link href="/categorie">
+                                            {/* <Link href="/categorie"> */}
                                                 <div className="category-card-image">
                                                     <div className="category-card-image-icon">
                                                         <Image src={SliderThumbnil} alt={categories?.category} />
                                                     </div>
-                                                    {/* <div className="category-card-image-icon">
+                                                    <div className="category-card-image-icon">
                                                         <Image src={SliderThumbnil} alt="video card image" />
-                                                    </div> */}
-                                                    {/* <div className="category-card-image-icon"> */}
-                                                        {/* <Image src={SliderThumbnil} alt="video card image" /> */}
-                                                        {/* <div className="category-card-title">{categories?.category}</div>
+                                                    </div> 
+                                                    <div className="category-card-image-icon"
+                                                    onClick={() => handleCategoryClick(categories?.category)}
+                                                    > 
+                                                         <Image src={SliderThumbnil} alt="video card image" /> 
+                                                         <div className="category-card-title">{categories?.category}</div>
                                                     </div>
                                                 </div>
-                                            </Link>
+                                            {/* </Link> */}
                                         </div>
                                     </div>
                                 </div>
                             </SwiperSlide>
                         ))}
-                    </Swiper> */} 
+                    </Swiper> 
                 </div>
             )}
 

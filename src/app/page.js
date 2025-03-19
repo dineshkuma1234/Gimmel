@@ -46,7 +46,7 @@ export default function PageComponent() {
     window.addEventListener("resize", updateWidth);
 
     return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+  },);
 
   useEffect(() => {
     handleGetPostid();
@@ -796,6 +796,8 @@ export default function PageComponent() {
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
+          categoryVideo={categoryVideo}
+          handleGetCategories={handleGetCategories}
         />
       )}
 

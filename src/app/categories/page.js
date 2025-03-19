@@ -9,12 +9,12 @@ import toast from "react-hot-toast";
 import img1 from "../../assets/images/13 years.svg"
 import img2 from "../../assets/images/18 years.svg"
 import img3 from "../../assets/images/Alcohol issues.svg"
-import img4 from "../../assets/images/Drug prevention.svg"
+import img4 from "../../assets/images/Drugprevention-2.svg"
 import img5 from "../../assets/images/Mental health.svg"
 import img6 from "../../assets/images/15 years.svg"
 import { SearchListContext } from "../Context/searchlist/searchListContext";
 import { useRouter } from "next/navigation";
-
+import Categorie from "../(MobileFlow)/categorie/page"
 const PageComponent = () => {
   const router = useRouter();
       const [categoryVideo,setgetCategoryVideo]=useState([])
@@ -22,6 +22,29 @@ const PageComponent = () => {
       const { setLoader } = UseLoader();
       const [searchListState, updatesearchListState] =
       useContext(SearchListContext);
+        const [deviceWidth, setDeviceWidth] = useState(0);
+      
+         useEffect(() => {
+            checkUserLogedIn();
+            if (typeof window === "undefined") return;
+        
+            const updateWidth = () => {
+              setDeviceWidth(window.innerWidth);
+            };
+        
+            updateWidth();
+            window.addEventListener("resize", updateWidth);
+        
+            return () => window.removeEventListener("resize", updateWidth);
+          }, []);
+
+          const checkUserLogedIn = () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              localStorage.setItem("unAuthToken", unAuthToken);
+            }
+          };
+
       useEffect(() => {
         
          handleGetCategoryVideo()
@@ -79,8 +102,8 @@ const PageComponent = () => {
      
   
       const handleGetCategories = async (category) => {
+        console.log(category, "handleGetCategories");
           try {
-              console.log(category,"category =============")
               const result = await AuthService.GetCategories(category);
               console.log("API Response++++++:", result);
   
@@ -95,17 +118,35 @@ const PageComponent = () => {
               console.error("Error occurred:", error);
           }
       };
-
+      
     
       
     return (
         <>
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[0]?.posts} categoryVideoname={categoryVideo[0]?.category} img={img1} handleGetCategories={handleGetCategories}  />
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[1]?.posts} categoryVideoname={categoryVideo[1]?.category} img={img2} handleGetCategories={handleGetCategories}  />
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[2]?.posts} categoryVideoname={categoryVideo[2]?.category} img={img3} handleGetCategories={handleGetCategories} />
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[3]?.posts} categoryVideoname={categoryVideo[3]?.category} img={img4}  handleGetCategories={handleGetCategories} />
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[4]?.posts} categoryVideoname={categoryVideo[4]?.category}  img={img5} handleGetCategories={handleGetCategories} />
-            <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[5]?.posts} categoryVideoname={categoryVideo[5]?.category} img={img6}  handleGetCategories={handleGetCategories}  />
+          
+
+          {deviceWidth > 991 ? (
+            <>
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[0]?.posts} categoryVideoname={categoryVideo[0]?.category} img={img1} handleGetCategories={handleGetCategories}  />
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[1]?.posts} categoryVideoname={categoryVideo[1]?.category} img={img2} handleGetCategories={handleGetCategories}  />
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[2]?.posts} categoryVideoname={categoryVideo[2]?.category} img={img3} handleGetCategories={handleGetCategories} />
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[3]?.posts} categoryVideoname={categoryVideo[3]?.category} img={img4}  handleGetCategories={handleGetCategories} />
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[4]?.posts} categoryVideoname={categoryVideo[4]?.category}  img={img5} handleGetCategories={handleGetCategories} />
+       <Categories  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[5]?.posts} categoryVideoname={categoryVideo[5]?.category} img={img6}  handleGetCategories={handleGetCategories}  />
+       </>
+      ) : (
+        <>
+      <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[0]?.posts} categoryVideoname={categoryVideo[0]?.category} img={img1} handleGetCategories={handleGetCategories}  />
+       <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[1]?.posts} categoryVideoname={categoryVideo[1]?.category} img={img2} handleGetCategories={handleGetCategories}  />
+       <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[2]?.posts} categoryVideoname={categoryVideo[2]?.category} img={img3} handleGetCategories={handleGetCategories} />
+       <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[3]?.posts} categoryVideoname={categoryVideo[3]?.category} img={img4}  handleGetCategories={handleGetCategories} />
+       <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[4]?.posts} categoryVideoname={categoryVideo[4]?.category}  img={img5} handleGetCategories={handleGetCategories} />
+       <Categorie  handleNotIntrested={handleNotIntrested} categoryVideo={categoryVideo[5]?.posts} categoryVideoname={categoryVideo[5]?.category} img={img6}  handleGetCategories={handleGetCategories}  />
+       </>
+
+     )}
+
+
 
         </>
     );

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import React from "react";
 
-function Categories() {
+function Categories({handleNotIntrested,categoryVideo,categoryVideoname,img,handleGetCategories}) {
+    console.log(categoryVideoname,"test by dev gimmel");
     return (
         <>
             <div className="page-top-bar">
@@ -38,124 +39,36 @@ function Categories() {
             <div className="page-main-section top-space">
                 <div className="custom-container">
                     <div className="page-main-title">
-                        <h3>12+ years</h3>
+                        <h3>{categoryVideoname}</h3>
                     </div>
 
                     <div className="video-list-container">
                         <div className="video-list-view">
                             <div className="video-list-item-multi">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/categories-bg.svg")} alt="categories" />
+                                <div className="categories-bg"
+                                  onClick={() =>  handleGetCategories(categoryVideoname)}
+                                >
+                                    <Image src={img} alt="categories" />
                                 </div>
                             </div>
-                            <div className="video-list-item">
+                            {Array.isArray(categoryVideo) && categoryVideo.map((video, index) => (
+                            <div className="video-list-item" key={index}>
                                 <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
+                                    <Image 
+                                    src={video?.thumbnail} 
+                                    alt="video card" 
+                                    width={300} 
+                                    height={200} 
+                                    objectFit="cover" 
+                                />    
                                 </div>
                                 <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
+                                    <h5>{video.title}</h5>
                                 </div>
                             </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="page-main-title">
-                        <h3>Drug prevention</h3>
-                    </div>
-
-                    <div className="video-list-container">
-                        <div className="video-list-view">
-                            <div className="video-list-item-multi">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/categories-bg.svg")} alt="categories" />
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="page-main-title">
-                        <h3>Mental Health</h3>
-                    </div>
-
-                    <div className="video-list-container">
-                        <div className="video-list-view">
-                            <div className="video-list-item-multi">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/categories-bg.svg")} alt="categories" />
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="page-main-title">
-                        <h3>15+ years</h3>
-                    </div>
-
-                    <div className="video-list-container">
-                        <div className="video-list-view">
-                            <div className="video-list-item-multi">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/categories-bg.svg")} alt="categories" />
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                            <div className="video-list-item">
-                                <div className="categories-bg">
-                                    <Image src={require("../../../assets/images/video-thumbnil.svg")} alt="categories" />
-                                </div>
-                                <div className="video-title">
-                                    <h5>Healthy Habits: Preventing Addiction Through Lifestyle Choices</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        ))}
+                   </div>
+                   </div>
                 </div>
             </div>
         </>

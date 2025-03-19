@@ -42,6 +42,8 @@ const VideoCard = ({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
+  categoryVideo,
+  handleGetCategories
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -851,6 +853,8 @@ const VideoCardGrid = ({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
+  categoryVideo,
+  handleGetCategories
 }) => (
   // (getPost, "this is get post---11111"),
   <div className="row">
@@ -886,6 +890,8 @@ const VideoCardGrid = ({
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
+          categoryVideo={categoryVideo}
+          handleGetCategories={handleGetCategories}
         />
       ))}
   </div>
