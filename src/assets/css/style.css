@@ -645,9 +645,9 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid var(--gimmel-orange);
 }
 
-/* .list-group-item .form-check-input:checked[type="checkbox"] {
+.list-group-item .form-check-input:checked[type="checkbox"] {
     background-image: url(../images/check-bg.svg);
-} */
+}
 
 
 
@@ -856,4 +856,24 @@ input[type="range"]::-moz-range-thumb {
 
 .onboarding .page-main-section {
     margin-bottom: 140px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Icons ko dono ends pe bhejne ke liye */
+    width: 100%;
+    
+}
+
+.more-icon {
+    margin-right: auto; /* MdMoreVert ko left main bhejne ke liye */
+}
+
+.bell-icon {
+    margin-right: 10px;
+}
+
+.notification-title {
+    flex-grow: 1; /* Title ko beech me rakhne ke liye */
 }

@@ -137,7 +137,6 @@ function SaveLibraryModal({
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   toggleDropdownnwe(item);
-                                  console.log("HElllo")
                                   setRenameModel(true);
                                 }}
                               >

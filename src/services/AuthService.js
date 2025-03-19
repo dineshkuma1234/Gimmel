@@ -1,27 +1,26 @@
-import { ApiConfig } from '../apiCall/apiConfig';
+import { ApiConfig } from "../apiCall/apiConfig";
 import {
   ApiCallDelete,
   ApiCallGet,
   ApiCallPost,
   ApiCallPatch,
   ApiCallPut,
-} from '../apiCall/apiCall';
-import localStorage from '@react-native-async-storage/async-storage';
-
+} from "../apiCall/apiCall";
+import localStorage from "@react-native-async-storage/async-storage";
 
 const AuthService = {
   LogIn: async (email, password) => {
     const { authBaseUrl, login } = ApiConfig;
     const url = authBaseUrl + login;
-    (url,"url=----")
+    url, "url=----";
     const params = {
       email: email,
       password: password,
     };
-    (params,"this is params");
-    
+    params, "this is params";
+
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
     return ApiCallPost(url, params, headers);
   },
@@ -38,14 +37,20 @@ const AuthService = {
       dob: data?.date,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
     return ApiCallPost(url, params, headers);
   },
-  OnBoarding: async (selectedval,sliderValues,item,selectedmaturity,slectedEducation) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+  OnBoarding: async (
+    selectedval,
+    sliderValues,
+    item,
+    selectedmaturity,
+    slectedEducation
+  ) => {
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, onBoarding } = ApiConfig;
     const url = authBaseUrl + onBoarding;
@@ -54,64 +59,70 @@ const AuthService = {
       ageFrom: sliderValues && sliderValues.length > 0 ? sliderValues[0] : null,
       ageTo: sliderValues && sliderValues.length > 0 ? sliderValues[1] : null,
       teachingTopics: item && item.length > 0 ? item : [],
-      contentMaturityRestrictions: selectedmaturity && selectedmaturity.length > 0 ? selectedmaturity : [],
+      contentMaturityRestrictions:
+        selectedmaturity && selectedmaturity.length > 0 ? selectedmaturity : [],
       // teachLocation: selectedValues && selectedValues.length > 0 ? selectedValues : [],
-      educationalObjectives: slectedEducation && slectedEducation.length > 0 ? slectedEducation : [],
+      educationalObjectives:
+        slectedEducation && slectedEducation.length > 0 ? slectedEducation : [],
       // LearningTopics: selectedTopic && selectedTopic.length > 0 ? selectedTopic : [],
       // PersonaleducationalObj: selectedObjective && selectedObjective.length > 0 ? selectedObjective : [],
     };
-    (params, 'params');
+    params, "params";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   LearningOnBoarding: async (selectedTopic, selectedObjective) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, onBoarding } = ApiConfig;
     const url = authBaseUrl + onBoarding;
     const params = {
-      LearningTopics: selectedTopic && selectedTopic.length > 0 ? selectedTopic : [],
-      PersonaleducationalObj: selectedObjective && selectedObjective.length > 0 ? selectedObjective : [],
+      LearningTopics:
+        selectedTopic && selectedTopic.length > 0 ? selectedTopic : [],
+      PersonaleducationalObj:
+        selectedObjective && selectedObjective.length > 0
+          ? selectedObjective
+          : [],
     };
-    (params, 'params');
+    params, "params";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   Teaching: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, teaching } = ApiConfig;
     const url = authBaseUrl + teaching;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-    (token, 'token');
+    token, "token";
     return ApiCallGet(url, params, headers);
   },
   Contentmaturity: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Content } = ApiConfig;
     const url = authBaseUrl + Content;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
@@ -130,57 +141,57 @@ const AuthService = {
   // },
 
   EducationalObjectives: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Education } = ApiConfig;
     const url = authBaseUrl + Education;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   GetPost: async (page) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
-    (token, 'token---');
+    token, "token---";
     const { authBaseUrl, HomeGetPost } = ApiConfig;
-    const url = authBaseUrl + HomeGetPost + '?page=' + page;
-    (url, 'url----');
+    const url = authBaseUrl + HomeGetPost + "?page=" + page;
+    url, "url----";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
   getvideoid: async (postId) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
-    (token, 'token---');
+    token, "token---";
     const { authBaseUrl, homegetvideoid } = ApiConfig;
-    const url = authBaseUrl + homegetvideoid + '/' + postId;
-    (url, 'url----');
+    const url = authBaseUrl + homegetvideoid + "/" + postId;
+    url, "url----";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   NotIntrested: async (id) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Notintrested } = ApiConfig;
     const url = authBaseUrl + Notintrested;
@@ -188,15 +199,15 @@ const AuthService = {
       postId: id,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
   SavePost: async (id) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, PostSave } = ApiConfig;
     const url = authBaseUrl + PostSave;
@@ -204,90 +215,108 @@ const AuthService = {
       postId: id,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   Substance: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, SubstanceUser } = ApiConfig;
     const url = authBaseUrl + SubstanceUser;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   MentalHealth: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Health } = ApiConfig;
     const url = authBaseUrl + Health;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   Neuroscience: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Neuro } = ApiConfig;
     const url = authBaseUrl + Neuro;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   SocialIssue: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Social } = ApiConfig;
     const url = authBaseUrl + Social;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
-  InterestFilter: async (selectedSubstance, selectedHealth, selectedneuroscience, selectSocialIssue, interestsDescription) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+  InterestFilter: async (
+    selectedSubstance,
+    selectedHealth,
+    selectedneuroscience,
+    selectSocialIssue,
+    interestsDescription
+  ) => {
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Interestfilter } = ApiConfig;
     const url = authBaseUrl + Interestfilter;
     const params = {
-      substance: selectedSubstance && selectedSubstance.length > 0 ? selectedSubstance : [],
-      mentalHealth: selectedHealth && selectedHealth.length > 0 ? selectedHealth : [],
-      neuroScience: selectedneuroscience && selectedneuroscience.length > 0 ? selectedneuroscience : [],
-      social: selectSocialIssue && selectSocialIssue.length > 0 ? selectSocialIssue : [],
-    ...(interestsDescription?.trim().length > 0 && { description: interestsDescription })
-  };
+      substance:
+        selectedSubstance && selectedSubstance.length > 0
+          ? selectedSubstance
+          : [],
+      mentalHealth:
+        selectedHealth && selectedHealth.length > 0 ? selectedHealth : [],
+      neuroScience:
+        selectedneuroscience && selectedneuroscience.length > 0
+          ? selectedneuroscience
+          : [],
+      social:
+        selectSocialIssue && selectSocialIssue.length > 0
+          ? selectSocialIssue
+          : [],
+      ...(interestsDescription?.trim().length > 0 && {
+        description: interestsDescription,
+      }),
+    };
 
-    (params,"params----")
+    params, "params----";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPut(url, params, headers);
@@ -303,146 +332,144 @@ const AuthService = {
     selectedDate,
     sliderValue,
     selectedValue,
-    selectedAudience,
+    selectedAudience
   ) => {
-    (headerSearch,"headerSearch--12")
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    headerSearch, "headerSearch--12";
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
-    
+
     const { authBaseUrl, Search } = ApiConfig;
 
     // Build query parameters dynamically
     const params = new URLSearchParams();
-    
-    if (headerSearch) params.append('search', headerSearch);
-    if (isOn) params.append('isVerified', isOn);
 
-    if (sliderValue) params.append('difficultyLevel', Number(sliderValue));
-    
-    if (selectedValue) params.append('duration', selectedValue);
+    if (headerSearch) params.append("search", headerSearch);
+    if (isOn) params.append("isVerified", isOn);
 
-    if (chips) params.append('topic', chips);
-    
-    if (selectedEngagement) params.append('engagement', selectedEngagement);
-    ("this is console")
-    
-    if (selectedDate) params.append('createdAt', selectedDate);
-    if (selectedAudience) params.append('audience', selectedAudience);
-    if (selectedAge ) {
-      params.append('ageRange', selectedAge);
+    if (sliderValue) params.append("difficultyLevel", Number(sliderValue));
+
+    if (selectedValue) params.append("duration", selectedValue);
+
+    if (chips) params.append("topic", chips);
+
+    if (selectedEngagement) params.append("engagement", selectedEngagement);
+    ("this is console");
+
+    if (selectedDate) params.append("createdAt", selectedDate);
+    if (selectedAudience) params.append("audience", selectedAudience);
+    if (selectedAge) {
+      params.append("ageRange", selectedAge);
     }
     // if (selectedItem) params.append('postId', selectedItem);
-    const url = `${authBaseUrl}${Search}${params.toString() ? `?${params.toString()}` : ''}`;
+    const url = `${authBaseUrl}${Search}${
+      params.toString() ? `?${params.toString()}` : ""
+    }`;
 
-  
     // const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-    (url,params, "url-----")
+    url, params, "url-----";
     return ApiCallGet(url, {}, headers);
   },
 
-
-
-
   HomeSlider: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Slider } = ApiConfig;
     const url = authBaseUrl + Slider;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   SearchHistory: async (headerSearch) => {
-    (headerSearch, "headerSearch---")
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    headerSearch, "headerSearch---";
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, HistoryList } = ApiConfig;
-    const url = authBaseUrl + HistoryList + '?' + 'search=' + headerSearch;
-    (url, "url----")
+    const url = authBaseUrl + HistoryList + "?" + "search=" + headerSearch;
+    url, "url----";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   GetFolder: async (value) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, getFolder } = ApiConfig;
     const url = authBaseUrl + getFolder + "?sort=" + value;
-    (url, "url---")
+    url, "url---";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   createFolder: async (folders) => {
-    const token = await localStorage.getItem('token');
-    (token, 'token');
+    const token = await localStorage.getItem("token");
+    token, "token";
     const { authBaseUrl, createFolder } = ApiConfig;
     const url = authBaseUrl + createFolder;
     const params = {
       folderName: folders,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   deleteFolder: async (id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, deleteFolders } = ApiConfig;
     const url = authBaseUrl + deleteFolders + id;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallDelete(url, params, headers);
   },
 
   getReview: async (id) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, getReviews } = ApiConfig;
     const url = authBaseUrl + getReviews + id;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   sendComment: async (commentText, PostId) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, comment } = ApiConfig;
     const url = authBaseUrl + comment;
@@ -451,164 +478,169 @@ const AuthService = {
       content: commentText,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   LikeReview: async (likeId) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, reviewLike } = ApiConfig;
     const url = authBaseUrl + reviewLike + likeId;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   dislikeReview: async (likeId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, rewiewDislike } = ApiConfig;
     const url = authBaseUrl + rewiewDislike + likeId;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
-  editProfile: async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo) => {
-    (phoneNumber,"phoneNumber")
-    const token = await localStorage.getItem('token');
+  editProfile: async (
+    selected,
+    selected1,
+    selected2,
+    phoneNumber,
+    school,
+    minAge,
+    maxAge,
+    profileInfo
+  ) => {
+    phoneNumber, "phoneNumber";
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
     const params = {
       phone: phoneNumber,
       school: school,
-      ageFrom: minAge
-        ? minAge
-        : profileInfo?.onboarding?.ageFrom,
-      ageTo: maxAge
-        ? maxAge
-        : profileInfo?.onboarding?.ageTo,
+      ageFrom: minAge ? minAge : profileInfo?.onboarding?.ageFrom,
+      ageTo: maxAge ? maxAge : profileInfo?.onboarding?.ageTo,
       contentMaturityRestrictions: selected1
         ? selected1
         : profileInfo?.onboarding?.contentMaturityRestrictions,
       teachingTopics: selected
         ? selected
         : profileInfo?.onboarding?.teachingTopics,
-      
+
       educationalObjectives: selected2
         ? selected2
         : profileInfo?.onboarding?.educationalObjectives,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPut(url, params, headers);
   },
 
   userInfo: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, profileInfo } = ApiConfig;
     const url = authBaseUrl + profileInfo;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   renames: async (rename, id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, RenameFolder } = ApiConfig;
     const url = authBaseUrl + RenameFolder + id;
     const params = {
       folderName: rename,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPut(url, params, headers);
   },
 
   Interest: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, onBoardingInterest } = ApiConfig;
     const url = authBaseUrl + onBoardingInterest;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   objective: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, educationalObjective } = ApiConfig;
     const url = authBaseUrl + educationalObjective;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   GetSaveVideo: async (id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, saveVideo } = ApiConfig;
     const url = authBaseUrl + saveVideo + id;
-    (url, 'url----');
+    url, "url----";
 
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   WatchHistory: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, watchHistoryVideo } = ApiConfig;
     const url = authBaseUrl + watchHistoryVideo;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   LibraryVideo: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, myLibraryVideo } = ApiConfig;
     const url = authBaseUrl + myLibraryVideo;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   SaveVideo: async (selectedFolderId, postId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
 
@@ -617,219 +649,217 @@ const AuthService = {
       _id: postId,
     };
 
-    (params, "params---")
+    params, "params---";
 
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   Notintrested: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, notIntrestedTopic } = ApiConfig;
     const url = authBaseUrl + notIntrestedTopic;
-    (url, "url----")
+    url, "url----";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
-  ReportPost: async (selectedValues,text, id) => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+  ReportPost: async (selectedValues, text, id) => {
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, reportPost } = ApiConfig;
     const url = authBaseUrl + reportPost;
     const params = {
       postId: id,
       reportType: selectedValues,
-      description: text
+      description: text,
     };
-    (params, "params----")
+    params, "params----";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   SharePost: async (id, selectedTopics) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, sharePost } = ApiConfig;
     const url = authBaseUrl + sharePost;
     const params = {
       postId: id,
-      options: selectedTopics
-    }
-    (params, "params----")
+      options: selectedTopics,
+    }(params, "params----");
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
   SaveInt: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, SaveIntrest } = ApiConfig;
     const url = authBaseUrl + SaveIntrest;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   TopicPost: async () => {
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
-    
+
     const { authBaseUrl, TopicCode } = ApiConfig;
     const url = authBaseUrl + TopicCode;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   MoreLike: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, MoreLIkeThis } = ApiConfig;
     const url = authBaseUrl + MoreLIkeThis;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   RequestList: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, requestGetList } = ApiConfig;
     const url = authBaseUrl + requestGetList;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   CreateRequest: async (yourRequest, discription, avoided, details) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, Createrequest } = ApiConfig;
     const url = authBaseUrl + Createrequest;
     const params = {
       title: yourRequest,
       description: discription,
       avoidedDetails: avoided,
-      addDetails: details
-    }
+      addDetails: details,
+    };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   GetSubFolder: async (id, value) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, GetSubFolders } = ApiConfig;
     const url = authBaseUrl + GetSubFolders + id + "?sort=" + value;
-    (url, 'url----');
+    url, "url----";
 
     const params = {};
-    (params, "params---")
+    params, "params---";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   createSubFolder: async (id, addnewFolder) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, createSubFolder } = ApiConfig;
     const url = authBaseUrl + createSubFolder + id;
     const params = {
-      subfolderName: addnewFolder
-    }
+      subfolderName: addnewFolder,
+    };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   DeleteSubFolder: async (id, subId) => {
-    (subId,"subId----")
-    const token = await localStorage.getItem('token');
+    subId, "subId----";
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, deleteSubFolder } = ApiConfig;
     const url = authBaseUrl + deleteSubFolder + id + "/" + subId?._id;
-    (url,"url----")
+    url, "url----";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallDelete(url, params, headers);
   },
 
   RenameSubFolder: async (id, rename, SubId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, renameSubFolder } = ApiConfig;
     const url = authBaseUrl + renameSubFolder + id + "/" + SubId?._id;
-    (url, "url----")
+    url, "url----";
     const params = {
-      subfolderName: rename
-    }
-    (params, "params--")
+      subfolderName: rename,
+    }(params, "params--");
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPut(url, params, headers);
   },
 
   getSubfolderSaveVideo: async (folderId, subfolderId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, subfolderSaveVideo } = ApiConfig;
     const url = authBaseUrl + subfolderSaveVideo + folderId + "/" + subfolderId;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   getSuggested: async (postId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, Suggested } = ApiConfig;
-    const url = authBaseUrl + Suggested +postId;
+    const url = authBaseUrl + Suggested + postId;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
   NotIntrested: async (id) => {
     // (id, "id----")
-    let token = await localStorage.getItem('token');
-    if(!token) {
-      token = await localStorage.getItem('unAuthToken')
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Notintrested } = ApiConfig;
     const url = authBaseUrl + Notintrested;
@@ -837,61 +867,56 @@ const AuthService = {
       postId: id,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     // (url, params, headers,"fkk");
     return ApiCallPost(url, params, headers);
   },
   SaveSubFolderVideo: async (selectedFolderId, id, postId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, saveSubFolderVideo } = ApiConfig;
     const url = authBaseUrl + saveSubFolderVideo + "/" + id;
-    (url, "url---")
+    url, "url---";
     const params = {
       subfolderId: selectedFolderId,
-      postId: postId
-    }
-    (params, "params----")
+      postId: postId,
+    }(params, "params----");
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   GetCategories: async (category) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, getCategories } = ApiConfig;
 
-  
-
     const url = `${authBaseUrl}${getCategories}?category=${category}`;
-     console.log(url, "url----")
 
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
 
     return ApiCallGet(url, params, headers);
   },
 
-
   GetCategorie: async (value1) => {
-    (value1, "value of selectide category -----")
-    const token = await localStorage.getItem('token');
+    value1, "value of selectide category -----";
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, getCategories } = ApiConfig;
 
     // (categoryValue,"categoryValue----")
 
     const url = `${authBaseUrl}${getCategories}?category=${value1}`;
-    (url, "url----")
+    url, "url----";
 
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
 
@@ -899,127 +924,127 @@ const AuthService = {
   },
 
   CategoryVideoList: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, categoriesVideo } = ApiConfig;
     const url = authBaseUrl + categoriesVideo;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
   replayPost: async (id, reply) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, replayOnPost } = ApiConfig;
     const url = authBaseUrl + replayOnPost;
     const params = {
       reviewId: id,
       content: reply,
-    }
+    };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   getVideoRequest: async (id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, getVideoInRequest } = ApiConfig;
     const url = authBaseUrl + getVideoInRequest + id;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   RequestVideo: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, requestVideo } = ApiConfig;
     const url = authBaseUrl + requestVideo;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   RequestSaveVideo: async (selectedItems, id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, requestSaveVideo } = ApiConfig;
     const url = authBaseUrl + requestSaveVideo + id;
 
     const params = {
-      videoIds: selectedItems
+      videoIds: selectedItems,
     };
 
-    (params, "params---")
+    params, "params---";
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
 
   getQuize: async (id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, quiz } = ApiConfig;
     const url = authBaseUrl + quiz + id;
-    (url,"url---")
+    url, "url---";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
   removeSuggation: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, RemoveSaggation } = ApiConfig;
     const url = authBaseUrl + RemoveSaggation;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPost(url, params, headers);
   },
   getReviewReply: async (reviewId) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, getReviewsReply } = ApiConfig;
     const url = authBaseUrl + getReviewsReply + reviewId;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   GetOneVideo: async (id) => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, getOneVideo } = ApiConfig;
     const url = authBaseUrl + getOneVideo + id;
-    (url, "url---")
+    url, "url---";
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
   },
 
   SkipData: async () => {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, skipData } = ApiConfig;
     const url = authBaseUrl + skipData;
     const params = {};
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     return ApiCallGet(url, params, headers);
@@ -1030,10 +1055,10 @@ const AuthService = {
     const url = authBaseUrl + google;
 
     const params = {
-      token:accessToken
+      token: accessToken,
     };
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
     return ApiCallPost(url, params, headers);
   },

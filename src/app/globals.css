@@ -901,6 +901,10 @@ span.user-name {
   /* margin: 0 0; */
 }
 
+.request-data .dropdown-divider {
+  margin: 16px 0;
+}
+
 .custom-modal .modal-content {
   background: #fff;
   border-radius: 8px;

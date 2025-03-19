@@ -24,8 +24,8 @@ import { FiAlertOctagon } from "react-icons/fi";
 import { type } from "os";
 import calculateMonthsAgo from "../../utils/monthsAgo/page";
 import RenameModel from "@/components/Models/Rename";
-import DeleteModel from "../../../components/Models/Delete"
-import SaveLibraryModal from "../../../components/Models/SaveLibrary"
+import DeleteModel from "../../../components/Models/Delete";
+import SaveLibraryModal from "../../../components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
@@ -54,7 +54,6 @@ function VideoDetails({
   handleGetFolder,
   selectedFolderId,
 }) {
-
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
   useEffect(() => {
@@ -98,7 +97,6 @@ function VideoDetails({
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      console.log("TEST 103 103 103")
       setIsDropdownOpen(false);
       // setShow(false)
     }
@@ -190,7 +188,6 @@ function VideoDetails({
     // handleCreateFolderSub(addnewFolder);
     // handleGetFolderSub(item?._id)
   };
-//  console.log('folders====00000098888', folders)
   const [deleteModel, setDeleteModel] = useState(false);
   // const [selectedItem, setSelectedItem] = useState(null);
   const [renameModel, setRenameModel] = useState(false);
@@ -209,7 +206,7 @@ function VideoDetails({
 
   const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
   const [threeDotItem, setThreeDotItem] = useState(null);
-console.log("threeDotItem",threeDotItem)
+  console.log("threeDotItem", threeDotItem);
   const toggleDropdownnwe = (item) => {
     // (item,"if")
     setisDropdownOpenid((prev) => (prev === item ? null : item));
@@ -290,18 +287,26 @@ console.log("threeDotItem",threeDotItem)
   const [Subfolder, setSubfolder] = useState();
   const [addnewFolder, setAddNewFolder] = useState("");
 
+  React.useEffect(() => {}, [show]);
 
-  React.useEffect(()=> {
-      console.log("show",show)
-    },[show])
-
-
-//  console.log(addnewFolder, "addnewFolder") 
   return (
     <>
       {/* Rename folder modal start */}
-      <RenameModel  renameModel ={renameModel} show7={show} handleClose7={handleClose} setSubfolder={setSubfolder} rename={rename} setRename={setRename} handleRename={handleRename} setRenameModel ={setRenameModel} handleGetFolder={handleGetFolder} isDropdownOpenid={isDropdownOpenid} getFolder={getFolder} getSubFolder={getSubFolder}subfolderid={subfolderid}/>
-
+      <RenameModel
+        renameModel={renameModel}
+        show7={show}
+        handleClose7={handleClose}
+        setSubfolder={setSubfolder}
+        rename={rename}
+        setRename={setRename}
+        handleRename={handleRename}
+        setRenameModel={setRenameModel}
+        handleGetFolder={handleGetFolder}
+        isDropdownOpenid={isDropdownOpenid}
+        getFolder={getFolder}
+        getSubFolder={getSubFolder}
+        subfolderid={subfolderid}
+      />
       {/* Delete folder modal start */}
       {/* <Modal
         open={deleteModel}
@@ -344,9 +349,14 @@ console.log("threeDotItem",threeDotItem)
           </div>
         </Modal.Body>
       </Modal> */}
-
-      <DeleteModel deleteModel={deleteModel} show={show6} handleClose={handleClose6} handleDeleteFolder={handleDeleteFolder} setDeleteModel={setDeleteModel} isDropdownOpenid={isDropdownOpenid}/>
-
+      <DeleteModel
+        deleteModel={deleteModel}
+        show={show6}
+        handleClose={handleClose6}
+        handleDeleteFolder={handleDeleteFolder}
+        setDeleteModel={setDeleteModel}
+        isDropdownOpenid={isDropdownOpenid}
+      />
       {/* Share Modal */}
       <Modal
         show={show2}
@@ -407,7 +417,6 @@ console.log("threeDotItem",threeDotItem)
           </div>
         </Modal.Body>
       </Modal>
-
       {/* Report Modal */}
       <Modal
         show={show3}
@@ -485,7 +494,6 @@ console.log("threeDotItem",threeDotItem)
           </div>
         </Modal.Body>
       </Modal>
-
       {/* Full summary Modal start */}
       <Modal
         show={show4}
@@ -503,7 +511,6 @@ console.log("threeDotItem",threeDotItem)
           <p>{data?.description}</p>
         </Modal.Body>
       </Modal>
-
       {/* Save to My Library Modal start */}
       {/* <Modal
         show={show1}
@@ -553,10 +560,8 @@ console.log("threeDotItem",threeDotItem)
           <div className="body-middle">
             <div className="folder-lists">
               {/* // doesnt make sense */}
-              {/* {getSaveVideo === "getFolder"} */}
-
-            /
-                  {/* {Array.isArray(getSubFolder) &&
+      {/* {getSaveVideo === "getFolder"} */}/
+      {/* {Array.isArray(getSubFolder) &&
                     getSubFolder?.map((item, index) => (
                       <div key={index} className="folder-view">
                         <div
@@ -607,7 +612,7 @@ console.log("threeDotItem",threeDotItem)
                                   </button>
 
                                   {/* Show the dropdown only if it matches the current item's ID */}
-                                  {/* {isDropdownOpenid?._id === item._id && (
+      {/* {isDropdownOpenid?._id === item._id && (
                                     <div className="dropdown-menu-card">
                                       <ul>
                                         <li>
@@ -637,13 +642,13 @@ console.log("threeDotItem",threeDotItem)
                           </div>
                         </div>
                       </div>
-                    ))} */} 
-                  {/* {Array.isArray(getSaveVideo) &&
+                    ))} */}
+      {/* {Array.isArray(getSaveVideo) &&
                     getSaveVideo.map((item, index) => (
                       <div className="video-card-container" key={index}>
                         <div className="video-card-content">
                           {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
-                          {/* <div className="video-card-image">
+      {/* <div className="video-card-image">
                             <Image
                               src={item?.thumbnailUrl}
                               alt="video card"
@@ -654,8 +659,8 @@ console.log("threeDotItem",threeDotItem)
                               {item?.duration}
                             </div>
                           </div> */}
-                          {/* </Link> */}
-                          {/* <div className="inline-gap-8">
+      {/* </Link> */}
+      {/* <div className="inline-gap-8">
                             <div className="video-title">
                               <h2>{item?.title}</h2>
                             </div>
@@ -669,13 +674,13 @@ console.log("threeDotItem",threeDotItem)
                               />{" "}
                               <span>{calculateMonthsAgo(item?.createdAt)}</span>
                             </div> */}
-                            {/* <span>month</span> */}
-                          {/* </div>
+      {/* <span>month</span> */}
+      {/* </div>
                           <div className="video-card-detail">
                             <div className="video-de-title">
                               <div className="de-title"> */}
-                                {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
-                              {/* </div>
+      {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
+      {/* </div>
                             </div>
                           </div>
                         </div>
@@ -683,9 +688,8 @@ console.log("threeDotItem",threeDotItem)
                     ))}
                 </>
               ) : null}
-            </div> */} 
-
-            {/* <div className="add-new-folder">
+            </div> */}
+      {/* <div className="add-new-folder">
               <button
                 type="button"
                 className="btn btn-new-folder"
@@ -695,7 +699,7 @@ console.log("threeDotItem",threeDotItem)
               </button>
             </div>
           </div> */}
-          {/* <div className="body-footer">
+      {/* <div className="body-footer">
             <button
               type="button"
               value={color}
@@ -710,9 +714,30 @@ console.log("threeDotItem",threeDotItem)
           </div>--
         </Modal.Body>
       </Modal>  */}
-
-      <SaveLibraryModal show_modal={show1} close_library_modal={handleClose1} handleShow={handleShow} show_new_folder_popup={handleShow5} setSubfolder={setSubfolder} subFolderView={subFolderView} subfolderName={subfolderName} getFolder={getFolder} handleNavigateSave={handleNavigateSave} setColor={setColor} handleNavigatename={handleNavigatename} dropdownRefnwe={dropdownRefnwe} toggleDropdownnwe={toggleDropdownnwe} setRenameModel={setRenameModel} isDropdownOpenid={isDropdownOpenid}  getSubFolder={getSubFolder} active={active}  getSaveVideo={getSaveVideo} calculateMonthsAgo={calculateMonthsAgo} color={color} handleSaveVideo={handleSaveVideo} handle_show_delete={handleShow6}/>
-
+      <SaveLibraryModal
+        show_modal={show1}
+        close_library_modal={handleClose1}
+        handleShow={handleShow}
+        show_new_folder_popup={handleShow5}
+        setSubfolder={setSubfolder}
+        subFolderView={subFolderView}
+        subfolderName={subfolderName}
+        getFolder={getFolder}
+        handleNavigateSave={handleNavigateSave}
+        setColor={setColor}
+        handleNavigatename={handleNavigatename}
+        dropdownRefnwe={dropdownRefnwe}
+        toggleDropdownnwe={toggleDropdownnwe}
+        setRenameModel={setRenameModel}
+        isDropdownOpenid={isDropdownOpenid}
+        getSubFolder={getSubFolder}
+        active={active}
+        getSaveVideo={getSaveVideo}
+        calculateMonthsAgo={calculateMonthsAgo}
+        color={color}
+        handleSaveVideo={handleSaveVideo}
+        handle_show_delete={handleShow6}
+      />
       {/* New folder Modal start */}
       {/* <Modal
         show={show5}
@@ -757,11 +782,19 @@ console.log("threeDotItem",threeDotItem)
           </div>
         </Modal.Body>
       </Modal> */}
-
-      <NewfolderAdd  show={show5}handleClose={handleClose5} handleChange={handleChange} subFolderView={subFolderView} active={active} addnewFolder={addnewFolder} folders={folders} handleCreateFolder={handleCreateFolder}handleGetFolder={handleGetFolder} handleCreateFolderSub={handleCreateFolderSub} />
-
+      <NewfolderAdd
+        show={show5}
+        handleClose={handleClose5}
+        handleChange={handleChange}
+        subFolderView={subFolderView}
+        active={active}
+        addnewFolder={addnewFolder}
+        folders={folders}
+        handleCreateFolder={handleCreateFolder}
+        handleGetFolder={handleGetFolder}
+        handleCreateFolderSub={handleCreateFolderSub}
+      />
       <Header />
-
       <main id="main" className="top-space-filter">
         <div className="video-show-container">
           <ReactPlayer

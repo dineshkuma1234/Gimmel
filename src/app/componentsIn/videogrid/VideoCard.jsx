@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { FiAlertOctagon } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
 import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
-import RenameModel from '../../../components/Models/Rename';
+import RenameModel from "../../../components/Models/Rename";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
@@ -57,7 +57,6 @@ const VideoCard = ({
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  console.log(getSaveVideo, "getSaveVideo++++++++++++++++++");
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
@@ -106,7 +105,6 @@ const VideoCard = ({
 
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
   const [renameModel, setRenameModel] = useState(false);
-  console.log(renameModel,"renameModel")
   const [deleteModel, setDeleteModel] = useState(false);
 
   const [show3, setShow3] = useState(false);
@@ -249,7 +247,16 @@ const VideoCard = ({
   return (
     <>
       {/* Rename folder modal start */}
-      <RenameModel  renameModel ={renameModel} show7={show7} handleClose7={handleClose7} setSubfolder={setSubfolder} rename={rename} setRename={setRename} handleRename={handleRename} setRenameModel ={setRenameModel} />
+      <RenameModel
+        renameModel={renameModel}
+        show7={show7}
+        handleClose7={handleClose7}
+        setSubfolder={setSubfolder}
+        rename={rename}
+        setRename={setRename}
+        handleRename={handleRename}
+        setRenameModel={setRenameModel}
+      />
 
       {/* Delete folder modal start */}
       {/* <Modal
@@ -294,8 +301,14 @@ const VideoCard = ({
         </Modal.Body>
       </Modal> */}
 
-      <DeleteModel deleteModel={deleteModel} show={show6} handleClose={handleClose6} handleDeleteFolder={handleDeleteFolder} setDeleteModel={setDeleteModel} isDropdownOpenid={isDropdownOpenid}/>
-
+      <DeleteModel
+        deleteModel={deleteModel}
+        show={show6}
+        handleClose={handleClose6}
+        handleDeleteFolder={handleDeleteFolder}
+        setDeleteModel={setDeleteModel}
+        isDropdownOpenid={isDropdownOpenid}
+      />
 
       {/* New folder Modal start */}
       <Modal
@@ -520,7 +533,16 @@ const VideoCard = ({
         </Modal.Body>
       </Modal> */}
 
-      <NewfolderAdd  show={show5}handleClose={handleClose5} handleChange={handleChange} subFolderView={subFolderView} active={active} addnewFolder={addnewFolder} folders={folders} handleCreateFolder={handleCreateFolder}/>
+      <NewfolderAdd
+        show={show5}
+        handleClose={handleClose5}
+        handleChange={handleChange}
+        subFolderView={subFolderView}
+        active={active}
+        addnewFolder={addnewFolder}
+        folders={folders}
+        handleCreateFolder={handleCreateFolder}
+      />
 
       {/* Full summary Modal start */}
       <Modal show={show} onHide={handleClose} centered className="custom-modal">
@@ -584,9 +606,9 @@ const VideoCard = ({
           <div className="body-middle">
             <div className="folder-lists">
               {/* // doesnt make sense */}
-              {/* {getSaveVideo === "getFolder"} */}
+      {/* {getSaveVideo === "getFolder"} */}
 
-              {/* {Array.isArray(getFolder) && !subFolderView ? (
+      {/* {Array.isArray(getFolder) && !subFolderView ? (
                 getFolder.map((item, index) => (
                   <div key={index} className="folder-view">
                     <div
@@ -641,8 +663,8 @@ const VideoCard = ({
                               </button>
 
                               {/* Show the dropdown only if it matches the current item's ID */}
-                           
-                  {/* {Array.isArray(getSubFolder) &&
+
+      {/* {Array.isArray(getSubFolder) &&
                     getSubFolder?.map((item, index) => (
                       <div key={index} className="folder-view">
                         <div
@@ -700,7 +722,7 @@ const VideoCard = ({
                                   </button>
 
                                   {/* Show the dropdown only if it matches the current item's ID */}
-                                  {/* {isDropdownOpenid?._id === item._id && (
+      {/* {isDropdownOpenid?._id === item._id && (
                                     <div className="dropdown-menu-card">
                                       <ul>
                                         <li>
@@ -728,15 +750,15 @@ const VideoCard = ({
                               </div>
                             </div>
                           </div> */}
-                        {/* </div>
+      {/* </div>
                       </div>
                     ))} */}
-                  {/* {Array.isArray(getSaveVideo) &&
+      {/* {Array.isArray(getSaveVideo) &&
                     getSaveVideo.map((item, index) => (
                       <div className="video-card-container" key={index}>
                         <div className="video-card-content">
                           {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
-                          {/* <div className="video-card-image">
+      {/* <div className="video-card-image">
                             <Image
                               src={item?.thumbnailUrl}
                               alt="video card"
@@ -748,7 +770,7 @@ const VideoCard = ({
                             </div>
                           </div>
                           {/* </Link> */}
-                          {/* <div className="inline-gap-8">
+      {/* <div className="inline-gap-8">
                             <div className="video-title">
                               <h2>{item?.title}</h2>
                             </div>
@@ -762,13 +784,13 @@ const VideoCard = ({
                               />{" "}
                               <span>{calculateMonthsAgo(item?.createdAt)}</span>
                             </div> */}
-                            {/* <span>month</span> */}
-                          {/* </div>
+      {/* <span>month</span> */}
+      {/* </div>
                           <div className="video-card-detail">
                             <div className="video-de-title">
                               <div className="de-title"> */}
-                                {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
-                              {/* </div>
+      {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
+      {/* </div>
                             </div>
                           </div>
                         </div>
@@ -776,9 +798,9 @@ const VideoCard = ({
                     ))}
                 </>
               ) : null}
-            </div> */} 
+            </div> */}
 
-            {/* <div className="add-new-folder">
+      {/* <div className="add-new-folder">
               <button
                 type="button"
                 className="btn btn-new-folder"
@@ -802,8 +824,29 @@ const VideoCard = ({
             </button>
           </div>
         </Modal.Body>
-      </Modal> */} 
-      <SaveLibraryModal show={show} handleClose={handleClose} setSubfolder={setSubfolder} subFolderView={subFolderView} subfolderName={subfolderName} getFolder={getFolder} handleNavigateSave={handleNavigateSave} setColor={setColor} handleNavigatename={handleNavigatename} dropdownRefnwe={dropdownRefnwe} toggleDropdownnwe={toggleDropdownnwe} setRenameModel={setRenameModel} isDropdownOpenid={isDropdownOpenid} handleShow={handleShow}  getSubFolder={getSubFolder} active={active}  getSaveVideo={getSaveVideo} calculateMonthsAgo={calculateMonthsAgo} color={color} handleSaveVideo={handleSaveVideo}/>
+      </Modal> */}
+      <SaveLibraryModal
+        show={show}
+        handleClose={handleClose}
+        setSubfolder={setSubfolder}
+        subFolderView={subFolderView}
+        subfolderName={subfolderName}
+        getFolder={getFolder}
+        handleNavigateSave={handleNavigateSave}
+        setColor={setColor}
+        handleNavigatename={handleNavigatename}
+        dropdownRefnwe={dropdownRefnwe}
+        toggleDropdownnwe={toggleDropdownnwe}
+        setRenameModel={setRenameModel}
+        isDropdownOpenid={isDropdownOpenid}
+        handleShow={handleShow}
+        getSubFolder={getSubFolder}
+        active={active}
+        getSaveVideo={getSaveVideo}
+        calculateMonthsAgo={calculateMonthsAgo}
+        color={color}
+        handleSaveVideo={handleSaveVideo}
+      />
 
       {index === 5 && showContent && interest === "0" && (
         <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
@@ -1015,4 +1058,4 @@ const VideoCard = ({
   );
 };
 
-export default VideoCard
+export default VideoCard;

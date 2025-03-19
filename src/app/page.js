@@ -33,7 +33,7 @@ export default function PageComponent() {
   const [value, setValue] = useState(null);
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
-  const [categoryVideo,setgetCategoryVideo]=useState([])
+  const [categoryVideo, setgetCategoryVideo] = useState([]);
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -46,7 +46,7 @@ export default function PageComponent() {
     window.addEventListener("resize", updateWidth);
 
     return () => window.removeEventListener("resize", updateWidth);
-  },);
+  });
 
   useEffect(() => {
     handleGetPostid();
@@ -54,7 +54,7 @@ export default function PageComponent() {
     // handleSave()
     handleGetFolder(value);
     handleCreateFolder();
-    handleGetCategoryVideo()
+    handleGetCategoryVideo();
   }, []);
   // Fetch posts when the page changes
   useEffect(() => {
@@ -686,7 +686,7 @@ export default function PageComponent() {
       const result = await AuthService.CategoryVideoList();
       if (result?.success) {
         // LoaderHelper.loaderStatus(false);
-        setgetCategoryVideo(result?.data)
+        setgetCategoryVideo(result?.data);
         // AlertHelper.show('success', 'Gimmel', result?.message);
       } else {
         // LoaderHelper.loaderStatus(false);
@@ -694,41 +694,34 @@ export default function PageComponent() {
       }
     } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      console.log('Error occurred:', 'Gimmel', error);
     }
   };
 
-  const searchParams = useSearchParams(); 
-    const category = searchParams.get("category") || "No Category Selected";
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") || "No Category Selected";
 
-    const [getCategoryData, setGetCategoryData] = useState([]);
+  const [getCategoryData, setGetCategoryData] = useState([]);
 
-    console.log("Selected Category from URL:", category);
-    console.log("getCategoryData+++++++++++", getCategoryData);
+  // useEffect(() => {
+  //     if (category) {
+  //         handleGetCategories(category);
+  //     }
+  // }, [category]);
 
-    // useEffect(() => {
-    //     if (category) {
-    //         handleGetCategories(category);
-    //     }
-    // }, [category]); 
+  const handleGetCategories = async (category) => {
+    try {
+      const result = await AuthService.GetCategories(category);
 
-    const handleGetCategories = async (category) => {
-        try {
-            const result = await AuthService.GetCategories(category);
-            console.log("API Response++++++:", result);
-
-            if (result?.success) {
-              updatesearchListState(result?.data?.posts);
-              router.push( "/searchlist",
-                { data: JSON.stringify(category) }, // Convert the object to a JSON string
-              );
-                // setGetCategoryData(result?.data?.posts);
-            }
-        } catch (error) {
-            console.error("Error occurred:", error);
-        }
-    };
- 
+      if (result?.success) {
+        updatesearchListState(result?.data?.posts);
+        router.push(
+          "/searchlist",
+          { data: JSON.stringify(category) } // Convert the object to a JSON string
+        );
+        // setGetCategoryData(result?.data?.posts);
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -764,7 +757,6 @@ export default function PageComponent() {
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
-
         />
       ) : (
         <MainMobile
