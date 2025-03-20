@@ -602,10 +602,10 @@ span.user-name {
 
 .video-card-image img {
   width: 100%;
-  /* max-height: 124px; */
+  max-height: 140px !important;
   object-fit: cover;
   object-position: center;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 0px 0px;
 }
 
 .video-card-detail {
@@ -899,6 +899,10 @@ span.user-name {
 .dropdown-divider {
   border-top: 1px solid #ddd;
   /* margin: 0 0; */
+}
+
+.request-data .dropdown-divider {
+  margin: 16px 0;
 }
 
 .custom-modal .modal-content {

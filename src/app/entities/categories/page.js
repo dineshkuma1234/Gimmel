@@ -1,42 +1,38 @@
-import React from "react";
+import React, { createContext, useContext, useState } from "react";
 import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
+import { useSearchParams } from "next/navigation";
 
-function Categories() {
-    
-    return (
-        <>
-            <Header />
+function Categories({
+  handleNotIntrested,
+  categoryVideo,
+  categoryVideoname,
+  img,
+  handleGetCategories,
+}) {
+  return (
+    <>
+      <Header />
 
-            <main id="main" className="top-space">
-                <div className="custom-container">
-                    <div className="page-main-title">
-                        <h3>12+ years</h3>
-                    </div>
-                </div>
+      <main id="main" className="top-space">
+        <div className="custom-container">
+          <div className="page-main-title">
+            <h3>{categoryVideoname}</h3>
+          </div>
+        </div>
 
-                <div className="swiper-container">
-                    <SliderSection />
-                </div>
-                <div className="custom-container">
-                    <div className="page-main-title">
-                        <h3>Drug prevention</h3>
-                    </div>
-                </div>
-                <div className="swiper-container">
-                    <SliderSection />
-                </div>
-                <div className="custom-container">
-                    <div className="page-main-title">
-                        <h3>Mental health</h3>
-                    </div>
-                </div>
-                <div className="swiper-container">
-                    <SliderSection />
-                </div>
-            </main>
-        </>
-    );
+        <div className="swiper-container">
+          <SliderSection
+            categoryVideo={categoryVideo}
+            categoryVideoname={categoryVideoname}
+            handleNotIntrested={handleNotIntrested}
+            img={img}
+            handleGetCategories={handleGetCategories}
+          />
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default Categories;

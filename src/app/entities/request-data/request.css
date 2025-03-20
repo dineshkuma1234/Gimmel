@@ -215,6 +215,11 @@
     padding: 4px !important;
 }
 
+.check-button input:checked[type=checkbox] {
+    --bs-form-check-bg-image: url("../../../assets/images/check-bg.svg");
+    padding: 4px !important;
+}
+
 .check-button input:focus {
     box-shadow: none;
     border-color: var(--gimmel-orange);

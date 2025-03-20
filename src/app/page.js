@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Main from "./entities/main/page";
 import MainMobile from "./(MobileFlow)/mobile-main/page";
 import AuthService from "../services/AuthService";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
 import unAuthToken from "../Constants/constant";
 import { SearchListContext } from "./Context/searchlist/searchListContext";
@@ -16,6 +16,7 @@ import Loader from "./LoderHelper/page";
 
 export default function PageComponent() {
   const router = useRouter();
+  const { setLoader } = UseLoader();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -25,7 +26,6 @@ export default function PageComponent() {
   const [getPost, setGetPost] = useState([]);
   const [sliderData, setSliderData] = useState([]);
   const [noSuggetion, setNoSuggetion] = useState("");
-  const { setLoader } = UseLoader();
   const [data, setdata] = useState();
   const [getFolder, setGetFolder] = useState("");
   const [rename, setRename] = useState("");
@@ -33,9 +33,7 @@ export default function PageComponent() {
   const [value, setValue] = useState(null);
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
-  const [categoryVideo,setgetCategoryVideo]=useState([])
- 
-  
+  const [categoryVideo, setgetCategoryVideo] = useState([]);
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -48,7 +46,7 @@ export default function PageComponent() {
     window.addEventListener("resize", updateWidth);
 
     return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+  });
 
   useEffect(() => {
     handleGetPostid();
@@ -56,7 +54,7 @@ export default function PageComponent() {
     // handleSave()
     handleGetFolder(value);
     handleCreateFolder();
-    handleGetCategoryVideo()
+    handleGetCategoryVideo();
   }, []);
   // Fetch posts when the page changes
   useEffect(() => {
@@ -688,7 +686,7 @@ export default function PageComponent() {
       const result = await AuthService.CategoryVideoList();
       if (result?.success) {
         // LoaderHelper.loaderStatus(false);
-        setgetCategoryVideo(result?.data)
+        setgetCategoryVideo(result?.data);
         // AlertHelper.show('success', 'Gimmel', result?.message);
       } else {
         // LoaderHelper.loaderStatus(false);
@@ -696,11 +694,34 @@ export default function PageComponent() {
       }
     } catch (error) {
       // LoaderHelper.loaderStatus(false);
-      console.log('Error occurred:', 'Gimmel', error);
     }
   };
 
- 
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") || "No Category Selected";
+
+  const [getCategoryData, setGetCategoryData] = useState([]);
+
+  // useEffect(() => {
+  //     if (category) {
+  //         handleGetCategories(category);
+  //     }
+  // }, [category]);
+
+  const handleGetCategories = async (category) => {
+    try {
+      const result = await AuthService.GetCategories(category);
+
+      if (result?.success) {
+        updatesearchListState(result?.data?.posts);
+        router.push(
+          "/searchlist",
+          { data: JSON.stringify(category) } // Convert the object to a JSON string
+        );
+        // setGetCategoryData(result?.data?.posts);
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -711,6 +732,7 @@ export default function PageComponent() {
           historyList={historyList}
           setHeaderSearch={setHeaderSearch}
           headerSearch={headerSearch}
+          handleGetCategories={handleGetCategories}
           handleHistoryList={handleHistoryList}
           handleSearchCont={handleSearchCont}
           substance={substance}
@@ -735,7 +757,6 @@ export default function PageComponent() {
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
-
         />
       ) : (
         <MainMobile
@@ -767,6 +788,8 @@ export default function PageComponent() {
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
+          categoryVideo={categoryVideo}
+          handleGetCategories={handleGetCategories}
         />
       )}
 

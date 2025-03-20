@@ -441,6 +441,13 @@
     .custom-modal .modal-dialog {
         max-width: 100% !important;
     }
+
+    .video-list-item-multi .categories-bg img {
+        width: 180px;
+        height: 100%;
+        object-fit: fill;
+        border-radius: 4.61px;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -544,6 +551,12 @@
         align-items: flex-end ! important;
         height: auto;
     }
+    .video-list-item-multi .categories-bg img {
+        width: 180px;
+        height: 100%;
+        object-fit: fill;
+        border-radius: 4.61px;
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1279px) {}
@@ -586,8 +599,20 @@
         font-size: 15px;
     }
 
+    .video-de-title {
+        margin: 4px 0px;
+    }
+
+    .de-info p {
+        font-size: 12px;
+    }
+
     .video-card-detail {
-        padding: 16px 10px;
+        padding: 5px 10px 10px 10px;
+    }
+
+    .video-card-image img {
+        max-height: 135px !important;
     }
 
     .category-card-title {

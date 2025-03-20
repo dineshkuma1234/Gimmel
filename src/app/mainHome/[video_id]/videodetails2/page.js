@@ -32,7 +32,6 @@ function PageComponent() {
   const [getSaveVideo,setGetSaveVideo] = useState([]);
   const [getSubFolder,setGetFolderSub]= useState();
   const [topicPost, setTopicPost] = useState("")
-  // console.log(id,"id")
   useEffect(() => {
      
           handleGetPostid();
