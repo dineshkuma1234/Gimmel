@@ -8,6 +8,7 @@ import { UseLoader } from '@/app/LoderHelper/context/loaderHelperContext';
 import WatchVideo from '@/app/(MobileFlow)/watchvideo/page';
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+// import { downloadMaterialQuestion, materialQuestion, regenerateMaterialQuestion } from '@/services/MaterialServices/materialServices';
 // import LoaderHelper from '../../../../../src/LoaderHelper/LoaderHelper';
 function PageComponent() {
   const router = useRouter();
@@ -19,6 +20,10 @@ function PageComponent() {
   const [loading,setLoading] = useState(false);
   const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
   const [getQuiz,setGetQuiz] = useState("")
+  const [getHomeWork,setHomeWork] = useState("")
+  const [getDiscussion,setDiscussion] = useState("")
+  const [getActivity,setActivity] = useState("")
+  const [getTest,setTest] = useState("")
   const [getFolder, setGetFolder] = useState("")
   const [rename, setRename] = useState("")
   const [selectedFolderId, setSelectedFolderId] = useState(null);
@@ -36,6 +41,10 @@ function PageComponent() {
      
           handleGetPostid();
           handleQuiz()
+          handleDiscussion()
+          handleActivity();
+          handleHomeWork();
+          handleTest();
           // handleSave()
           handleGetFolder(value);
           handleCreateFolder()
@@ -46,11 +55,16 @@ function PageComponent() {
           handleTopicPost();
           // handleSaveVideonext(selectedFolderId)
   }, []);
+
+console.log(getTest,"getTest")
+
   useEffect(() => {
     if (selectedFolderId) {
         // handleSaveVideonext(selectedFolderId);
     }
 }, [selectedFolderId]);
+
+
   useEffect(() => {
       
       
@@ -100,14 +114,14 @@ function PageComponent() {
         setLoading(false);
       }
     };
-    const handleQuiz = async () => {
 
+    const handleQuiz = async () => {
       setLoader(true);
       try {
           const result = await AuthService.getQuize(id);
-          // (result,"result of quize-----")
+          // (result?.data[0]?.questions,"result of quize-----")
           if (result?.success) {
-              setGetQuiz(result?.questions)
+              setGetQuiz(result?.data[0]?.questions)
               setLoader(false);
             } else {
               setLoader(false);
@@ -118,6 +132,79 @@ function PageComponent() {
         // ('Error occurred:', 'Gimmel', error);
       }
     };
+
+    const handleDiscussion = async () => {
+      setLoader(true);
+      try {
+          const result = await AuthService.getDiscusion(id);
+          // (result,"result of quize-----")
+          if (result?.success) {
+              setDiscussion(result?.data?.discussions)
+              setLoader(false);
+            } else {
+              setLoader(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+        setLoader(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
+    const handleActivity = async () => {
+      setLoader(true);
+      try {
+          const result = await AuthService.getActivity(id);
+          // (result,"result of quize-----")
+          if (result?.success) {
+              setActivity(result?.data?.activities)
+              setLoader(false);
+            } else {
+              setLoader(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+        setLoader(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
+    const handleHomeWork = async () => {
+      setLoader(true);
+      try {
+          const result = await AuthService.getHomeWork(id);
+          // (result,"result of quize-----")
+          if (result?.success) {
+              setHomeWork(result?.data?.homework)
+              setLoader(false);
+            } else {
+              setLoader(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+        setLoader(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+
+    const handleTest = async () => {
+      setLoader(true);
+      try {
+          const result = await AuthService.getHomeWork(id);
+          // (result,"result of quize-----")
+          if (result?.success) {
+              setTest(result?.data[0]?.tasks)
+              setLoader(false);
+            } else {
+              setLoader(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+        setLoader(false);
+        // ('Error occurred:', 'Gimmel', error);
+      }
+    };
+    
     
     const handleGetFolder = async (value) => {
 
@@ -416,11 +503,13 @@ function PageComponent() {
       }
     };
 
+
+
   return (
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId} />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} />
   ) : ( 
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
 

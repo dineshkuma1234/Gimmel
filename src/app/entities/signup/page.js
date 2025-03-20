@@ -96,7 +96,7 @@ const Signup = ({handleSignUp}) => {
                                     <div className="google-login">
                                         <Link href="/signup" className="btn btn-primary">
                                             <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" />
-                                            Google Login
+                                            Google Sign Up
                                         </Link>
                                     </div>
                                     <hr className="border-line" />
