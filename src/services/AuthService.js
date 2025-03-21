@@ -1041,7 +1041,7 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  getHomeWork: async (id) => {
+  getTest: async (id) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, Test } = ApiConfig;
     const url = authBaseUrl + Test + id;
@@ -1053,6 +1053,35 @@ const AuthService = {
     };
     return ApiCallGet(url, params, headers);
   },
+  
+  getQuizPdf: async (id)=>{
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, QuizPdf}=ApiConfig;
+    const url = authBaseUrl + QuizPdf + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+
+  //   getQuizPdf : async (id) => {
+  //   const token = await localStorage.getItem("token");
+  //   const { authBaseUrl, QuizPdf } = ApiConfig;
+  //   const url = `${authBaseUrl}${QuizPdf}${id}`;
+  //   const headers = {
+  //     Authorization: `Bearer ${token}`,
+  //   };
+  //   const response = await fetch(url, { headers });
+  //   if (!response.ok) {
+  //     throw new Error('Failed to fetch PDF');
+  //   }
+  //   return response.blob();
+  // },
+  
+
   removeSuggation: async () => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, RemoveSaggation } = ApiConfig;

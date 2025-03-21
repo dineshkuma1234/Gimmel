@@ -20,10 +20,12 @@ function PageComponent() {
   const [loading,setLoading] = useState(false);
   const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
   const [getQuiz,setGetQuiz] = useState("")
+  const [getid,setId]=useState("")
   const [getHomeWork,setHomeWork] = useState("")
   const [getDiscussion,setDiscussion] = useState("")
   const [getActivity,setActivity] = useState("")
   const [getTest,setTest] = useState("")
+  const [getQuizPdf,setGetQuizPdf] = useState("")
   const [getFolder, setGetFolder] = useState("")
   const [rename, setRename] = useState("")
   const [selectedFolderId, setSelectedFolderId] = useState(null);
@@ -56,7 +58,7 @@ function PageComponent() {
           // handleSaveVideonext(selectedFolderId)
   }, []);
 
-console.log(getTest,"getTest")
+
 
   useEffect(() => {
     if (selectedFolderId) {
@@ -122,6 +124,7 @@ console.log(getTest,"getTest")
           // (result?.data[0]?.questions,"result of quize-----")
           if (result?.success) {
               setGetQuiz(result?.data[0]?.questions)
+              setId(result?.data[0]?.postId)
               setLoader(false);
             } else {
               setLoader(false);
@@ -190,7 +193,7 @@ console.log(getTest,"getTest")
     const handleTest = async () => {
       setLoader(true);
       try {
-          const result = await AuthService.getHomeWork(id);
+          const result = await AuthService.getTest(id);
           // (result,"result of quize-----")
           if (result?.success) {
               setTest(result?.data[0]?.tasks)
@@ -204,6 +207,35 @@ console.log(getTest,"getTest")
         // ('Error occurred:', 'Gimmel', error);
       }
     };
+
+    // const handleQuizPdf = async () =>{
+    //   setLoader(true);
+    //   try{
+    //     const result = await AuthService.getQuizPdf(id);
+    //     if(result?.success){
+    //       setGetQuizPdf(result)
+    //       setLoader(false);
+    //     }else{
+    //       setLoader(false);
+    //     }
+    //   }catch(error){
+    //     setLoader(false);
+    //   }
+    // };
+
+  const handleQuizPdf = async (id) => {
+    setLoader(true);
+    try {
+      const result = await AuthService.getQuizPdf(id);
+      setLoader(false);
+      const blob = new Blob([result?.url], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      return url
+    }catch(error){
+      setLoader(false);
+    }
+  }
+    
     
     
     const handleGetFolder = async (value) => {
@@ -509,7 +541,7 @@ console.log(getTest,"getTest")
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} />
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} handleQuizPdf={handleQuizPdf} getid={getid}/>
   ) : ( 
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
 

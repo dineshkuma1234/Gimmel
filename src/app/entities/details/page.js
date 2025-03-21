@@ -53,7 +53,9 @@ function VideoDetails({
   handleGetFolderSub,
   handleGetFolder,
   selectedFolderId,
-  setGetQuiz,handleMaterialQuestion
+  setGetQuiz,handleMaterialQuestion,
+  handleQuizPdf,
+  getid
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -1132,7 +1134,7 @@ function VideoDetails({
                     <Col sm={12}>
                       <Tab.Content>
                         <Tab.Pane eventKey="first">
-                          <Stap1 getQuiz={getQuiz} />
+                          <Stap1 getQuiz={getQuiz}  handleQuizPdf={handleQuizPdf} getid={getid}/>
                         </Tab.Pane>
                       </Tab.Content>
                       {/* <Tab.Content>

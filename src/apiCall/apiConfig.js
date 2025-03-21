@@ -60,11 +60,17 @@ export const ApiConfig = {
   quiz:"api/saveQuizQuestions/",
     // quiz:"api/saveQuizQuestions/",material questions;
 
-      Quiz:"api/getQuizzes/",
-      Discussion: "api/getDiscussion/",
-      Homework: "api/getHomework/",
-      Activity: "api/getActivity/",
-      Test: "api/getTestPoints/",
+  Quiz:"api/getQuizzes/",
+  Discussion: "api/getDiscussion/",
+  Homework: "api/getHomework/",
+  Activity: "api/getActivity/",
+  Test: "api/getTestPoints/",
+
+  QuizPdf:'api/quiz_pdf/',
+  DiscussionPdf:'api/discussion_pdf/',
+  HomeworkPdf:'api/homework_pdf/',
+  ActivityPdf:'api/activity_pdf/',
+  TestPdf:'api/test_pdf/',
   RemoveSaggation:"api/removeSuggestions",
   getReviewsReply:"api/getReply/",
   getOneVideo:"api/getPost/",
