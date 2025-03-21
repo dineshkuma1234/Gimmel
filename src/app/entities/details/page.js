@@ -53,9 +53,11 @@ function VideoDetails({
   handleGetFolderSub,
   handleGetFolder,
   selectedFolderId,
+  setGetQuiz,handleMaterialQuestion
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
+  const [materialItem, setMaterialItem] = useState('Quiz');
   useEffect(() => {
     if (!show1) {
       setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
@@ -1117,13 +1119,13 @@ function VideoDetails({
                           <Nav.Link eventKey="second">Discussion</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="third">Homework</Nav.Link>
+                          <Nav.Link eventKey="third">Activity</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fourth">Test</Nav.Link>
+                          <Nav.Link eventKey="fourth">Homework</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fifth">Exercises</Nav.Link>
+                          <Nav.Link eventKey="fifth">Test</Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>
@@ -1133,6 +1135,11 @@ function VideoDetails({
                           <Stap1 getQuiz={getQuiz} />
                         </Tab.Pane>
                       </Tab.Content>
+                      {/* <Tab.Content>
+                        <Tab.Pane eventKey="second">
+                          <Stap1 getQuiz={getQuiz} />
+                        </Tab.Pane>
+                      </Tab.Content> */}
                     </Col>
                   </Tab.Container>
                 </div>

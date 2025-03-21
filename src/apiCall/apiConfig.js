@@ -58,6 +58,13 @@ export const ApiConfig = {
   requestVideo:"api/requestedVideos",
   requestSaveVideo:"api/saveVideos/",
   quiz:"api/saveQuizQuestions/",
+    // quiz:"api/saveQuizQuestions/",material questions;
+
+      Quiz:"api/getQuizzes/",
+      Discussion: "api/getDiscussion/",
+      Homework: "api/getHomework/",
+      Activity: "api/getActivity/",
+      Test: "api/getTestPoints/",
   RemoveSaggation:"api/removeSuggestions",
   getReviewsReply:"api/getReply/",
   getOneVideo:"api/getPost/",

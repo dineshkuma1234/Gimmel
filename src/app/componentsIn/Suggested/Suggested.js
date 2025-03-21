@@ -748,7 +748,7 @@ const SuggestedCardGrid = ({
   <div className="row">
     {suggested?.map((video) => (
       <Suggested
-        key={video.id}
+        key={video?.id}
         video={video}
         getFolder={getFolder}
         rename={rename}
