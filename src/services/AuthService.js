@@ -992,6 +992,110 @@ const AuthService = {
 
   getQuize: async (id) => {
     const token = await localStorage.getItem("token");
+    const { authBaseUrl, Quiz } = ApiConfig;
+    const url = authBaseUrl + Quiz + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+
+  getDiscusion: async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, Discussion } = ApiConfig;
+    const url = authBaseUrl + Discussion + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+
+  getActivity: async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, Activity } = ApiConfig;
+    const url = authBaseUrl + Activity + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+  getHomeWork: async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, Homework } = ApiConfig;
+    const url = authBaseUrl + Homework + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+
+  getTest: async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, Test } = ApiConfig;
+    const url = authBaseUrl + Test + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+  
+   getQuizPdf : async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, QuizPdf } = ApiConfig;
+    const url = authBaseUrl + QuizPdf + id;
+  
+    const response = await fetch(url, {
+      headers: {
+        // No Content-Type header; just pass authorization
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    // Ensure the response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  
+     return response.arrayBuffer();
+  },
+
+  getDiscussionPdf : async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, DiscussionPdf } = ApiConfig;
+    const url = authBaseUrl + DiscussionPdf + id;
+  
+    const response = await fetch(url, {
+      headers: {
+        // No Content-Type header; just pass authorization
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    // Ensure the response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  
+     return response.arrayBuffer();
+  },
+
+  QuizRegenerate: async (id) => { 
+    const token = await localStorage.getItem("token");
     const { authBaseUrl, quiz } = ApiConfig;
     const url = authBaseUrl + quiz + id;
     url, "url---";
@@ -1002,6 +1106,21 @@ const AuthService = {
     };
     return ApiCallGet(url, params, headers);
   },
+
+  DiscussionRegenerate: async (id) => { 
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, discussion } = ApiConfig;
+    const url = authBaseUrl + discussion + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+  
+
   removeSuggation: async () => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, RemoveSaggation } = ApiConfig;

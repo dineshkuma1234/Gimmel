@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
-function Step1({getQuiz}) {
-console.log('getQuiz___________++++++++++++++))))', getQuiz)
+function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
+// console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    // console.log(quizReg, "quizReg----");
     return (
         <>
             {/* Download Successful Modal */}
@@ -29,12 +30,7 @@ console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
 
             <div className="step-details-container">
-                <div className="hide_mobile">
-                    <div className="btn-container">
-                        <button className="btn btn-light-blue" onClick={handleShow}><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-blue"><FiRefreshCcw />Regenerate</button>
-                    </div>
-                </div>
+           
 
                 <div className="question-container">
                     <div className="question-list">
@@ -46,45 +42,68 @@ console.log('getQuiz___________++++++++++++++))))', getQuiz)
                             {item?.question}
                             </div>
 
-                            {item?.type === "multiple-choice" ? (
+                            {item?.type === "open-ended" &&
                             <textarea 
                                 className="form-control custom-textarea" 
                                 id="exampleFormControlTextarea1" 
                                 rows="5" 
                                 placeholder="Your answer here ..."
                             ></textarea>
-                            ) : (
-                            <Form className="question-select">
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
-                                        {item?.options?.map((option, optionIndex) => (
-                                        <Form.Check
-                                        key={`inline-${type}-${index}-${optionIndex}`}
-                                            inline
-                                            label={option?.answer}
-                                            name={`group-${index}`}
-                                            type={type}
-                                            id={`inline-${type}-${index}-${optionIndex}`}
-                                        />
-                                       
+                            }
+
+                           {item?.type === "single-choice" &&
+                                <Form className="question-select">
+                                    {['radio'].map((type) => (
+                                        <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
+                                            {item?.options?.map((option, optionIndex) => (
+                                            <Form.Check
+                                            key={`inline-${type}-${index}-${optionIndex}`}
+                                                inline
+                                                label={option?.answer}
+                                                name={`group-${index}`}
+                                                type={type}
+                                                id={`inline-${type}-${index}-${optionIndex}`}
+                                            />
+                                        
+                                        ))}
+                                        </div>
                                     ))}
+                                </Form>
+                           }
 
-                                    </div>
-                                    
-                                ))}
-                            </Form>
-                            )}
+                           {item?.type === "multiple-choice" &&
+                           <Form className="question-select">
+                               {['checkbox'].map((type) => (
+                                   <div key={`inline-${type}`} className="mb-3 d-flex flex-column">
+                                       {item?.options?.map((option, optionIndex) => (
+                                            <Form.Check
+                                            key={`inline-${type}-${index}-${optionIndex}`}
+                                                inline
+                                                label={option?.answer}
+                                                name={`group-${index}`}
+                                                type={type}
+                                                id={`inline-${type}-${index}-${optionIndex}`}
+                                            />
+                                        
+                                        ))}
+                                   </div>
+                               ))}
+                           </Form>
+                           }  
                         </div>
-                    ))}
-
-                         
+                    ))}  
                     </div>
-                    
+                </div>
+                <div className="hide_mobile">
+                    <div className="btn-container">
+                        <button className="btn btn-light-orange" onClick={()=>{handleQuizPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
+                        <button className="btn btn-light-orange" onClick={()=>{console.log("this function call"); quizRegenrate()}}><FiRefreshCcw/>Regenerate</button>
+                    </div>
                 </div>
 
                 <div className="bottom-btn-bar">
-                    <div className="bottom-btn-bar-inner flex-column">
-                        <button type="button" className="btn-bottom bg-color mb-2">Download in PDF</button>
+                    <div className="bottom-btn-bar-inner flex-column"> 
+                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{console.log("this function run"); handleQuizPdf(getid)}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
                 </div>

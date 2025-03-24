@@ -2397,3 +2397,23 @@ button.folder-icon {
 .model-item-w {
   width: 60%;
 }
+.question ul {
+  list-style-type: dot;
+  margin: 0;
+}
+
+.question ul li {
+  font-size: 16px;
+  font-weight: 900;
+  color: #104E5B;
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+.description-que {
+  font-size: 16px;
+  color: #104E5B;
+  line-height: 24px;
+  padding-left: 22px;
+  font-weight: 600;
+}

@@ -14,6 +14,7 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import Stap1 from "../../componentsIn/details-step/step1";
+import Stap2 from "../../componentsIn/details-step/step2";
 import SuggestedCardGrid from "../../componentsIn/Suggested/Suggested";
 import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from "react-bootstrap/Modal";
@@ -53,9 +54,18 @@ function VideoDetails({
   handleGetFolderSub,
   handleGetFolder,
   selectedFolderId,
+  setGetQuiz,handleMaterialQuestion,
+  handleQuizPdf,
+  getid,
+  quizRegenrate,
+  getDiscussion,
+  getDiscusionHeader,
+  handleDiscussPdf,
+  discussionRegenrate
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
+  const [materialItem, setMaterialItem] = useState('Quiz');
   useEffect(() => {
     if (!show1) {
       setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
@@ -1115,22 +1125,30 @@ function VideoDetails({
                           <Nav.Link eventKey="second">Discussion</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="third">Homework</Nav.Link>
+                          <Nav.Link eventKey="third">Activity</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fourth">Test</Nav.Link>
+                          <Nav.Link eventKey="fourth">Homework</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fifth">Exercises</Nav.Link>
+                          <Nav.Link eventKey="fifth">Test</Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>
                     <Col sm={12}>
                       <Tab.Content>
                         <Tab.Pane eventKey="first">
-                          <Stap1 getQuiz={getQuiz} />
+                          <Stap1 getQuiz={getQuiz}  handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate}/>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="second">
+                          <Stap2 getDiscussion={getDiscussion} getDiscusionHeader={getDiscusionHeader} getid={getid} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
                         </Tab.Pane>
                       </Tab.Content>
+                      {/* <Tab.Content>
+                        <Tab.Pane eventKey="second">
+                          <Stap1 getQuiz={getQuiz} />
+                        </Tab.Pane>
+                      </Tab.Content> */}
                     </Col>
                   </Tab.Container>
                 </div>
