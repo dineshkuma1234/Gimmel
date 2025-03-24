@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from 'react';
-import VideoDetails from '@/app/entities/details/page';
+import VideoDetails from '../../../entities/details/page';
 import AuthService from "@/services/AuthService";
 import { useParams } from 'next/navigation';
 import { VideoDetailsContext } from '@/app/Context/VideoDetails/videoDetailsContext';
@@ -32,6 +32,7 @@ function PageComponent() {
   const [getSaveVideo,setGetSaveVideo] = useState([]);
   const [getSubFolder,setGetFolderSub]= useState();
   const [topicPost, setTopicPost] = useState("")
+  console.log(shareLink,"shareLink")
   useEffect(() => {
      
           handleGetPostid();

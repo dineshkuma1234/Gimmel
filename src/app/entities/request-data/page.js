@@ -18,8 +18,12 @@ function RequestData({
   requestListData,
   handlegetVideoRequest,
   getVideoRequestData,
-  setgetRequestSaveVideo,
+  setSelectedItems,
   handleRequestSaveVideo,
+  selectedTopics,
+  setSelectedTopics,
+  shareLink,
+  handleSharePost,
 }) {
   const [show, setShow] = useState(false);
 
@@ -65,31 +69,69 @@ function RequestData({
   const [avoided, setavoided] = useState("");
   const [details, setDetails] = useState("");
 
-  const videoData = [
-    {
-      id: 1,
-      title: "Healthy Habits: Preventing Addiction Through Lifestyle Choices",
-      duration: "10:00",
-      thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-    },
-    {
-      id: 2,
-      title: "Mindful Meditation: A Path to Inner Peace",
-      duration: "12:30",
-      thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-    },
-    {
-      id: 3,
-      title: "Exercise for Beginners: Start Your Fitness Journey",
-      duration: "08:45",
-      thumbnail: require("../../../assets/images/video-thumbnil.svg"),
-    },
+  const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+
+  const deselectAll = () => {
+    if (!setIsSelectTeachingAll) {
+      // Select all topics
+      setIsSelectTeachingAll(true);
+      setSelectedTopics(Share.map((topic) => topic.text));
+    } else {
+      // Deselect all topics
+      setIsSelectTeachingAll(false);
+      setSelectedTopics([]);
+    }
+  };
+
+  const toggleSelection = (topicText) => {
+    setSelectedTopics((prevSelected) => {
+      if (prevSelected.includes(topicText)) {
+        // Remove topic if already selected
+        return prevSelected.filter((item) => item !== topicText);
+      } else {
+        // Add topic if not selected
+        return [...prevSelected, topicText];
+      }
+    });
+  };
+
+  const handleTranscript = (topic) => {
+    if (transcript.includes(topic)) {
+      setTranscript(transcript.filter((item) => item !== topic));
+    } else {
+      setTranscript([...transcript, topic]);
+    }
+  };
+
+  const isTranscript = (topic) => transcript.includes(topic);
+
+  const toggleCheckbox = (itemName) => {
+    if (selectedValues.includes(itemName)) {
+      setSelectedValues(selectedValues.filter((item) => item !== itemName));
+    } else {
+      setSelectedValues([...selectedValues, itemName]);
+    }
+  };
+
+  const isTopicSelectedTeach = (itemName) => {
+    return selectedValues.includes(itemName);
+  };
+
+  const copyUrl = () => {
+    navigator.clipboard.writeText(shareLink);
+  };
+  const Share = [
+    { id: 1, text: "Discussion points", value: "discussionPoints" },
+    { id: 2, text: "Quizzes", value: "Quizzes" },
+    { id: 3, text: "Tests", value: "Tests" },
+    { id: 4, text: "Exercises", value: "Exercises" },
+    { id: 5, text: "Homework assignments", value: "homeworkAssignments" },
   ];
 
   const [activeItem, setActiveItem] = useState(null);
   const handleActiveChange = (id) => {
     setActiveItem((prev) => (prev === id ? null : id));
-    setgetRequestSaveVideo(id);
+    setSelectedItems(id); 
   };
 
   const [currentStep, setCurrentStep] = useState(1); // Step 1 is active by default
@@ -274,53 +316,28 @@ function RequestData({
                 link?
               </div>
               <div className="checkbox-container">
+                <Form.Check
+                  className="question-select mb-3"
+                  inline
+                  label="Deselect all"
+                  name="group2"
+                  type={"checkbox"}
+                  id={`inline-deselect-4`}
+                  onClick={deselectAll}
+                />
                 <Form className="question-select">
-                  {["checkbox"].map((type) => (
+                  {Share.map((topic, index) => (
                     <div
-                      key={`inline-${type}`}
-                      className="mb-3 d-flex flex-column"
+                      key={`inline-${topic}-${index}`}
+                      className=" d-flex flex-column"
                     >
                       <Form.Check
                         inline
-                        label="Deselect all"
+                        label={topic.text}
                         name="group2"
-                        type={type}
-                        id={`inline-${type}-4`}
-                      />
-                      <Form.Check
-                        inline
-                        label="Discussion points"
-                        name="group2"
-                        type={type}
-                        id={`inline-${type}-5`}
-                      />
-                      <Form.Check
-                        inline
-                        label="Quizzes"
-                        name="group2"
-                        type={type}
-                        id={`inline-${type}-6`}
-                      />
-                      <Form.Check
-                        inline
-                        label="Tests"
-                        name="group2"
-                        type={type}
-                        id={`inline-${type}-7`}
-                      />
-                      <Form.Check
-                        inline
-                        label="Exercises"
-                        name="group2"
-                        type={type}
-                        id={`inline-${type}-8`}
-                      />
-                      <Form.Check
-                        inline
-                        label="Homework assignments"
-                        name="group2"
-                        type={type}
-                        id={`inline-${type}-9`}
+                        type={"checkbox"}
+                        id={`inline-${topic}-5`}
+                        onClick={() => toggleSelection(topic.text)}
                       />
                     </div>
                   ))}
@@ -328,7 +345,15 @@ function RequestData({
               </div>
             </div>
             <div className="btn-container">
-              <button className="btn btn-color-orange">Copy Link</button>
+              <button
+                className="btn btn-color-orange"
+                onClick={() => {
+                  copyUrl();
+                  handleClose5();
+                }}
+              >
+                Copy Link
+              </button>
             </div>
           </div>
         </Modal.Body>
@@ -844,7 +869,7 @@ function RequestData({
                                                               }
                                                               onChange={() =>
                                                                 handleActiveChange(
-                                                                  video._id
+                                                                  video?._id
                                                                 )
                                                               }
                                                             />
@@ -866,7 +891,7 @@ function RequestData({
                                                         </div>
                                                       </div>
                                                       <div className="de-title">
-                                                        <Link href="/videodetails">
+                                                        <Link href="/videodetails2">
                                                           {video.title}
                                                         </Link>
                                                       </div>
@@ -934,7 +959,8 @@ function RequestData({
                                                     </div>
                                                   </div>
                                                   <div className="video-btn">
-                                                    <button className="btn btn-bg-light">
+                                                    <button className="btn btn-bg-light"
+                                                    >
                                                       <svg
                                                         width="20"
                                                         height="20"
@@ -949,7 +975,9 @@ function RequestData({
                                                       </svg>
                                                       Share
                                                     </button>
-                                                    <button className="btn btn-bg-light">
+                                                    <button className="btn btn-bg-light"
+                                                    onClick={() => handleRequestSaveVideo() }
+                                                    >
                                                       <svg
                                                         width="21"
                                                         height="21"

@@ -973,13 +973,13 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  RequestSaveVideo: async (selectedItems, id) => {
+  RequestSaveVideo: async (selectedItems,id) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, requestSaveVideo } = ApiConfig;
     const url = authBaseUrl + requestSaveVideo + id;
 
     const params = {
-      videoIds: selectedItems,
+       videoIds: Array.isArray(selectedItems) ? selectedItems : [selectedItems],
     };
 
     params, "params---";

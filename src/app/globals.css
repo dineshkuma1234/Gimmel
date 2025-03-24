@@ -2393,3 +2393,7 @@ button.folder-icon {
 .card-height{
   height: fit-content !important;
 }
+
+.model-item-w {
+  width: 60%;
+}
