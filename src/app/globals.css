@@ -2394,6 +2394,9 @@ button.folder-icon {
   height: fit-content !important;
 }
 
+.model-item-w {
+  width: 60%;
+}
 .question ul {
   list-style-type: dot;
   margin: 0;

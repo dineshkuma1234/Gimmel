@@ -44,6 +44,7 @@ const VideoCard = ({
   handleGetFolderSub,
   categoryVideo,
   handleGetCategories,
+  
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -218,7 +219,7 @@ const VideoCard = ({
         </Modal.Body>
       </Modal>
 
-      {/* <Modal
+      <Modal
         show={show1}
         onHide={handleClose1}
         centered
@@ -315,7 +316,21 @@ const VideoCard = ({
             </button>
           </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
+
+         {/* <div className="video-list">
+            {videoData.map((video) => (
+                <div key={video.id} className="video-card">
+                    <img src={video.imageSrc} alt={video.title} className="video-thumbnail" />
+                    <div className="video-info">
+                        <h3>{video.title}</h3>
+                        <p><strong>Duration:</strong> {video.duration}</p>
+                        <p><strong>Rating:</strong> {video.rating}</p>
+                        <p><strong>{video.engagement}:</strong> {video.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div> */}
 
       <Modal show={show2} onHide={handleClose2} centered className="modal-dots">
         <div className="modal-bar">
@@ -826,6 +841,8 @@ const VideoCard = ({
           </div>
         </div>
       </div>
+
+  
     </>
   );
 };
@@ -859,6 +876,7 @@ const VideoCardGrid = ({
   handleGetFolderSub,
   categoryVideo,
   handleGetCategories,
+  getVideoRequestData,
 }) => (
   // (getPost, "this is get post---11111"),
   <div className="row">
@@ -896,6 +914,7 @@ const VideoCardGrid = ({
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
           handleGetCategories={handleGetCategories}
+          getVideoRequestData={getVideoRequestData}
         />
       ))}
   </div>

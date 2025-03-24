@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
-import { useSearchParams } from "next/navigation";
 
 function Categories({
   handleNotIntrested,

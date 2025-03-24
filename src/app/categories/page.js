@@ -85,7 +85,7 @@ const PageComponent = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "No Category Selected";
 
-  const [getCategoryData, setGetCategoryData] = useState([]);
+  // const [getCategoryData, setGetCategoryData] = useState([]);
 
   const handleGetCategories = async (category) => {
     try {

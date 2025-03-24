@@ -216,7 +216,6 @@ function VideoDetails({
 
   const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
   const [threeDotItem, setThreeDotItem] = useState(null);
-  console.log("threeDotItem", threeDotItem);
   const toggleDropdownnwe = (item) => {
     // (item,"if")
     setisDropdownOpenid((prev) => (prev === item ? null : item));
@@ -271,7 +270,6 @@ function VideoDetails({
     return selectedValues.includes(itemName);
   };
 
-  getSaveVideo, "getSaveVideo";
   const copyUrl = () => {
     navigator.clipboard.writeText(shareLink);
   };

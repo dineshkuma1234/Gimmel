@@ -15,6 +15,7 @@ import { Suspense } from 'react'
 import Loading from "../app/loading";
 import Header from "@/components/header/header";
 import {SaveProvider} from "./Context/saveContext/SaveContext"
+import { RequestProvider } from "./Context/request/page";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({ children }) {
         <LoaderProvider>
           <SearchListProvider>
           <HeaderProvider >
-            
+            <RequestProvider>
           {/* <SaveProvider> */}
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
             {children}
             </Suspense>
             {/* </SaveProvider> */}
+            </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
          
