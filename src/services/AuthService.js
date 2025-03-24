@@ -1054,10 +1054,50 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   
-  getQuizPdf: async (id)=>{
+   getQuizPdf : async (id) => {
     const token = await localStorage.getItem("token");
-    const { authBaseUrl, QuizPdf}=ApiConfig;
+    const { authBaseUrl, QuizPdf } = ApiConfig;
     const url = authBaseUrl + QuizPdf + id;
+  
+    const response = await fetch(url, {
+      headers: {
+        // No Content-Type header; just pass authorization
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    // Ensure the response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  
+     return response.arrayBuffer();
+  },
+
+  getDiscussionPdf : async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, DiscussionPdf } = ApiConfig;
+    const url = authBaseUrl + DiscussionPdf + id;
+  
+    const response = await fetch(url, {
+      headers: {
+        // No Content-Type header; just pass authorization
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    // Ensure the response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  
+     return response.arrayBuffer();
+  },
+
+  QuizRegenerate: async (id) => { 
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, quiz } = ApiConfig;
+    const url = authBaseUrl + quiz + id;
     url, "url---";
     const params = {};
     const headers = {
@@ -1067,19 +1107,18 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  //   getQuizPdf : async (id) => {
-  //   const token = await localStorage.getItem("token");
-  //   const { authBaseUrl, QuizPdf } = ApiConfig;
-  //   const url = `${authBaseUrl}${QuizPdf}${id}`;
-  //   const headers = {
-  //     Authorization: `Bearer ${token}`,
-  //   };
-  //   const response = await fetch(url, { headers });
-  //   if (!response.ok) {
-  //     throw new Error('Failed to fetch PDF');
-  //   }
-  //   return response.blob();
-  // },
+  DiscussionRegenerate: async (id) => { 
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, discussion } = ApiConfig;
+    const url = authBaseUrl + discussion + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
   
 
   removeSuggation: async () => {
