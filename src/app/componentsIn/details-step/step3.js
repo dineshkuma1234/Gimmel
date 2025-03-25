@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
-function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenrate}) {
+function Step3({getActivity,getHeader,getid,handleActivityPdf,activityRegenrate}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+  
     return (
         <>
             {/* Download Successful Modal */}
@@ -33,9 +34,9 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
                 <div className="question-container">
                     <div className="question-list">
                         <div className="question">
-                            <ul>
-                                {Array.isArray(getDiscussion) && getDiscussion.map((item, index) => (
-                                    <li key={`answer-${index}`}>{item?.question}</li>
+                            <ul className="highlight-list">
+                                {Array.isArray(getActivity) && getActivity.map((item, index) => (
+                                    <li key={`answer-${index}`}><span className="highlight">{item?.type}: </span> {item?.description}</li>
                                 ))} 
                             </ul>
                         </div>
@@ -43,14 +44,14 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
                 </div>
                 <div className="hide_mobile">
                     <div className="btn-container">
-                        <button className="btn btn-light-orange" onClick={()=>{handleDiscussPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-orange" onClick={()=>{discussionRegenrate()}}><FiRefreshCcw/>Regenerate</button>
+                        <button className="btn btn-light-orange" onClick={()=>{handleActivityPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
+                        <button className="btn btn-light-orange" onClick={()=>{activityRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
                 </div>
 
                 <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
-                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{console.log("this function run"); handleQuizPdf(getid)}}>Download in PDF</button>
+                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{activityRegenrate()}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
                 </div>
@@ -59,4 +60,4 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
     );
 }
 
-export default Step2;
+export default Step3;
