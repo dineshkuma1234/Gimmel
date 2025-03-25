@@ -23,7 +23,7 @@ function PageComponent() {
   const [getid,setId]=useState("")
   const [getHomeWork,setHomeWork] = useState("")
   const [getDiscussion,setDiscussion] = useState("")
-  const [getDiscusionHeader,setDiscusionHeader] = useState("")
+  const [getHeader,setHeader] = useState("")
   const [getActivity,setActivity] = useState("")
   const [getTest,setTest] = useState("")
   const [getQuizPdf,setGetQuizPdf] = useState("")
@@ -40,7 +40,6 @@ function PageComponent() {
   const [getSaveVideo,setGetSaveVideo] = useState([]);
   const [getSubFolder,setGetFolderSub]= useState();
   const [topicPost, setTopicPost] = useState("")
-  console.log(shareLink,"shareLink")
   useEffect(() => {
      
           handleGetPostid();
@@ -144,7 +143,7 @@ function PageComponent() {
           // (result,"result of quize-----")
           if (result?.success) {
               setDiscussion(result?.data?.discussions[0]?.discussionPoints);
-              setDiscusionHeader(result?.data?.header);
+              setHeader(result?.data?.header);
               setLoader(false);
             } else {
               setLoader(false);
@@ -162,7 +161,8 @@ function PageComponent() {
           const result = await AuthService.getActivity(id);
           // (result,"result of quize-----")
           if (result?.success) {
-              setActivity(result?.data?.activities)
+            setActivity(result?.data?.activities[0]?.activities);
+            setHeader(result?.data?.header);
               setLoader(false);
             } else {
               setLoader(false);
@@ -180,7 +180,8 @@ function PageComponent() {
           const result = await AuthService.getHomeWork(id);
           // (result,"result of quize-----")
           if (result?.success) {
-              setHomeWork(result?.data?.homework)
+              setHomeWork(result?.data?.homework[0]?.assignments);
+              setHeader(result?.data?.header);
               setLoader(false);
             } else {
               setLoader(false);
@@ -242,13 +243,43 @@ function PageComponent() {
       }
     };
 
+    const activityRegenrate  = async () =>{
+      setLoader (true);
+      try{
+        const result = await AuthService.ActivityRegenerate(id);
+        if(result?.success){
+          setActivity(result?.activities?.activities);
+          setLoader(false);
+
+        }else{
+          setLoader(false);
+        }
+      }catch(error){
+        setLoader(false);
+      }
+    };
+
+    const homeworkRegenrate  = async () =>{
+      setLoader (true);
+      try{
+        const result = await AuthService.HomeWorkRegenerate(id);
+        if(result?.success){
+          setHomeWork(result?.homework.assignments);
+          setLoader(false);
+
+        }else{
+          setLoader(false);
+        }
+      }catch(error){
+        setLoader(false);
+      }
+    };
+
   
     const handleQuizPdf = async (id,handleShow) => {
       setLoader(true);
       try {
       const result = await AuthService.getQuizPdf(id);
-      // console.log(result.length,result.constructor.name, "Result received from API");
-     
       setLoader(false);
       const blob = new Blob([result], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
@@ -271,9 +302,7 @@ function PageComponent() {
       const handleDiscussPdf = async (id,handleShow) => {
         setLoader(true);
         try {
-        const result = await AuthService.getDiscussionPdf(id);
-        // console.log(result.length,result.constructor.name, "Result received from API");
-       
+        const result = await AuthService.getDiscussionPdf(id);       
         setLoader(false);
         const blob = new Blob([result], { type: "application/pdf" });
         const url = window.URL.createObjectURL(blob);
@@ -292,6 +321,52 @@ function PageComponent() {
         console.error("Error downloading PDF:", error);
         }
         };
+
+        const handleActivityPdf = async (id,handleShow) => {
+          setLoader(true);
+          try {
+          const result = await AuthService.getActivityPdf(id);       
+          setLoader(false);
+          const blob = new Blob([result], { type: "application/pdf" });
+          const url = window.URL.createObjectURL(blob);
+          
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "discussion.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+          if (handleShow) handleShow();
+          
+          } catch (error) {
+          setLoader(false);
+          console.error("Error downloading PDF:", error);
+          }
+          };
+
+          const handleHomeWorkPdf = async (id,handleShow) => {
+            setLoader(true);
+            try {
+            const result = await AuthService.getHomeWorkPdf(id);       
+            setLoader(false);
+            const blob = new Blob([result], { type: "application/pdf" });
+            const url = window.URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "homework.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            if (handleShow) handleShow();
+            
+            } catch (error) {
+            setLoader(false);
+            console.error("Error downloading PDF:", error);
+            }
+            };
     
     
     
@@ -598,7 +673,7 @@ function PageComponent() {
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? ( 
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} getDiscusionHeader={getDiscusionHeader} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} getHeader={getHeader} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}/>
   ) : ( 
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}/>
 
