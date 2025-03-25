@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
-function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenrate}) {
+function Step4({getHomeWork,getHeader,getid,handleHomeWorkPdf,homeworkRegenrate}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+  
     return (
         <>
             {/* Download Successful Modal */}
@@ -32,10 +33,10 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
                 <p className="description-que">{getHeader}</p>
                 <div className="question-container">
                     <div className="question-list">
-                        <div className="question">
-                            <ul>
-                                {Array.isArray(getDiscussion) && getDiscussion.map((item, index) => (
-                                    <li key={`answer-${index}`}>{item?.question}</li>
+                        <div className="questions">
+                            <ul className="highlight-list">
+                                {Array.isArray(getHomeWork) && getHomeWork.map((item, index) => (
+                                    <li key={`answer-${index}`}> {item.replace(/^\d+\.\s*/, '').trim()}</li>
                                 ))} 
                             </ul>
                         </div>
@@ -43,14 +44,14 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
                 </div>
                 <div className="hide_mobile">
                     <div className="btn-container">
-                        <button className="btn btn-light-orange" onClick={()=>{handleDiscussPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-orange" onClick={()=>{discussionRegenrate()}}><FiRefreshCcw/>Regenerate</button>
+                        <button className="btn btn-light-orange" onClick={()=>{handleHomeWorkPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
+                        <button className="btn btn-light-orange" onClick={()=>{homeworkRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
                 </div>
 
                 <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
-                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
+                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleHomeWorkPdf()}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
                 </div>
@@ -59,4 +60,4 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
     );
 }
 
-export default Step2;
+export default Step4;
