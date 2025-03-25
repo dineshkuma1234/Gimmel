@@ -3,12 +3,10 @@ import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
 function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
-// console.log('getQuiz___________++++++++++++++))))', getQuiz)
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    // console.log(quizReg, "quizReg----");
     return (
         <>
             {/* Download Successful Modal */}
@@ -97,13 +95,13 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                 <div className="hide_mobile">
                     <div className="btn-container">
                         <button className="btn btn-light-orange" onClick={()=>{handleQuizPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-orange" onClick={()=>{console.log("this function call"); quizRegenrate()}}><FiRefreshCcw/>Regenerate</button>
+                        <button className="btn btn-light-orange" onClick={()=>{quizRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
                 </div>
 
                 <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
-                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{console.log("this function run"); handleQuizPdf(getid)}}>Download in PDF</button>
+                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
                 </div>

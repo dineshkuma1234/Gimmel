@@ -18,6 +18,7 @@ function PageComponent() {
   const [shareLink, setShareLink] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [deviceWidth, setDeviceWidth] = useState(0);
+  const idvideo = getVideoRequestData?.[0]?._id;
 
   const {
     yourRequest,
@@ -34,10 +35,6 @@ function PageComponent() {
     handleRequestList();
     // handleRequestSaveVideo();
   }, []);
-
-  useEffect(() => {
-    handleSharePost(id, selectedTopics);
-  }, [selectedTopics]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -108,11 +105,13 @@ function PageComponent() {
     } catch (error) {}
   };
 
-  const handleSharePost = async (id, selectedTopics) => {
+  const handleSharePost = async (idvideo, selectedTopics) => {
     try {
-      const result = await AuthService.SharePost(id, selectedTopics);
+      const result = await AuthService.SharePost(idvideo, selectedTopics);
       if (result?.success) {
-        setShareLink(result?.data);
+        const videoUrl = `http://localhost:3000/mainHome/${idvideo}/videodetails2`;
+
+        setShareLink(videoUrl);
       } else {
       }
     } catch (error) {}
@@ -131,6 +130,7 @@ function PageComponent() {
           selectedTopics={selectedTopics}
           handleSharePost={handleSharePost}
           shareLink={shareLink}
+          idvideo={idvideo}
         />
       ) : (
         <>
@@ -143,10 +143,7 @@ function PageComponent() {
           {/* <RequestOverview yourRequest={yourRequest} description={discription} avoided={avoided} details={details} handleCreateRequest={handleCreateRequest}/> */}
           <RequestSuccess />
           <RequestMobile />
-          <RequestPreview
-            handleRequestSaveVideo={handleRequestSaveVideo}
-            setSelectedItems={setSelectedItems}
-          />
+          <RequestPreview />
         </>
       )}
     </>
