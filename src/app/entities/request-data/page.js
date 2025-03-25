@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import VideoDetails from "../details/page";
 import { BiSolidBellRing } from "react-icons/bi";
+import toast, { Toaster } from "react-hot-toast";
 
 function RequestData({
   handleCreateRequest,
@@ -24,6 +25,7 @@ function RequestData({
   setSelectedTopics,
   shareLink,
   handleSharePost,
+  idvideo,
 }) {
   const [show, setShow] = useState(false);
 
@@ -95,30 +97,12 @@ function RequestData({
     });
   };
 
-  const handleTranscript = (topic) => {
-    if (transcript.includes(topic)) {
-      setTranscript(transcript.filter((item) => item !== topic));
-    } else {
-      setTranscript([...transcript, topic]);
-    }
-  };
-
-  const isTranscript = (topic) => transcript.includes(topic);
-
-  const toggleCheckbox = (itemName) => {
-    if (selectedValues.includes(itemName)) {
-      setSelectedValues(selectedValues.filter((item) => item !== itemName));
-    } else {
-      setSelectedValues([...selectedValues, itemName]);
-    }
-  };
-
-  const isTopicSelectedTeach = (itemName) => {
-    return selectedValues.includes(itemName);
-  };
-
-  const copyUrl = () => {
-    navigator.clipboard.writeText(shareLink);
+  const copyUrl = (idvideo) => {
+    <Toaster position="top-right" reverseOrder={false} />;
+    toast.success("Link copied to clipboard");
+    navigator.clipboard.writeText(
+      `http://localhost:3000/mainHome/${idvideo}/videodetails2`
+    );
   };
   const Share = [
     { id: 1, text: "Discussion points", value: "discussionPoints" },
@@ -131,7 +115,7 @@ function RequestData({
   const [activeItem, setActiveItem] = useState(null);
   const handleActiveChange = (id) => {
     setActiveItem((prev) => (prev === id ? null : id));
-    setSelectedItems(id); 
+    setSelectedItems(id);
   };
 
   const [currentStep, setCurrentStep] = useState(1); // Step 1 is active by default
@@ -959,7 +943,20 @@ function RequestData({
                                                     </div>
                                                   </div>
                                                   <div className="video-btn">
-                                                    <button className="btn btn-bg-light"
+                                                    <button
+                                                      className="btn btn-bg-light"
+                                                      onClick={async () => {
+                                                        const videoId = idvideo; // Pehle element ka ID nikalna
+                                                        if (!videoId) {
+                                                          alert(
+                                                            "Video ID not found!"
+                                                          );
+                                                          return;
+                                                        }
+                                                        // await handleSharePost(videoId, isTopicSelected);  // Video URL generate karna
+                                                        copyUrl(videoId); // Clipboard me copy karna
+                                                        handleClose5(); // Modal close karna
+                                                      }}
                                                     >
                                                       <svg
                                                         width="20"
@@ -975,8 +972,11 @@ function RequestData({
                                                       </svg>
                                                       Share
                                                     </button>
-                                                    <button className="btn btn-bg-light"
-                                                    onClick={() => handleRequestSaveVideo() }
+                                                    <button
+                                                      className="btn btn-bg-light"
+                                                      onClick={() =>
+                                                        handleRequestSaveVideo()
+                                                      }
                                                     >
                                                       <svg
                                                         width="21"

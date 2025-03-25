@@ -28,6 +28,7 @@ import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "../../../components/Models/Delete";
 import SaveLibraryModal from "../../../components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
+import toast, { Toaster } from "react-hot-toast";
 
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({
@@ -54,18 +55,22 @@ function VideoDetails({
   handleGetFolderSub,
   handleGetFolder,
   selectedFolderId,
-  setGetQuiz,handleMaterialQuestion,
+  setGetQuiz,
+  handleMaterialQuestion,
   handleQuizPdf,
   getid,
   quizRegenrate,
   getDiscussion,
   getDiscusionHeader,
   handleDiscussPdf,
-  discussionRegenrate
+  discussionRegenrate,
+  idvideo,
+  getReview,
+  handleSendComment,
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
-  const [materialItem, setMaterialItem] = useState('Quiz');
+  const [materialItem, setMaterialItem] = useState("Quiz");
   useEffect(() => {
     if (!show1) {
       setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
@@ -270,8 +275,12 @@ function VideoDetails({
     return selectedValues.includes(itemName);
   };
 
-  const copyUrl = () => {
-    navigator.clipboard.writeText(shareLink);
+  const copyUrl = (idvideo) => {
+    <Toaster position="top-right" reverseOrder={false} />;
+    toast.success("Link copied to clipboard");
+    navigator.clipboard.writeText(
+      `http://localhost:3000/mainHome/${idvideo}/videodetails2`
+    );
   };
   const Share = [
     { id: 1, text: "Discussion points", value: "discussionPoints" },
@@ -415,7 +424,7 @@ function VideoDetails({
               <button
                 className="btn btn-color-orange"
                 onClick={() => {
-                  copyUrl();
+                  copyUrl(idvideo);
                   handleClose2();
                 }}
               >
@@ -1138,10 +1147,21 @@ function VideoDetails({
                     <Col sm={12}>
                       <Tab.Content>
                         <Tab.Pane eventKey="first">
-                          <Stap1 getQuiz={getQuiz}  handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate}/>
+                          <Stap1
+                            getQuiz={getQuiz}
+                            handleQuizPdf={handleQuizPdf}
+                            getid={getid}
+                            quizRegenrate={quizRegenrate}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                          <Stap2 getDiscussion={getDiscussion} getDiscusionHeader={getDiscusionHeader} getid={getid} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
+                          <Stap2
+                            getDiscussion={getDiscussion}
+                            getDiscusionHeader={getDiscusionHeader}
+                            getid={getid}
+                            handleDiscussPdf={handleDiscussPdf}
+                            discussionRegenrate={discussionRegenrate}
+                          />
                         </Tab.Pane>
                       </Tab.Content>
                       {/* <Tab.Content>
@@ -1195,7 +1215,10 @@ function VideoDetails({
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
                           <div className="tab-details-container">
-                            <Reviews />
+                            <Reviews
+                              getReview={getReview}
+                              handleSendComment={handleSendComment}
+                            />
                           </div>
                         </Tab.Pane>
                       </Tab.Content>

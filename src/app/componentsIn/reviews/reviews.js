@@ -40,7 +40,7 @@ const reviews = [
     },
 ];
 
-function Reviews() {
+function Reviews({getReview,handleSendComment}) {
     return (
         <>
             <div className="reviews-container">

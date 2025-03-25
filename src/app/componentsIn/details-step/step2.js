@@ -7,7 +7,6 @@ function Step1({getDiscussion,getDiscusionHeader,getid,handleDiscussPdf,discussi
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    console.log(getDiscussion, "getDiscussion----");
     return (
         <>
             {/* Download Successful Modal */}
@@ -51,7 +50,7 @@ function Step1({getDiscussion,getDiscusionHeader,getid,handleDiscussPdf,discussi
 
                 <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
-                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{console.log("this function run"); handleQuizPdf(getid)}}>Download in PDF</button>
+                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
                 </div>
