@@ -1122,6 +1122,23 @@ const AuthService = {
      return response.arrayBuffer();
   },
 
+  getTestPdf : async (id) => {
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, TestPdf } = ApiConfig;
+    const url = authBaseUrl + TestPdf + id;
+  
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  
+     return response.arrayBuffer();
+  },
+ 
 
   QuizRegenerate: async (id) => { 
     const token = await localStorage.getItem("token");
@@ -1175,6 +1192,18 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
   
+  TestRegenerate: async (id) => { 
+    const token = await localStorage.getItem("token");
+    const { authBaseUrl, test } = ApiConfig;
+    const url = authBaseUrl + test + id;
+    url, "url---";
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
 
   removeSuggation: async () => {
     const token = await localStorage.getItem("token");

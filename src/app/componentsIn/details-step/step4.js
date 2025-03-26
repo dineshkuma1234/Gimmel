@@ -30,7 +30,7 @@ function Step4({getHomeWork,getHeader,getid,handleHomeWorkPdf,homeworkRegenrate}
 
             <div className="step-details-container">
            
-                <p className="description-que">{getHeader}</p>
+                <p className="description-que">Select two of the homework assignments listed below:</p>
                 <div className="question-container">
                     <div className="question-list">
                         <div className="questions">

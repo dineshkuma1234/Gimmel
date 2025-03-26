@@ -29,7 +29,7 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
 
             <div className="step-details-container">
            
-                <p className="description-que">{getHeader}</p>
+                <p className="description-que">Review the following discussion points and prepare to engage in a brief conversation or a focused debate about their content:</p>
                 <div className="question-container">
                     <div className="question-list">
                         <div className="question">

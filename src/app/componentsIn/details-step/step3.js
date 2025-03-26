@@ -30,9 +30,9 @@ function Step3({getActivity,getHeader,getid,handleActivityPdf,activityRegenrate}
 
             <div className="step-details-container">
            
-                <p className="description-que">{getHeader}</p>
+                <p className="description-que">Vote for one of the 5 activities listed below:</p>
                 <div className="question-container">
-                    <div className="question-list">
+                    <div className="question-list number-color">
                         <div className="question">
                             <ul className="highlight-list">
                                 {Array.isArray(getActivity) && getActivity.map((item, index) => (
