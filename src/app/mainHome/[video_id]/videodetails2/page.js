@@ -42,6 +42,10 @@ function PageComponent() {
   const [topicPost, setTopicPost] = useState("")
   const idvideo = data?._id;
   const [getReview, setReview] = useState("");
+  const [like, setLike] = useState("")
+
+console.log(like,"like")
+
   useEffect(() => {
      
           handleGetPostid();
@@ -58,6 +62,7 @@ function PageComponent() {
           handleCreateFolderSub()
           handleGetFolderSub()
           handleTopicPost();
+          handleReviewGet(postId || id);
           // handleSaveVideonext(selectedFolderId)
   }, []);
  
@@ -568,22 +573,18 @@ function PageComponent() {
       }
     };
     const handleSaveVideonext = async (selectedFolderId) => {
-      ("Function called with Folder ID:", selectedFolderId);
  
       // LoaderHelper.loaderStatus(true);
       try {
         ("Calling API to fetch saved videos...");
         const result = await AuthService.GetSaveVideo(selectedFolderId);
-        ("API Response:", result);
  
  
         if (result?.success) {
-          ("Videos received successfully:", result.videos);
  
           // LoaderHelper.loaderStatus(false);
           setGetSaveVideo(result?.videos);
         } else {
-          ("API call was unsuccessful:", result?.message || result);
  
           // LoaderHelper.loaderStatus(false);
           // AlertHelper.show('danger', 'Gimmel', result?.message || result );
@@ -600,7 +601,6 @@ function PageComponent() {
       // LoaderHelper.loaderStatus(true);
       try {
         const result = await AuthService.createSubFolder(id,addnewFolder);
-        (result,"result---")
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
           // AlertHelper.show('success', 'Gimmel', result?.data);
@@ -621,7 +621,6 @@ function PageComponent() {
         const result = await AuthService.GetSubFolder(selectedFolderId,value);
         if (result?.success) {
           // LoaderHelper.loaderStatus(false);
-          (result?.data?.data,"dat in api")
           setGetFolderSub(result?.data?.data);
         } else {
           // LoaderHelper.loaderStatus(false);
@@ -666,7 +665,19 @@ function PageComponent() {
         // ('Error occurred:', 'Gimmel', error);
       }
     };
-  const handleSendComment = async (commentText) => {
+ 
+   const handleReviewGet = async (postId) => {
+      try {
+        const result = await AuthService.getReview(postId);
+        if (result?.success) {
+          setReview(result?.data?.reviews);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+
+    const handleSendComment = async (commentText) => {
       try {
         const result = await AuthService.sendComment(commentText, postId);
         if (result?.success) {
@@ -677,16 +688,63 @@ function PageComponent() {
         }
       } catch (error) {}
     };
-   const handleReviewGet = async (postId) => {
-      try {
-        const result = await AuthService.getReview(postId);
-        if (result?.success) {
-          setReview(result?.data?.reviews);
-        } else {
-        }
-      } catch (error) {}
-    };
  
+    const handleLikeReview = async (likeId) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+          const result = await AuthService.LikeReview(likeId);
+          if (result?.success) {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.message);
+              setLike(result?.data)
+              handleReviewGet(postId)
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          console.log('Error occurred:', 'Gimmel', error);
+      }
+  };
+
+  const handleDislikeReview = async (likeId) => {
+      // LoaderHelper.loaderStatus(true);
+      try {
+          const result = await AuthService.dislikeReview(likeId);
+          if (result?.success) {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.message);
+              setLike(result?.data)
+              handleReviewGet(postId)
+
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          console.log('Error occurred:', 'Gimmel', error);
+      }
+  };
+
+  const handleReplayPost = async (postId, reply) => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+        const result = await AuthService.replayPost(postId, reply);
+        if (result?.success) {
+            // LoaderHelper.loaderStatus(false);
+            // AlertHelper.show('success', 'Gimmel', result?.data);
+        } else {
+            // LoaderHelper.loaderStatus(false);
+            // AlertHelper.show('danger', 'Gimmel', result?.message);
+        }
+    } catch (error) {
+        // LoaderHelper.loaderStatus(false);
+        // console.log('Error occurred:', 'Gimmel', error);
+    }
+};
+
   return (
     <>
     <Toaster position="top-right" reverseOrder={false} />
@@ -695,12 +753,14 @@ function PageComponent() {
     idvideo={idvideo}
     getReview={getReview}
     handleSendComment={handleSendComment}
+    handleLikeReview={handleLikeReview}
+    handleDislikeReview={handleDislikeReview}
+    handleReplayPost={handleReplayPost}
     />
   ) : (
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}
     idvideo={idvideo}
-    getReview={getReview}
-    handleSendComment={handleSendComment}
+    getReview={getReview} handleSendComment={handleSendComment} handleLikeReview={handleLikeReview} handleDislikeReview={handleDislikeReview} handleReplayPost={handleReplayPost}
     />
  
   )}

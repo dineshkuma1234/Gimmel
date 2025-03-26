@@ -74,7 +74,10 @@ function VideoDetails({
   activityRegenrate,
   getHomeWork,
   handleHomeWorkPdf,
-  homeworkRegenrate
+  homeworkRegenrate,
+  handleLikeReview,
+   handleDislikeReview,
+    handleReplayPost
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -1221,6 +1224,9 @@ function VideoDetails({
                             <Reviews
                               getReview={getReview}
                               handleSendComment={handleSendComment}
+                              handleLikeReview={handleLikeReview}
+                               handleDislikeReview={handleDislikeReview}
+                                handleReplayPost={handleReplayPost}
                             />
                           </div>
                         </Tab.Pane>

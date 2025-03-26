@@ -53,7 +53,7 @@ export const ApiConfig = {
   saveSubFolderVideo:"api/addVideoSubfolder",
   getCategories:"api/getByCategories",
   categoriesVideo:"api/getAllCategories",
-  replayOnPost:"api/reply",
+   replayOnPost:"api/reply",
   getVideoInRequest:"api/getVideos/",
   requestVideo:"api/requestedVideos",
   requestSaveVideo:"api/saveVideos/",
