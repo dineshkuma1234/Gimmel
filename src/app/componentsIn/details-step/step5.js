@@ -98,19 +98,19 @@ function Step5({getTest,getid,handleTestPdf,TestRegenrate}) {
                     ))}  
                     </div>
                 </div>
-                <div className="hide_mobile">
+               
                     <div className="btn-container mt-3">
                         <button className="btn btn-light-orange" onClick={()=>{handleTestPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
                         <button className="btn btn-light-orange" onClick={()=>{TestRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
-                </div>
+                
 
-                <div className="bottom-btn-bar">
+                {/* <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
                         <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );

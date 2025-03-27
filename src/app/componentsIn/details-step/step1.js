@@ -7,6 +7,15 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [text,setText]=useState("");
+    const maxWord=60
+
+    const handleChange = (e) => {
+        const words = e.target.value.trim().split(/\s+/); 
+        if (words.length <= maxWord) {
+            setText(e.target.value); 
+        }
+    };
     return (
         <>
             {/* Download Successful Modal */}
@@ -41,12 +50,17 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                             </div>
 
                             {item?.type === "open-ended" &&
+                            <>
                             <textarea 
                                 className="form-control custom-textarea" 
                                 id="exampleFormControlTextarea1" 
                                 rows="5" 
                                 placeholder="Your answer here ..."
+                                value={text}
+                                onChange={handleChange}
                             ></textarea>
+                            <span className="question-content">{text.trim().split(/\s+/).filter(Boolean).length}/{maxWord} words</span>
+                            </>
                             }
 
                            {item?.type === "single-choice" &&
@@ -92,19 +106,10 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                     ))}  
                     </div>
                 </div>
-                <div className="hide_mobile">
                     <div className="btn-container">
                         <button className="btn btn-light-orange" onClick={()=>{handleQuizPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
                         <button className="btn btn-light-orange" onClick={()=>{quizRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
-                </div>
-
-                <div className="bottom-btn-bar">
-                    <div className="bottom-btn-bar-inner flex-column"> 
-                        <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
-                        <button type="button" className="btn-bottom">Regenerate</button>
-                    </div>
-                </div>
             </div>
         </>
     );
