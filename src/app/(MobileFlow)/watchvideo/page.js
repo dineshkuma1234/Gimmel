@@ -9,6 +9,10 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import Step1 from "../../componentsIn/details-step/step1";
+import Step2 from "../../componentsIn/details-step/step2";
+import Step3 from "../../componentsIn/details-step/step3";
+import Step4 from "../../componentsIn/details-step/step4";
+import Step5 from "../../componentsIn/details-step/step5";
 import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from "react-bootstrap/Modal";
 import { Form, ModalBody } from "react-bootstrap";
@@ -37,7 +41,7 @@ function WatchVideo({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
-  idvideo,
+  idvideo,handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate
 }) {
   // (data,"data in mobile viwe ==========")
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
@@ -848,15 +852,15 @@ function WatchVideo({
                                   </Nav.Item>
                                   <Nav.Item>
                                     <Nav.Link eventKey="third">
-                                      Homework
+                                      Activity
                                     </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="fourth">Test</Nav.Link>
+                                    <Nav.Link eventKey="fourth">Homework</Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
                                     <Nav.Link eventKey="fifth">
-                                      Exercises
+                                      Test
                                     </Nav.Link>
                                   </Nav.Item>
                                 </Nav>
@@ -864,7 +868,19 @@ function WatchVideo({
                               <Col sm={12}>
                                 <Tab.Content>
                                   <Tab.Pane eventKey="first">
-                                    <Step1 getQuiz={getQuiz} />
+                                    <Step1 getQuiz={getQuiz} getid={getid} handleQuizPdf={handleQuizPdf}  quizRegenrate={quizRegenrate}/>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="second">
+                                    <Step2 getDiscussion={getDiscussion}  getid={getid} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="third">
+                                    <Step3 getActivity={getActivity} getid={getid} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate}/>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="fourth">
+                                    <Step4 getHomeWork={getHomeWork}  getid={getid} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}/>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="fifth">
+                                    <Step5 getTest={getTest} getid={getid} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}/>
                                   </Tab.Pane>
                                 </Tab.Content>
                               </Col>
