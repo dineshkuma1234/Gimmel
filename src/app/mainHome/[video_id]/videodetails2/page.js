@@ -44,7 +44,6 @@ function PageComponent() {
   const [getReview, setReview] = useState("");
   const [like, setLike] = useState("")
 
-console.log(like,"like")
 
   useEffect(() => {
      
@@ -704,7 +703,6 @@ console.log(like,"like")
           }
       } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          console.log('Error occurred:', 'Gimmel', error);
       }
   };
 
@@ -724,7 +722,6 @@ console.log(like,"like")
           }
       } catch (error) {
           // LoaderHelper.loaderStatus(false);
-          console.log('Error occurred:', 'Gimmel', error);
       }
   };
 
@@ -741,7 +738,6 @@ console.log(like,"like")
         }
     } catch (error) {
         // LoaderHelper.loaderStatus(false);
-        // console.log('Error occurred:', 'Gimmel', error);
     }
 };
 
