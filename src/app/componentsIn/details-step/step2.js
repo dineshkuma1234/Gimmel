@@ -29,7 +29,7 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
 
             <div className="step-details-container">
            
-                <p className="description-que">{getHeader}</p>
+                <p className="description-que">Review the following discussion points and prepare to engage in a brief conversation or a focused debate about their content:</p>
                 <div className="question-container">
                     <div className="question-list">
                         <div className="question">
@@ -41,19 +41,19 @@ function Step2({getDiscussion,getHeader,getid,handleDiscussPdf,discussionRegenra
                         </div>
                     </div>
                 </div>
-                <div className="hide_mobile">
+                {/* <div className="hide_mobile"> */}
                     <div className="btn-container">
                         <button className="btn btn-light-orange" onClick={()=>{handleDiscussPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
                         <button className="btn btn-light-orange" onClick={()=>{discussionRegenrate()}}><FiRefreshCcw/>Regenerate</button>
                     </div>
-                </div>
+                {/* </div> */}
 
-                <div className="bottom-btn-bar">
+                {/* <div className="bottom-btn-bar">
                     <div className="bottom-btn-bar-inner flex-column"> 
                         <button type="button" className="btn-bottom bg-color mb-2" onClick={()=>{handleQuizPdf(getid)}}>Download in PDF</button>
                         <button type="button" className="btn-bottom">Regenerate</button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );

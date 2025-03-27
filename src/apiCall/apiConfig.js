@@ -61,6 +61,7 @@ export const ApiConfig = {
   discussion:"api/saveDiscussPoints/",
   activity:"api/saveActivity/",
   homework:"api/saveHomework/",
+  test:"api/saveTestQuestions/",
     // quiz:"api/saveQuizQuestions/",material questions;
 
   Quiz:"api/getQuizzes/",

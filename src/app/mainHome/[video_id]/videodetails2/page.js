@@ -280,6 +280,22 @@ function PageComponent() {
         setLoader(false);
       }
     };
+
+    const TestRegenrate  = async () =>{
+      setLoader (true);
+      try{
+        const result = await AuthService.TestRegenerate(id);
+        if(result?.success){
+          setTest(result?.test?.tasks);
+          setLoader(false);
+ 
+        }else{
+          setLoader(false);
+        }
+      }catch(error){
+        setLoader(false);
+      }
+    };
  
  
     const handleQuizPdf = async (id,handleShow) => {
@@ -373,6 +389,29 @@ function PageComponent() {
             console.error("Error downloading PDF:", error);
             }
             };
+
+            const handleTestPdf = async (id,handleShow) => {
+              setLoader(true);
+              try {
+              const result = await AuthService.getTestPdf(id);      
+              setLoader(false);
+              const blob = new Blob([result], { type: "application/pdf" });
+              const url = window.URL.createObjectURL(blob);
+             
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = "test.pdf";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
+              if (handleShow) handleShow();
+             
+              } catch (error) {
+              setLoader(false);
+              console.error("Error downloading PDF:", error);
+              }
+              };
    
    
    
@@ -745,7 +784,7 @@ function PageComponent() {
     <>
     <Toaster position="top-right" reverseOrder={false} />
     {deviceWidth > 991 ? (
-    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} getHeader={getHeader} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}
+    <VideoDetails getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder} selectedFolderId={selectedFolderId}  setGetQuiz={setGetQuiz} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} getHeader={getHeader} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate} getTest={getTest} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}
     idvideo={idvideo}
     getReview={getReview}
     handleSendComment={handleSendComment}
@@ -754,7 +793,7 @@ function PageComponent() {
     handleReplayPost={handleReplayPost}
     />
   ) : (
-    <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub}
+    <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity}  handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate} getTest={getTest} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}
     idvideo={idvideo}
     getReview={getReview} handleSendComment={handleSendComment} handleLikeReview={handleLikeReview} handleDislikeReview={handleDislikeReview} handleReplayPost={handleReplayPost}
     />

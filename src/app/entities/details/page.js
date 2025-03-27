@@ -17,6 +17,7 @@ import Stap1 from "../../componentsIn/details-step/step1";
 import Stap2 from "../../componentsIn/details-step/step2";
 import Stap3 from "../../componentsIn/details-step/step3";
 import Stap4 from "../../componentsIn/details-step/step4";
+import Stap5 from "../../componentsIn/details-step/step5";
 import SuggestedCardGrid from "../../componentsIn/Suggested/Suggested";
 import Reviews from "../../componentsIn/reviews/reviews";
 import Modal from "react-bootstrap/Modal";
@@ -77,7 +78,8 @@ function VideoDetails({
   homeworkRegenrate,
   handleLikeReview,
    handleDislikeReview,
-    handleReplayPost
+    handleReplayPost,
+  getTest,handleTestPdf,TestRegenrate
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -1173,6 +1175,9 @@ function VideoDetails({
                         </Tab.Pane>
                         <Tab.Pane eventKey="fourth">
                           <Stap4 getHomeWork={getHomeWork} getHeader={getHeader} getid={getid} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}/>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="fifth">
+                          <Stap5 getTest={getTest} getid={getid} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}/>
                         </Tab.Pane>
                       </Tab.Content>
                     </Col>

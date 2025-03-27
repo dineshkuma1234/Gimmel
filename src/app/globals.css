@@ -2410,6 +2410,10 @@ button.folder-icon {
   margin-bottom: 16px;
 }
 
+.number-color ul li::marker {
+  color: var(--gimmel-orange);
+}
+
 .questions ul {
   list-style-type: disc;
   margin: 0;
@@ -2433,4 +2437,16 @@ button.folder-icon {
 
 .highlight {
   color: var(--gimmel-orange);
+}
+
+.textarea-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-border {
+  border-color: var(--gimmel-darkBlue);
+  height: 54px;
+  color: var(--gimmel-darkBlue);
 }

@@ -268,7 +268,7 @@ ul.account-list li {
 }
 
 .custom-textarea {
-    border: 1px solid var(--gimmel-lightGray);
+    border: 1px solid var(--gimmel-darkBlue);
     border-radius: 8px;
     padding: 16px 24px;
     font-size: 16px;
