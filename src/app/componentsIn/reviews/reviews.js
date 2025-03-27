@@ -45,7 +45,6 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
     // const [reply, setReply] = useState('');
 
 
-
     return (
         <>
             <div className="reviews-container">
@@ -114,7 +113,16 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                         </div>
                         <div className="review-comment-container">
                             <div className="review-comment">
-                                <Form.Control type="text" placeholder="Write a comment ..." />
+                                <Form.Control type="text" placeholder="Write a comment ..." 
+                                   value={commentText}
+                                   onChange={(e) => setCommentText(e.target.value)}
+                                   onKeyDown={(e) => {
+                                       if (e.key === "Enter") {
+                                         handleSendComment(commentText, getReview[0]?._id); 
+                                       }
+                                     }}
+                                
+                                />
                             </div>
                         </div>
                     </div>
