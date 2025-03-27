@@ -41,7 +41,13 @@ function WatchVideo({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
-  idvideo,handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate
+  idvideo,
+  getReview,
+  handleSendComment,
+   handleLikeReview,
+    handleDislikeReview,
+     handleReplayPost,
+  handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate
 }) {
   // (data,"data in mobile viwe ==========")
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
@@ -888,7 +894,7 @@ function WatchVideo({
                           </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                          <Reviews />
+                          <Reviews  getReview={getReview} handleSendComment={handleSendComment} handleLikeReview={handleLikeReview} handleDislikeReview={handleDislikeReview} handleReplayPost={handleReplayPost} />
                         </Tab.Pane>
                       </Tab.Content>
                     </Col>
