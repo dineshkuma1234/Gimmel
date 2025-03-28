@@ -6,6 +6,9 @@ import React,{useState} from "react";
 import {useForm} from "../../../hooks/useForm";
 import {loginData} from "../../../Constants/dummyData";
 import {SigninValidate} from "../../../helper/Validation"
+import GoogleLoginButton from "./googlelogin"
+// import { useGoogleLogin } from '@react-oauth/google';
+
 // import { text } from "stream/consumers";
 
 const Login = ({handleLogIn}) => {
@@ -33,9 +36,11 @@ const Login = ({handleLogIn}) => {
     );
     const { email, password } = state;
     // (email,password,"this the email.....")
+
+   
+
     return (
         <>
-        {/* <NextAuth/> */}
             <div className="main-screen">
                 <div className="d-flex align-items-center">
                     <div className="col-md-7">
@@ -59,7 +64,8 @@ const Login = ({handleLogIn}) => {
                                 <div className="login-form-inner">
                                     <div className="google-login">
                                         <Link href="/login" className="btn btn-primary">
-                                            <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" /> Google Login
+                                            {/* <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" /> Google Login */}
+                                            <GoogleLoginButton/>
                                         </Link>
                                     </div>
                                     <hr className="border-line" />

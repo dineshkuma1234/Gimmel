@@ -6,7 +6,7 @@ import Link from "next/link";
 import {useForm} from "../../../hooks/useForm";
 import { signUpData } from "../../../Constants/dummyData";
 import { register } from "../../../helper/Validation";
-
+import GooglesignupButton from "./googelsignup"
 
 const Signup = ({handleSignUp}) => {
 
@@ -95,8 +95,8 @@ const Signup = ({handleSignUp}) => {
                                 <div className="login-form-inner">
                                     <div className="google-login">
                                         <Link href="/signup" className="btn btn-primary">
-                                            <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" />
-                                            Google Sign Up
+                                            {/* <Image src={require("../../../assets/images/google-logo.svg")} alt="google logo" className="img-fluid" /> */}
+                                            <GooglesignupButton />
                                         </Link>
                                     </div>
                                     <hr className="border-line" />
