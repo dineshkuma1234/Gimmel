@@ -58,10 +58,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
     const handleEditClick = () => {
         if (isEditable) {
-            
-            // Runs only when clicking "Save Changes"
             handleEditProfile( 
-            selected.map(option => option.value),  // Extract values only
+            selected.map(option => option.value),  
             selected1.map(option => option.value), 
             selected2.map(option => option.value), 
             phoneNumber, 
@@ -541,7 +539,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                 <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
                                 <h3>My Library</h3>
                             </div>
-                            <Link href="/library" className='view-all-btn'>View all</Link>
+                            <Link href={{ pathname: "/savematerial", query:{from: "save Material"} }} className='view-all-btn'>View all</Link>
                         </div>
 
                         <div className='library-list mt-4'>
@@ -594,10 +592,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <div className='library-list mt-4 position-relative'>
                                 <Swiper
                                      spaceBetween={14}
-                                     slidesPerView={4}       // ✅ Show 4 videos at a time
-                                     slidesPerGroup={5}      // ✅ Move 5 videos per slide click
-                                     loop={false}            // ✅ Prevents looping (may cause issues if true)
-                                     navigation              // ✅ Enables prev/next buttons
+                                     slidesPerView={4}       
+                                     slidesPerGroup={5}      
+                                     loop={false}           
+                                     navigation              
                                      modules={[Navigation]} 
                                      className="mySwiper category-swiper library-swiper"
                                     

@@ -327,7 +327,7 @@ function CategoriesCard({ watchHistoryData }) {
                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
                   <div className="categories-card__thumbnail">
                     <Image
-                      src={item?.thumbnail}
+                      src={item?.thumbnail || item?.thumbnailUrl}
                       alt="video card"
                       width={300}
                       height={150}
