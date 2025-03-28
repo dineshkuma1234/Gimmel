@@ -510,10 +510,10 @@ function RequestData({
                               <span
                                 className="notification-title"
                                 onClick={() => {
-                                  handlegetVideoRequest();
+                                  handlegetVideoRequest(request.title);
                                 }}
                               >
-                                {request.title}
+                                {request?.title}
                               </span>
                               <MdMoreVert className="more-icon" />
                             </div>

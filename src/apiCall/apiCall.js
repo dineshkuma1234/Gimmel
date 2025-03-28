@@ -20,9 +20,7 @@ export const ApiCallGet = async (url, parameters, headers) => {
     if (axios.isAxiosError(error) && error.response) {
       const { status, data } = error.response;
   
-      console.error(`Error Status: ${status}`);
-      console.error(`Error Response: ${JSON.stringify(data)}`);
-  
+     
       // Handle specific status codes
       if (status === 500) {
         return "Something went wrong.";
