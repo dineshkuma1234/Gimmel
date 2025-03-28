@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
@@ -174,6 +174,7 @@ export const HeaderProvider = ({ children }) => {
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
+      <Suspense fallback={<div>Loading...</div>}>
       <HeaderContext.Provider
         value={{
           // isOn,setIsOn,chips,setChips,inputValue, setInputValue,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,sliderValue, setSliderValue,selectedValue,setSelectedValue,selectedAudience, setSelectedAudience,
@@ -184,9 +185,10 @@ export const HeaderProvider = ({ children }) => {
           historyList,
           handleNotIntrested,
         }}
-      >
+      > 
         {children}
       </HeaderContext.Provider>
+      </Suspense>
     </>
   );
 };

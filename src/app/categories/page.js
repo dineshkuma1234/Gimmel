@@ -15,6 +15,7 @@ import img6 from "../../assets/images/15 years.svg";
 import { SearchListContext } from "../Context/searchlist/searchListContext";
 import { useRouter } from "next/navigation";
 import Categorie from "../(MobileFlow)/categorie/page";
+import unAuthToken from "@/Constants/constant";
 const PageComponent = () => {
   const router = useRouter();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
@@ -82,8 +83,8 @@ const PageComponent = () => {
       setLoader(false);
     }
   };
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "No Category Selected";
+  // const searchParams = useSearchParams();
+  // const category = searchParams.get("category") || "No Category Selected";
 
   // const [getCategoryData, setGetCategoryData] = useState([]);
 

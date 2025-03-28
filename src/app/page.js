@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Main from "./entities/main/page";
 import MainMobile from "./(MobileFlow)/mobile-main/page";
 import AuthService from "../services/AuthService";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
 import unAuthToken from "../Constants/constant";
 import { SearchListContext } from "./Context/searchlist/searchListContext";
@@ -697,8 +697,8 @@ export default function PageComponent() {
     }
   };
 
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "No Category Selected";
+  // const searchParams = useSearchParams();
+  // const category = searchParams.get("category") || "No Category Selected";
 
   const [getCategoryData, setGetCategoryData] = useState([]);
 

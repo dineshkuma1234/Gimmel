@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-
+      <Suspense fallback={<Loading />}>
         <LoaderProvider>
           <SearchListProvider>
           <HeaderProvider >
@@ -39,16 +39,17 @@ export default function RootLayout({ children }) {
           {/* <SaveProvider> */}
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
-            <Suspense fallback={<Loading />}>
+           
             {/* <Header /> */}
             {children}
-            </Suspense>
+            
             {/* </SaveProvider> */}
             </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
          
         </LoaderProvider>
+        </Suspense>
       </body>
     </html>
   );
