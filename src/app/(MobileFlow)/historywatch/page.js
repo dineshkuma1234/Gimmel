@@ -71,7 +71,7 @@ function HistoryWatch({ watchHistoryData}) {
                                         <div className="video-item-inline">
                                             <div className="video-item-left">
                                                 <div className="video-item-thumbnail">
-                                                    <Image src={item?.thumbnail} alt="thumbnail" width={300} height={150} />
+                                                    <Image src={item?.thumbnail || item?.thumbnailUrl} alt="thumbnail" width={300} height={150} />
                                                 </div>
                                             </div>
                                             <div className="video-item-right">

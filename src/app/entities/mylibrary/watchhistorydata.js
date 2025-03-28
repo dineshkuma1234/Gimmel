@@ -5,7 +5,7 @@ import "../../CommenStyle/filter.css";
 import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 
-function WatchHistoryData({watchHistoryData}) {
+function WatchHistoryData({watchHistoryData,title}) {
 
 
     return (
@@ -21,7 +21,7 @@ function WatchHistoryData({watchHistoryData}) {
                     </div>
                     <div className='main-container'>
                         <div className="page-main-title-mylibrary">
-                            <h3>Watch history</h3>
+                            <h3>{title ? "Save Material" : "Watch history"}</h3>
                         </div>
                         <div className='body-top'>
                             <div className='body-top-left mt-3'>
