@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
 

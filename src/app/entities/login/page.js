@@ -35,7 +35,7 @@ const Login = ({handleLogIn}) => {
     // (email,password,"this the email.....")
     return (
         <>
-        <NextAuth/>
+        {/* <NextAuth/> */}
             <div className="main-screen">
                 <div className="d-flex align-items-center">
                     <div className="col-md-7">
