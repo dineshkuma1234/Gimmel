@@ -7,7 +7,7 @@ import { MdMoreVert } from "react-icons/md";
 
 
 
-function HistoryWatch({ watchHistoryData}) {
+function HistoryWatch({ watchHistoryData,title}) {
     // (watchHistoryData,"watchHistoryData--121")
     return (
         <>
@@ -34,7 +34,7 @@ function HistoryWatch({ watchHistoryData}) {
                             </button>
                         </div>
                         <div className="page-title">
-                            <h5>Watch history</h5>
+                            <h5>{title ? "Save Material" : "Watch history"}</h5>
                         </div>
                     </div>
                     <div className="page-section-right">
