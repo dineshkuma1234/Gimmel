@@ -43,7 +43,7 @@ const PageComponent = () => {
     console.log(libraryVideo,router,"libraryVideo--1213")
     return (
         <>{isMobile ?
-            <HistoryWatch  watchHistoryData={libraryVideo}/>
+            <HistoryWatch  watchHistoryData={libraryVideo} title={title}/>
             :
             <WatchHistoryData watchHistoryData={libraryVideo} title={title}/>
         }</>
