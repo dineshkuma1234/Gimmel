@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
+import { useModal } from "@/components/registerpop/page";
 function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [text,setText]=useState("");
+      const { openModal,setIsOpen } = useModal(); 
+    
     const maxWord=60
 
     const handleChange = (e) => {
@@ -107,8 +110,28 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                     </div>
                 </div>
                     <div className="btn-container">
-                        <button className="btn btn-light-orange" onClick={()=>{handleQuizPdf(getid,handleShow); }}><FiDownload /> Download PDF</button>
-                        <button className="btn btn-light-orange" onClick={()=>{quizRegenrate()}}><FiRefreshCcw/>Regenerate</button>
+                        <button className="btn btn-light-orange" 
+                        onClick={(e) => {
+                            const token = localStorage.getItem("token");
+                            if (!token) {
+                            e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
+                            } else {
+                                handleQuizPdf(getid,handleShow)     
+                         }
+                        }}
+                        ><FiDownload /> Download PDF</button>
+                        <button className="btn btn-light-orange"
+                         onClick={(e) => {
+                            const token = localStorage.getItem("token");
+                            if (!token) {
+                            e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
+                            } else {
+                                quizRegenrate()
+                        }
+                        }}
+                         ><FiRefreshCcw/>Regenerate</button>
                     </div>
             </div>
         </>

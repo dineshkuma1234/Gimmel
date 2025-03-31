@@ -462,7 +462,9 @@ function PageComponent() {
         // (result, "result---delete")
         if (result?.success) {
           setLoader(false);
-          handleGetFolder();
+          handleGetFolderSub();
+          handleGetFolder()
+
           AlertHelper.show('success', 'Gimmel',result?.message);
         } else {
           setLoader(false);
@@ -654,6 +656,7 @@ function PageComponent() {
     };
  
     const handleGetFolderSub = async (selectedFolderId) => {
+      console.log(selectedFolderId,"selectedFolderId-----")
       // LoaderHelper.loaderStatus(true);
       try {
         const result = await AuthService.GetSubFolder(selectedFolderId,value);
@@ -791,6 +794,7 @@ function PageComponent() {
     handleLikeReview={handleLikeReview}
     handleDislikeReview={handleDislikeReview}
     handleReplayPost={handleReplayPost}
+    
     />
   ) : (
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity}  handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate} getTest={getTest} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}

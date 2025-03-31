@@ -70,7 +70,11 @@ function RequestData({
   const [discription, setDiscription] = useState("");
   const [avoided, setavoided] = useState("");
   const [details, setDetails] = useState("");
-
+console.log(yourRequest,"yourRequest")
+console.log(discription,"discription")
+console.log(avoided,"avoided")
+console.log(details,"details")
+console.log(requestListData,"requestListData")
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
 
   const deselectAll = () => {
@@ -504,17 +508,20 @@ function RequestData({
                             request?.isNotified === true ? "notified-link" : ""
                           }
                         >
-                          {request?.isNotified && (
-                            <div className="notification-item">
-                              <BiSolidBellRing className="bell-icon" />
+
                               <span
                                 className="notification-title"
                                 onClick={() => {
-                                  handlegetVideoRequest(request.title);
+                                  handlegetVideoRequest(request?.title);
                                 }}
                               >
-                                {request?.title}
+                                {request?.title} 
                               </span>
+
+                          {request?.isNotified && (
+                            <div className="notification-item">
+                              <BiSolidBellRing className="bell-icon" />
+                              
                               <MdMoreVert className="more-icon" />
                             </div>
                           )}
@@ -747,7 +754,7 @@ function RequestData({
                           <div className="row justify-content-center">
                             <div className="col-11">
                               <div className="page-request-title">
-                                {request?.title}
+                                {request?.title} 
                               </div>
                               <div className="page-request-data">
                                 <div className="bg-green-light">

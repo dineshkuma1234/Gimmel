@@ -2450,3 +2450,30 @@ button.folder-icon {
   height: 54px;
   color: var(--gimmel-darkBlue);
 }
+
+.custom-alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px; /* p-2 ke liye */
+  background-color: #E7EDEF;
+border: 1px solid  #104E5B ;
+}
+.Inform-Pop {
+  flex: "1";
+  white-space: "nowrap";
+   overflow: "hidden";
+    text-overflow: "ellipsis";
+    font-size: 14px;
+    color: #104E5B;
+    
+}
+
+.button-sart-ragisration{
+  white-space: "nowrap";
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline !important;
+  color:#104E5B ;
+}
