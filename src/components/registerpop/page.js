@@ -32,7 +32,7 @@ export const ModalProvider = ({ children }) => {
             features.
           </p>
           <input type="email" placeholder="Email" className="modal-input" />
-          <Button className="btn-orange-header mb-3">
+          <Button className="btn-orange-header mb-3" onClick={closeModal}>
             <Link href="/signup" className="">Continue Registration</Link>
           </Button>
           <Button onClick={closeModal} className="btn-orange-outline">
