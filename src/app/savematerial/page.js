@@ -6,41 +6,40 @@ import AuthService from "../../services/AuthService";
 import {useIsMobile} from "../../hooks/useIsMobile";
 import HistoryWatch from "../(MobileFlow)/historywatch/page";
 import { useSearchParams } from "next/navigation";
+import { UseLoader } from "../LoderHelper/context/loaderHelperContext";
+
 
 const PageComponent = () => {
     const isMobile = useIsMobile();
     const [libraryVideo, setLibraryVideo] = useState("")
     const router = useSearchParams();
     const title = router?.get("from")
-    console.log("router", router?.get("from"));
+    const { setLoader } = UseLoader();
+    // console.log("router", router?.get("from"));
     // const {from } = router.query;
     useEffect(()=>{
         handleLibraryVideos();
     },[]);
     const handleLibraryVideos = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.LibraryVideo();
             if (result?.message === "No videos found in history.") {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('warning', 'Gimmel', 'No data available');
+                setLoader(false);
                 return;
             }
 
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setLibraryVideo(result?.data);
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
 
-    console.log(libraryVideo,router,"libraryVideo--1213")
     return (
         <>{isMobile ?
             <HistoryWatch  watchHistoryData={libraryVideo} title={title}/>

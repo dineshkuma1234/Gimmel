@@ -35,4 +35,14 @@ const calculateMonthsAgo = (createdAt) => {
         return 'Less than a month ago';
     }
 };
-export default calculateMonthsAgo;
+function formatTime(timeString) {
+    let parts = timeString.split(":").map(num => String(num).padStart(2, '0'));
+
+    if (parts.length === 3 && parts[0] !== "00") {
+        return parts.join(":"); // HH:MM:SS
+    } else {
+        return parts.slice(-2).join(":"); // MM:SS
+    }
+}
+
+export { calculateMonthsAgo,formatTime};

@@ -10,7 +10,7 @@ import { TbEdit } from "react-icons/tb";
 import { Modal, Form } from "react-bootstrap";
 import { FiAlertOctagon } from "react-icons/fi";
 import Image from 'next/image';
-import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
 function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getSaveVideo,getSubFolder,handleCreateFolderSub,}) {
 
     const [show, setShow] = useState(false);

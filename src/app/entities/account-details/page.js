@@ -546,6 +546,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <Swiper
                                 spaceBetween={14}
                                 slidesPerView={4}
+                                slidesPerGroup={5}      
+                                loop={false}           
+                                navigation              
+                                modules={[Navigation]} 
                                 className="mySwiper category-swiper library-swiper"
                             >
                                 {libraryVideo && Array.isArray(libraryVideo) && libraryVideo.map((item, index) => (
