@@ -109,93 +109,94 @@ const PageComponent = () => {
     <>
       {deviceWidth > 991 ? (
         <>
-          <Categories
+         {categoryVideo[0]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[0]?.posts}
             categoryVideoname={categoryVideo[0]?.category}
             img={img1}
             handleGetCategories={handleGetCategories}
-          />
-          <Categories
+          />}
+
+          {categoryVideo[1]?.posts?.length >0&&<Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[1]?.posts}
             categoryVideoname={categoryVideo[1]?.category}
             img={img2}
             handleGetCategories={handleGetCategories}
-          />
-          <Categories
+          />}
+         {categoryVideo[2]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[2]?.posts}
             categoryVideoname={categoryVideo[2]?.category}
             img={img3}
             handleGetCategories={handleGetCategories}
-          />
-          <Categories
+          />}
+        { categoryVideo[3]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[3]?.posts}
             categoryVideoname={categoryVideo[3]?.category}
             img={img4}
             handleGetCategories={handleGetCategories}
-          />
-          <Categories
+          />}
+         {categoryVideo[4]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[4]?.posts}
             categoryVideoname={categoryVideo[4]?.category}
             img={img5}
             handleGetCategories={handleGetCategories}
-          />
-          <Categories
+          />}
+       {  categoryVideo[5]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[5]?.posts}
             categoryVideoname={categoryVideo[5]?.category}
             img={img6}
             handleGetCategories={handleGetCategories}
-          />
+          />}
         </>
       ) : (
         <>
-          <Categorie
+       { categoryVideo[0]?.posts?.length>0&&  <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[0]?.posts}
             categoryVideoname={categoryVideo[0]?.category}
             img={img1}
             handleGetCategories={handleGetCategories}
-          />
-          <Categorie
+          />}
+        { categoryVideo[1]?.posts?.length>0&& <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[1]?.posts}
             categoryVideoname={categoryVideo[1]?.category}
             img={img2}
             handleGetCategories={handleGetCategories}
-          />
-          <Categorie
+          />}
+      {  categoryVideo[2]?.posts?.length>0&&  <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[2]?.posts}
             categoryVideoname={categoryVideo[2]?.category}
             img={img3}
             handleGetCategories={handleGetCategories}
-          />
-          <Categorie
+          />}
+        { categoryVideo[3]?.posts?.length>0&& <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[3]?.posts}
             categoryVideoname={categoryVideo[3]?.category}
             img={img4}
             handleGetCategories={handleGetCategories}
-          />
-          <Categorie
+          />}
+        { categoryVideo[4]?.posts?.length>0&& <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[4]?.posts}
             categoryVideoname={categoryVideo[4]?.category}
             img={img5}
             handleGetCategories={handleGetCategories}
-          />
-          <Categorie
+          />}
+        { categoryVideo[5]?.posts?.length>0&& <Categorie
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[5]?.posts}
             categoryVideoname={categoryVideo[5]?.category}
             img={img6}
             handleGetCategories={handleGetCategories}
-          />
+          />}
         </>
       )}
     </>

@@ -125,6 +125,10 @@ ul.account-info-list li .accout-rating {
     padding: 0;
     letter-spacing: 0.5px;
     text-transform: capitalize;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits text to 3 lines */
+    -webkit-box-orient: vertical;
 }
 
 .btn-view {

@@ -12,6 +12,8 @@ import FilterData from "./filterdata";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
+import { Button, Modal } from 'react-bootstrap';
+import { useModal } from '../registerpop/page';
 
 
 
@@ -20,6 +22,7 @@ function Header() {
     
 
     const pathname = usePathname()
+    const { openModal,setIsOpen } = useModal(); 
 
 
 
@@ -87,10 +90,31 @@ function Header() {
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    console.log(token,"token---");
     
-
     //  (historyList,"historyList----")
     return (
+        <>
+       
+        {/* <Modal show={isOpen} onHide={() => setIsOpen(false)} centered className='custom-modal register-modal '>
+        <Modal.Header closeButton>
+          <Modal.Title>Register to Gimmel for free</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Some features are available only to registered users. Register for
+            free now to build a personal library and access several other
+            features.
+          </p>
+          <input type="email" placeholder="Email" className="modal-input" />
+
+          <Button className="btn-orange-header mb-3"><Link href="/signup" className="">Continue   Registration</Link></Button>
+          <Button onClick={() => setIsOpen(false)} className="btn-orange-outline">
+            Close
+          </Button>
+        </Modal.Body>
+    
+      </Modal> */}
         <header className="header" id="header">
             <nav className="navbar container-fluid">
                 <div className="menu-left">
@@ -184,10 +208,19 @@ function Header() {
                                     Categories
                                 </Link>
                             </li>
-                            <li className="menu-item" onClick={handleLinkClick}>
+                            <li className="menu-item">
                                 <Link
                                     href="/library"
                                     className={`menu-link ${pathname === "/library" ? "active" : ""}`}
+                                    onClick={(e) => {
+                                        const token = localStorage.getItem("token");
+                                        if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                        } else {
+                                        handleLinkClick();
+                                        }
+                                    }}
                                 >
                                     <svg
                                         width="16"
@@ -204,10 +237,19 @@ function Header() {
                                     My Library
                                 </Link>
                             </li>
-                            <li className="menu-item" onClick={handleLinkClick}>
+                            <li className="menu-item">
                                 <Link
                                     href="/request"
                                     className={`menu-link ${pathname === "/request" ? "active" : ""}`}
+                                      onClick={(e) => {
+                                        const token = localStorage.getItem("token");
+                                        if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                        } else {
+                                            handleLinkClick();
+                                        }
+                                    }}
                                 >
                                     <svg
                                         width="16"
@@ -265,6 +307,7 @@ function Header() {
                 </div>  
             </nav>
         </header>
+        </>
     );
 }
 

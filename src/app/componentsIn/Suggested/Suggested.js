@@ -9,6 +9,7 @@ import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import NewfolderAdd from "../../../components/Models/NewfolderAdd";
 import { Modal } from "react-bootstrap";
+import { useModal } from "@/components/registerpop/page";
 
 function Suggested({
   video,
@@ -36,6 +37,8 @@ function Suggested({
   const [addnewFolder, setAddNewFolder] = useState("");
   const [color, setColor] = useState(false);
   const [selectedValue, setSelectedValue] = useState([]);
+    const { openModal,setIsOpen } = useModal(); 
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -643,7 +646,17 @@ function Suggested({
                           </button>
                         </li>
                         <li>
-                          <button variant="primary" onClick={handleShow1}>
+                          <button variant="primary" 
+                           onClick={(e) => {
+                            const token = localStorage.getItem("token");
+                            if (!token) {
+                            e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
+                            } else {
+                              handleShow1()
+                           }
+                        }}
+                          >
                             <svg
                               width="24"
                               height="24"
@@ -662,11 +675,16 @@ function Suggested({
                         <div className="dropdown-divider"></div>
                         <li>
                           <button
-                            href="#"
-                            onClick={() => {
-                              handleNotIntrested(video?._id);
-                              setIsDropdownOpen(false);
-                            }}
+                            href="#"                         
+                            onClick={(e) => {
+                              const token = localStorage.getItem("token");
+                              if (!token) {
+                              e.preventDefault(); // Prevents navigation
+                              setIsOpen(true);
+                              } else {
+                                handleNotIntrested(video?._id);
+                                setIsDropdownOpen(false);                             }
+                          }}
                           >
                             <svg
                               width="24"

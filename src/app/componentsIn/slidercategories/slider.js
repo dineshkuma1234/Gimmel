@@ -13,6 +13,7 @@ import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Link from "next/link";
 import { Form } from "react-bootstrap";
 import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
+import { useModal } from "@/components/registerpop/page";
 
 // const videoData = [
 //     {
@@ -74,6 +75,8 @@ const SliderCategories = ({
   img,
   handleGetCategories,
 }) => {
+    const { openModal,setIsOpen } = useModal(); 
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -423,7 +426,7 @@ const SliderCategories = ({
               </div>
             </div>
           </SwiperSlide>
-          {Array.isArray(categoryVideo) &&
+          {Array.isArray(categoryVideo) && categoryVideo.length > 0 && 
             categoryVideo.map((video) => (
               <SwiperSlide key={video.id} video={video}>
                 <div className="col-md-12">
@@ -516,7 +519,14 @@ const SliderCategories = ({
                                   <li>
                                     <button
                                       variant="primary"
-                                      onClick={handleShow1}
+                                      onClick={(e) => {
+                                        const token = localStorage.getItem("token");
+                                        if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                        } else {
+                                          handleShow1()                  }
+                                    }}
                                     >
                                       <svg
                                         width="24"
@@ -537,9 +547,15 @@ const SliderCategories = ({
                                   <li>
                                     <button
                                       href="#"
-                                      onClick={() => {
-                                        handleNotIntrested(video?._id);
-                                      }}
+                                      onClick={(e) => {
+                                        const token = localStorage.getItem("token");
+                                        if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                        } else {
+                                          handleNotIntrested(video?._id);
+                                        }
+                                    }}
                                     >
                                       <svg
                                         width="24"

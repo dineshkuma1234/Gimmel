@@ -32,6 +32,8 @@ import DeleteModel from "../../../components/Models/Delete";
 import SaveLibraryModal from "../../../components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import toast, { Toaster } from "react-hot-toast";
+import { useModal } from "../../../components/registerpop/page"; 
+import { IoMdInformationCircle } from "react-icons/io";
 
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({
@@ -84,6 +86,9 @@ function VideoDetails({
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
   const [materialItem, setMaterialItem] = useState("Quiz");
+  const { openModal,setIsOpen } = useModal(); 
+  const [showMore, setShowMore] = useState(false);
+
   useEffect(() => {
     if (!show1) {
       setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
@@ -205,7 +210,7 @@ function VideoDetails({
     setsubfolderid(item?._id);
 
     // handleCreateFolderSub(addnewFolder);
-    // handleGetFolderSub(item?._id)
+    handleGetFolderSub(item?._id)
   };
 
   const handleNavigatename = (item) => {
@@ -214,7 +219,7 @@ function VideoDetails({
     setColor(true);
     setActive(item?._id);
     // handleCreateFolderSub(addnewFolder);
-    // handleGetFolderSub(item?._id)
+    handleGetFolderSub(item?._id)
   };
   const [deleteModel, setDeleteModel] = useState(false);
   // const [selectedItem, setSelectedItem] = useState(null);
@@ -436,10 +441,15 @@ function VideoDetails({
             <div className="btn-container">
               <button
                 className="btn btn-color-orange"
-                onClick={() => {
-                  copyUrl(idvideo);
-                  handleClose2();
-                }}
+                onClick={(e) => {
+                  const token = localStorage.getItem("token");
+                  if (!token) {
+                  e.preventDefault(); // Prevents navigation
+                  setIsOpen(true);
+                  } else {
+                    copyUrl(idvideo);
+                    handleClose2();                  }
+              }}
               >
                 Copy Link
               </button>
@@ -512,12 +522,18 @@ function VideoDetails({
             <div className="btn-container">
               <button
                 className="btn btn-color-orange"
-                onClick={() => {
-                  handleClose3(),
-                    handleReportPost(selectedValue, text, data?._id);
-                }}
                 disabled={!text || !selectedValue}
+                onClick={(e) => {
+                  const token = localStorage.getItem("token");
+                  if (!token) {
+                  e.preventDefault(); // Prevents navigation
+                  setIsOpen(true);
+                  } else {
+                    handleClose3(),
+                    handleReportPost(selectedValue, text, data?._id);                 }
+              }}
               >
+                   
                 Send Report
               </button>
             </div>
@@ -868,9 +884,17 @@ function VideoDetails({
                       </button>
                       <button
                         className="btn btn-light-bg"
-                        onClick={handleShow1}
+                        onClick={(e) => {
+                          const token = localStorage.getItem("token");
+                          if (!token) {
+                          e.preventDefault(); // Prevents navigation
+                          setIsOpen(true);
+                          } else {
+                            handleShow1()
+                         }
+                      }}
                       >
-                        {data?.isSaved ? (
+                     {localStorage.getItem("token") && data?.isSaved ?  (
                           <svg
                             width="32"
                             height="32"
@@ -929,8 +953,18 @@ function VideoDetails({
                                 </button>
                               </li>
                               <li>
-                                <button variant="primary" onClick={handleShow1}>
-                                  {data?.isSaved ? (
+                                <button variant="primary"
+                                onClick={(e) => {
+                                  const token = localStorage.getItem("token");
+                                  if (!token) {
+                                  e.preventDefault(); // Prevents navigation
+                                  setIsOpen(true);
+                                  } else {
+                                    handleShow1()
+                                 }
+                              }}
+                                >
+                               {localStorage.getItem("token") && data?.isSaved ?  (
                                     <svg
                                       width="32"
                                       height="32"
@@ -1026,7 +1060,7 @@ function VideoDetails({
                     </ul>
                   </div>
                   <div className="video-description">
-                    <p>
+                    <p  className={showMore ? "full-text" : "truncated-text"}>
                       {data?.description}
 
                       <span className="view-more">
@@ -1144,18 +1178,31 @@ function VideoDetails({
                           <Nav.Link eventKey="first">Quiz</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="second">Discussion</Nav.Link>
+                          <Nav.Link eventKey="second"  disabled={!localStorage.getItem("token")}>Discussion</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="third">Activity</Nav.Link>
+                          <Nav.Link eventKey="third"  disabled={!localStorage.getItem("token")}>Activity</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fourth">Homework</Nav.Link>
+                          <Nav.Link eventKey="fourth"  disabled={!localStorage.getItem("token")}>Homework</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fifth">Test</Nav.Link>
+                          <Nav.Link eventKey="fifth"  disabled={!localStorage.getItem("token")}>Test</Nav.Link>
                         </Nav.Item>
                       </Nav>
+                       {/* Alert Message */}
+                       {!localStorage.getItem("token") && (
+                        <div className="alert alert-warning custom-alert mt-3">
+                        <span className="Inform-Pop">
+    <IoMdInformationCircle />
+      You can generate pressurized attachments by registering and upgrading to our XY Plan.
+    </span>
+    <a href="/signup" className="button-sart-ragisration">
+      Start Registration
+    </a>
+  </div>
+)}
+
                     </Col>
                     <Col sm={12}>
                       <Tab.Content>

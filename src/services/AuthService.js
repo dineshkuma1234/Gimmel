@@ -845,7 +845,10 @@ const AuthService = {
   },
 
   getSuggested: async (postId) => {
-    const token = await localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
     const { authBaseUrl, Suggested } = ApiConfig;
     const url = authBaseUrl + Suggested + postId;
     const params = {};
@@ -890,7 +893,11 @@ const AuthService = {
   },
 
   GetCategories: async (category) => {
-    const token = await localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
+ 
     const { authBaseUrl, getCategories } = ApiConfig;
 
     const url = `${authBaseUrl}${getCategories}?category=${category}`;
@@ -924,7 +931,10 @@ const AuthService = {
   },
 
   CategoryVideoList: async () => {
-    const token = await localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
     const { authBaseUrl, categoriesVideo } = ApiConfig;
     const url = authBaseUrl + categoriesVideo;
     const params = {};
@@ -991,8 +1001,10 @@ const AuthService = {
   },
 
   getQuize: async (id) => {
-    const token = await localStorage.getItem("token");
-    const { authBaseUrl, Quiz } = ApiConfig;
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }    const { authBaseUrl, Quiz } = ApiConfig;
     const url = authBaseUrl + Quiz + id;
     url, "url---";
     const params = {};
@@ -1055,7 +1067,10 @@ const AuthService = {
   },
   
    getQuizPdf : async (id) => {
-    const token = await localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
     const { authBaseUrl, QuizPdf } = ApiConfig;
     const url = authBaseUrl + QuizPdf + id;
   
@@ -1141,7 +1156,10 @@ const AuthService = {
  
 
   QuizRegenerate: async (id) => { 
-    const token = await localStorage.getItem("token");
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
     const { authBaseUrl, quiz } = ApiConfig;
     const url = authBaseUrl + quiz + id;
     url, "url---";

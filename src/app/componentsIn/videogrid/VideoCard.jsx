@@ -22,6 +22,7 @@ import RenameModel from "../../../components/Models/Rename";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
+import { useModal } from "@/components/registerpop/page";
 
 const VideoCard = ({
   video,
@@ -47,6 +48,8 @@ const VideoCard = ({
   getSaveVideo,
   handleCreateFolderSub,
 }) => {
+      const { openModal,setIsOpen } = useModal(); 
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [VideoDetailsState, updateVideoDetailsState] =
     useContext(VideoDetailsContext);
@@ -142,7 +145,7 @@ const VideoCard = ({
   const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
 
   const handleChang8e = (e) => {
-    const { id, checked } = e.target;
+    const { _id, checked } = e.target;
     setCheckedItems({
       ...checkedItems,
       [id]: checked,
@@ -968,7 +971,17 @@ const VideoCard = ({
                           </button>
                         </li>
                         <li className="hide_mobile">
-                          <button variant="primary" onClick={handleShow1}>
+                          <button variant="primary"
+                           onClick={(e) => {
+                            const token = localStorage.getItem("token");
+                            if (!token) {
+                            e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
+                            } else {
+                              handleShow1(); 
+                           }
+                        }}
+                          >
                             <svg
                               width="24"
                               height="24"
@@ -1012,10 +1025,16 @@ const VideoCard = ({
                         <div className="dropdown-divider"></div>
                         <li>
                           <button
-                            onClick={() => {
-                              handleNotIntrested(video?._id);
-                              setIsDropdownOpen(false);
-                            }}
+                            onClick={(e) => {
+                              const token = localStorage.getItem("token");
+                              if (!token) {
+                              e.preventDefault(); // Prevents navigation
+                              setIsOpen(true);
+                              } else {
+                                handleNotIntrested(video?._id);
+                                setIsDropdownOpen(false); 
+                             }
+                          }}
                           >
                             <svg
                               width="24"
@@ -1041,7 +1060,7 @@ const VideoCard = ({
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
-                    {video?.description}
+                    {video?.description.slice(0, 100)}...
                   </p>
                 </div>
                 <div className="more-btn">

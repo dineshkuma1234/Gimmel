@@ -19,7 +19,7 @@ function PageComponent() {
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [deviceWidth, setDeviceWidth] = useState(0);
   const idvideo = getVideoRequestData?.[0]?._id;
-
+console.log(requestListData,"requestListData")
   const {
     yourRequest,
     setYourRequest,
