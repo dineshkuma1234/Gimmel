@@ -54,8 +54,8 @@ function Categories({
                   <Image src={img} alt="categories" />
                 </div>
               </div>
-              {Array.isArray(categoryVideo) &&
-                categoryVideo.map((video, index) => (
+              {Array.isArray(categoryVideo) && categoryVideo.length > 0 && 
+                 categoryVideo.map((video, index) => (
                   <div className="video-list-item" key={index}>
                     <div className="categories-bg">
                       <Image

@@ -32,6 +32,8 @@ function SaveLibraryModal({
   color,
   handleSaveVideo,
 }) {
+
+  console.log(getSaveVideo,"getSaveVideo")
   return (
     <>
       <Modal

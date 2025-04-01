@@ -1,3 +1,4 @@
+import { useModal } from "@/components/registerpop/page";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
@@ -43,6 +44,7 @@ import { Form } from "react-bootstrap";
 function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeReview, handleReplayPost,}) {
     const [commentText, setCommentText] = useState("");
     // const [reply, setReply] = useState('');
+  const { openModal,setIsOpen } = useModal(); 
 
 
     return (
@@ -64,6 +66,15 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                                       if (e.key === "Enter") {
                                         handleSendComment(commentText, getReview[0]?._id); 
                                       }
+                                    }}
+
+                                    onClick={(e) => {
+                                        const token = localStorage.getItem("token");
+                                        if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                        } else {
+                                       }
                                     }}
                                 />
                             </div>

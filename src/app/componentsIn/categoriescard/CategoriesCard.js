@@ -15,8 +15,11 @@ import Link from "next/link";
 import { Form } from "react-bootstrap";
 import { FiAlertOctagon } from "react-icons/fi";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import { useModal } from "@/components/registerpop/page";
 
 function CategoriesCard({ watchHistoryData }) {
+    const { openModal,setIsOpen } = useModal(); 
+  
   const { handleNotIntrested } = useHeader();
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -373,7 +376,16 @@ function CategoriesCard({ watchHistoryData }) {
                               </button>
                             </li>
                             <li>
-                              <button variant="primary" onClick={handleShow1}>
+                              <button variant="primary" 
+                               onClick={(e) => {
+                                const token = localStorage.getItem("token");
+                                if (!token) {
+                                e.preventDefault(); // Prevents navigation
+                                setIsOpen(true);
+                                } else {
+                                  handleShow1();                  }
+                            }}
+                              >
                                 <svg
                                   width="24"
                                   height="24"
@@ -393,10 +405,16 @@ function CategoriesCard({ watchHistoryData }) {
                             <li>
                               <button
                                 href="#"
-                                onClick={() => {
-                                  handleNotIntrested(item?._id);
-                                  setOpenDropdownId(null);
-                                }}
+                               
+                                onClick={(e) => {
+                                  const token = localStorage.getItem("token");
+                                  if (!token) {
+                                  e.preventDefault(); // Prevents navigation
+                                  setIsOpen(true);
+                                  } else {
+                                    handleNotIntrested(item?._id);
+                                  setOpenDropdownId(null);                 }
+                              }}
                               >
                                 <svg
                                   width="24"
