@@ -83,10 +83,14 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
             const newCheckedState = {};
             const newArr=filteredTopics.map((topic) => {newCheckedState[topic.name] = checked
                 return topic.name
-            }); // Select/Deselect all topics
-            setItems((prevItems) => [...prevItems, ...newArr]);
+            }); 
+            if (checked) {
+                setItems(newArr);
+            } else {
+                setItems([]);
+            }
             setCheckedItems(newCheckedState);
-            setSelectAll(checked); // Update button behavior
+            setSelectAll(checked); 
         } else {
             setCheckedItems({
                 ...checkedItems,
@@ -112,7 +116,8 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
             const newArr=filterContentMaturity.map((item) => {newCheckedState[item.name] = checked
                 return item.name
             }); // Select/Deselect all topics
-            setselectedMaturity((prev)=>[...prev,...newArr])
+            // setselectedMaturity((prev)=>[...prev,...newArr])
+            setselectedMaturity(checked ? newArr : []);
             setCheckedItems1(newCheckedState);
             setSelectAll1(checked); // Update button behavior
         } else {
@@ -120,11 +125,6 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                 ...checkedItems1,
                 [id]: checked,
             });
-            // if(checked){
-            //     setselectedMaturity((prevItems)=>{
-            //         [...prevItems,id]
-            //     })
-            // }
             setselectedMaturity((prevItems)=>{
                 if(checked){
                     return [...prevItems,id]
@@ -144,7 +144,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
             const newArr=eduction.map((item) => {newCheckedState[item.name] = checked
                 return item.name
             }); // Select/Deselect all topics
-            setSelectedEducation((prev)=>[...prev,...newArr])
+            setSelectedEducation(checked ? newArr : [])
             setCheckedItems3(newCheckedState);
             setSelectAll3(checked); 
         } else {
@@ -161,20 +161,6 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
             });
         }
     };
-
-    const states = [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Florida",
-        "Georgia",
-    ];
 
     const [selectedItems, setSelectedItems] = useState({
         'deselect-all': false,
@@ -226,9 +212,6 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const filterContentMaturity = contentMaturity.filter(item =>
         item.name.toLowerCase().includes(maturity.toLowerCase())
     );
-
-    // const token = await localStorage.getItem('token');
-
 
     return (
         <div className="main-screen">
@@ -405,9 +388,9 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                                     <ListGroup.Item key={index}>
                                                         <Form.Check
                                                             type="checkbox"
-                                                            id={item.index}
+                                                            id={item.name}
                                                             label={item.name}
-                                                            checked={checkedItems1[item.name] }
+                                                            checked={!!checkedItems1[item.name] }
                                                             onChange={handleCheckboxChange}
                                                         />
                                                     </ListGroup.Item>

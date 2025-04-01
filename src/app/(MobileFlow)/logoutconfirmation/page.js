@@ -8,6 +8,7 @@ function LogoutConfirmation() {
     const router = useRouter();
     const handleLogout = () => {
         localStorage.removeItem("token"); // Remove authentication token
+        localStorage.removeItem("firstName");
         router.push("/login"); // Redirect to the login page
     };
     return (

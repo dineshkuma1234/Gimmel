@@ -18,6 +18,8 @@ function SignupScreen() {
           if (result?.success) {
             setLoader(false);
             localStorage.setItem('token', result?.data?.token);
+            const firstName = result?.data?.firstName || "";
+            localStorage.setItem("firstName", firstName);
             
             // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
             // (result?.data?.isInterest, "interest----")

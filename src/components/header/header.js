@@ -87,9 +87,7 @@ function Header() {
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    
-
-    //  (historyList,"historyList----")
+     
     return (
         <header className="header" id="header">
             <nav className="navbar container-fluid">
@@ -243,7 +241,7 @@ function Header() {
                                         alt="User Profile"
                                     />
                                 </div>
-                                <span className="user-name">Account Name</span>
+                                <span className="user-name">{localStorage.getItem("firstName") || "Account Name"}</span>
                             </div>
                         </Link>
                     ) : (

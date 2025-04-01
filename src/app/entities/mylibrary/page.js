@@ -11,9 +11,11 @@ import { Modal, Form } from "react-bootstrap";
 import { FiAlertOctagon } from "react-icons/fi";
 import Image from 'next/image';
 import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
+import { useRouter } from "next/navigation";
 function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getSaveVideo,getSubFolder,handleCreateFolderSub,}) {
 
     const [show, setShow] = useState(false);
+    const router = useRouter(); 
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -22,6 +24,16 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
 
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const token = localStorage?.getItem("token");
+        if (!token) {
+            router.push("/");
+        } else {
+            setLoading(false);
+        }
+    },[router])
 
     // const [folders] = useState([
     //     { id: 1, name: 'My Library' },
@@ -124,6 +136,14 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                 }
                 return timeAgo;
             };
+
+            if (loading) {
+                return (
+                    <div className="loading-spinner">
+                        Loading.....
+                    </div>
+                );
+              }
         
     return (
         <>

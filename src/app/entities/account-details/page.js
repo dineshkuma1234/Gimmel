@@ -30,15 +30,29 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [selected2, setSelected2] = useState([]);
     const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
     const [school, setSchool] = useState(profileInfo?.school || "");
-    const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
-    const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
+
+    const [age, setAge] = useState("");
     const [isEditable, setIsEditable] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setPhoneNumber(profileInfo?.phone || "");
-        setSchool(profileInfo?.school || "");
-        setMinAge(profileInfo?.onboarding?.ageFrom || "");
-        setMaxAge(profileInfo?.onboarding?.ageTo || "");
+        const token = localStorage?.getItem("token");
+        if (!token) {
+            router.push("/");
+        } else {
+            setLoading(false);
+        }
+    },[router])
+
+    useEffect(() => {
+        if(Object.keys(profileInfo).length > 0){
+            setPhoneNumber(profileInfo?.phone || "");
+            setSchool(profileInfo?.school || "");
+            // setMinAge(profileInfo?.onboarding?.ageFrom || "");
+            // setMaxAge(profileInfo?.onboarding?.ageTo || "");
+            setAge(profileInfo?.onboarding?.ageFrom?.toString() + "-" + profileInfo?.onboarding?.ageTo?.toString() || "")
+        }
+        
       }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
     // (phoneNumber,"phoneNumber++++++++++++")
 
@@ -64,8 +78,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
             selected2.map(option => option.value), 
             phoneNumber, 
             school, 
-            minAge, 
-            maxAge);
+            parseInt(age?.split('-')[0]), 
+            parseInt(age?.split('-')[1]));
         }
         setIsEditable(!isEditable);
     };
@@ -135,8 +149,17 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
     const handleLogout = () => {
       localStorage.removeItem("token"); // Remove authentication token
+      localStorage.removeItem("firstName");
       router.push("/login"); // Redirect to the login page
   };
+
+  if (loading) {
+    return (
+        <div className="loading-spinner">
+            Loading.....
+        </div>
+    );
+  }
 
     return (
         <>
@@ -315,7 +338,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" className="light-placeholder" placeholder="12-18" value={`${minAge} - ${maxAge}`} onChange={(e) => { const [newMin, newMax] = e.target.value.split(" - ");setMinAge(newMin || ""); setMaxAge(newMax || ""); }} readOnly={!isEditable} />
+                                                <Form.Control type="text" className="light-placeholder" placeholder="12-18" value={`${age}`} onChange={(e) => { setAge(e?.target?.value) }} readOnly={!isEditable} />
                                             </div>
                                         </Form.Group>
                                       

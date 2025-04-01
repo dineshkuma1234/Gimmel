@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../../../components/header/header";
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Tab from "react-bootstrap/Tab";
@@ -13,6 +13,7 @@ import Link from "next/link";
 import VideoDetails from "../details/page";
 import { BiSolidBellRing } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function RequestData({
   handleCreateRequest,
@@ -27,6 +28,8 @@ function RequestData({
   handleSharePost,
   idvideo,
 }) {
+
+  const router = useRouter(); 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -70,6 +73,18 @@ function RequestData({
   const [discription, setDiscription] = useState("");
   const [avoided, setavoided] = useState("");
   const [details, setDetails] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      const token = localStorage?.getItem("token");
+      if (!token) {
+          router.push("/");
+      } else {
+          setLoading(false);
+      }
+  },[router])
+
 
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
 
@@ -170,6 +185,14 @@ function RequestData({
       setDetails(inputValue);
     }
   };
+
+  if (loading) {
+    return (
+        <div className="loading-spinner">
+            Loading.....
+        </div>
+    );
+  }
 
   return (
     <>
