@@ -144,8 +144,8 @@ const VideoCard = ({
   const selectedCount2 = Object.values(checkedItems2).filter(Boolean).length;
   const selectedCount3 = Object.values(checkedItems3).filter(Boolean).length;
 
-  const handleChang8e = (e) => {
-    const { _id, checked } = e.target;
+  const handleSubstances = (e) => {
+    const { id, checked } = e.target;
     setCheckedItems({
       ...checkedItems,
       [id]: checked,
@@ -159,6 +159,59 @@ const VideoCard = ({
     });
   };
 
+  const handleMental = (e) => {
+    const { id, checked } = e.target;
+    setCheckedItems1({
+      ...checkedItems1,
+      [id]: checked,
+    });
+    setselectedHealth((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
+
+  const handleNeuroscience = (e) => {
+    const { id, checked } = e.target;
+    setCheckedItems2({
+      ...checkedItems2,
+      [id]: checked,
+    });
+    setselectedNeuroscience((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
+
+  const handlesocialIssues = (e) => {
+    const { id, checked } = e.target;
+    setCheckedItems3({
+      ...checkedItems3,
+      [id]: checked,
+    });
+    setselectSocialIssue((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item) => item !== id);
+      }
+    });
+  };
+
+  const handlediscription = (event) => {
+    const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
+    if (words.length <= 60) {
+        setInterestsDescription(event.target.value);
+    }
+};
+
+  console.log(selectSocialIssue,"selectSocialIssue");
   // (video,"video")
   const handleNavigate = (video) => {
     updateVideoDetailsState(video);
@@ -346,7 +399,7 @@ const VideoCard = ({
                               id={topic.name}
                               label={topic.name}
                               checked={!!checkedItems[topic.name]} // Default to false if undefined
-                              onChange={handleChang8e}
+                              onChange={handleSubstances}
                             />
                           </ListGroup.Item>
                         ))}
@@ -373,7 +426,7 @@ const VideoCard = ({
                               id={topic.name}
                               label={topic.name}
                               checked={!!checkedItems1[topic.name]} // Default to false if undefined
-                              onChange={handleChang8e}
+                              onChange={handleMental}
                             />
                           </ListGroup.Item>
                         ))}
@@ -400,7 +453,7 @@ const VideoCard = ({
                               id={topic.name}
                               label={topic.name}
                               checked={!!checkedItems2[topic.name]} // Default to false if undefined
-                              onChange={handleChang8e}
+                              onChange={handleNeuroscience}
                             />
                           </ListGroup.Item>
                         ))}
@@ -427,7 +480,7 @@ const VideoCard = ({
                               id={topic.name}
                               label={topic.name}
                               checked={!!checkedItems3[topic.name]} // Default to false if undefined
-                              onChange={handleChang8e}
+                              onChange={handlesocialIssues}
                             />
                           </ListGroup.Item>
                         ))}
@@ -449,7 +502,7 @@ const VideoCard = ({
                 className="height-96 form-control"
                 rows={3}
                 value={interestsDescription}
-                onChange={handleChang8e}
+                onChange={handlediscription}
               />
               <p className="mt-2">{interestsDescription.length}/60 words</p>
             </Form.Group>

@@ -61,47 +61,36 @@ export const HeaderProvider = ({ children }) => {
     sliderValue,
     selectedValue,
     selectedAudience
-  ) => {
+) => {
     setLoader(true);
     try {
-      const result = await AuthService.SearchResult(
-        headerSearch,
-        isOn,
-        chips,
-        inputValue,
-        selectedAge,
-        selectedEngagement,
-        selectedDate,
-        sliderValue,
-        selectedValue,
-        selectedAudience
-      );
-      // (result, 'result---111');
-      setLoader(false);
-
-      if (result?.success) {
-        if (result?.data?.length <= 0) {
-          // AlertHelper.show('gray', 'Gimmel', 'No data');
-          toast.error(result?.message, {
-            className: "custom-toast", // Apply the custom class
-          });
-        } else {
-          updatesearchListState(result?.data);
-
-          router.push(
-            "/searchlist",
-            { data: JSON.stringify(result?.data) } // Convert the object to a JSON string
-          );
-        }
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
+        const result = await AuthService.SearchResult(
+            headerSearch,
+            isOn,
+            chips,
+            inputValue,
+            selectedAge,
+            selectedEngagement,
+            selectedDate,
+            sliderValue,
+            selectedValue,
+            selectedAudience
+        );
         setLoader(false);
-      }
+
+        if (result?.success) {
+            updatesearchListState(result?.data);
+            router.push(
+                "/searchlist",
+                { data: JSON.stringify(result?.data) } 
+            );
+        } else {
+            setLoader(false);
+        }
     } catch (error) {
-      setLoader(false);
-      // ('Error occurred:', 'Gimmel', error);
+        setLoader(false);
     }
-  };
+};
 
   const handleTopicPost = async () => {
     setLoader(true);
