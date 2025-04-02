@@ -14,6 +14,7 @@ import VideoDetails from "../details/page";
 import { BiSolidBellRing } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import loaderImage from "../../../assets/images/loder_img.svg";
 
 function RequestData({
   handleCreateRequest,
@@ -27,6 +28,8 @@ function RequestData({
   shareLink,
   handleSharePost,
   idvideo,
+  setId,
+  setidvideo
 }) {
 
   const router = useRouter(); 
@@ -87,6 +90,10 @@ function RequestData({
 
 
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+
+  // const request = {
+  //   isNotified: false, // ya true set kar sakte hain testing ke liye
+  // };
 
   const deselectAll = () => {
     if (!setIsSelectTeachingAll) {
@@ -512,8 +519,10 @@ function RequestData({
                 <Nav variant="pills" className="flex-column request-data">
                   <Nav.Item>
                     <Nav.Link eventKey="first">
+                      <div className="d-flex align-items-center">
                       <MdAddCircleOutline className="me-2 d-block" />
                       New Request
+                      </div>
                     </Nav.Link>
                   </Nav.Item>
                   <div className="dropdown-divider"></div>
@@ -527,22 +536,22 @@ function RequestData({
                             request?.isNotified === true ? "notified-link" : ""
                           }
                         >
-
+                          <div className="d-flex align-items-center">
+                              <BiSolidBellRing className="bell-icon" />
                               <span
                                 className="notification-title"
                                 onClick={() => {
                                   handlegetVideoRequest(request?.title);
+                                  setId(request?._id)
                                 }}
                               >
                                 {request?.title} 
                               </span>
+                              </div>
 
                           {request?.isNotified && (
-                            <div className="notification-item">
-                              <BiSolidBellRing className="bell-icon" />
-                              
-                              <MdMoreVert className="more-icon" />
-                            </div>
+                           <MdMoreVert  />
+
                           )}
                         </Nav.Link>
                       </Nav.Item>
@@ -766,6 +775,7 @@ function RequestData({
                         )}
                       </div>
                     </Tab.Pane>
+                  
                     {requestListData &&
                       Array.isArray(requestListData) &&
                       requestListData?.map((request, index) => (
@@ -776,7 +786,24 @@ function RequestData({
                                 {request?.title} 
                               </div>
                               <div className="page-request-data">
-                                <div className="bg-green-light">
+                              { !request?.isNotified ? (
+                                                        <div className="request-data-load">
+                                                      <div className="request-item">
+                                                        <div className="request-loader-container">
+                                                          <Image
+                                                            src={loaderImage}
+                                                            style={{objectFit:'contain'}}
+                                                            alt="loader"
+                                                          />
+                                                          <p>
+                                                            Stay tuned! We are working on finding you the best
+                                                            fitting materials.
+                                                          </p>
+                                                        </div>
+                                                      </div>
+                                                    </div>)
+                                                        :
+                                                          <div className="bg-green-light">
                                   <div className="bg-green-inner">
                                     {currentStep === 1 && (
                                       <div
@@ -866,6 +893,7 @@ function RequestData({
                                                             </svg>
                                                           </button>
                                                         </div>
+                                                       
                                                         <div className="button-right-side">
                                                           <div className="check-button">
                                                             <Form.Check
@@ -914,7 +942,7 @@ function RequestData({
 
                                         <div className="footer-btn-container">
                                           <div className="btn-right">
-                                            <button className="btn btn-orange-outline">
+                                            <button className="btn btn-trans">
                                               None of these
                                             </button>
                                             <button
@@ -1027,7 +1055,7 @@ function RequestData({
                                       </div>
                                     )}
                                   </div>
-                                </div>
+                                </div>}
                                 <Form className="request-data-form-overview">
                                   <Form.Group
                                     className="mb-4 row"

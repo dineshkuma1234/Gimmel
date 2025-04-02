@@ -24,6 +24,7 @@
     background-color: transparent;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
 }
 
@@ -248,14 +249,15 @@
     opacity: 0.25 !important;
 }
 
-.btn.btn-orange-outline {
+.btn-trans {
     color: var(--gimmel-orange);
-    border: transparent;
+    border: transparent !important;
     border-radius: 8px;
     padding: 16px 24px;
     font-size: 16px;
     font-weight: 600;
-    background-color: transparent;
+    background-color: transparent !important;
+    width: auto !important;
 }
 
 .request-data-overview-container .summary-content p {
