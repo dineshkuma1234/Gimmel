@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MdAddCircleOutline,
   MdDeleteOutline,
@@ -31,9 +31,13 @@ function SaveLibraryModal({
   calculateMonthsAgo,
   color,
   handleSaveVideo,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
 }) {
+  const [selectSubFolder, setSelectSubFolder] = useState(null);
+  const [selectFolder, setSelectFolder] = useState(null);
 
-  console.log(getSaveVideo,"getSaveVideo")
+  console.log(selectFolder, "selectFolder");
   return (
     <>
       <Modal
@@ -91,7 +95,11 @@ function SaveLibraryModal({
                   <div key={index} className="folder-view">
                     <div
                       className="folder-inner"
-                      onClick={() => handleNavigateSave(item)}
+                      onClick={() => {
+                        handleNavigateSave(item),
+                          handleSaveVideonext(item?._id),
+                          setSelectFolder(item?._id)
+                      }}
                     >
                       <div className="folder-content-inline">
                         <div className="folder-content-left">
@@ -119,7 +127,8 @@ function SaveLibraryModal({
                               onClick={(event) => {
                                 setColor(true);
                                 event.stopPropagation();
-                                handleNavigatename(item); setRenameModel(true)
+                                handleNavigatename(item);
+                                setRenameModel(true);
                               }}
                             >
                               {item.name}
@@ -154,7 +163,7 @@ function SaveLibraryModal({
                                         variant="primary"
                                         onClick={(event) => {
                                           event.stopPropagation();
-                                          handleShow()
+                                          handleShow();
                                         }}
                                       >
                                         <TbEdit />
@@ -188,13 +197,15 @@ function SaveLibraryModal({
                         <div
                           className="folder-inner"
                           onClick={() => {
-                            handleNavigateSave(item);
+                            {
+                              handleNavigateSave(item);
+                              setSelectSubFolder(item?._id);
+                            }
                           }}
                         >
                           <div className="folder-content-inline">
                             <div
                               className="folder-content-left"
-                              onClick={() => handleNavigateSave(item)}
                             >
                               <div className="folder-icon">
                                 <svg
@@ -239,7 +250,7 @@ function SaveLibraryModal({
                                         <li>
                                           <button
                                             variant="primary"
-                                            onClick={handleShow}
+                                            onClick={ handleShow()}
                                           >
                                             <TbEdit />
                                             Rename
@@ -328,7 +339,13 @@ function SaveLibraryModal({
               className="btn-color-orange"
               onClick={() => {
                 close_library_modal();
-                handleSaveVideo();
+                if (subFolderView) {
+                  console.log("subFolder");
+                  handleSaveSubFolderVideo(selectSubFolder,selectFolder);
+                } else {
+                  console.log("folder");
+                  handleSaveVideo();
+                }
               }}
             >
               Save here

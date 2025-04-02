@@ -876,4 +876,5 @@ input[type="range"]::-moz-range-thumb {
 
 .notification-title {
     flex-grow: 1; /* Title ko beech me rakhne ke liye */
+    line-height: 14px;
 }
