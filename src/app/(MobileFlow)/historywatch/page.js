@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MdMoreVert } from "react-icons/md";
+import {calculateMonthsAgo }from "@/app/utils/monthsAgo/page";
 
 
 
@@ -63,8 +64,8 @@ function HistoryWatch({ watchHistoryData,title}) {
 
             <div className="page-main-section top-space">
                 <div className="custom-container">
-                    <div className="save-video-list-container">
-                        <div className="video-list-container">
+                    <div className="save-video-list-container ">
+                        <div className="video-list-container gap-0">
                             {watchHistoryData&&Array.isArray(watchHistoryData)&&watchHistoryData.map((item, index) => (
                                 <div className="video-item" key={(item, index)}>
                                     <Link href={`/mainHome/${item?._id}/videodetails2`}>
@@ -80,14 +81,14 @@ function HistoryWatch({ watchHistoryData,title}) {
                                                         <div className="video-item-title">
                                                             <p>{item?.title}</p>
                                                         </div>
-                                                        {/* <div className="video-item-category">{item?.category}</div>
-                                                        <div className="upload-info">{item?.uploadInfo}</div> */}
+                                                        <div className="video-item-category">{item?.channelName}</div>
+                                                        <div className="upload-info">{calculateMonthsAgo(item?.createdAt)}</div>
                                                     </div>
-                                                    <div className="video-item-actions">
+                                                    {/* <div className="video-item-actions">
                                                         <div className="video-item-icon">
                                                             <MdMoreVert />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

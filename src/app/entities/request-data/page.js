@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../../../components/header/header";
 import { MdMoreVert, MdAddCircleOutline } from "react-icons/md";
 import Tab from "react-bootstrap/Tab";
@@ -13,6 +13,7 @@ import Link from "next/link";
 import VideoDetails from "../details/page";
 import { BiSolidBellRing } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import loaderImage from "../../../assets/images/loder_img.svg";
 
 function RequestData({
@@ -30,6 +31,8 @@ function RequestData({
   setId,
   setidvideo
 }) {
+
+  const router = useRouter(); 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -73,12 +76,19 @@ function RequestData({
   const [discription, setDiscription] = useState("");
   const [avoided, setavoided] = useState("");
   const [details, setDetails] = useState("");
-console.log(yourRequest,"yourRequest")
-console.log(discription,"discription")
-console.log(avoided,"avoided")
-console.log(details,"details")
-console.log(requestListData,"requestListData----")
-console.log(getVideoRequestData,"getVideoRequestData")
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      const token = localStorage?.getItem("token");
+      if (!token) {
+          router.push("/");
+      } else {
+          setLoading(false);
+      }
+  },[router])
+
+
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
 
   // const request = {
@@ -182,6 +192,14 @@ console.log(getVideoRequestData,"getVideoRequestData")
       setDetails(inputValue);
     }
   };
+
+  if (loading) {
+    return (
+        <div className="loading-spinner">
+            Loading.....
+        </div>
+    );
+  }
 
   return (
     <>

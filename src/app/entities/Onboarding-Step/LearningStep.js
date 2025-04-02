@@ -38,13 +38,10 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     const [checkedItems, setCheckedItems] = useState({});
     const [item,setItems]=useState([]);
     const [selectAll, setSelectAll] = useState(false);
-    // (selectAll,"this is selectAll")
-    // (checkedItems,"this is checked items")
 
     const [checkedItems1, setCheckedItems1] = useState({});
     const [item1,setItem1]=useState([]);
     const [selectAll1, setSelectAll1] = useState(false);
-    // (checkedItems1,"this is checked1")
     
     const [searchTerm, setSearchTerm] = useState('');
     const filteredTopics = (interest || []).filter(topic =>
@@ -65,7 +62,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                 newCheckedState[topic.name] = checked
                 return topic.name
             }); // Select/Deselect all topics
-            setItems((prevItems) => [...prevItems, ...newArr]);
+            setItems(checked ? newArr : []);
             setCheckedItems(newCheckedState);
             setSelectAll(checked); // Update button behavior
         } else {
@@ -77,6 +74,8 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
         
             if(checked){
                 setItems((prevItems) => [...prevItems, id]);
+            }else {
+                return setItems((prevItems) =>prevItems.filter((item) => item !== id)); 
             }
         }
     };
@@ -90,7 +89,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                 newCheckedState[topic.name] = checked
                 return topic.name
             }); // Select/Deselect all topics
-            setItem1((prevItems) => [...prevItems, ...newArr]);
+            setItem1(checked ? newArr : []);
             setCheckedItems1(newCheckedState);
             setSelectAll1(checked); // Update button behavior
         } else {
@@ -102,6 +101,8 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
         
             if(checked){
                 setItem1((prevItems) => [...prevItems, id]);
+            }else{
+                return setItem1((prevItems)=>prevItems.filter((item)=> item !== id));
             }
         }
     };
@@ -125,8 +126,6 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
             setMaxValue(value);
         }
     };
-
-
 
     return (
         <div className="main-screen">

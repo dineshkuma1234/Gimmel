@@ -455,7 +455,7 @@ function UserProfile({
                                     <Image src={require("../../../assets/images/save.svg")} alt="User Avatar" />
                                     <h3>My Library</h3>
                                 </div>
-                                <Link href="/mylibrary" className='view-all-btn'>View all</Link>
+                                <Link href={{ pathname: "/savematerial", query:{from:"saveMaterial"} }}className='view-all-btn'>View all</Link>
                             </div>
 
                             <div className='library-list mt-4'>

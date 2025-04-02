@@ -50,7 +50,7 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
                 newCheckedState[topic.name] = checked
                 return topic.name
             }); // Select/Deselect all topics
-            setItems((prevItems) => [...prevItems, ...newArr]);
+            setItems(checked ? newArr : []);
             setCheckedItems(newCheckedState);
             setSelectAll(checked); // Update button behavior
         } else {
@@ -62,6 +62,8 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
         
             if(checked){
                 setItems((prevItems) => [...prevItems, id]);
+            }else {
+                return setItems((prevItems) =>prevItems.filter((item) => item !== id)); 
             }
         }
     };
@@ -86,15 +88,6 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
     const [checkedItems1, setCheckedItems1] = useState({});
     const [selectAll, setSelectAll] = useState(false);
 
-    const topicsSecond = [
-        { id: "abuse", label: "Abuse" },
-        { id: "death", label: "Death" },
-        { id: "discussions", label: "Discussions or Depictions of Self-Harm" },
-        { id: "disturbing", label: "Disturbing Images" },
-        { id: "gore", label: "Gore" },
-        { id: "sexual", label: "Sexual Imagery" },
-        { id: "sexualLanguage", label: "Sexual Language/Explicit" },
-    ];
 
     // Handle individual checkbox changes
     const handleCheckboxChange = (e) => {
@@ -115,19 +108,6 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
         }
     };
 
-    const states = [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Florida",
-        "Georgia",
-    ];
 
     const [selectedItems, setSelectedItems] = useState({
         'deselect-all': false,
@@ -158,15 +138,6 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
         }));
     };
 
-    const checkboxes = [
-        { id: 'deselect-all', label: 'Select all', isSelectAll: true },
-        { id: 'abuse', label: 'Student Academic Success' },
-        { id: 'death', label: 'Enhance Learning Environments' },
-        { id: 'discussions', label: 'Student Social Success' },
-        { id: 'disturbing', label: 'Student Relationship with Self' },
-        { id: 'gore', label: 'Student Knowledge of High-Risk Behaviors' },
-        { id: 'sexual', label: 'Student Manageability of Life' },
-    ];
 
     const [minValue, setMinValue] = useState(12);
     const [maxValue, setMaxValue] = useState(30);
@@ -209,7 +180,7 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
                     newCheckedState[topic.name] = checked
                     return topic.name
                 }); // Select/Deselect all topics
-                setItem1((prevItems) => [...prevItems, ...newArr]);
+                setItem1(checked ? newArr : []);
                 setCheckedItems1(newCheckedState);
                 setSelectAll1(checked); // Update button behavior
             } else {
@@ -221,6 +192,8 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
             
                 if(checked){
                     setItem1((prevItems) => [...prevItems, id]);
+                }else{
+                    return setItem1((prevItems)=>prevItems.filter((item)=> item !== id));
                 }
             }
         };
