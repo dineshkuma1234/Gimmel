@@ -14,12 +14,14 @@ function PageComponent() {
   const [requestListData, setRequestListData] = useState("");
   const [getVideoRequestData, setgetVideoRequestData] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
-  const id = requestListData?.[0]?._id;
+  // const id = requestListData?.[0]?._id;
+  const [id,setId]=useState();
   const [shareLink, setShareLink] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [deviceWidth, setDeviceWidth] = useState(0);
-  const idvideo = getVideoRequestData?.[0]?._id;
-console.log(requestListData,"requestListData")
+  const [idvideo , setidvideo] = useState()
+console.log(getVideoRequestData,"getVideoRequestData---")
+console.log(id,"idvideo--")
   const {
     yourRequest,
     setYourRequest,
@@ -73,6 +75,7 @@ console.log(requestListData,"requestListData")
       const result = await AuthService.RequestList();
       if (result?.success) {
         setRequestListData(result?.data?.data);
+        
       } else {
         AlertHelper.show("danger", "Gimmel", result?.message);
       }
@@ -82,7 +85,7 @@ console.log(requestListData,"requestListData")
   const handlegetVideoRequest = async () => {
     try {
       const result = await AuthService.getVideoRequest(id);
-
+      console.log(result,"result---")
       if (result?.success) {
         setgetVideoRequestData(result?.data?.data);
       } else {
@@ -131,6 +134,8 @@ console.log(requestListData,"requestListData")
           handleSharePost={handleSharePost}
           shareLink={shareLink}
           idvideo={idvideo}
+          setId={setId}
+          setidvideo={setidvideo}
         />
       ) : (
         <>

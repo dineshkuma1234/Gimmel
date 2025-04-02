@@ -539,7 +539,35 @@ function PageComponent() {
         // ('Error occurred:', 'Gimmel', error);
       }
     };
-   
+  
+    const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
+      console.log("sub folder Api")
+      if(!selectedFolderId){
+        // AlertHelper.show('warning', 'Gimmel',"Please select folder");
+        console.log("select sub folder")
+        return;
+      }
+      // LoaderHelper.loaderStatus(true);
+      try {
+        console.log("sub folder Api ++")
+          const result = await AuthService.SaveSubFolderVideo(postId,selectSubFolder,selectFolder);
+          console.log(result,"result")
+          if (result?.success) {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('success', 'Gimmel', result?.data);
+              // navigation.navigate('TabNavigation', {
+              //   screen: 'Home',
+              // })
+          } else {
+              // LoaderHelper.loaderStatus(false);
+              // AlertHelper.show('danger', 'Gimmel', result?.message);
+          }
+      } catch (error) {
+          // LoaderHelper.loaderStatus(false);
+          // console.log('Error occurred:', 'Gimmel', error);
+      }
+  };
+
   
     const handleGetSuggested = async () => {  
       // setLoader(true); // Start loader
@@ -794,6 +822,8 @@ function PageComponent() {
     handleLikeReview={handleLikeReview}
     handleDislikeReview={handleDislikeReview}
     handleReplayPost={handleReplayPost}
+    handleSaveVideonext={handleSaveVideonext}
+    handleSaveSubFolderVideo={handleSaveSubFolderVideo}
     
     />
   ) : (

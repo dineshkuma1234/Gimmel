@@ -17,6 +17,7 @@ const RenameModel = ({
   getSubFolder,
   subfolderid,
 }) => {
+  console.log('getSubFolder', getSubFolder)
   const id = isDropdownOpenid?._id;
   const handleRename = async (rename, id) => {
     // setLoader(true);
@@ -38,16 +39,47 @@ const RenameModel = ({
     }
   };
 
-  const handleRenameFolder = async (rename, SubId) => {
+  // const handleRenameFolder = async (rename, SubId) => {
+  //   console.log("renamefolder---")
+  //   try {
+  //     const result = await AuthService.RenameSubFolder(id, rename, SubId);
+      
+  //     if (result?.success) {
+  //       handleGetFolder();
+  //       setRename();
+  //     } else {
+  //     }
+  //   } catch (error) {}
+  // };
+
+
+  const handleRenameFolder = async (rename,SubId) => {
+    console.log("renamefolder---")
+    // LoaderHelper.loaderStatus(true);
     try {
-      const result = await AuthService.RenameSubFolder(id, rename, SubId);
+      const result = await AuthService.RenameSubFolder(id,rename,SubId);
+      console.log(id,"id")
+      console.log(rename,"rename")
+      console.log(SubId,"SubId")
+
+      console.log(result,'result---');
       if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('success', 'Gimmel', result?.message);
         handleGetFolder();
         setRename();
       } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message  );
       }
-    } catch (error) {}
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    }
   };
+
+
+
 
   React.useEffect(() => {}, [show7]);
   return (
@@ -82,10 +114,12 @@ const RenameModel = ({
           <button
             className="btn btn-color-orange"
             onClick={(event) => {
-              if (getFolder && !getSubFolder) {
-                handleRename(rename, isDropdownOpenid?._id); // Agar getFolder exist kare to yeh chale
-              } else if (getSubFolder) {
+              if (getSubFolder) {
+                console.log('-2')
                 handleRenameFolder(rename, subfolderid); // Agar getSubFolder exist kare to yeh chale
+              } else {
+                handleRename(rename, isDropdownOpenid?._id); // Agar getFolder exist kare to yeh chale
+                console.log('3-test')
               }
               handleClose7(); // Modal ya dropdown close kare
               setRenameModel(false); // Modal ko close kare

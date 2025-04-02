@@ -81,7 +81,11 @@ function VideoDetails({
   handleLikeReview,
    handleDislikeReview,
     handleReplayPost,
-  getTest,handleTestPdf,TestRegenrate
+  getTest,
+  handleTestPdf,
+  TestRegenrate,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -783,6 +787,8 @@ function VideoDetails({
         color={color}
         handleSaveVideo={handleSaveVideo}
         handle_show_delete={handleShow6}
+        handleSaveVideonext={handleSaveVideonext}
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
       />
       {/* New folder Modal start */}
       {/* <Modal
