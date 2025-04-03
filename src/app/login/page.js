@@ -10,6 +10,19 @@ import toast, { Toaster } from "react-hot-toast";
 function PageComponent() {
     const router = useRouter(); 
     const {setLoader} = UseLoader()
+
+    const handleUserInfo = async () => {
+       
+        try {
+            const result = await AuthService.userInfo();
+            
+            if (result?.success) {
+                
+                localStorage.setItem( 'firstName', result?.data?.firstName);
+            }
+        } catch (error) {
+        }
+    };
     const handleLogIn = async( data) => {
         // (data,"this the data")
         setLoader(true);
@@ -24,6 +37,7 @@ function PageComponent() {
                     className: "custom-toast-success", 
                 });
                 localStorage.setItem( 'token', result?.data?.token);
+                handleUserInfo();
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 // (result?.data?.token,"this the value")
                 // AsyncStorage.setItem('interest', isInterestValue);

@@ -334,7 +334,7 @@ export default function PageComponent() {
   };
   const getInterestFromStorage = () => {
     const value = localStorage.getItem("interest");
-    // (value)
+    // console.log(value, "interest22"),
     setInterest(value);
   };
   const handleInterestFilter = async (
@@ -358,6 +358,7 @@ export default function PageComponent() {
         // setLoader(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+        console.log(isInterestValue,"isInterestValue")
         localStorage.setItem("interest", isInterestValue);
         handleSaveIntrest();
         getInterestFromStorage();

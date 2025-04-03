@@ -322,7 +322,7 @@ function CategoriesCard({ watchHistoryData }) {
       </Modal>
 
       {watchHistoryData &&
-        Array.isArray(watchHistoryData) &&
+        Array.isArray(watchHistoryData) && watchHistoryData.length > 0 ? (
         watchHistoryData.map((item, index) => (
           <div className="categories-card" key={(item, index)}>
             <div className="row">
@@ -480,7 +480,10 @@ function CategoriesCard({ watchHistoryData }) {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="no-search"><span>Stay tuned!</span> We are working on finding you the best fitting materials.</p>
+      )}
     </>
   );
 }
