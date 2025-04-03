@@ -85,7 +85,6 @@ console.log(id,"idvideo--")
   const handlegetVideoRequest = async () => {
     try {
       const result = await AuthService.getVideoRequest(id);
-      console.log(result,"result---")
       if (result?.success) {
         setgetVideoRequestData(result?.data?.data);
       } else {

@@ -818,15 +818,12 @@ const AuthService = {
   },
 
   RenameSubFolder: async (id, rename, SubId) => {
-    console.log("getSubFolderIn AuthServices---")
     const token = await localStorage.getItem("token");
     const { authBaseUrl, renameSubFolder } = ApiConfig;
     const url = authBaseUrl + renameSubFolder + id + "/" + SubId?._id;
-    console.log(url,"url--")
     const params = {
       subfolderName: rename,
     }
-    console.log(params,"params----")
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -879,7 +876,6 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
   SaveSubFolderVideo: async (postId,selectSubFolder,selectFolder) => {
-    console.log("saveSubFolderVideo in AuthService---",postId,selectSubFolder,selectFolder)
     const token = await localStorage.getItem("token");
     const { authBaseUrl, saveSubFolderVideo } = ApiConfig;
     const url = authBaseUrl + saveSubFolderVideo + "/" + selectFolder;
@@ -889,7 +885,6 @@ const AuthService = {
       postId: postId,
     }
 
-    console.log("saveSubFolderVideo in parems", params,)
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -965,7 +960,6 @@ const AuthService = {
   },
 
   getVideoRequest: async (id) => {
-    console.log(id,"id-test")
     const token = await localStorage.getItem("token");
     const { authBaseUrl, getVideoInRequest } = ApiConfig;
     const url = authBaseUrl + getVideoInRequest + id;
