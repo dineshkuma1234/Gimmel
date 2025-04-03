@@ -204,7 +204,7 @@ function VideoDetails({
 
   const [active, setActive] = useState(null);
   const [subfolderid, setsubfolderid] = useState(null);
-
+const [inerFolder, setinerFolder] = useState()
   const handleNavigateSave = (item) => {
     // ('_id', _id)
     setSelectedFolderId(item?._id);
@@ -212,7 +212,7 @@ function VideoDetails({
     setSubfolderView(true);
     setActive(item?._id);
     setsubfolderid(item?._id);
-
+    setinerFolder(item?._id)
     // handleCreateFolderSub(addnewFolder);
     handleGetFolderSub(item?._id)
   };
@@ -789,6 +789,7 @@ function VideoDetails({
         handle_show_delete={handleShow6}
         handleSaveVideonext={handleSaveVideonext}
         handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+        inerFolder={inerFolder}
       />
       {/* New folder Modal start */}
       {/* <Modal

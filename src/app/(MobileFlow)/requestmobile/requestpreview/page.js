@@ -19,22 +19,33 @@ function RequestPreview() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [selectedIndex, setSelectedIndex] = useState(null);
-
-  const handleRadioChange = (index) => {
-    setSelectedIndex(index);
+  const [selectedIndex, setSelectedIndex] = useState([]);
+console.log(selectedIndex,"selectedIndex------twst")
+  const handleRadioChange = (index,item) => {
+    setSelectedIndex((prevSelected) =>
+      prevSelected.includes(item._id)
+        ? prevSelected.filter((item) => item !== item._id) // Agar pehle se hai, hatao
+        : [...prevSelected, item?._id] // Nahi hai toh add karo
+    );
     setSelectedItems(getVideoRequestData[index]._id);
   };
 
   const {
+    description,
+    avoidedDetails,
+    addDetails,
     getVideoRequestData,
     handlegetVideoRequest,
     selectedItems,
+    yourRequest,
     setSelectedItems,
     handleRequestList,
     requestListData,
     handleRequestSaveVideo,
   } = useRequestContext();
+console.log('getVideoRequestData":OP:O', yourRequest)
+// console.log('avoidedDetails', avoidedDetails)
+// console.log('addDetails', addDetails)
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -89,8 +100,9 @@ function RequestPreview() {
               {getVideoRequestData.map((item, index) => (
                 <div
                   key={item._id}
+
                   className={`video-item-request ${
-                    selectedIndex === index ? "active" : ""
+                    selectedIndex?.includes (index) ? "active" : ""
                   }`}
                 >
                   <div className="video-item-request-left">
@@ -114,12 +126,12 @@ function RequestPreview() {
                       </div>
                       <div className="check-button">
                         <Form.Check
-                          type="radio"
+                          type="checkbox"
                           className="check-icon"
                           id={`check-icon-${index}`}
                           name="video-selection"
-                          checked={selectedIndex === index}
-                          onChange={() => handleRadioChange(index)}
+                          checked={selectedIndex?.includes(item._id)}
+                          onChange={() => handleRadioChange(index, item)}
                         />
                       </div>
                     </div>
@@ -134,7 +146,7 @@ function RequestPreview() {
                 data-bs-dismiss="modal"
                 onClick={() => {
                   handleClose();
-                  handleRequestSaveVideo();
+                  handleRequestSaveVideo(selectedIndex);
                 }}
               >
                 Send Selected
@@ -176,7 +188,7 @@ function RequestPreview() {
                 </button>
               </div>
               <div className="page-title w-90">
-                <h5>Understanding and Managing Anxiety in Teenagers</h5>
+                <h5>{yourRequest?.title}</h5>
               </div>
             </div>
           </div>
@@ -347,15 +359,7 @@ function RequestPreview() {
                   type="text"
                   placeholder=""
                   value={
-                    requestListData?.[0]?.createdAt
-                      ? new Date(requestListData?.[0]?.createdAt)
-                          .toLocaleDateString("en-US", {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                          })
-                          .replace(/\//g, ".")
-                      : ""
+                    yourRequest?.createdAt
                   }
                   readOnly
                 />
@@ -369,7 +373,7 @@ function RequestPreview() {
                   as="textarea"
                   placeholder=""
                   className="height-96"
-                  value={requestListData?.[0]?.description}
+                  value={yourRequest?.description}
                 />
               </Form.Group>
               <Form.Group
@@ -381,7 +385,7 @@ function RequestPreview() {
                   as="textarea"
                   placeholder=""
                   className="height-96"
-                  value={requestListData?.[0]?.avoidedDetails}
+                  value={yourRequest?.avoidedDetails}
                 />
               </Form.Group>
               <Form.Group className="" controlId="exampleForm.ControlInput4">
@@ -390,7 +394,7 @@ function RequestPreview() {
                   as="textarea"
                   placeholder=""
                   className="height-96"
-                  value={requestListData?.[0]?.addDetails}
+                  value={yourRequest?.addDetails}
                 />
               </Form.Group>
             </Form>

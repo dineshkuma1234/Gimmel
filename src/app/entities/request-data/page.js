@@ -124,11 +124,14 @@ console.log(getVideoRequestData,"getVideoRequestData")
     { id: 5, text: "Homework assignments", value: "homeworkAssignments" },
   ];
 
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState([]);
   const handleActiveChange = (id) => {
-    setActiveItem((prev) => (prev === id ? null : id));
-    setSelectedItems(id);
-  };
+    setActiveItem((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((item) => item !== id) // Remove if already selected
+        : [...prevSelected, id] // Add if not selected
+    );    setSelectedItems(id);
+  };  
 
   const [currentStep, setCurrentStep] = useState(1); // Step 1 is active by default
 
@@ -519,7 +522,7 @@ console.log(getVideoRequestData,"getVideoRequestData")
                           }
                         >
                           <div className="d-flex align-items-center">
-                              <BiSolidBellRing className="bell-icon" />
+                              {request?.isNotified && <BiSolidBellRing className="bell-icon d-flex align-items-center" />}
                               <span
                                 className="notification-title"
                                 onClick={() => {
@@ -527,7 +530,8 @@ console.log(getVideoRequestData,"getVideoRequestData")
                                   setId(request?._id)
                                 }}
                               >
-                                {request?.title} 
+  
+                              {request?.title}
                               </span>
                               </div>
 
@@ -879,13 +883,13 @@ console.log(getVideoRequestData,"getVideoRequestData")
                                                         <div className="button-right-side">
                                                           <div className="check-button">
                                                             <Form.Check
-                                                              type="radio"
+                                                              type="checkbox"
                                                               className="check-icon"
                                                               id={`check-icon-${video._id}`}
                                                               name="video-selection"
                                                               checked={
-                                                                activeItem ===
-                                                                video._id
+                                                                activeItem.includes
+                                                                (video._id)
                                                               }
                                                               onChange={() =>
                                                                 handleActiveChange(
@@ -944,7 +948,9 @@ console.log(getVideoRequestData,"getVideoRequestData")
                                         className="request-data-overview-container"
                                         id="step-2"
                                       >
-                                        {getVideoRequestData.map((video) => (
+                                         {getVideoRequestData
+                                        .filter((video) => activeItem.includes(video._id)) // ✅ Sirf selected videos show karna
+                                        .map((video) => (
                                           <div className="bg-white">
                                             <div className="row align-items-center">
                                               <div className="col-6">

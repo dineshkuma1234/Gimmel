@@ -14,11 +14,14 @@ export const RequestProvider = ({ children }) => {
   const [requestListData, setRequestListData] = useState([]);
   const [getVideoRequestData, setgetVideoRequestData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const id = requestListData?.[0]?._id;
+  const [id ,setId] = useState()
+console.log(id,"id")
+console.log(selectedItems,"selectedItems}{}{}{}{}{}{}")
+console.log(requestListData,"requestListData------------")
 
   useEffect(() => {
     handleRequestList();
-    // handlegetVideoRequest()
+    handlegetVideoRequest()
   }, []);
   const handleCreateRequest = async (
     yourRequest,
@@ -33,6 +36,7 @@ export const RequestProvider = ({ children }) => {
         avoided,
         details
       );
+      console.log('result', result)
       if (result?.success) {
         handleRequestList();
       } else {
@@ -43,10 +47,11 @@ export const RequestProvider = ({ children }) => {
   const handleRequestList = async () => {
     try {
       const result = await AuthService.RequestList();
+      console.log('resultjdhdhdhddhdh', result)
       if (result?.success) {
         setRequestListData(result?.data?.data);
       } else {
-        AlertHelper.show("danger", "Gimmel", result?.message);
+        // AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {}
   };
@@ -54,6 +59,7 @@ export const RequestProvider = ({ children }) => {
   const handlegetVideoRequest = async () => {
     try {
       const result = await AuthService.getVideoRequest(id);
+      console.log(id,"result+++++++")
       if (result?.success) {
         setgetVideoRequestData(result?.data?.data);
       } else {
@@ -65,14 +71,17 @@ export const RequestProvider = ({ children }) => {
       );
     }
   };
-  const handleRequestSaveVideo = async () => {
+  const handleRequestSaveVideo = async (selectedItems) => {
     try {
       const result = await AuthService.RequestSaveVideo(selectedItems, id);
+      console.log(result,"result-save")
       if (result?.success) {
       } else {
       }
     } catch (error) {}
   };
+
+ 
 
   return (
     <RequestContext.Provider
@@ -95,12 +104,15 @@ export const RequestProvider = ({ children }) => {
         getVideoRequestData,
         handlegetVideoRequest,
         handleRequestSaveVideo,
+        setId
       }}
     >
       {children}
     </RequestContext.Provider>
   );
 };
+
+
 
 // Custom Hook to use Context
 export const useRequestContext = () => {

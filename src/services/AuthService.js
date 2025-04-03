@@ -965,6 +965,7 @@ const AuthService = {
   },
 
   getVideoRequest: async (id) => {
+    console.log(id,"id-test")
     const token = await localStorage.getItem("token");
     const { authBaseUrl, getVideoInRequest } = ApiConfig;
     const url = authBaseUrl + getVideoInRequest + id;

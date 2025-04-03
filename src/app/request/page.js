@@ -139,12 +139,7 @@ console.log(id,"idvideo--")
         />
       ) : (
         <>
-          <AddRequest
-            yourRequest={yourRequest}
-            description={discription}
-            avoided={avoided}
-            details={details}
-          />
+          <AddRequest/>
           {/* <RequestOverview yourRequest={yourRequest} description={discription} avoided={avoided} details={details} handleCreateRequest={handleCreateRequest}/> */}
           <RequestSuccess />
           <RequestMobile />

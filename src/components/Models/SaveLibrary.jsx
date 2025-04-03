@@ -33,6 +33,7 @@ function SaveLibraryModal({
   handleSaveVideo,
   handleSaveVideonext,
   handleSaveSubFolderVideo,
+  inerFolder
 }) {
   const [selectSubFolder, setSelectSubFolder] = useState(null);
   const [selectFolder, setSelectFolder] = useState(null);
@@ -193,87 +194,102 @@ function SaveLibraryModal({
                 <>
                   {Array.isArray(getSubFolder) &&
                     getSubFolder?.map((item, index) => (
-                      <div key={index} className="folder-view">
-                        <div
-                          className="folder-inner"
-                          onClick={() => {
-                            {
-                              handleNavigateSave(item);
-                              setSelectSubFolder(item?._id);
-                            }
-                          }}
-                        >
-                          <div className="folder-content-inline">
-                            <div
-                              className="folder-content-left"
+                     <div key={index} className="folder-view">
+                    <div
+                      className="folder-inner"
+                      onClick={() => {
+                        handleNavigateSave(item),
+                          handleSaveVideonext(item?._id),
+                          setSelectFolder(item?._id)
+                      }}
+                    >
+                      <div className="folder-content-inline">
+                        <div className="folder-content-left">
+                          <div className="folder-icon">
+                            <svg
+                              width="32"
+                              height="32"
+                              viewBox="0 0 32 32"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <div className="folder-icon">
-                                <svg
-                                  width="32"
-                                  height="32"
-                                  viewBox="0 0 32 32"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                    fill="#104E5B"
-                                  />
-                                </svg>
-                              </div>
-                              <div
-                                className={`folder-name ${
-                                  active === item._id ? "active" : ""
-                                }`}
+                              <path
+                                d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                fill="#104E5B"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            className={`folder-name ${
+                              active === item._id ? "active" : ""
+                            }`}
+                          >
+                            <p
+                              className=""
+                              onClick={(event) => {
+                                setColor(true);
+                                event.stopPropagation();
+                                handleNavigatename(item);
+                                setRenameModel(true);
+                              }}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="folder-content-right">
+                          <div className="folder-icon">
+                            <div
+                              className="folder-content-right"
+                              ref={dropdownRefnwe}
+                            >
+                              <button
+                                className="folder-icon"
+                                // onClick={() => toggleDropdownnwe(item)} // Use item.id here
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleDropdownnwe(item);
+                                  setRenameModel(true);
+                                }}
                               >
-                                <p className="">{item.name}</p>
-                              </div>
-                            </div>
+                                <MdMoreVert />
+                              </button>
 
-                            <div className="folder-content-right">
-                              <div className="folder-icon">
-                                <div
-                                  className="folder-content-right"
-                                  ref={dropdownRefnwe}
-                                >
-                                  <button
-                                    className="folder-icon"
-                                    onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                  >
-                                    <MdMoreVert />
-                                  </button>
-
-                                  {/* Show the dropdown only if it matches the current item's ID */}
-                                  {isDropdownOpenid?._id === item._id && (
-                                    <div className="dropdown-menu-card">
-                                      <ul>
-                                        <li>
-                                          <button
-                                            variant="primary"
-                                            onClick={ handleShow()}
-                                          >
-                                            <TbEdit />
-                                            Rename
-                                          </button>
-                                        </li>
-                                        <li className="hide_mobile">
-                                          <button
-                                            variant="primary"
-                                            onClick={handle_show_delete}
-                                          >
-                                            <MdDeleteOutline />
-                                            Delete
-                                          </button>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  )}
+                              {/* Show the dropdown only if it matches the current item's ID */}
+                              {isDropdownOpenid?._id === item._id && (
+                                <div className="dropdown-menu-card">
+                                  <ul>
+                                    <li>
+                                      <button
+                                        variant="primary"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          handleShow();
+                                        }}
+                                      >
+                                        <TbEdit />
+                                        Rename
+                                      </button>
+                                    </li>
+                                    <li className="hide_mobile">
+                                      <button
+                                        variant="primary"
+                                        onClick={handle_show_delete}
+                                      >
+                                        <MdDeleteOutline />
+                                        Delete
+                                      </button>
+                                    </li>
+                                  </ul>
                                 </div>
-                              </div>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
                     ))}
                   {Array.isArray(getSaveVideo) &&
                     getSaveVideo.map((item, index) => (
@@ -322,6 +338,7 @@ function SaveLibraryModal({
               ) : null}
             </div>
 
+ 
             <div className="add-new-folder">
               <button
                 type="button"

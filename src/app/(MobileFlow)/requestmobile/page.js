@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRequestContext } from "@/app/Context/request/page";
 
 const RequestMobile = () => {
-  const { handlegetVideoRequest, requestListData } = useRequestContext();
+  const { handlegetVideoRequest, requestListData , setId,setYourRequest } = useRequestContext();
 
   return (
     <div
@@ -39,22 +39,28 @@ const RequestMobile = () => {
       <div className="page-main-section top-space-request">
         <div className="custom-container">
           {requestListData.map((request, index) => (
-            <div key={index} className="request-list">
+            <div key={index} className="request-list" onClick={() => setYourRequest(request)}
+            >
               <Link
                 href="/requestmobile/requestpreview"
                 className="request-link"
               >
                 <div
-                  className="request-item active"
-                  onClick={() => handlegetVideoRequest()}
+                  // className="request-item active "
+                  className={
+                    request?.isNotified === true ? "request-item active" : "request-item "
+                  }
+                  onClick={() => {handlegetVideoRequest();  setId(request?._id)}}
                 >
                   <div className="request-title">
                     <h5>{request?.title}</h5>
                     <div className="action-notification">
+                    {request?.isNotified && 
                       <Image
                         src={require("../../../assets/images/notifications_active.svg")}
                         alt="notification"
                       />
+                    }
                     </div>
                   </div>
                   <div className="request-date">

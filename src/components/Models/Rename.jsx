@@ -58,10 +58,6 @@ const RenameModel = ({
     // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.RenameSubFolder(id,rename,SubId);
-      console.log(id,"id")
-      console.log(rename,"rename")
-      console.log(SubId,"SubId")
-
       console.log(result,'result---');
       if (result?.success) {
         // LoaderHelper.loaderStatus(false);
