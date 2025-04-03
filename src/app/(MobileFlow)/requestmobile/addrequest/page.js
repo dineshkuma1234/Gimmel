@@ -15,6 +15,10 @@ function AddRequest() {
     details,
     setDetails,
   } = useRequestContext();
+console.log('yourRequest', yourRequest)
+console.log('discription', discription)
+console.log('avoided', avoided)
+console.log('details', details)
 
   const maxWords = 60;
   const handleTextChange = (value) => {

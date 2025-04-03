@@ -1710,7 +1710,7 @@ a.see-all {
 
 .request-item {
   background-color: #F3F6F7;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #104E5B;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
@@ -1763,6 +1763,7 @@ a.see-all {
 .request-item.active .action-notification {
   display: block;
 }
+
 
 .btn-bottom {
   width: 100%;

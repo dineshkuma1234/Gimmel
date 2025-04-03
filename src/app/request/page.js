@@ -85,7 +85,6 @@ console.log(id,"idvideo--")
   const handlegetVideoRequest = async () => {
     try {
       const result = await AuthService.getVideoRequest(id);
-      console.log(result,"result---")
       if (result?.success) {
         setgetVideoRequestData(result?.data?.data);
       } else {
@@ -139,12 +138,7 @@ console.log(id,"idvideo--")
         />
       ) : (
         <>
-          <AddRequest
-            yourRequest={yourRequest}
-            description={discription}
-            avoided={avoided}
-            details={details}
-          />
+          <AddRequest/>
           {/* <RequestOverview yourRequest={yourRequest} description={discription} avoided={avoided} details={details} handleCreateRequest={handleCreateRequest}/> */}
           <RequestSuccess />
           <RequestMobile />

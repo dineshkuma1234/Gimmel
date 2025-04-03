@@ -1,4 +1,9 @@
-const authBaseUrl = 'https://api.gimmel.one/';
+const authBaseUrl = window.location.hostname === "localhost"
+  ? "https://api.gimmel.one/"  // Local URL
+  : "https://gimmeldevelop.netlify.app/";  // Live URL
+
+console.log("Using Auth Base URL:", authBaseUrl);
+
 
 
 export const ApiConfig = {

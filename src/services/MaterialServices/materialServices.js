@@ -7,7 +7,6 @@
 //     const token =  localStorage.getItem('token');
 //     const { authBaseUrl, materialQuestion } = ApiConfig;
 //     const url = authBaseUrl + materialQuestion[type] + id;
-//     // console.log(url,token,"url---")
 //     const params = {};
 //     const headers = {
 //       'Content-Type': 'application/json',
@@ -21,7 +20,6 @@
 //     const token =  localStorage.getItem('token');
 //     const { authBaseUrl, regenerate } = ApiConfig;
 //     const url = authBaseUrl + regenerate[type] + id;
-//     console.log(url,token,"url---")
 //     const params = {};
 //     const headers = {
 //       'Content-Type': 'application/json',
