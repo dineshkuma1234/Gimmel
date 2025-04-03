@@ -36,10 +36,10 @@ const options = [
                         </div> */}
                         <div className='body-top'>
                             <div className='body-top-left mt-3'>
-                                <div className='short-by'>
+                                {/* <div className='short-by'>
                                     <p>Sort by</p>
                                     <Select options={options} />
-                                </div>
+                                </div> */}
                             </div>
                             <div className='body-top-right'>
                                 <div className='view-type'>
