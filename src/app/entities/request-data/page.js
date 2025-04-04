@@ -15,6 +15,7 @@ import { BiSolidBellRing } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import loaderImage from "../../../assets/images/loder_img.svg";
+import { formatDuration } from "../../utils/monthsAgo/page";
 
 function RequestData({
   handleCreateRequest,
@@ -929,7 +930,8 @@ function RequestData({
                                                           layout="intrinsic"
                                                         />
                                                         <div className="video-duration">
-                                                          {video.duration}
+                                                           {formatDuration(video?.duration)}
+                                                          
                                                         </div>
                                                       </div>
                                                       <div className="de-title">
@@ -981,7 +983,7 @@ function RequestData({
                                                     layout="intrinsic"
                                                   />
                                                   <div className="video-duration">
-                                                    {video?.duration}
+                                                  {formatDuration(video?.duration)}
                                                   </div>
                                                 </div>
                                               </div>

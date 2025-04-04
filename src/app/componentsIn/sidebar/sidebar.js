@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdAddCircleOutline } from "react-icons/md";
 import Form from 'react-bootstrap/Form';
 import { Modal } from 'react-bootstrap';
@@ -98,6 +98,12 @@ function Sidebar() {
         handleSearchCont(headerSearch,"","","","","","","","",audience);
     };
 
+    const [isSearchListPage, setIsSearchListPage] = useState(false);
+
+    useEffect(() => {
+      setIsSearchListPage(window.location.pathname.includes("searchlist"));
+    }, []);
+  
 
     return (
         <>
@@ -120,23 +126,28 @@ function Sidebar() {
                     </div>
                 </Modal.Body>
             </Modal>
-{/* 
-            <div className="search-bar-">
-                <input
-                    type="text"
-                    placeholder="Search in library"
-                    className="search-input-bar"
-                />
-            </div>
-            <div className='add-folder'>
-                <button
-                    type="button"
-                    className="btn btn-new-folder"
-                    onClick={handleShow}
-                >
-                    <MdAddCircleOutline /> New Folder
-                </button>
-            </div> */}
+
+            {!isSearchListPage && (
+        <>
+          <div className="search-bar-">
+            <input
+              type="text"
+              placeholder="Search in library"
+              className="search-input-bar"
+            />
+          </div>
+
+          <div className="add-folder">
+            <button
+              type="button"
+              className="btn btn-new-folder"
+              onClick={handleShow}
+            >
+              <MdAddCircleOutline /> New Folder
+            </button>
+          </div>
+        </>
+      )}
             
             <div className="middle-sidebar">
                 <div className="switch-container">

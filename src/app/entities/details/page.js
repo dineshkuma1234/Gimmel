@@ -1066,11 +1066,14 @@ const [inerFolder, setinerFolder] = useState()
                       </li>
                     </ul>
                   </div>
-                  <div className="video-description">
+                  <div className={`video-description `}>
                     <p  className={showMore ? "full-text" : "truncated-text"}>
                       {data?.description}
+                      
+                      </p>
 
                       <span className="view-more">
+                      {!showMore && (  
                         <button
                           className="btn btn-view"
                           onClick={() => {
@@ -1078,12 +1081,13 @@ const [inerFolder, setinerFolder] = useState()
                               "none";
                             document.querySelector(".view-less").style.display =
                               "block";
+                              setShowMore(true)
                           }}
                         >
                           ...more
                         </button>
+                          )}
                       </span>
-                    </p>
 
                     <div className="view-less" style={{ display: "none" }}>
                       <div className="account-info-container">
@@ -1165,6 +1169,7 @@ const [inerFolder, setinerFolder] = useState()
                             "block";
                           document.querySelector(".view-less").style.display =
                             "none";
+                            setShowMore(false)
                         }}
                       >
                         Show less

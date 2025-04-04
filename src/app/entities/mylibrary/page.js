@@ -10,7 +10,7 @@ import { TbEdit } from "react-icons/tb";
 import { Modal, Form } from "react-bootstrap";
 import { FiAlertOctagon } from "react-icons/fi";
 import Image from 'next/image';
-import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo, formatDuration} from "@/app/utils/monthsAgo/page";
 import { useRouter } from "next/navigation";
 function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getSaveVideo,getSubFolder,handleCreateFolderSub,}) {
 
@@ -364,7 +364,10 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                                                         <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                             <div className="video-card-image">
                                                                 <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
-                                                                <div className="video-duration">{item?.duration}</div>
+                                                                <div className="video-duration">
+                                                                    {formatDuration(item?.duration)}
+
+                                                                    </div>
                                                             </div>
                                                         </Link>
                                                          <div className="inline-gap-8">

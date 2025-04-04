@@ -14,6 +14,7 @@ import Link from "next/link";
 import { Form } from "react-bootstrap";
 import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import { useModal } from "@/components/registerpop/page";
+import { formatDuration } from "../../utils/monthsAgo/page";
 
 // const videoData = [
 //     {
@@ -441,7 +442,9 @@ const SliderCategories = ({
                             height={200}
                             objectFit="cover"
                           />
-                          <div className="video-duration">{video.duration}</div>
+                          <div className="video-duration">
+                              {formatDuration(video?.duration)}
+                            </div>
                         </div>
                       </Link>
                       <div className="video-card-detail">

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
+import  { calculateMonthsAgo,formatDuration } from "@/app/utils/monthsAgo/page";
 
 import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "@/components/Models/Delete";
@@ -604,7 +604,9 @@ function Suggested({
                   height={100}
                   alt="video card"
                 />
-                <div className="video-duration">{video?.duration}</div>
+                <div className="video-duration">
+                {formatDuration(video?.duration)}
+                </div>
               </div>
             </Link>
           </div>

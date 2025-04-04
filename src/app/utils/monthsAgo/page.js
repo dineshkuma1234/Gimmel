@@ -46,4 +46,18 @@ function formatTime(timeString) {
     }
 }
 
-export { calculateMonthsAgo,formatTime};
+
+const formatDuration = (duration) => {
+    if (!duration) return ""; 
+
+    let parts = duration.split(":"); 
+
+    
+    if (parts[0] === "00") {
+        parts.shift();
+    }
+
+    return parts.join(":");
+};
+
+export { calculateMonthsAgo,formatTime,formatDuration};

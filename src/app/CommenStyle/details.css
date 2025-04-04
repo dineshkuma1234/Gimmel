@@ -127,6 +127,10 @@ ul.account-info-list li .accout-rating {
     text-transform: capitalize;
     overflow: hidden;
     display: -webkit-box;
+    
+}
+
+.truncated-text {
     -webkit-line-clamp: 3; /* Limits text to 3 lines */
     -webkit-box-orient: vertical;
 }
@@ -370,6 +374,7 @@ ul.account-list li {
 .review-item {
     display: flex;
     gap: 8px;
+    margin-top: 10px;
 }
 
 .review-comment p {

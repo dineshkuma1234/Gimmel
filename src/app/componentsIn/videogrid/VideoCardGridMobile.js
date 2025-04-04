@@ -13,6 +13,7 @@ import { ModalBody, Form, ListGroup } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
+import { formatDuration } from "@/app/utils/monthsAgo/page";
 
 const VideoCard = ({
   video,
@@ -640,7 +641,8 @@ const VideoCard = ({
                             height={150}
                           />
                           <div className="video-duration">
-                            {topicPost.duration}
+                            {formatDuration(topicPost?.duration)}
+
                           </div>
                         </div>
                       </Link>
@@ -670,7 +672,9 @@ const VideoCard = ({
                   width={300}
                   height={150}
                 />
-                <div className="video-duration">{video.duration}</div>
+                <div className="video-duration">
+                {formatDuration(video?.duration)}
+                  </div>
               </div>
             </Link>
             <div className="video-card-detail">

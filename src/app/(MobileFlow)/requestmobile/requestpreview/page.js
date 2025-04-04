@@ -12,6 +12,7 @@ import { useRequestContext } from "@/app/Context/request/page";
 import { FaCaretDown } from "react-icons/fa6";
 import { FaEllipsisV } from "react-icons/fa";
 import Link from "next/link";
+import { formatDuration } from "@/app/utils/monthsAgo/page";
 
 function RequestPreview() {
   const [show, setShow] = React.useState(false);
@@ -81,6 +82,11 @@ console.log('getVideoRequestData":OP:O', yourRequest)
 
   const handleClose7 = () => setShow7(false);
   const handleShow7 = () => setShow7(true);
+
+ 
+
+
+
 
   return (
     <>
@@ -232,7 +238,7 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                                 height={150}
                               />
                               <div className="video-duration">
-                                {video.duration}
+                              {formatDuration(video?.duration)}
                               </div>
                             </div>
                           </Link>

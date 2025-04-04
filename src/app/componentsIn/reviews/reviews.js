@@ -41,11 +41,38 @@ import { Form } from "react-bootstrap";
 //     },
 // ];
 
-function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeReview, handleReplayPost,}) {
+function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeReview, handleReplayPost,comment}) {
     const [commentText, setCommentText] = useState("");
     // const [reply, setReply] = useState('');
   const { openModal,setIsOpen } = useModal(); 
 
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [likes, setLikes] = useState(comment?.likes || 0);
+  const [dislikes, setDislikes] = useState(comment?.dislikes || 0);
+
+  const handleLike = () => {
+    if (!liked) {
+      setLikes(likes + 1);
+      setLiked(true);
+      if (disliked) {
+        setDislikes(dislikes - 1);
+        setDisliked(false);
+      }
+    }
+  };
+
+  const handleDislike = () => {
+    if (!disliked) {
+      setDislikes(dislikes + 1);
+      setDisliked(true);
+      if (liked) {
+        setLikes(likes - 1);
+        setLiked(false);
+      }
+      handleDislikeReview(comment?._id);
+    }
+  };
 
     return (
         <>
@@ -65,6 +92,7 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                                   onKeyDown={(e) => {
                                       if (e.key === "Enter") {
                                         handleSendComment(commentText, getReview[0]?._id); 
+                                        setCommentText('')
                                       }
                                     }}
 
@@ -96,13 +124,27 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                                         <p>{comment?.content}</p>
                                     </div>
                                     <div className="review-btn">
-                                        <button className="btn like-btn" onClick={()=>{handleLikeReview(comment?._id)}}>
-                                            <Image src={require("../../../assets/images/thumb_up.svg")} alt="Like Icon" />
-                                            {comment?.likes}
+                                    <button
+                                            className={`btn like-btn ${liked ? "active" : ""}`}
+                                            onClick={()=>{handleLike();handleLikeReview(comment?._id);
+                                            }}
+                                        >
+                                            <Image
+                                            src={require("../../../assets/images/thumb_up.svg")}
+                                            alt="Like Icon"
+                                            />
+                                            {likes}
                                         </button>
-                                        <button className="btn dislike-btn" onClick={()=>{handleDislikeReview(comment?._id)}}>
-                                            <Image src={require("../../../assets/images/thumb_down.svg")} alt="Dislike Icon" />
-                                            {comment?.dislikes}
+
+                                        <button
+                                            className={`btn dislike-btn ${disliked ? "active" : ""}`}
+                                            onClick={()=>{handleDislike();handleDislikeReview(comment?._id)}}
+                                        >
+                                            <Image
+                                            src={require("../../../assets/images/thumb_down.svg")}
+                                            alt="Dislike Icon"
+                                            />
+                                            {dislikes}
                                         </button>
                                         <button className="btn reply-btn">
                                             <Image src={require("../../../assets/images/reply.svg")} alt="Reply Icon" />

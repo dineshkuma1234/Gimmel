@@ -12,9 +12,10 @@ export const ModalProvider = ({ children }) => {
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
+  const [Registeremail, setRegisteremail] = useState("");
+  console.log('Registeremail', Registeremail)
   return (
-    <ModalContext.Provider value={{ isOpen, openModal, closeModal,setIsOpen }}>
+    <ModalContext.Provider value={{ isOpen, openModal, closeModal,setIsOpen,Registeremail }}>
       {children}
       <Modal
         show={isOpen}
@@ -31,7 +32,8 @@ export const ModalProvider = ({ children }) => {
             free now to build a personal library and access several other
             features.
           </p>
-          <input type="email" placeholder="Email" className="modal-input" />
+          <input type="Registeremail" placeholder="Registeremail" className="modal-input"value={Registeremail} 
+                onChange={(e) => setRegisteremail(e.target.value)} />
           <Button className="btn-orange-header mb-3" onClick={closeModal}>
             <Link href="/signup" className="">Continue Registration</Link>
           </Button>

@@ -7,6 +7,7 @@ import {
 import Modal from "react-bootstrap/Modal";
 import Image from "next/image";
 import { TbEdit } from "react-icons/tb";
+import { formatDuration } from "@/app/utils/monthsAgo/page";
 
 function SaveLibraryModal({
   show_modal,
@@ -304,7 +305,8 @@ function SaveLibraryModal({
                               height={200}
                             />
                             <div className="video-duration">
-                              {item?.duration}
+                              {formatDuration(item?.duration)}
+
                             </div>
                           </div>
                           {/* </Link> */}
