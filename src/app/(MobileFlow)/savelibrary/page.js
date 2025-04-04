@@ -10,7 +10,7 @@ import { Form } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
 import { FiAlertOctagon } from "react-icons/fi";
-import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
 
 function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
 (getSaveVideo,"getSaveVideo+++++++++++")

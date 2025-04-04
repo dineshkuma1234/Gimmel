@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
 
 import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "@/components/Models/Delete";

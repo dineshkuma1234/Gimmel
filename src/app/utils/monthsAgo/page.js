@@ -1,3 +1,4 @@
+"use client"
 const calculateMonthsAgo = (createdAt) => {
     if (!createdAt) {
         return 'Invalid date';

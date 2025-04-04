@@ -26,7 +26,7 @@ import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
 import { type } from "os";
-import calculateMonthsAgo from "../../utils/monthsAgo/page";
+import {calculateMonthsAgo} from "../../utils/monthsAgo/page";
 import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "../../../components/Models/Delete";
 import SaveLibraryModal from "../../../components/Models/SaveLibrary";

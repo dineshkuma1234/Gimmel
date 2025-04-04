@@ -17,7 +17,7 @@ import { VideoDetailsContext } from "../../Context/VideoDetails/videoDetailsCont
 import { useRouter } from "next/navigation";
 import { FiAlertOctagon } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
-import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
 import RenameModel from "../../../components/Models/Rename";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import DeleteModel from "@/components/Models/Delete";
