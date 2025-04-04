@@ -7,6 +7,7 @@ import {useForm} from "../../../hooks/useForm";
 import { signUpData } from "../../../Constants/dummyData";
 import { register } from "../../../helper/Validation";
 import GooglesignupButton from "./googelsignup"
+import { useModal } from "@/components/registerpop/page";
 
 const Signup = ({handleSignUp}) => {
 
@@ -45,6 +46,7 @@ const Signup = ({handleSignUp}) => {
         date
     } = state;
 // (firstName,"this the f-----")
+    const { openModal,setIsOpen,Registeremail } = useModal(); 
     return (
         <>
             <div className="page-top-bar show_mobile">
@@ -121,7 +123,7 @@ const Signup = ({handleSignUp}) => {
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="email">Email address*</label>
-                                                    <input type="email" name="email" className={`form-control ${email?.error?'is-invalid':''}` } id="email" placeholder="" value={email.value} onFocus={() => handleFocus('email', true)}  onBlur={() => handleFocus('email', false)} onChange={(e)=>handleChange('email',e.target.value,null,'e-mailaddress')} />
+                                                    <input type="email" name="email" className={`form-control ${email?.error?'is-invalid':''}` } id="email" placeholder="" value={Registeremail} onFocus={() => handleFocus('email', true)}  onBlur={() => handleFocus('email', false)} onChange={(e)=>handleChange('email',e.target.value,null,'e-mailaddress')} />
                                                     {email?.error && <div className="invalid-feedback">{email.error}</div>}
                                                 </div>
                                             </div>

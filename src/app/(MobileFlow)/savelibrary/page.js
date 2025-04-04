@@ -10,7 +10,7 @@ import { Form } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import '../../CommenStyle/details.css';
 import { FiAlertOctagon } from "react-icons/fi";
-import calculateMonthsAgo from "@/app/utils/monthsAgo/page";
+import {calculateMonthsAgo, formatDuration} from "@/app/utils/monthsAgo/page";
 
 function SaveLibrary({handleCreateFolder,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getFolder,getSaveVideo,getSubFolder,handleCreateFolderSub,handleGetFolderSub}) {
 (getSaveVideo,"getSaveVideo+++++++++++")
@@ -417,7 +417,10 @@ getFolder.map((item, index) => (
          {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
              <div className="video-card-image">
                  <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
-                 <div className="video-duration">{item?.duration}</div>
+                 <div className="video-duration">
+                 {formatDuration(item?.duration)}
+                    
+                    </div>
              </div>
          {/* </Link> */}
           <div className="inline-gap-8">

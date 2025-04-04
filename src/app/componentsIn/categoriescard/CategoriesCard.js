@@ -16,6 +16,7 @@ import { Form } from "react-bootstrap";
 import { FiAlertOctagon } from "react-icons/fi";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import { useModal } from "@/components/registerpop/page";
+import { formatDuration } from "@/app/utils/monthsAgo/page";
 
 function CategoriesCard({ watchHistoryData }) {
     const { openModal,setIsOpen } = useModal(); 
@@ -335,7 +336,10 @@ function CategoriesCard({ watchHistoryData }) {
                       width={300}
                       height={150}
                     />
-                    <div className="video-duration">{item?.duration}</div>
+                    <div className="video-duration">
+                      {formatDuration(item?.duration)}
+
+                      </div>
                   </div>
                 </Link>
               </div>

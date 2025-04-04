@@ -18,6 +18,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { formatDuration } from '../../utils/monthsAgo/page';
 
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
@@ -583,7 +584,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     <Link href="/videodetails">
                                                         <div className="video-card-image">
                                                             <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
-                                                            <div className="video-duration">{item?.duration}</div>
+                                                            <div className="video-duration">
+                                                            {formatDuration(item?.duration)}
+                                                                
+                                                                </div>
                                                         </div>
                                                     </Link>
                                                     <div className="video-card-detail">
@@ -635,7 +639,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                         <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                             <div className="video-card-image">
                                                                 <Image src={item?.thumbnail} alt="video card" width={300} height={150}/>
-                                                                <div className="video-duration">{item?.duration}</div>
+                                                                <div className="video-duration">
+                                                                       {formatDuration(item?.duration)}
+                                                                    
+                                                                    </div>
                                                             </div>
                                                         </Link>
                                                         <div className="video-card-detail">

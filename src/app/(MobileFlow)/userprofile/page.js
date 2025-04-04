@@ -12,6 +12,7 @@ import { Form, Modal } from 'react-bootstrap';
 import '../../CommenStyle/details.css';
 import { MultiSelect } from "react-multi-select-component";
 import { useEffect, useState } from 'react';
+import { formatDuration } from '../../utils/monthsAgo/page';
 
 function UserProfile({
     profileInfo,
@@ -468,7 +469,9 @@ function UserProfile({
                                                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                     <div className="video-card-image">
                                                         <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
-                                                        <div className="video-duration">{item?.duration}</div>
+                                                        <div className="video-duration">
+                                                            {formatDuration(item?.duration)}
+                                                        </div>
                                                     </div>
                                                 </Link>
                                                 <div className="video-card-detail">
@@ -508,7 +511,9 @@ function UserProfile({
                                                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                     <div className="video-card-image">
                                                         <Image src={item?.thumbnail} alt="video card" width={300} height={150} />
-                                                        <div className="video-duration">{item?.duration}</div>
+                                                        <div className="video-duration">
+                                                        {formatDuration(item?.duration)}
+                                                        </div>
                                                     </div>
                                                 </Link>
                                                 <div className="video-card-detail">
