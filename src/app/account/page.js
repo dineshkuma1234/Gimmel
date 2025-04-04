@@ -5,7 +5,7 @@ import AccountDetails from "../entities/account-details/page";
 import AuthService from "../../services/AuthService";
 import {useIsMobile} from "../../hooks/useIsMobile"
 import UserProfile from "../(MobileFlow)/userprofile/page";
-import { UseLoader } from "../LoderHelper/LoaderHelper"
+import { UseLoader } from "../LoderHelper/context/loaderHelperContext";
 
 function PageComponent() {
     const isMobile = useIsMobile();
@@ -15,7 +15,7 @@ function PageComponent() {
     const [teachingTopic, setTeachingTopic] = useState([])
     const [contentMaturity, setContentMaturity] = useState([])
     const [eduction, setEducation] = useState([])
-    // const {setLoader} = UseLoader()
+    const {setLoader} = UseLoader();
     // ("page load")
     useEffect(()=>{
         handleUserInfo();
@@ -29,150 +29,115 @@ function PageComponent() {
    
     
     const handleUserInfo = async () => {
-        // LoaderHelper.loaderStatus(true);
-        // setLoader(true);
-        // ("object----")
+        setLoader(true);
         try {
             const result = await AuthService.userInfo();
-            // (result,"result----")
             if (result?.success) {
-                // (result?.data, "data")
-                // LoaderHelper.loaderStatus(false);
-                // setLoader(false);
+                setLoader(false);
                 setProfileInfo(result?.data)
-                // const register =result?.data?.isType === true ? '1' : '0'
-                // (result?.data?.isType,"register----");
-                // localStorage.setItem('register', register);
+     
             } else {
-                // setLoader(false);
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
     const handleWatchHistory = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.WatchHistory();
-            // (result, "result----");
-    
-            // if (result?.message === "No videos found in history.") {
-            //     LoaderHelper.loaderStatus(false);
-            //     AlertHelper.show('warning', 'Gimmel', 'No data available');
-            //     return; 
-            // }
     
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setWatchHistoryData(result?.data);
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
     const handleLibraryVideos = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.LibraryVideo();
             if (result?.message === "No videos found in history.") {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('warning', 'Gimmel', 'No data available');
+                setLoader(false);
                 return;
             }
 
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setLibraryVideo(result?.data);
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
     
     const handleTeachingToic = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.Teaching();
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setTeachingTopic(result?.data?.teachTopic)
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
 
     const handleContentmaturity = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.Contentmaturity();
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setContentMaturity(result?.data?.contMaturity)
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
 
     const handleEducationalObjectives = async () => {
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.EducationalObjectives();
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
+                setLoader(false);
                 setEducation(result?.data?.education)
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
     
     const handleEditProfile = async (selected, selected1, selected2, phoneNumber, school, minAge, maxAge) => {
-        // (phoneNumber,"phoneNumber");
-        // LoaderHelper.loaderStatus(true);
+        setLoader(true);
         try {
             const result = await AuthService.editProfile(selected, selected1, selected2, phoneNumber, school, minAge, maxAge, profileInfo);
             // (result, "result")
             if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('success', 'Gimmel', result?.data);
+                setLoader(false);
                 handleUserInfo();
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                setLoader(false);
             }
         } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+            setLoader(false);
         }
     };
-
-    // (contentMaturity,"contentMaturity----");
-    // (libraryVideo,"libraryVideo")
     
     return (
         <>{isMobile ? 

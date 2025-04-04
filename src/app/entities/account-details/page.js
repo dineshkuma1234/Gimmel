@@ -25,6 +25,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const router = useRouter(); 
     const [isYearly, setIsYearly] = useState(false);
 
+    const [error, setError] = useState("");
+    const [error1, setError1] = useState("");
+    const [error2, setError2] = useState("");
+
     const [selected, setSelected] = useState([]);
     const [selected1, setSelected1] = useState([]);
     const [selected2, setSelected2] = useState([]);
@@ -160,6 +164,51 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         </div>
     );
   }
+  
+  
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setSchool(value);
+
+        if (value.length < 2) {
+            setError("At least 2 characters required.");
+        } else {
+            setError("");
+        }
+    };
+
+    const handleChange1 = (e) => {
+        const value = e.target.value;
+
+        if (!/^\d*$/.test(value)) {
+            setError1("Only digits are allowed.");
+        } else if (value.length > 0 && value.length < 8) {
+            setError1("Use at least 8 digits.");
+        } else {
+            setError1("");
+        }
+
+        setPhoneNumber(value);
+    };
+
+    const handleChange2 = (e) => {
+        const value = e.target.value;
+        const ageRangePattern = /^(?:[1-9]|[1-7][0-9]|80)-(?:[1-9]|[1-7][0-9]|80)$/;
+
+        if (!ageRangePattern.test(value)) {
+            setError2("Enter a valid age range (e.g., 20-25).");
+        } else {
+            const [start, end] = value.split("-").map(Number);
+            if (start >= end) {
+                setError2("The first number should be smaller than the second.");
+            } else {
+                setError2("");
+            }
+        }
+
+        setAge(value);
+    };
 
     return (
         <>
@@ -322,7 +371,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Phone number</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" className="light-placeholder" placeholder="+1 (713) 892-5638"   value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} readOnly={!isEditable}/>
+                                                <Form.Control type="text" className="light-placeholder" placeholder="+1 (713) 892-5638"   value={phoneNumber} onChange={handleChange1} readOnly={!isEditable}/>
+                                                {error1 && <span className="error-message">{error1}</span>}
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput3">
@@ -330,7 +380,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>School Name</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text"  className="light-placeholder" placeholder="Enter school name" value={school}  onChange={(e) => setSchool(e.target.value)}readOnly={!isEditable}/>
+                                                <Form.Control type="text"  className="light-placeholder" placeholder="Enter school name" value={school}  onChange={handleChange}readOnly={!isEditable}/>
+                                                {error && <span className="error-message">{error}</span>}
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput4">
@@ -338,7 +389,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Students age</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="text" className="light-placeholder" placeholder="12-18" value={`${age}`} onChange={(e) => { setAge(e?.target?.value) }} readOnly={!isEditable} />
+                                                <Form.Control type="text" className="light-placeholder" placeholder="Enter age range (e.g., 20-25)" value={`${age}`} onChange={handleChange2} readOnly={!isEditable} />
+                                                {error2 && <span className="error-message">{error2}</span>}
                                             </div>
                                         </Form.Group>
                                       
