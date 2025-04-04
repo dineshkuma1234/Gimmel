@@ -14,12 +14,12 @@ function WatchHistoryData({watchHistoryData,title}) {
 
             <main id="main" className="top-space-filter">
                 <div className="category-filter-container">
-                    <div className="sidebar">
+                    {/* <div className="sidebar">
                         <div className="sidebar-inner">
                             <Sidebar />
                         </div>
-                    </div>
-                    <div className='main-container'>
+                    </div> */}
+                    <div className='main-container-save'>
                         <div className="page-main-title-mylibrary">
                             <h3>{title ? "Save Material" : "Watch history"}</h3>
                         </div>

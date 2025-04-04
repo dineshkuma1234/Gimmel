@@ -1,9 +1,12 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { Form } from "react-bootstrap";
 import "../../../entities/request-data/request.css";
-import Link from "next/link";
 import { useRequestContext } from "../../../Context/request/page";
+import { useRouter } from "next/navigation";
+
 function AddRequest() {
   const {
     yourRequest,
@@ -15,11 +18,12 @@ function AddRequest() {
     details,
     setDetails,
   } = useRequestContext();
-console.log('yourRequest', yourRequest)
-console.log('discription', discription)
-console.log('avoided', avoided)
-console.log('details', details)
 
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true); // This ensures the code only runs in the browser
+  }, []);
+  
   const maxWords = 60;
   const handleTextChange = (value) => {
     const inputValue = value.target.value;
@@ -29,7 +33,7 @@ console.log('details', details)
       setDiscription(inputValue);
     }
   };
-
+  const router = useRouter();
   const handleTextAvoid = (value) => {
     const inputValue = value.target.value;
     // Split text into words and check the length
@@ -47,7 +51,11 @@ console.log('details', details)
       setDetails(inputValue);
     }
   };
-
+  const handleBack = () => {
+    if (isClient) {
+      router.back(); // Use Next.js router instead of `window.history.back()`
+    }
+  };
   return (
     <>
       <div
@@ -58,7 +66,7 @@ console.log('details', details)
           <div className="page-inner">
             <div className="page-section-left">
               <div className="back-button">
-                <button className="btn" onClick={() => window.history.back()}>
+                <button className="btn" onClick={() => handleBack()}>
                   <svg
                     width="32"
                     height="32"

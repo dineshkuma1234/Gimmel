@@ -71,24 +71,28 @@ function CategoriesCard({ watchHistoryData }) {
 
   const dropdownRef = useRef(null);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(null);
-
   const toggleDropdownFolder = (folderId) => {
-    setIsDropdownOpen((prev) => (prev === folderId ? null : folderId));
+    setOpenDropdownId((prev) => (prev === folderId ? null : folderId));
   };
 
   const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(null);
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target)
+    ) {
+      setOpenDropdownId(null);
     }
   };
 
   useEffect(() => {
-    window.addEventListener("click", handleClickOutside);
+    setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 100); // Ensure it runs after the click event on button
+
     return () => {
-      window.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [openDropdownId]);
 
   return (
     <>
@@ -175,7 +179,7 @@ function CategoriesCard({ watchHistoryData }) {
                         >
                           <MdMoreVert />
                         </button>
-                        {isDropdownOpen === folder.id && (
+                        {openDropdownId  === folder.id && (
                           <div className="dropdown-menu-card">
                             <ul>
                               <li>
@@ -349,12 +353,13 @@ function CategoriesCard({ watchHistoryData }) {
                     <div className="categories-card__title">
                       <h3>{item?.title}</h3>
                     </div>
-                    <div className="more-btn">
+                    <div className="more-btn" ref={dropdownRef}>
                       <button
                         className="btn btn-more"
                         onClick={() => {
                           toggleDropdown(item?._id);
                           setDisc(item?.description);
+                          
                         }}
                       >
                         <FaEllipsisV />

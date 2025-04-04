@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { sign } from "crypto";
+import pixelImage from "../../assets/images/pixel.svg";
 
 function Success() {
     return (
@@ -14,7 +15,7 @@ function Success() {
                         <div className="left-banner remove-shadow">
                             <div className="left-banner-content">
                                 <div className="banner-image">
-                                    <Image src={require("../../assets/images/pixel.svg")} alt="banner" />
+                                    <Image src={pixelImage} alt="banner" />
                                 </div>
                             </div>
                         </div>

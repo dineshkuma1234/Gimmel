@@ -210,14 +210,14 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                                 10
                             </button> */}
                             <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "9+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action w-50 ${selectedEngagement === "9+" ? "active" : ""}`}
                                 id="list-profile-list"
                                 onClick={() => handleClick1("9+")}
                             >
                                 9+
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "7+" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action w-50 ${selectedEngagement === "7+" ? "active" : ""}`}
                                 id="list-messages-list"
                                 onClick={() => handleClick1("7+")}
                             >
