@@ -202,7 +202,7 @@ console.log(getSaveVideo,"getSaveVideo+++++++++++:LLivnbugnvn")
                             <h3>{subFolderView? subfolderName :`  My Library`}</h3>
                         </div>
                         <div className='body-top'>
-                            <div className='body-top-left mt-3'>
+                            <div className='body-top-left mt-3 mb-3'>
                                 <div className='short-by'>
                                     <p>Sort by</p>
                                     <select name="" id="" className='short-by-select'>

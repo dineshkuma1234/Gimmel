@@ -3,43 +3,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 
-// const reviews = [
-//     {
-//         id: 1,
-//         avatar: "../../../assets/images/user.png",
-//         comment: "The discussion on addiction was incredibly insightful. It helped me understand the complexities behind substance use and its impact on the brain.",
-//         likes: 245,
-//         dislikes: 24,
-//     },
-//     {
-//         id: 2,
-//         avatar: "../../../assets/images/user.png",
-//         comment: "This content really opened my eyes to the effects of addiction.",
-//         likes: 150,
-//         dislikes: 10,
-//     },
-//     {
-//         id: 3,
-//         avatar: "../../../assets/images/user.png",
-//         comment: "The discussion on addiction was incredibly insightful. It helped me understand the complexities behind substance use and its impact on the brain.",
-//         likes: 245,
-//         dislikes: 24,
-//     },
-//     {
-//         id: 4,
-//         avatar: "../../../assets/images/user.png",
-//         comment: "The discussion on addiction was incredibly insightful. It helped me understand the complexities behind substance use and its impact on the brain.",
-//         likes: 245,
-//         dislikes: 24,
-//     },
-//     {
-//         id: 5,
-//         avatar: "../../../assets/images/user.png",
-//         comment: "The discussion on addiction was incredibly insightful. It helped me understand the complexities behind substance use and its impact on the brain.",
-//         likes: 245,
-//         dislikes: 24,
-//     },
-// ];
 
 function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeReview, handleReplayPost,comment}) {
     const [commentText, setCommentText] = useState("");
@@ -58,6 +21,7 @@ const [dislikeCounts, setDislikeCounts] = useState(() => {
     const initialDislikes = comment?.dislikes ?? 0;
     return { [comment?._id]: initialDislikes };
 });
+
 
 const [likedComments, setLikedComments] = useState({});
 const [dislikedComments, setDislikedComments] = useState({});
