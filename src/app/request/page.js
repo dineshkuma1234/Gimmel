@@ -82,7 +82,7 @@ console.log(id,"idvideo--")
     } catch (error) {}
   };
 
-  const handlegetVideoRequest = async () => {
+  const handlegetVideoRequest = async (id) => {
     try {
       const result = await AuthService.getVideoRequest(id);
       if (result?.success) {

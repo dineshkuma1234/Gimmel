@@ -1,5 +1,6 @@
 "use client";
 
+import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import AuthService from "@/services/AuthService";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -17,6 +18,7 @@ export const RequestProvider = ({ children }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [id, setId] = useState(null);
   const [isClient, setIsClient] = useState(false); // Prevent SSR issues
+  const {setLoader} = UseLoader()
 
   useEffect(() => {
     setIsClient(true);
@@ -37,6 +39,7 @@ export const RequestProvider = ({ children }) => {
   }, [isClient, id]);
 
   const handleCreateRequest = async (yourRequest, discription, avoided, details) => {
+    
     try {
       const result = await AuthService.CreateRequest(yourRequest, discription, avoided, details);
       console.log("Create Request Result:", result);
@@ -49,19 +52,31 @@ export const RequestProvider = ({ children }) => {
   };
 
   const handleRequestList = async () => {
+    setLoader(true);
+
     try {
+      setLoader(false);
+
       const result = await AuthService.RequestList();
       console.log("Request List Result:", result);
       if (result?.success) {
+        setLoader(false);
+
         setRequestListData(result?.data?.data);
       }
     } catch (error) {
+      setLoader(false);
+
       console.error("Error fetching request list:", error);
     }
   };
 
-  const handlegetVideoRequest = async () => {
+  const handlegetVideoRequest = async (id) => {
+    setLoader(true);
+
     try {
+      setLoader(false);
+
       if (!id) return; // Ensure `id` is set before calling
       const result = await AuthService.getVideoRequest(id);
       console.log("Video Request Result:", result);
@@ -69,15 +84,23 @@ export const RequestProvider = ({ children }) => {
         setgetVideoRequestData(result?.data?.data);
       }
     } catch (error) {
+      setLoader(false);
+
       console.error("Error fetching videos:", error);
     }
   };
 
   const handleRequestSaveVideo = async (selectedItems) => {
+    setLoader(true);
+    
     try {
+      setLoader(false);
+
       const result = await AuthService.RequestSaveVideo(selectedItems, id);
       console.log("Save Video Result:", result);
     } catch (error) {
+      setLoader(false);
+
       console.error("Error saving video request:", error);
     }
   };

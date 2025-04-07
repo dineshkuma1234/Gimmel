@@ -15,7 +15,7 @@ export const ModalProvider = ({ children }) => {
   const [Registeremail, setRegisteremail] = useState("");
   console.log('Registeremail', Registeremail)
   return (
-    <ModalContext.Provider value={{ isOpen, openModal, closeModal,setIsOpen,Registeremail }}>
+    <ModalContext.Provider value={{ isOpen, openModal, closeModal,setIsOpen,Registeremail,setRegisteremail }}>
       {children}
       <Modal
         show={isOpen}

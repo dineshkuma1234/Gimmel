@@ -13,7 +13,7 @@ import Image from 'next/image';
 import {calculateMonthsAgo, formatDuration} from "@/app/utils/monthsAgo/page";
 import { useRouter } from "next/navigation";
 function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDeleteFolder,handleSaveVideo,setSelectedFolderId,handleRename,rename,setRename,getSaveVideo,getSubFolder,handleCreateFolderSub,}) {
-
+console.log(getSaveVideo,"getSaveVideo+++++++++++:LLivnbugnvn")
     const [show, setShow] = useState(false);
     const router = useRouter(); 
 
@@ -230,7 +230,7 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                                                {/* // doesnt make sense */}
                                            {/* {getSaveVideo === "getFolder"} */}
                        
-                                           {Array.isArray(getFolder) &&!subFolderView ?    
+                                           {Array.isArray(getFolder) &&!subFolderView ?( getFolder.length > 0 ?(    
                                            getFolder.map((item, index) => (
                                                    <div key={index} className='folder-view'>
                                                    <div className='folder-inner' >
@@ -293,7 +293,11 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                                                        
                                                    </div>
                                                    </div>
-                                               )):subFolderView ?
+                                                    ))
+                                                    ) : (
+                                                        <p className="no-search">No folders available</p>
+                                                    )
+                                               ):subFolderView ?
                        <>
                                               { Array.isArray(getSubFolder)&&getSubFolder?.map((item, index) => (
                                                    <div key={index} className='folder-view'>
@@ -358,40 +362,78 @@ function MyLibrary({getFolder,handleCreateFolder,handleGetFolderSub,handleDelete
                                                    </div>
                                                    </div>
                                                ))}
-                                               {Array.isArray(getSaveVideo) && getSaveVideo.map((item, index) => (
-                                                    <div className="video-card-container" key={index}>
-                                                    <div className="video-card-content">
-                                                        <Link href={`/mainHome/${item?._id}/videodetails2`}>
-                                                            <div className="video-card-image">
-                                                                <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
-                                                                <div className="video-duration">
-                                                                    {formatDuration(item?.duration)}
+                                              
+                                               {getSaveVideo &&
+  Array.isArray(getSaveVideo) && getSaveVideo.length > 0 ? (
+    getSaveVideo.map((item, index) => (
+      <div className="categories-card" key={item?._id || index}>
+        <div className="row">
+          <div className="col-md-6">
+            {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
+              <div className="categories-card__thumbnail">
+                <Image
+                  src={item?.thumbnail || item?.thumbnailUrl}
+                  alt="video card"
+                  width={300}
+                  height={150}
+                />
+                <div className="video-duration">
+                  {formatDuration(item?.duration)}
+                </div>
+              </div>
+            {/* </Link> */}
+          </div>
+          <div className="col-md-6">
+            <div className="categories-card__details">
+              <div className="categories-card__title">
+                <h3>{item?.title}</h3>
+              </div>
 
-                                                                    </div>
-                                                            </div>
-                                                        </Link>
-                                                         <div className="inline-gap-8">
-                                                           <div className="video-title">
-                                                           <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link>
-                                                           </div>
-                                                       </div>
-                                                       <div className="bold-text">
-                                                       {item?.channelName}
-                                                       </div>
-                                                       <div className="accout-rating" >
-                                                    <div className="rating-icon align-items-center gap-2 "><Image src={require("../../../assets/images/time.svg")} alt="Rating" /><span>{calculateMonthsAgo(item?.createdAt)}</span>
-                                                    </div>
-                                                    {/* <span>month</span> */}
-                                                </div>
-                                                        <div className="video-card-detail">
-                                                            <div className="video-de-title">
-                                                                <div className="de-title">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               ))}
+              <div className="eng-rating">
+                <div className="rating-icon">
+                  <svg
+                    width="17"
+                    height="16"
+                    viewBox="0 0 17 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clipPath="url(#clip0_4081_18510)">
+                      <path
+                        d="M8.50013 11.3168L9.48346 10.3335H10.8335V8.98346L11.8168 8.00013L10.8335 7.0168V5.6668H9.48346L8.50013 4.68346L7.5168 5.6668H6.1668V7.0168L5.18346 8.00013L6.1668 8.98346V10.3335H7.5168L8.50013 11.3168ZM8.50013 15.5335L6.2668 13.3335H3.1668V10.2335L0.966797 8.00013L3.1668 5.7668V2.6668H6.2668L8.50013 0.466797L10.7335 2.6668H13.8335V5.7668L16.0335 8.00013L13.8335 10.2335V13.3335H10.7335L8.50013 15.5335ZM8.50013 13.6668L10.1668 12.0001H12.5001V9.6668L14.1668 8.00013L12.5001 6.33346V4.00013H10.1668L8.50013 2.33346L6.83346 4.00013H4.50013V6.33346L2.83346 8.00013L4.50013 9.6668V12.0001H6.83346L8.50013 13.6668Z"
+                        fill="#F18D51"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_4081_18510">
+                        <rect
+                          width="16"
+                          height="16"
+                          fill="white"
+                          transform="translate(0.5)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="rating-category">
+                  <span>{item?.engagement}/10</span>
+                </div>
+                <div className="eng-name-category">Engagement Rating</div>
+              </div>
+              <div className="summary-content">
+                      <p>{item?.description}</p>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    ))
+  ) : (
+    <></>
+  )}
+
                                                </>
                                                :null
                                                }
