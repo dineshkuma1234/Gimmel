@@ -48,31 +48,67 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
 
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-  const [likes, setLikes] = useState(comment?.likes || 0);
-  const [dislikes, setDislikes] = useState(comment?.dislikes || 0);
+  const [likeCounts, setLikeCounts] = useState(() => {
+    // Server se likes/dislikes aayein, agar undefined ho to 0 rakhein
+    const initialLikes = comment?.likes ?? 0;
+    return { [comment?._id]: initialLikes };
+});
 
-  const handleLike = () => {
-    if (!liked) {
-      setLikes(likes + 1);
-      setLiked(true);
-      if (disliked) {
-        setDislikes(dislikes - 1);
-        setDisliked(false);
-      }
-    }
-  };
+const [dislikeCounts, setDislikeCounts] = useState(() => {
+    const initialDislikes = comment?.dislikes ?? 0;
+    return { [comment?._id]: initialDislikes };
+});
 
-  const handleDislike = () => {
-    if (!disliked) {
-      setDislikes(dislikes + 1);
-      setDisliked(true);
-      if (liked) {
-        setLikes(likes - 1);
-        setLiked(false);
-      }
-      handleDislikeReview(comment?._id);
-    }
-  };
+const [likedComments, setLikedComments] = useState({});
+const [dislikedComments, setDislikedComments] = useState({});
+
+const handleLike = (commentId) => {
+    setLikedComments((prev) => ({
+        ...prev,
+        [commentId]: !prev[commentId], // Toggle like state
+    }));
+
+    setDislikedComments((prev) => ({
+        ...prev,
+        [commentId]: false, // Ensure dislike is removed
+    }));
+
+    setLikeCounts((prev) => ({
+        ...prev,
+        [commentId]: prev[commentId] ? prev[commentId] + 1 : 1, // Increase count
+    }));
+
+    setDislikeCounts((prev) => ({
+        ...prev,
+        [commentId]: prev[commentId] > 0 ? prev[commentId] - 1 : 0, // Remove dislike if needed
+    }));
+
+    handleLikeReview(commentId); // API call
+};
+
+const handleDislike = (commentId) => {
+    setDislikedComments((prev) => ({
+        ...prev,
+        [commentId]: !prev[commentId], // Toggle dislike state
+    }));
+
+    setLikedComments((prev) => ({
+        ...prev,
+        [commentId]: false, // Ensure like is removed
+    }));
+
+    setDislikeCounts((prev) => ({
+        ...prev,
+        [commentId]: prev[commentId] ? prev[commentId] + 1 : 1, // Increase count
+    }));
+
+    setLikeCounts((prev) => ({
+        ...prev,
+        [commentId]: prev[commentId] > 0 ? prev[commentId] - 1 : 0, // Remove like if needed
+    }));
+
+    handleDislikeReview(commentId); // API call
+};
 
     return (
         <>
@@ -88,7 +124,12 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                             <div className="review-comment">
                                 <Form.Control type="text" placeholder="Write a comment ..." 
                                   value={commentText}
-                                  onChange={(e) => setCommentText(e.target.value)}
+                                  onChange={(e) => {
+                                    const token = localStorage.getItem("token");
+                                    if (token) {
+                                        setCommentText(e.target.value);
+                                    }
+                                }}
                                   onKeyDown={(e) => {
                                       if (e.key === "Enter") {
                                         handleSendComment(commentText, getReview[0]?._id); 
@@ -126,25 +167,25 @@ function Reviews({getReview,handleSendComment, handleLikeReview, handleDislikeRe
                                     <div className="review-btn">
                                     <button
                                             className={`btn like-btn ${liked ? "active" : ""}`}
-                                            onClick={()=>{handleLike();handleLikeReview(comment?._id);
+                                            onClick={()=>{ handleLike(comment?._id);handleLikeReview(comment?._id);
                                             }}
                                         >
                                             <Image
                                             src={require("../../../assets/images/thumb_up.svg")}
                                             alt="Like Icon"
                                             />
-                                            {likes}
+                                              {likeCounts[comment?._id] ?? 0}
                                         </button>
 
                                         <button
                                             className={`btn dislike-btn ${disliked ? "active" : ""}`}
-                                            onClick={()=>{handleDislike();handleDislikeReview(comment?._id)}}
+                                            onClick={()=>{ handleDislike(comment?._id);handleDislikeReview(comment?._id)}}
                                         >
                                             <Image
                                             src={require("../../../assets/images/thumb_down.svg")}
                                             alt="Dislike Icon"
                                             />
-                                            {dislikes}
+                                             {dislikeCounts[comment?._id] ?? 0}
                                         </button>
                                         <button className="btn reply-btn">
                                             <Image src={require("../../../assets/images/reply.svg")} alt="Reply Icon" />
