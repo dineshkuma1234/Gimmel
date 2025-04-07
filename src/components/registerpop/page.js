@@ -13,7 +13,23 @@ export const ModalProvider = ({ children }) => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const [Registeremail, setRegisteremail] = useState("");
-  console.log('Registeremail', Registeremail)
+  const [emailError, setEmailError] = useState("");
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setRegisteremail(email);
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email address");
+    } else {
+      setEmailError("");
+    }
+  };
+
   return (
     <ModalContext.Provider value={{ isOpen, openModal, closeModal,setIsOpen,Registeremail,setRegisteremail }}>
       {children}
@@ -32,8 +48,11 @@ export const ModalProvider = ({ children }) => {
             free now to build a personal library and access several other
             features.
           </p>
-          <input type="Registeremail" placeholder="Registeremail" className="modal-input"value={Registeremail} 
-                onChange={(e) => setRegisteremail(e.target.value)} />
+          <div className="modal-text mb-3">
+          <input type="Registeremail"  className="modal-input mb-0 "value={Registeremail} 
+                 onChange={handleEmailChange} />
+                 {emailError && <span className="error-message">{emailError}</span>}
+                 </div>
           <Button className="btn-orange-header mb-3" onClick={closeModal}>
             <Link href="/signup" className="">Continue Registration</Link>
           </Button>

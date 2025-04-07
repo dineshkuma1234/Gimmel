@@ -19,11 +19,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { formatDuration } from '../../utils/monthsAgo/page';
+import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
 
     const router = useRouter(); 
+    const {setHeaderSearch}= useHeader()
     const [isYearly, setIsYearly] = useState(false);
 
     const [error, setError] = useState("");
@@ -35,6 +37,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [selected2, setSelected2] = useState([]);
     const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
     const [school, setSchool] = useState(profileInfo?.school || "");
+    const [name,setName]=useState( `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim());
 
     const [age, setAge] = useState("");
     const [isEditable, setIsEditable] = useState(false);
@@ -53,8 +56,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         if(Object.keys(profileInfo).length > 0){
             setPhoneNumber(profileInfo?.phone || "");
             setSchool(profileInfo?.school || "");
-            // setMinAge(profileInfo?.onboarding?.ageFrom || "");
-            // setMaxAge(profileInfo?.onboarding?.ageTo || "");
+            setName(`${profileInfo.firstName || ""} ${profileInfo.lastName || ""}`.trim());
             setAge(profileInfo?.onboarding?.ageFrom?.toString() + "-" + profileInfo?.onboarding?.ageTo?.toString() || "")
         }
         
@@ -153,9 +155,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     };
 
     const handleLogout = () => {
-      localStorage.removeItem("token"); // Remove authentication token
+      localStorage.removeItem("token"); 
       localStorage.removeItem("firstName");
-      router.push("/login"); // Redirect to the login page
+      setHeaderSearch("");
+      router.push("/login"); 
   };
 
   if (loading) {
@@ -198,7 +201,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         const ageRangePattern = /^(?:[1-9]|[1-7][0-9]|80)-(?:[1-9]|[1-7][0-9]|80)$/;
 
         if (!ageRangePattern.test(value)) {
-            setError2("Enter a valid age range (e.g., 20-25).");
+            setError2("Enter a valid age range (e.g., 1-80).");
         } else {
             const [start, end] = value.split("-").map(Number);
             if (start >= end) {
@@ -349,10 +352,10 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                     </div>
                                     <div>
                                         <div className="account-name">
-                                            <h3>Examy Pella</h3>
+                                            <h3>{name}</h3>
                                         </div>
                                         <div className="account-user-name">
-                                            <p>@exam_pel</p>
+                                            <p>@{name}</p>
                                         </div>
                                     </div>
                                 </div>

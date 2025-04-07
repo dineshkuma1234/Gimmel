@@ -921,6 +921,7 @@ span.user-name {
 
 .dropdown-divider {
   border-top: 1px solid #ddd;
+  margin: 16px;
   /* margin: 0 0; */
 }
 

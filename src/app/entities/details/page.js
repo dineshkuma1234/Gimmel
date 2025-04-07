@@ -1206,14 +1206,14 @@ const [inerFolder, setinerFolder] = useState()
                        {!localStorage.getItem("token") && (
                         <div className="alert alert-warning custom-alert mt-3">
                         <span className="Inform-Pop">
-    <IoMdInformationCircle />
-      You can generate pressurized attachments by registering and upgrading to our XY Plan.
-    </span>
-    <a href="/signup" className="button-sart-ragisration">
-      Start Registration
-    </a>
-  </div>
-)}
+                        <IoMdInformationCircle />
+                          You can generate pressurized attachments by registering and upgrading to our XY Plan.
+                        </span>
+                        <a href="/signup" className="button-sart-ragisration">
+                          Start Registration
+                        </a>
+                      </div>
+                      )}
 
                     </Col>
                     <Col sm={12}>
