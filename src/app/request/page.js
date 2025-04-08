@@ -9,17 +9,22 @@ import RequestOverview from "../(MobileFlow)/requestmobile/requestoverview/page"
 import RequestMobile from "../(MobileFlow)/requestmobile/page";
 import { useRequestContext } from "../Context/request/page";
 import RequestPreview from "../(MobileFlow)/requestmobile/requestpreview/page";
+import { useRouter } from "next/navigation";
+import { UseLoader } from "../LoderHelper/context/loaderHelperContext";
 
 function PageComponent() {
   const [requestListData, setRequestListData] = useState("");
   const [getVideoRequestData, setgetVideoRequestData] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
   // const id = requestListData?.[0]?._id;
-  const [id,setId]=useState();
+  const [id,setId]= useState();
   const [shareLink, setShareLink] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [idvideo , setidvideo] = useState()
+    const router = useRouter();
+      const { setLoader } = UseLoader();
+    
 console.log(getVideoRequestData,"getVideoRequestData---")
 console.log(id,"idvideo--")
   const {
@@ -98,11 +103,15 @@ console.log(id,"idvideo--")
     }
   };
 
-  const handleRequestSaveVideo = async () => {
+  const handleRequestSaveVideo = async (selectedItems) => {
+    setLoader(true);
     try {
+      setLoader(false);
       const result = await AuthService.RequestSaveVideo(selectedItems, id);
       if (result?.success) {
+       
       } else {
+        setLoader(false);
       }
     } catch (error) {}
   };

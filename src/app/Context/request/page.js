@@ -3,6 +3,7 @@
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import AuthService from "@/services/AuthService";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Create Context
 const RequestContext = createContext();
@@ -19,6 +20,7 @@ export const RequestProvider = ({ children }) => {
   const [id, setId] = useState(null);
   const [isClient, setIsClient] = useState(false); // Prevent SSR issues
   const {setLoader} = UseLoader()
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
@@ -97,7 +99,10 @@ export const RequestProvider = ({ children }) => {
       setLoader(false);
 
       const result = await AuthService.RequestSaveVideo(selectedItems, id);
-      console.log("Save Video Result:", result);
+      if (result?.success) {
+       
+        router.push("/");
+      }
     } catch (error) {
       setLoader(false);
 
