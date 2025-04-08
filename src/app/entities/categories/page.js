@@ -11,9 +11,9 @@ function Categories({
 }) {
   return (
     <>
-      <Header />
+      
 
-      <main id="main" className="top-space">
+      <main id="main" className="top-space mt-5">
         <div className="custom-container">
           <div className="page-main-title">
             <h3>{categoryVideoname}</h3>

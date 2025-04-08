@@ -369,7 +369,7 @@ console.log(getSaveVideo,"getSaveVideo+++++++++++:LLivnbugnvn")
       <div className="categories-card" key={item?._id || index}>
         <div className="row">
           <div className="col-md-6">
-            {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
+            <Link href={`/mainHome/${item?._id}/videodetails2`}>
               <div className="categories-card__thumbnail">
                 <Image
                   src={item?.thumbnail || item?.thumbnailUrl}
@@ -381,7 +381,7 @@ console.log(getSaveVideo,"getSaveVideo+++++++++++:LLivnbugnvn")
                   {formatDuration(item?.duration)}
                 </div>
               </div>
-            {/* </Link> */}
+            </Link>
           </div>
           <div className="col-md-6">
             <div className="categories-card__details">

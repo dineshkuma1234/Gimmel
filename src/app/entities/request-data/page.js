@@ -616,7 +616,7 @@ function RequestData({
                                       value={discription}
                                       onChange={handleTextChange}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{discription.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -636,7 +636,7 @@ function RequestData({
                                       value={avoided}
                                       onChange={handleTextAvoid}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{avoided.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -654,7 +654,7 @@ function RequestData({
                                       value={details}
                                       onChange={handleTextDetails}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{details.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                               </Form>

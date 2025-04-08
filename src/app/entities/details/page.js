@@ -534,7 +534,8 @@ const [inerFolder, setinerFolder] = useState()
                   setIsOpen(true);
                   } else {
                     handleClose3(),
-                    handleReportPost(selectedValue, text, data?._id);                 }
+                    handleReportPost(selectedValue, text, data?._id);                 
+                  }
               }}
               >
                    
@@ -1257,7 +1258,7 @@ const [inerFolder, setinerFolder] = useState()
                           <Nav.Link eventKey="first">Suggested videos</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="w-50">
-                          <Nav.Link eventKey="second">Reviews 96</Nav.Link>
+                          <Nav.Link eventKey="second">Reviews  {getReview?.length || 0}</Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>
