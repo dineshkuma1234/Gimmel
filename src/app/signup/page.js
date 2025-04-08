@@ -16,14 +16,16 @@ function SignupScreen() {
           const result = await AuthService.SignUp(data);
 
           if (result?.success) {
+            console.log(result, "result----1010")
+            // return
             setLoader(false);
             localStorage.setItem('token', result?.data?.token);
             const firstName = result?.data?.firstName || "";
             localStorage.setItem("firstName", firstName);
             
-            // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-            // (result?.data?.isInterest, "interest----")
-            // localStorage.setItem('interest', isInterestValue);
+            const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
+            (result?.data?.isInterest, "interest----")
+            localStorage.setItem('interest', isInterestValue);
             // navigation.navigate('Welcome');
             router.push("/onboarding");
             

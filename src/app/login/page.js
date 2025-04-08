@@ -37,10 +37,10 @@ function PageComponent() {
                     className: "custom-toast-success", 
                 });
                 localStorage.setItem( 'token', result?.data?.token);
+                const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
+                (result?.data?.token,"this the value")
+                localStorage.setItem('interest', isInterestValue);
                 handleUserInfo();
-                // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-                // (result?.data?.token,"this the value")
-                // AsyncStorage.setItem('interest', isInterestValue);
                 router.push("/");
                 
             } else {

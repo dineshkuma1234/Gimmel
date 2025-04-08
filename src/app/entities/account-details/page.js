@@ -53,15 +53,16 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     },[router])
 
     useEffect(() => {
-        if(Object.keys(profileInfo).length > 0){
+        if(profileInfo &&Object.keys(profileInfo).length > 0){
             setPhoneNumber(profileInfo?.phone || "");
             setSchool(profileInfo?.school || "");
             setName(`${profileInfo.firstName || ""} ${profileInfo.lastName || ""}`.trim());
             setAge(profileInfo?.onboarding?.ageFrom?.toString() + "-" + profileInfo?.onboarding?.ageTo?.toString() || "")
         }
         
-      }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
+      }, [profileInfo]);
     // (phoneNumber,"phoneNumber++++++++++++")
+    console.log(name,"name")
 
     const togglePricing = () => {
         setIsYearly(!isYearly);

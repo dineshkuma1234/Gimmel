@@ -1,18 +1,25 @@
 'use client';
 
-import React,{useState} from "react";
+import React,{useState, useRef} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {useForm} from "../../../hooks/useForm";
 import { signUpData } from "../../../Constants/dummyData";
 import { register } from "../../../helper/Validation";
 import GooglesignupButton from "./googelsignup"
+import ReCAPTCHA from "react-google-recaptcha";
 import { useModal } from "../../../components/registerpop/page";
 
 const Signup = ({handleSignUp}) => {
 
     const [dateError, setDateError] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+
+    const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+    const [captchaValue, setCaptchaValue] = useState("");
+  
+    const recaptchaRef = useRef(null);
+
 
     const handleSend = data => {
         // const regEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -47,6 +54,17 @@ const Signup = ({handleSignUp}) => {
     } = state;
 
     const { openModal,setRegisteremail,Registeremail } = useModal(); 
+    
+      const onCaptchaChange = (token) => {
+        if (token) {
+          setIsCaptchaVerified(true);
+          setCaptchaValue(token);
+          console.log("Recaptcha verified!", token);
+        } else {
+          setIsCaptchaVerified(false);
+          setCaptchaValue("");
+        }
+      };
     return (
         <>
             <div className="page-top-bar show_mobile">
@@ -164,9 +182,27 @@ const Signup = ({handleSignUp}) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="g-recaptcha mt-24" data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+
+                                            <div className="flex flex-col mt-6 items-start w-full">
+                                            <div className="g-recaptcha mt-24" >
+                                            <ReCAPTCHA
+                                                ref={recaptchaRef}
+                                                sitekey="6Led8A0rAAAAAMtkZ_qC0Y8wjgNnIu9-4WUn2pKB" // Replace with your actual site key
+                                                onChange={onCaptchaChange}
+                                                onExpired={() => {
+                                                setIsCaptchaVerified(false);
+                                                setCaptchaValue("");
+                                                console.warn("Recaptcha expired");
+                                                }}
+                                            />
+                                            </div>
+
+                                            </div>
+
+
+                                            
                                             <div className="form-group">
-                                                <button type="submit" className="btn-color-blue" onClick={handleSubmit}  disabled={!isChecked || !date || disable}>
+                                                <button type="submit" className="btn-color-blue" onClick={handleSubmit}  disabled={!isChecked || !date || !isCaptchaVerified || disable}>
                                                     Sign Up
                                                 </button>
                                             </div>
