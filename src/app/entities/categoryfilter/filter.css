@@ -181,7 +181,7 @@
     padding: 32px 40px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
 .categories-card__title h3 {

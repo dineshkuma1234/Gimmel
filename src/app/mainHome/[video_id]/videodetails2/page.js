@@ -747,51 +747,50 @@ function PageComponent() {
 
 
     const handleSendComment = async (commentText) => {
+      setLoader(true);
       try {
         const result = await AuthService.sendComment(commentText, postId);
         if (result?.success) {
-          // AlertHelper.show('success', 'Gimmel', result?.message);
+          setLoader(false);
           handleReviewGet(postId);
         } else {
-          // AlertHelper.show('danger', 'Gimmel', result?.message);
+          setLoader(false);
         }
-      } catch (error) {}
+      } catch (error) {
+        setLoader(false);
+      }
     };
  
     const handleLikeReview = async (likeId) => {
-      // LoaderHelper.loaderStatus(true);
+      setLoader(true);
       try {
           const result = await AuthService.LikeReview(likeId);
           if (result?.success) {
-              // LoaderHelper.loaderStatus(false);
-              // AlertHelper.show('success', 'Gimmel', result?.message);
+            setLoader(false);
               setLike(result?.data)
               handleReviewGet(postId)
           } else {
-              // LoaderHelper.loaderStatus(false);
-              // AlertHelper.show('danger', 'Gimmel', result?.message);
+            setLoader(false);
           }
       } catch (error) {
-          // LoaderHelper.loaderStatus(false);
+        setLoader(false);
       }
   };
 
   const handleDislikeReview = async (likeId) => {
-      // LoaderHelper.loaderStatus(true);
+    setLoader(true);
       try {
           const result = await AuthService.dislikeReview(likeId);
           if (result?.success) {
-              // LoaderHelper.loaderStatus(false);
-              // AlertHelper.show('success', 'Gimmel', result?.message);
+              setLoader(false);
               setLike(result?.data)
               handleReviewGet(postId)
 
           } else {
-              // LoaderHelper.loaderStatus(false);
-              // AlertHelper.show('danger', 'Gimmel', result?.message);
+            setLoader(false);
           }
       } catch (error) {
-          // LoaderHelper.loaderStatus(false);
+        setLoader(false);
       }
   };
 

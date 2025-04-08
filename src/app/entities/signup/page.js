@@ -28,7 +28,7 @@ const Signup = ({handleSignUp}) => {
         };
         // (data?.firstName.value,"data000=====");
 
-                   handleSignUp(signUpData);
+         handleSignUp(signUpData);
         
     };
 
@@ -45,7 +45,7 @@ const Signup = ({handleSignUp}) => {
         confirmPassword,
         date
     } = state;
-// (firstName,"this the f-----")
+
     const { openModal,setRegisteremail,Registeremail } = useModal(); 
     return (
         <>
@@ -108,14 +108,14 @@ const Signup = ({handleSignUp}) => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="fname">Firstname</label>
-                                                        <input name="firstName" type="text" className={`form-control ${firstName?.error ? 'is-invalid' : ''}`} id="firstName" placeholder="" value={firstName.value} onFocus={()=>handleFocus('firstName',true)} onBlur={()=>handleFocus('firstName',false)} onChange={(e)=>handleChange('firstName',e.target.value,null,"FirstName")}  />
+                                                        <input name="firstName" type="text" className={`form-control ${firstName?.error ? 'is-invalid' : ''}`} id="firstName" placeholder="" value={firstName.value} onFocus={()=>handleFocus('firstName',true)} onBlur={()=>handleFocus('firstName',false)} onChange={(e)=>{ handleChange('firstName',e.target.value,null,"FirstName")}}  />
                                                         {firstName?.error && <div className="invalid-feedback">{firstName.error}</div>}
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="lname">Lastname</label>
-                                                        <input type="text" name="lastName" className={`form-control ${lastName?.error?'is-invalid':''}`} id="lastName" placeholder="" value={lastName.value} onFocus={()=>handleFocus('lastName',true)} onBlur={()=>handleFocus('lastName',false)} onChange={(e)=>handleChange('lastName',e.target.value,null,'LastName')} />
+                                                        <input type="text" name="lastName" className={`form-control ${lastName?.error?'is-invalid':''}`} id="lastName" placeholder="" value={lastName.value} onFocus={()=>handleFocus('lastName',true)} onBlur={()=>handleFocus('lastName',false)} onChange={(e)=>{handleChange('lastName',e.target.value,null,'LastName')}} />
                                                         {lastName?.error && <div className="invalid-feedback">{lastName.error}</div>}
                                                     </div>
                                                 </div>
@@ -123,28 +123,28 @@ const Signup = ({handleSignUp}) => {
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="email">Email address*</label>
-                                                    <input type="email" name="email" className={`form-control ${email?.error?'is-invalid':''}` } id="email" placeholder="" value={Registeremail} onFocus={() => handleFocus('email', true)}  onBlur={() => handleFocus('email', false)} onChange={(e) => setRegisteremail(e.target.value)} />
+                                                    <input type="email" name="email" className={`form-control ${email?.error?'is-invalid':''}` } id="email" placeholder="" value={Registeremail} onFocus={() => handleFocus('email', true)}  onBlur={() => handleFocus('email', false)} onChange={(e)=>{handleChange('email',e.target.value,null,'e-mailaddress');setRegisteremail(e.target.value)}} />
                                                     {email?.error && <div className="invalid-feedback">{email.error}</div>}
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="dob">Date of Birth</label>
-                                                    <input type="date" className={`form-control ${date?.error?'is-invalid':''}`} id="dob" placeholder=""  value={date?.value} max="2019-12-31"  onFocus={()=>handleFocus('date',true)} onChange={(e)=>handleChange('date',e.target.value,'date')}  />
+                                                    <input type="date" className={`form-control ${date?.error?'is-invalid':''}`} id="dob" placeholder=""  value={date?.value} max="2019-12-31"  onFocus={()=>handleFocus('date',true)} onChange={(e)=>{ handleChange('date',e.target.value,'date')}}  />
                                                     {date?.error && <div className="invalid-feedback">{date.error}</div>}
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="Password">Password*</label>
-                                                    <input type="password" name="password" className={`form-control ${password?.error?'is-invalid':''}`} id="Password" placeholder=""  value={password.value} onFocus={() => handleFocus('password', true)} onBlur={() => handleFocus('password', false)} onChange={(e)=>handleChange('password',e.target.value,null, 'Password')}  />
+                                                    <input type="password" name="password" className={`form-control ${password?.error?'is-invalid':''}`} id="Password" placeholder=""  value={password.value} onFocus={() => handleFocus('password', true)} onBlur={() => handleFocus('password', false)} onChange={(e)=>{handleChange('password',e.target.value,null, 'Password')}}  />
                                                     {password?.error && <div className="invalid-feedback">{password.error}</div>}
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group">
                                                     <label htmlFor="confirmPassword">Repeat password*</label>
-                                                    <input type="password" name="confirmPassword" className={`form-control ${confirmPassword?.error?'is-invalid':''}`} id="confirmPassword" placeholder=""  value={confirmPassword.value} onFocus={() => handleFocus('confirmPassword', true)} onBlur={() => handleFocus('confirmPassword', false)} onChange={(e)=>handleChange('confirmPassword',e.target.value,password?.value, 'ConfirmPassword')}  />
+                                                    <input type="password" name="confirmPassword" className={`form-control ${confirmPassword?.error?'is-invalid':''}`} id="confirmPassword" placeholder=""  value={confirmPassword.value} onFocus={() => handleFocus('confirmPassword', true)} onBlur={() => handleFocus('confirmPassword', false)} onChange={(e)=>{ handleChange('confirmPassword',e.target.value,password?.value, 'ConfirmPassword')}}  />
                                                      {confirmPassword?.error && <div className="invalid-feedback">{confirmPassword.error}</div>}
                                                 </div>
                                             </div>

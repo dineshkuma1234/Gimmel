@@ -367,7 +367,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                 <Form.Label>Email address</Form.Label>
                                             </div>
                                             <div className="col-9">
-                                                <Form.Control type="email" className="light-placeholder" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''}   />
+                                                <Form.Control type="email" className="light-placeholder" placeholder="exam.p@gmail.com" defaultValue={profileInfo?.email|| ''} readOnly  />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3 row align-items-center" controlId="exampleForm.ControlInput2">
@@ -636,7 +636,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                         <div className="col-md-12">
                                             <div className="video-card">
                                                 <div className="video-card-content">
-                                                    <Link href="/videodetails">
+                                                    <Link href={`/mainHome/${item?._id}/videodetails2`}>
                                                         <div className="video-card-image">
                                                             <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150}/>
                                                             <div className="video-duration">
@@ -648,7 +648,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     <div className="video-card-detail">
                                                         <div className="video-de-title">
                                                             <div className="de-title">
-                                                                <Link href="/videodetails">{item?.title}</Link>
+                                                                <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link>
                                                             </div>
                                                         </div>
                                                     </div>

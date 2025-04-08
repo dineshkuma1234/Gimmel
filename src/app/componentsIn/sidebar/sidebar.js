@@ -240,7 +240,7 @@ function Sidebar() {
                             {["9+","7+"].map((engagement) => (
                                 <button
                                     key={engagement}
-                                    className={`list-group-item list-group-item-action ${selectedEngagement === engagement ? "active" : ""}`}
+                                    className={`list-group-item list-group-item-action w-50 ${selectedEngagement === engagement ? "active" : ""}`}
                                     onClick={() => handleClick1(engagement)}
                                 >
                                     {engagement}
