@@ -19,6 +19,7 @@ function PageComponent() {
             if (result?.success) {
                 
                 localStorage.setItem( 'firstName', result?.data?.firstName);
+
             }
         } catch (error) {
         }
@@ -37,6 +38,8 @@ function PageComponent() {
                     className: "custom-toast-success", 
                 });
                 localStorage.setItem( 'token', result?.data?.token);
+                localStorage.setItem('userId', result?.data?.id);
+
                 handleUserInfo();
                 // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 // (result?.data?.token,"this the value")

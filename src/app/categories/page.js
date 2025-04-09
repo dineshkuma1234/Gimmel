@@ -16,6 +16,7 @@ import { SearchListContext } from "../Context/searchlist/searchListContext";
 import { useRouter } from "next/navigation";
 import Categorie from "../(MobileFlow)/categorie/page";
 import unAuthToken from "@/Constants/constant";
+import Header from "@/components/header/header";
 const PageComponent = () => {
   const router = useRouter();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
@@ -109,6 +110,7 @@ const PageComponent = () => {
     <>
       {deviceWidth > 991 ? (
         <>
+        <Header/>
          {categoryVideo[0]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[0]?.posts}

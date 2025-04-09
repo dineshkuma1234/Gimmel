@@ -482,7 +482,7 @@ const SliderCategories = ({
                         </div>
 
                         <div className="video-de-title">
-                          <div className="de-title">
+                          <div className="de-title ">
                             <Link
                               href={`/mainHome/${video?._id}/videodetails2`}
                             >

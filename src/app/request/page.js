@@ -115,8 +115,7 @@ console.log(id,"idvideo--")
       }
     } catch (error) {}
   };
-
-  const handleSharePost = async (idvideo, selectedTopics) => {
+    const handleSharePost = async (idvideo, selectedTopics) => {
     try {
       const result = await AuthService.SharePost(idvideo, selectedTopics);
       if (result?.success) {

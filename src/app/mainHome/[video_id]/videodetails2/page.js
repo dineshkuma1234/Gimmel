@@ -43,7 +43,7 @@ function PageComponent() {
   const idvideo = data?._id;
   const [getReview, setReview] = useState("");
   const [like, setLike] = useState("")
-
+console.log(getReview,"getReview---")
 
   useEffect(() => {
      

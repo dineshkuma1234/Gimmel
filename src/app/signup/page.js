@@ -20,7 +20,8 @@ function SignupScreen() {
             localStorage.setItem('token', result?.data?.token);
             const firstName = result?.data?.firstName || "";
             localStorage.setItem("firstName", firstName);
-            
+            localStorage.setItem('userId', result?.data?.id);
+
             // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
             // (result?.data?.isInterest, "interest----")
             // localStorage.setItem('interest', isInterestValue);

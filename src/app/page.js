@@ -34,6 +34,7 @@ export default function PageComponent() {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
+  console.log('getPost+++++++++++', getPost)
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;

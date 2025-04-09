@@ -156,13 +156,16 @@ const AuthService = {
   },
 
   GetPost: async (page) => {
+    
+    const userId =await localStorage.getItem("userId");
+    console.log(userId, "userId---"); 
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     token, "token---";
     const { authBaseUrl, HomeGetPost } = ApiConfig;
-    const url = authBaseUrl + HomeGetPost + "?page=" + page;
+    const url = authBaseUrl + HomeGetPost + "?userId=" + userId + "&page=" + page;
     url, "url----";
     const params = {};
     const headers = {
