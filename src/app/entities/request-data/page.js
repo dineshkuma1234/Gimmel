@@ -712,7 +712,7 @@ function RequestData({
                                       value={discription}
                                       readOnly
                                     />
-                                    <div className="count-text">0/60</div>
+                                    {/* <div className="count-text">0/60</div> */}
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -732,7 +732,7 @@ function RequestData({
                                       value={avoided}
                                       readOnly
                                     />
-                                    <div className="count-text">0/60</div>
+                                    {/* <div className="count-text">0/60</div> */}
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -750,7 +750,7 @@ function RequestData({
                                       value={details}
                                       readOnly
                                     />
-                                    <div className="count-text">0/60</div>
+                                    {/* <div className="count-text">0/60</div> */}
                                   </div>
                                 </Form.Group>
                               </Form>
