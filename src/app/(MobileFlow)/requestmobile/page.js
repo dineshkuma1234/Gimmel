@@ -50,7 +50,11 @@ const RequestMobile = () => {
                   className={
                     request?.isNotified === true ? "request-item active" : "request-item "
                   }
-                  onClick={() => {handlegetVideoRequest();  setId(request?._id)}}
+                  onClick={() => {
+                    // console.log(request?._id,"request")
+                    handlegetVideoRequest(request?._id);
+                    setId(request?._id);
+                  }}
                 >
                   <div className="request-title">
                     <h5>{request?.title}</h5>

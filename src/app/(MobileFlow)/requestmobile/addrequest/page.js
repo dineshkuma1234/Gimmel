@@ -116,7 +116,7 @@ function AddRequest() {
                     value={discription}
                     onChange={handleTextChange}
                   />
-                  <div className="count-text">0/60</div>
+                  <div className="count-text">{discription.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                 </Form.Group>
                 <Form.Group
                   className="mb-4"
@@ -130,7 +130,7 @@ function AddRequest() {
                     value={avoided}
                     onChange={handleTextAvoid}
                   />
-                  <div className="count-text">0/60</div>
+                  <div className="count-text">{avoided.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                 </Form.Group>
                 <Form.Group className="" controlId="exampleForm.ControlInput4">
                   <Form.Label>Additional details</Form.Label>
@@ -141,7 +141,7 @@ function AddRequest() {
                     value={details}
                     onChange={handleTextDetails}
                   />
-                  <div className="count-text">0/60</div>
+                  <div className="count-text">{details.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                 </Form.Group>
               </Form>
             </div>

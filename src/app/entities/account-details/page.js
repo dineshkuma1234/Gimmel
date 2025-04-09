@@ -157,6 +157,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
     const handleLogout = () => {
       localStorage.removeItem("token"); 
+      localStorage.removeItem("userId"); 
       localStorage.removeItem("firstName");
       setHeaderSearch("");
       router.push("/login"); 

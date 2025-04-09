@@ -13,7 +13,7 @@ import { FaCaretDown } from "react-icons/fa6";
 import { FaEllipsisV } from "react-icons/fa";
 import Link from "next/link";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
-
+import requestloader from "../../../../assets/images/request-loader.svg";
 function RequestPreview() {
   const [show, setShow] = React.useState(false);
 
@@ -22,15 +22,18 @@ function RequestPreview() {
 
   const [selectedIndex, setSelectedIndex] = useState([]);
 console.log(selectedIndex,"selectedIndex------twst")
-  const handleRadioChange = (index,item) => {
+
+
+  const handleRadioChange = (index, item) => {
     setSelectedIndex((prevSelected) =>
       prevSelected.includes(item._id)
-        ? prevSelected.filter((item) => item !== item._id) // Agar pehle se hai, hatao
-        : [...prevSelected, item?._id] // Nahi hai toh add karo
+        ? prevSelected.filter((id) => id !== item._id) // ✅ Filter using ID
+        : [...prevSelected, item._id] // ✅ Add new ID
     );
-    setSelectedItems(getVideoRequestData[index]._id);
+  
+    setSelectedItems(getVideoRequestData[index]._id); // Ye alag cheez hai, optional
   };
-
+  
   const {
     description,
     avoidedDetails,
@@ -83,8 +86,6 @@ console.log('getVideoRequestData":OP:O', yourRequest)
   const handleClose7 = () => setShow7(false);
   const handleShow7 = () => setShow7(true);
 
- 
-
 
 
 
@@ -124,10 +125,19 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                     <div className="inline-gap-8">
                       <div className="model-item-w">
                         <div className="video-item-request-right-title">
-                          <h5>{item.title}</h5>
+                          <h5
+                           style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                             color: selectedIndex?.includes(item._id) ? "#ec8548" : "#354e6a"
+                          }}
+                          >{item.title}</h5>
                         </div>
                         <div className="video-item-request-right-subtitle">
-                          <h6>{item.description}</h6>
+                          <h6>{item.channelName}</h6>
                         </div>
                       </div>
                       <div className="check-button">
@@ -204,12 +214,13 @@ console.log('getVideoRequestData":OP:O', yourRequest)
           <div className="custom-container">
             <div className="request-data">
               {/* First Section Load */}
-              {requestListData?.isNotified ? (
+              {getVideoRequestData.length <1? (
+                <>
                 <div className="request-data-load">
                   <div className="request-item">
                     <div className="request-loader-container">
                       <Image
-                        src={require("../../../../assets/images/request-loader.svg")}
+                        src={requestloader}
                         alt="loader"
                       />
                       <p>
@@ -219,6 +230,7 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                     </div>
                   </div>
                 </div>
+                </>
               ) : (
                 <>
                   {/* <VideoCardGrid  getVideoRequestData={getVideoRequestData} /> */}
@@ -231,6 +243,8 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                         <div className="video-card-content">
                           <Link href={`/mainHome/${video._id}/videodetails2`}>
                             <div className="video-card-image">
+                             {/* <Link href={`/mainHome/${video._id}/videodetails2`}> */}
+
                               <Image
                                 src={video.thumbnailUrl}
                                 alt="video card"
@@ -267,7 +281,6 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                             </div>
                             <div className="video-de-title">
                               <div className="de-title">
-                                {/* <Link href={`/mainHome/${video._id}/videodetails2`}> */}
                                 {video.title}
                                 {/* </Link> */}
                               </div>
@@ -344,6 +357,8 @@ console.log('getVideoRequestData":OP:O', yourRequest)
               <div className="request-data-overview">
                 <div className="request-data-overview-container">
                   <div className="video-list"></div>
+                  {getVideoRequestData.length >= 1 && (
+
                   <button
                     type="button"
                     className="btn-bottom bg-color mt-3 mb-4"
@@ -351,6 +366,8 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                   >
                     Send Confirmed Material
                   </button>
+                  )}
+
                 </div>
                 <div className="dropdown-divider"></div>
               </div>
@@ -366,6 +383,14 @@ console.log('getVideoRequestData":OP:O', yourRequest)
                   placeholder=""
                   value={
                     yourRequest?.createdAt
+                      ? new Date(yourRequest.createdAt)
+                          .toLocaleDateString("en-US", {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                          })
+                          .replace(/\//g, ".")
+                      : ""
                   }
                   readOnly
                 />

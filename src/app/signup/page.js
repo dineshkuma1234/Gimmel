@@ -26,7 +26,7 @@ function SignupScreen() {
             const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
             (result?.data?.isInterest, "interest----")
             localStorage.setItem('interest', isInterestValue);
-            // navigation.navigate('Welcome');
+            localStorage.setItem('userId', result?.data?.id);
             router.push("/onboarding");
             
           } else {

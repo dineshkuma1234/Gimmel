@@ -831,7 +831,7 @@ function WatchVideo({
                           <Nav.Link eventKey="first">Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="second">Reviews 96</Nav.Link>
+                          <Nav.Link eventKey="second">Reviews  {getReview?.length || 0}</Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>

@@ -19,6 +19,7 @@ function PageComponent() {
             if (result?.success) {
                 
                 localStorage.setItem( 'firstName', result?.data?.firstName);
+
             }
         } catch (error) {
         }
@@ -40,6 +41,8 @@ function PageComponent() {
                 const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
                 (result?.data?.token,"this the value")
                 localStorage.setItem('interest', isInterestValue);
+                localStorage.setItem('userId', result?.data?.id);
+
                 handleUserInfo();
                 router.push("/");
                 

@@ -149,6 +149,9 @@ function RequestData({
   const handleConfirm = () => {
     if (activeItem) {
       setCurrentStep(2); // Move to Step 2
+      handleRequestSaveVideo(activeItem)
+
+      
     } else {
       alert("Please select a video before proceeding."); // Optional validation
     }
@@ -537,7 +540,7 @@ function RequestData({
                         onClick={() => {
                           // console.log(request?._id,"request")
                           handlegetVideoRequest(request?._id);
-                          // setId(request?._id);
+                          setId(request?._id);
                         }}
                         style={{ cursor: "pointer" }}
                       >
@@ -613,7 +616,7 @@ function RequestData({
                                       value={discription}
                                       onChange={handleTextChange}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{discription.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -633,7 +636,7 @@ function RequestData({
                                       value={avoided}
                                       onChange={handleTextAvoid}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{avoided.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -651,7 +654,7 @@ function RequestData({
                                       value={details}
                                       onChange={handleTextDetails}
                                     />
-                                    <div className="count-text">0/60</div>
+                                    <div className="count-text">{details.trim().split(/\s+/).filter(Boolean).length}/{maxWords} words</div>
                                   </div>
                                 </Form.Group>
                               </Form>
@@ -831,12 +834,10 @@ function RequestData({
                                                       key={video._id}
                                                     >
                                                       <div
-                                                        className={`select-video-item ${
-                                                          activeItem ===
-                                                          video._id
-                                                            ? "active"
-                                                            : ""
-                                                        }`}
+                                                      className={`select-video-item ${
+                                                        activeItem.includes(video._id) ? "active" : ""
+                                                      }`}
+                                                      
                                                       >
                                                         <div className="btn-listing">
                                                           <div className="button-left-side">
@@ -971,7 +972,7 @@ function RequestData({
                                           {getVideoRequestData
                                             .filter((video) =>
                                               activeItem.includes(video._id)
-                                            ) // ✅ Sirf selected videos show karna
+                                            )  
                                             .map((video) => (
                                               <div className="bg-white">
                                                 <div className="row align-items-center">
@@ -1042,7 +1043,7 @@ function RequestData({
                                                         <button
                                                           className="btn btn-bg-light"
                                                           onClick={() =>
-                                                            handleRequestSaveVideo()
+                                                            handleRequestSaveVideo(activeItem)
                                                           }
                                                         >
                                                           <svg

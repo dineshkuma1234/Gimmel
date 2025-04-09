@@ -47,7 +47,6 @@ const VideoCardGrid = ({
   handleCreateFolderSub,
 }) => (
   
-
   <div className="row">
     {getPost &&
       Array.isArray(getPost) &&
