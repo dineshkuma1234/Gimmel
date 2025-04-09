@@ -6,7 +6,7 @@ export const isEmail = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 export const isPhone = RegExp(/^([+]\d{2})?(\d{1,4}-?)*\d{1,4}$/);
 export const isExpiary = RegExp(/^([+]\d{2})?\d{4}$/);
 export const isPassword = RegExp(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  /^.{8,}$/,
 );
 export const addresLength = RegExp(/^.{2,100}$/);
 export const isOtp = RegExp(/^[0-9 ]{4}/i);
@@ -73,7 +73,7 @@ export const register = {
     validator: {
       regEx: isPassword,
       error:
-        'Password must contain at least 8 characters,one capital, special character and number.',
+        'Password must contain at least 8 characters',
     },
   },
   confirmPassword: {

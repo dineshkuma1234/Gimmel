@@ -34,7 +34,6 @@ export default function PageComponent() {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
-  console.log('getPost+++++++++++', getPost)
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -133,9 +132,10 @@ export default function PageComponent() {
 
   ///////Search \\\\\\
   const [historyList, setHistoryList] = useState([]);
-  const [selectSearchList, setSelectSearchList] = useState("");
+  const [historyList1, setHistoryList1] = useState([]);
   const [headerSearch, setHeaderSearch] = useState("");
   // const [searchList, setSearchList] = useState('');
+  console.log(historyList1, "historyList11");
   const [searchListState, updatesearchListState] =
     useContext(SearchListContext);
   useEffect(() => {
@@ -147,6 +147,7 @@ export default function PageComponent() {
     handleHistoryList();
   }, []);
 
+  console.log(historyList,"historyList")
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     try {
@@ -163,6 +164,7 @@ export default function PageComponent() {
       }
     } catch (error) {}
   };
+
   const handleSearchCont = async (
     headerSearch,
     isOn,
