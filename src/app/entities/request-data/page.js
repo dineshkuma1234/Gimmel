@@ -122,7 +122,7 @@ function RequestData({
     <Toaster position="top-right" reverseOrder={false} />;
     toast.success("Link copied to clipboard");
     navigator.clipboard.writeText(
-      `http://localhost:3000/mainHome/${idvideo}/videodetails2`
+      `https://gimmeldevelop.netlify.app/mainHome/${idvideo}/videodetails2`
     );
   };
   const Share = [
@@ -662,6 +662,12 @@ function RequestData({
                                 <button
                                   className="btn btn-form-orange"
                                   onClick={() => setShowOverview(true)}
+                                  disabled={
+                                    !yourRequest.length ||
+                                    !discription.length ||
+                                    !avoided.length ||
+                                    !details.length
+                                  }
                                 >
                                   Review Request
                                 </button>
@@ -772,6 +778,10 @@ function RequestData({
                                       avoided,
                                       details
                                     );
+                                    setYourRequest("");
+                                    setDiscription("");
+                                    setavoided("");
+                                    setDetails("");
                                   }}
                                 >
                                   Send Request
@@ -1012,18 +1022,9 @@ function RequestData({
                                                       <div className="video-btn">
                                                         <button
                                                           className="btn btn-bg-light"
-                                                          onClick={async () => {
-                                                            const videoId =
-                                                              idvideo; // Pehle element ka ID nikalna
-                                                            if (!videoId) {
-                                                              alert(
-                                                                "Video ID not found!"
-                                                              );
-                                                              return;
-                                                            }
-                                                            // await handleSharePost(videoId, isTopicSelected);  // Video URL generate karna
-                                                            copyUrl(videoId); // Clipboard me copy karna
-                                                            handleClose5(); // Modal close karna
+                                                          onClick={() => {
+                                                            copyUrl(idvideo);
+                                                            handleClose5();
                                                           }}
                                                         >
                                                           <svg

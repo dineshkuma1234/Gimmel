@@ -119,7 +119,7 @@ console.log(id,"idvideo--")
     try {
       const result = await AuthService.SharePost(idvideo, selectedTopics);
       if (result?.success) {
-        const videoUrl = `http://localhost:3000/mainHome/${idvideo}/videodetails2`;
+        const videoUrl = `https://gimmeldevelop.netlify.app/mainHome/${idvideo}/videodetails2`;
 
         setShareLink(videoUrl);
       } else {
