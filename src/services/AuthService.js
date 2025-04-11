@@ -178,12 +178,13 @@ const AuthService = {
 
   getvideoid: async (postId) => {
     let token = await localStorage.getItem("token");
+    let userId =await localStorage.getItem("userId");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     token, "token---";
     const { authBaseUrl, homegetvideoid } = ApiConfig;
-    const url = authBaseUrl + homegetvideoid + "/" + postId;
+    const url = authBaseUrl + homegetvideoid + "/" + postId + "?userId=" + userId;
     url, "url----";
     const params = {};
     const headers = {
@@ -1291,16 +1292,42 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  History: async () => {
-    const token = await localStorage.getItem("token");
-    const { authBaseUrl, history } = ApiConfig;
-    const url = authBaseUrl + history;
-    const params = {};
+  saveSearchHistory: async (val,postid) => {
+    console.log(postid, "postid----")
+    const token = await localStorage.getItem('token');
+    const id =  await localStorage.getItem('userId');
+    const { authBaseUrl, saveSearchHistory } = ApiConfig;
+    const url =  `${authBaseUrl}${saveSearchHistory}?userId=${id}`;
+
+    const params = {
+      search:val,
+      postId:postid,
+    };
     const headers = {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    return ApiCallGet(url, params, headers);
+    return ApiCallPost(url, params, headers);
+  },
+
+  UpdateProfileImage: async (data, type) => {
+    const token = await localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('image', {
+      uri: data?.uri,
+      type: data?.type, // Change the type according to your requirements
+      name: data?.fileName,
+    });
+
+    // const email = await AsyncStorage.getItem('email');
+    const { authBaseUrl, profileEdit } = ApiConfig;
+    const url = authBaseUrl + profileEdit;
+    
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallPut(url, formData, headers);
   },
 };
 export default AuthService;

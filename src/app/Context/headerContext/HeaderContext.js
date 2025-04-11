@@ -79,6 +79,7 @@ export const HeaderProvider = ({ children }) => {
         setLoader(false);
 
         if (result?.success) {
+          handleSaveSearchHistory(headerSearch);
             updatesearchListState(result?.data);
             router.push(
                 "/searchlist",
@@ -90,6 +91,28 @@ export const HeaderProvider = ({ children }) => {
     } catch (error) {
         setLoader(false);
     }
+};
+
+const handleSaveSearchHistory = async (
+  headerSearch,postid
+  
+) => {
+  console.log(postid,"this is handleSaveSearchHistory")
+  try {
+    const result = await AuthService.saveSearchHistory(
+      headerSearch,postid
+      
+    );
+    // LoaderHelper.loaderStatus(false);
+    console.log(result,"ressslllllllll")
+    if (result?.success) {
+      
+      
+    } 
+  } catch (error) {
+    // LoaderHelper.loaderStatus(false);
+    console.log('Error occurred:', 'Gimmel', error);
+  }
 };
 
   const handleTopicPost = async () => {
@@ -173,6 +196,7 @@ export const HeaderProvider = ({ children }) => {
           setHeaderSearch,
           historyList,
           handleNotIntrested,
+          handleSaveSearchHistory,
         }}
       > 
         {children}

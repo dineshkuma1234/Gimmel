@@ -34,6 +34,7 @@ import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import toast, { Toaster } from "react-hot-toast";
 import { useModal } from "../../../components/registerpop/page"; 
 import { IoMdInformationCircle } from "react-icons/io";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({
