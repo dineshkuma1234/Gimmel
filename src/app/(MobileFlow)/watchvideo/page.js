@@ -161,7 +161,7 @@ function WatchVideo({
     <Toaster position="top-right" reverseOrder={false} />;
     toast.success("Link copied to clipboard");
     navigator.clipboard.writeText(
-      `http://localhost:3000/mainHome/${idvideo}/videodetails2`
+      `https://gimmeldevelop.netlify.app/mainHome/${idvideo}/videodetails2`
     );
   };
   const Share = [

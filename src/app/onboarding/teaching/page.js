@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import TeachingStep from "../../entities/Onboarding-Step/TeachingStep";
 import TeachingStepMobile from "../../entities/Onboarding-Step/TeachingStepMobile";
 import AuthService from '../../../services/AuthService';
-
+import { useSearchParams } from 'next/navigation';
 function Teaching() {
 
     const [deviceWidth, setDeviceWidth] = useState(0);
@@ -27,6 +27,10 @@ function Teaching() {
     const [contentMaturity,setContentMaturity]=useState([])
     const [teachingLocation,setTeachingLocation]=useState([])
     const [eduction,setEducation]=useState([])
+    const searchParams = useSearchParams();
+    const option = searchParams.get("option");
+  
+    // console.log("selected option is: ", option);
     const handleNavigateOnBoardingSuccess = () => {
         navigation.navigate('OnBoardingSuccess');
     };
@@ -49,7 +53,7 @@ function Teaching() {
         // (selectedmaturity,"selectedMaturity---2");
         // (slectedEducation,"selectedEducation---2")
         try {
-            const result = await AuthService.OnBoarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation);
+            const result = await AuthService.OnBoarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation,option);
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
                 // navigation.navigate('OnBoardingSuccess');

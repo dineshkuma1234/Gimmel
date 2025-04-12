@@ -330,14 +330,14 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                             <button
                                 className={`list-group-item list-group-item-action ${selectedAudience === "Student" ? "active" : ""}`}
                                 id="list-home-list"
-                                onClick={() => handleClick3("Student")}
+                                onClick={() => handleClick3("Students")}
                             >
                                 Student
                             </button>
                             <button
                                 className={`list-group-item list-group-item-action ${selectedAudience === "Parent" ? "active" : ""}`}
                                 id="list-messages-list"
-                                onClick={() => handleClick3("Parent")}
+                                onClick={() => handleClick3("Parents")}
                             >
                                 Parent
                             </button>

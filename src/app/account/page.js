@@ -138,13 +138,33 @@ function PageComponent() {
             setLoader(false);
         }
     };
+    const handleImageUpdate = async data => {
+        // LoaderHelper.loaderStatus(true);
+        try {
+          const result = await AuthService.UpdateProfileImage(data);
+          if (result?.success) {
+            console.log(result,"result")
+            // navigation.navigate('Profile');
+            // LoaderHelper.loaderStatus(false);
+            // AlertHelper.show('success', 'Gimmel', result?.data);
+          } else {
+            // LoaderHelper.loaderStatus(false);
+            // // setError(result?.message);
+            // AlertHelper.show('error', 'Gimmel', result?.message);
+            // console.log(result?.message, 'kjshakjh');
+          }
+        } catch (error) {
+        //   LoaderHelper.loaderStatus(false);
+        //   console.error('Error occurred:', error);
+        }
+      };
     
     return (
         <>{isMobile ? 
             
-            <UserProfile profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} />
+            <UserProfile profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} handleImageUpdate={handleImageUpdate}/>
             :
-            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile}/>
+            <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} handleImageUpdate={handleImageUpdate}/>
          } </>
     );
 }

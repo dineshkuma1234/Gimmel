@@ -22,7 +22,7 @@ function PageComponent() {
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
-    const [selectedButton, setSelectedButton] = useState("Teaching");
+    const [selectedButton, setSelectedButton] = useState("");
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
@@ -72,9 +72,9 @@ function PageComponent() {
                                     <div className="step-button">
                                         {
                                             selectedButton === "Teaching" ? (
-                                                <Link href="/onboarding/teaching" className="btn-color-blue ">Next</Link>
+                                                <Link href={`/onboarding/teaching?option=${selectedButton}`} className="btn-color-blue ">Next</Link>
                                             ) : (
-                                                <Link href="/onboarding/learning" className="btn-color-blue ">Next</Link>
+                                                <Link href={`/onboarding/learning?option=${selectedButton}`} className="btn-color-blue ">Next</Link>
                                             )
                                         }
                                     </div>
@@ -123,9 +123,9 @@ function PageComponent() {
                     <div className="step-button">
                             {
                                 selectedButton === "Teaching" ? (
-                                    <Link href="/onboarding/teaching" className="btn-color-blue ">Next</Link>
+                                    <Link href={`/onboarding/teaching?option=${selectedButton}`}className="btn-color-blue ">Next</Link>
                                 ) : (
-                                    <Link href="/onboarding/learning" className="btn-color-blue ">Next</Link>
+                                    <Link href={`/onboarding/learning?option=${selectedButton}`} className="btn-color-blue ">Next</Link>
                                 )
                             }
                         </div>

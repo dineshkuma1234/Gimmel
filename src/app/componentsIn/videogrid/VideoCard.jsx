@@ -23,6 +23,7 @@ import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import { useModal } from "@/components/registerpop/page";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 const VideoCard = ({
   video,
@@ -50,6 +51,7 @@ const VideoCard = ({
 }) => {
       const { openModal,setIsOpen } = useModal(); 
   
+  const{handleSaveSearchHistory}=useHeader()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [VideoDetailsState, updateVideoDetailsState] =
     useContext(VideoDetailsContext);

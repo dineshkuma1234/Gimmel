@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import LearningStep from "../../entities/Onboarding-Step/LearningStep";
 import LearningStepMobile from "../../entities/Onboarding-Step/LearningStepMobile";
 import AuthService from '../../../services/AuthService';
+import { useSearchParams } from "next/navigation";
 
 function Learning() {
 
@@ -24,6 +25,8 @@ function Learning() {
 
     // const navigation = useNavigation();
     const [interest,serInterest]=useState('')
+    const searchParams = useSearchParams();
+        const option = searchParams.get("option");
     const [educationalObjective ,setEducationalObjective]=useState('')
     useEffect(()=>{
         handlePersonalInterst();
@@ -67,7 +70,7 @@ function Learning() {
        
         // LoaderHelper.loaderStatus(true);
         try {
-            const result = await AuthService.LearningOnBoarding(selectedTopic,selectedObjective);
+            const result = await AuthService.LearningOnBoarding(selectedTopic,selectedObjective,option);
             // (result,"result----")
             if (result?.success) {
                 // LoaderHelper.loaderStatus(false);
