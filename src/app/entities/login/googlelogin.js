@@ -33,6 +33,7 @@ const handleGoogleLogin = async (accessToken) => {
                
                 if (typeof window !== "undefined") {
                     localStorage.setItem("token", result?.data?.token);
+                    localStorage.setItem("firstName",result?.data?.firstName);
                     
                 }
 

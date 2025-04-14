@@ -16,6 +16,7 @@ import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import { useModal } from "@/components/registerpop/page";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import { VideoDetailsContext } from "@/app/Context/VideoDetails/videoDetailsContext";
 
 const VideoCard = ({
   video,
@@ -58,8 +59,7 @@ const VideoCard = ({
   const [inerFolder, setinerFolder] = useState()
   const [selectFolder, setSelectFolder] = useState(null);
   const{handleSaveSearchHistory}=useHeader()
-  const [VideoDetailsState, updateVideoDetailsState] =
-    useContext(VideoDetailsContext);
+  const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
   const [subFolderView, setSubfolderView] = useState(false);
  const [subfolderName, setSubfolderName] = useState("");
  const [color, setColor] = useState(false);

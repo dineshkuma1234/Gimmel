@@ -40,9 +40,10 @@ const handleGoogleLogin = async (accessToken) => {
         if (result?.success) {
             if (!result?.data?.isRegister) {
                
-
+              localStorage.setItem("firstName",result?.data?.firstName);
                 if (typeof window !== "undefined") {
                     localStorage.setItem("token", result?.data?.token);
+                    
                    ;
                 }
 
@@ -67,6 +68,8 @@ const handleGoogleLogin = async (accessToken) => {
         console.error("Error occurred during login:", error);
     }
 };
+
+
 
   return (
     <div className="google-login">

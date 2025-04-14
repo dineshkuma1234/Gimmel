@@ -63,9 +63,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
         }
         
       }, [profileInfo]);
-    // (phoneNumber,"phoneNumber++++++++++++")
-    console.log(name,"name")
-
+   
     const togglePricing = () => {
         setIsYearly(!isYearly);
     };
