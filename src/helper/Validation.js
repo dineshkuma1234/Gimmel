@@ -43,7 +43,7 @@ export const register = {
     required: true,
     validator: {
       regEx: isText,
-      error: 'Please provide a valid firstName ',
+      error: 'Please provide a valid First Name ',
     },
     length: {
       value: 20,
@@ -54,7 +54,7 @@ export const register = {
     required: true,
     validator: {
       regEx: isText,
-      error: 'Please provide a valid lastName ',
+      error: 'Please provide a valid Last Name ',
     },
     length: {
       value: 20,

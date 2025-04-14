@@ -91,6 +91,7 @@ function Header() {
      const [isAuthenticated, setIsAuthenticated] = useState(false);
      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
      
+     console.log(localStorage.getItem("firstName"),"this is token")
      
     return (
         <>

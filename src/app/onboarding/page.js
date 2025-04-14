@@ -3,11 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import AuthService from '@/services/AuthService';
+
 
 function PageComponent() {
 
     const [deviceWidth, setDeviceWidth] = useState(0); // Default to 0 for SSR
-
+    const router = useRouter();
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
@@ -22,12 +25,27 @@ function PageComponent() {
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
-    const [selectedButton, setSelectedButton] = useState("");
+    const [selectedButton, setSelectedButton] = useState("Teaching");
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
     };
 
+    const handleSkipData = async () => {
+        try {
+            const result = await AuthService.SkipData();
+           
+            if (result) {
+              router.push('/');
+            } else {
+                // LoaderHelper.loaderStatus(false);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+            }
+        } catch (error) {
+            // LoaderHelper.loaderStatus(false);
+            console.log('Error occurred:', 'Gimmel', error);
+        }
+    };
 
     return (
         <>
@@ -79,7 +97,7 @@ function PageComponent() {
                                         }
                                     </div>
                                     <div className="skip-btn">
-                                        <Link href="/" className="btn-text">Skip</Link>
+                                        <Link href="/" className="btn-text" onClick={handleSkipData}>Skip</Link>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +148,7 @@ function PageComponent() {
                             }
                         </div>
                         <div className="skip-btn">
-                            <Link href="/" className="btn-text">Skip</Link>
+                            <Link href="/" className="btn-text" onClick={handleSkipData}>Skip</Link>
                         </div>
                     </div>
                 </div>

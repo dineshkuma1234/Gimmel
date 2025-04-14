@@ -159,8 +159,12 @@ ul {
     border: 1px solid var(--gimmel-darkBlue);
     border-radius: 8px;
     padding: 0 16px;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
     color: var(--gimmel-darkBlue);
+}
+
+ .form-group {
+    margin-bottom: 16px;
 }
 
 .form-section .form-check label {

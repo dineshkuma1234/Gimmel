@@ -165,8 +165,8 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                                                     <Form.Check
                                                         
                                                         id="select-deselect-all"
-                                                        label={selectAll ? "Deselect All" : "Select All"} // Toggle button text
-                                                        checked={selectAll} // True when all topics are selected
+                                                        label={selectAll ? "Deselect All" : "Select All"}
+                                                        checked={selectAll} 
                                                         onChange={handleChange}
                                                     />
                                                 </ListGroup.Item>
@@ -176,7 +176,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                                                             type="checkbox"
                                                             id={topic.name}
                                                             label={topic.name}
-                                                            checked={!!checkedItems[topic.name]} // Default to false if undefined
+                                                            checked={!!checkedItems[topic.name]} 
                                                             onChange={handleChange}
                                                         />
                                                     </ListGroup.Item>
@@ -265,7 +265,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                                     currentIndex === images.length - 1 ? (
                                         <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(item,item1)}>Finish</Link>
                                     ) : (
-                                        <button type="button" className="btn-color-blue" onClick={nextSlide}>Next</button>
+                                        <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={currentIndex===0 && item.length<3}>Next</button>
                                     )
                                 }
                             </div>
