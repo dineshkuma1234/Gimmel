@@ -9,6 +9,20 @@ import toast, { Toaster } from "react-hot-toast";
 function SignupScreen() {
     const router = useRouter(); 
     const {setLoader} = UseLoader()
+
+    const handleUserInfo = async () => {
+       
+      try {
+          const result = await AuthService.userInfo();
+          
+          if (result?.success) {
+              
+              localStorage.setItem( 'firstName', result?.data?.firstName);
+
+          }
+      } catch (error) {
+      }
+  };
     const handleSignUp = async (data) => {
         
           setLoader(true);
@@ -16,16 +30,15 @@ function SignupScreen() {
           const result = await AuthService.SignUp(data);
 
           if (result?.success) {
+            console.log(result, "result----1010")
+            // return
             setLoader(false);
             localStorage.setItem('token', result?.data?.token);
-            const firstName = result?.data?.firstName || "";
-            localStorage.setItem("firstName", firstName);
+            handleUserInfo();
+            const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
+            (result?.data?.isInterest, "interest----")
+            localStorage.setItem('interest', isInterestValue);
             localStorage.setItem('userId', result?.data?.id);
-
-            // const isInterestValue = result?.data?.isInterest === true ? '1' : '0';
-            // (result?.data?.isInterest, "interest----")
-            // localStorage.setItem('interest', isInterestValue);
-            // navigation.navigate('Welcome');
             router.push("/onboarding");
             
           } else {

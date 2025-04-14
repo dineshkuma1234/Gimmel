@@ -49,6 +49,7 @@ export const ModalProvider = ({ children }) => {
             features.
           </p>
           <div className="modal-text mb-3">
+            <p className="mb-0"> Email</p>
           <input type="Registeremail"  className="modal-input mb-0 "value={Registeremail} 
                  onChange={handleEmailChange} />
                  {emailError && <span className="error-message">{emailError}</span>}

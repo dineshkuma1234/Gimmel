@@ -84,6 +84,7 @@ export const ApiConfig = {
   skipData:"api/saveGenratedContent",
   google:"api/auth/google",
   Suggested:"api/getSuggested/",
+  saveSearchHistory:"api/saveSearchHistory/",
 
   // <----------------------->
 

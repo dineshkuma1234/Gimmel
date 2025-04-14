@@ -22,6 +22,8 @@ function UserProfile({
     contentMaturity,
     eduction,
     handleEditProfile,
+    handleImageUpdate,
+    
 }) {
     // (profileInfo, "profileInfo--today")
 

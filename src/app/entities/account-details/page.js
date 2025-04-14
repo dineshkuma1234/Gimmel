@@ -22,7 +22,7 @@ import { formatDuration } from '../../utils/monthsAgo/page';
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 
 
-function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile}) {
+function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile,handleImageUpdate}) {
 
     const router = useRouter(); 
     const {setHeaderSearch}= useHeader()
@@ -38,6 +38,8 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
     const [school, setSchool] = useState(profileInfo?.school || "");
     const [name,setName]=useState( `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim());
+    const [imgFile, setImgFile] = useState(null);
+   const [imagePath, setImagePath] = useState(profileInfo?.image || "/default-avatar.png");
 
     const [age, setAge] = useState("");
     const [isEditable, setIsEditable] = useState(false);
@@ -53,15 +55,16 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     },[router])
 
     useEffect(() => {
-        if(Object.keys(profileInfo).length > 0){
+        if(profileInfo &&Object.keys(profileInfo).length > 0){
             setPhoneNumber(profileInfo?.phone || "");
             setSchool(profileInfo?.school || "");
             setName(`${profileInfo.firstName || ""} ${profileInfo.lastName || ""}`.trim());
             setAge(profileInfo?.onboarding?.ageFrom?.toString() + "-" + profileInfo?.onboarding?.ageTo?.toString() || "")
         }
         
-      }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
+      }, [profileInfo]);
     // (phoneNumber,"phoneNumber++++++++++++")
+    console.log(name,"name")
 
     const togglePricing = () => {
         setIsYearly(!isYearly);
@@ -214,6 +217,14 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
         setAge(value);
     };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          setImagePath(URL.createObjectURL(file)); // for preview
+          setImgFile(file);
+          handleImageUpdate(file); // send file to backend
+        }
+      };
 
     return (
         <>

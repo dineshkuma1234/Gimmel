@@ -34,6 +34,7 @@ import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import toast, { Toaster } from "react-hot-toast";
 import { useModal } from "../../../components/registerpop/page"; 
 import { IoMdInformationCircle } from "react-icons/io";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 // import { useSave } from "@/app/Context/saveContext/SaveContext";
 function VideoDetails({
@@ -274,7 +275,7 @@ const [inerFolder, setinerFolder] = useState()
     <Toaster position="top-right" reverseOrder={false} />;
     toast.success("Link copied to clipboard");
     navigator.clipboard.writeText(
-      `http://localhost:3000/mainHome/${idvideo}/videodetails2`
+      `https://gimmeldevelop.netlify.app/mainHome/${idvideo}/videodetails2`
     );
   };
   const Share = [

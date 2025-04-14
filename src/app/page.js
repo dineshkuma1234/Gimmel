@@ -144,9 +144,10 @@ console.log('getPost', getPost)
 
   ///////Search \\\\\\
   const [historyList, setHistoryList] = useState([]);
-  const [selectSearchList, setSelectSearchList] = useState("");
+  const [historyList1, setHistoryList1] = useState([]);
   const [headerSearch, setHeaderSearch] = useState("");
   // const [searchList, setSearchList] = useState('');
+  console.log(historyList1, "historyList11");
   const [searchListState, updatesearchListState] =
     useContext(SearchListContext);
   useEffect(() => {
@@ -158,6 +159,7 @@ console.log('getPost', getPost)
     handleHistoryList();
   }, []);
 
+  console.log(historyList,"historyList")
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     try {
@@ -174,6 +176,7 @@ console.log('getPost', getPost)
       }
     } catch (error) {}
   };
+
   const handleSearchCont = async (
     headerSearch,
     isOn,

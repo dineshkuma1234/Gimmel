@@ -921,7 +921,7 @@ span.user-name {
 
 .dropdown-divider {
   border-top: 1px solid #ddd;
-  margin: 16px;
+  margin: 16px 0px;
   /* margin: 0 0; */
 }
 
@@ -2526,4 +2526,17 @@ border: 1px solid  #104E5B ;
   margin-left: 5px;
   display: block;
   margin-top: 2px;
+}
+
+#recaptcha {
+  display: block;
+  width: 100%;
+}
+
+.input-min{
+  border: none; 
+    border-radius: 8px;
+    padding: 0px;
+   font-size: 16px;
+   height: auto;
 }
