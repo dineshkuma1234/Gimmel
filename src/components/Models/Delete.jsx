@@ -1,13 +1,23 @@
-import React from 'react'
-import { Modal } from 'react-bootstrap';
-import { FiAlertOctagon } from 'react-icons/fi';
+import React from "react";
+import { Modal } from "react-bootstrap";
+import { FiAlertOctagon } from "react-icons/fi";
 
-function DeleteModel({deleteModel,show,handleClose,handleDeleteFolder,setDeleteModel,isDropdownOpenid}) {
+function DeleteModel({
+  deleteModel,
+  show,
+  handleClose,
+  handleDeleteFolder,
+  setDeleteModel,
+  isDropdownOpenid,
+  selectedFolderId,
+  getSubFolder,
+  handleDeleteSubFolder,
+  selectFolder
+}) {
 
-  
   return (
     <>
-     <Modal
+      <Modal
         open={deleteModel}
         show={show}
         onHide={handleClose}
@@ -31,9 +41,22 @@ function DeleteModel({deleteModel,show,handleClose,handleDeleteFolder,setDeleteM
           <div className="btn-container d-flex gap-3">
             <button
               className="btn btn-color-orange"
+              // onClick={(event) => {
+              //   event.stopPropagation();
+              //   handleDeleteFolder(isDropdownOpenid?._id);
+              //   setDeleteModel(true);
+              //   handleClose();
+              // }}
+
               onClick={(event) => {
-                event.stopPropagation();
-                handleDeleteFolder(isDropdownOpenid?._id);
+                if (getSubFolder.length === 0) {
+                  console.log("3-test-+");
+                  handleDeleteFolder(isDropdownOpenid?._id);
+                 
+                } else {
+                  handleDeleteSubFolder(selectFolder, isDropdownOpenid?._id);
+                  console.log("-2-+");
+                }
                 setDeleteModel(true);
                 handleClose();
               }}
@@ -49,9 +72,8 @@ function DeleteModel({deleteModel,show,handleClose,handleDeleteFolder,setDeleteM
           </div>
         </Modal.Body>
       </Modal>
-    
     </>
-  )
+  );
 }
 
-export default DeleteModel
+export default DeleteModel;

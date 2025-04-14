@@ -42,14 +42,19 @@ const VideoCard = ({
   getSaveVideo,
   getSubFolder,
   handleCreateFolderSub,
-  handleGetFolderSub,
-  categoryVideo,
-  handleGetCategories,
+  handleSaveSubFolderVideo,
+  handleSaveVideonext,
+  getPost,
+  saveVideoScreen,
+  setSaveVideoScreen,
+  handleDeleteSubFolder,
+  selectedFolderId,
+  
+
   
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [saveVideoScreen, setSaveVideoScreen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -183,7 +188,6 @@ const VideoCard = ({
     });
   };
 
-  saveVideoScreen, "saveVideflag";
 
   const router = useRouter();
 
@@ -763,6 +767,7 @@ const VideoCard = ({
                           <button
                             variant="primary"
                             onClick={() => {
+                              setIsDropdownOpen(false)
                               setSaveVideoScreen(true);
                               setShow2(false);
                             }}
@@ -783,22 +788,7 @@ const VideoCard = ({
                           </button>
                           {/* </Link> */}
                         </li>
-                        {saveVideoScreen ? (
-                          <SaveLibrary
-                            getFolder={getFolder}
-                            handleCreateFolder={handleCreateFolder}
-                            handleDeleteFolder={handleDeleteFolder}
-                            handleSaveVideo={handleSaveVideo}
-                            setSelectedFolderId={setSelectedFolderId}
-                            handleRename={handleRename}
-                            rename={rename}
-                            setRename={setRename}
-                            getSaveVideo={getSaveVideo}
-                            getSubFolder={getSubFolder}
-                            handleCreateFolderSub={handleCreateFolderSub}
-                            handleGetFolderSub={handleGetFolderSub}
-                          />
-                        ) : null}
+                        
                         <div className="dropdown-divider"></div>
                         <li>
                           <button
@@ -828,7 +818,7 @@ const VideoCard = ({
                   )}
                 </div>
               </div>
-
+              
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
@@ -871,20 +861,48 @@ const VideoCardGrid = ({
   handleDeleteFolder,
   handleRename,
   handleSaveVideo,
-  setSelectedFolderId,
   setRename,
   handleNotIntrested,
   getSaveVideo,
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
-  categoryVideo,
   handleGetCategories,
-  getVideoRequestData,
+  handleGetFolder,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
+  handleDeleteSubFolder,
+  selectedFolderId,
+  saveVideoScreen,
+  setSaveVideoScreen,
+ 
 }) => (
   // (getPost, "this is get post---11111"),
   <div className="row">
-    {getPost &&
+    {saveVideoScreen ? (
+                          <SaveLibrary
+                            getFolder={getFolder}
+                            handleCreateFolder={handleCreateFolder}
+                            handleDeleteFolder={handleDeleteFolder}
+                            handleSaveVideo={handleSaveVideo}
+                            setSelectedFolderId={setSelectedFolderId}
+                            handleRename={handleRename}
+                            rename={rename}
+                            setRename={setRename}
+                            getSaveVideo={getSaveVideo}
+                            getSubFolder={getSubFolder}
+                            handleCreateFolderSub={handleCreateFolderSub}
+                            handleGetFolderSub={handleGetFolderSub}
+                            selectedFolderId={selectedFolderId}
+                            handleGetFolder={handleGetFolder}
+                            handleDeleteSubFolder={handleDeleteSubFolder}
+                            handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+                            handleSaveVideonext={handleSaveVideonext}
+                            saveVideoScreen={saveVideoScreen}
+                            setSaveVideoScreen={setSaveVideoScreen}
+
+                          />
+                        ) : (getPost &&
       Array.isArray(getPost) &&
       getPost?.map((video, index) => (
         <VideoCard
@@ -916,11 +934,17 @@ const VideoCardGrid = ({
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
-          categoryVideo={categoryVideo}
-          handleGetCategories={handleGetCategories}
-          getVideoRequestData={getVideoRequestData}
+
+          handleGetFolder={handleGetFolder}
+          handleSaveVideonext={handleSaveVideonext}
+          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+          handleDeleteSubFolder={handleDeleteSubFolder}
+          selectedFolderId={selectedFolderId}
+          getPost={getPost}
+          saveVideoScreen={saveVideoScreen}
+  setSaveVideoScreen={setSaveVideoScreen}
         />
-      ))}
+      )))}
   </div>
 );
 

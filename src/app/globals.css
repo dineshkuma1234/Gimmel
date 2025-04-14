@@ -978,7 +978,7 @@ span.user-name {
   font-size: 14px !important;
   font-weight: bold;
   color: #87A7AD !important;
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
   letter-spacing: 0.5px;
   text-transform: capitalize;
@@ -1119,7 +1119,7 @@ span.user-name {
   font-size: 16px;
   font-weight: 600;
   color: var(--gimmel-darkBlue);
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
 }
 

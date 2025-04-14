@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Main from "./entities/main/page";
 import MainMobile from "./(MobileFlow)/mobile-main/page";
 import AuthService from "../services/AuthService";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
 import unAuthToken from "../Constants/constant";
 import { SearchListContext } from "./Context/searchlist/searchListContext";
@@ -34,6 +34,18 @@ export default function PageComponent() {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
+    const [saveVideoScreen, setSaveVideoScreen] = useState(false);
+    const [postId,setPostId]=useState("")
+    
+  // const params = useParams();             
+  // const id = params.video_id;            
+  // const postId = getPost?.video_id;
+  // const idvideo = data?._id;
+  console.log('value', value)
+console.log('postId', postId)
+console.log('selectedFolderId', selectedFolderId)
+console.log('getPost', getPost)
+  
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -337,7 +349,6 @@ export default function PageComponent() {
   };
   const getInterestFromStorage = () => {
     const value = localStorage.getItem("interest");
-    // console.log(value, "interest22"),
     setInterest(value);
   };
   const handleInterestFilter = async (
@@ -361,7 +372,6 @@ export default function PageComponent() {
         // setLoader(false);
         // AlertHelper.show('success', 'Gimmel', result?.message);
         const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
-        console.log(isInterestValue,"isInterestValue")
         localStorage.setItem("interest", isInterestValue);
         handleSaveIntrest();
         getInterestFromStorage();
@@ -525,17 +535,17 @@ export default function PageComponent() {
 
   const handleSaveVideo = async () => {
     // setLoader(true);
-
+    console.log(selectedFolderId,"selectedFolderId, postId")
     if (!selectedFolderId) {
       // ("No folder selected. Exiting function.");
-
+      console.log('first ok test')
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
       return;
     }
-    setLoader(false);
+    setLoader(true);
 
     try {
-      // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+      console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
@@ -558,7 +568,9 @@ export default function PageComponent() {
       }
     } catch (error) {
       // setLoader(false);
-      // ('Error occurred:', 'Gimmel', error);
+      console.log('Error occurred:', 'Gimmel', error);
+    } finally{
+      setLoader(false)
     }
   };
 
@@ -664,7 +676,8 @@ export default function PageComponent() {
     }
   };
 
-  const handleGetFolderSub = async (id) => {
+  const handleGetFolderSub = async (id,value) => {
+    console.log("Get Subfolder function called with ID:", id,value);
     // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.GetSubFolder(id, value);
@@ -727,6 +740,61 @@ export default function PageComponent() {
     } catch (error) {}
   };
 
+
+
+
+
+
+
+
+
+
+
+  const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
+    if(!selectedFolderId){
+      // AlertHelper.show('warning', 'Gimmel',"Please select folder");
+      return;
+    }
+    // LoaderHelper.loaderStatus(true);
+    try {
+        const result = await AuthService.SaveSubFolderVideo(postId,selectSubFolder,selectFolder);
+        if (result?.success) {
+            // LoaderHelper.loaderStatus(false);
+            // AlertHelper.show('success', 'Gimmel', result?.data);
+            // navigation.navigate('TabNavigation', {
+            //   screen: 'Home',
+            // })
+        } else {
+            // LoaderHelper.loaderStatus(false);
+            // AlertHelper.show('danger', 'Gimmel', result?.message);
+        }
+    } catch (error) {
+        // LoaderHelper.loaderStatus(false);
+    }
+};
+
+const handleDeleteSubFolder = async (id,SubFolderId) => {
+  console.log("Delete function called with ID");
+   setLoader(true);
+   try {
+     const result = await AuthService.DeleteSubFolder(id,SubFolderId);
+     // (result, "result---delete")
+     if (result) {
+       setLoader(false);
+       handleGetFolderSub(selectedFolderId);
+       handleGetFolder();
+ 
+       AlertHelper.show('success', 'Gimmel',result?.message);
+     } else {
+       setLoader(false);
+       AlertHelper.show('danger', 'Gimmel', result?.message);
+     }
+   } catch (error) {
+     setLoader(false);
+     // ('Error occurred:', 'Gimmel', error);
+   }
+ };
+
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
@@ -761,9 +829,18 @@ export default function PageComponent() {
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
+            setSaveVideoScreen={setSaveVideoScreen}
+          saveVideoScreen={saveVideoScreen}
+          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+          handleDeleteSubFolder={handleDeleteSubFolder}
+          handleGetFolder ={handleGetFolder}
+          selectedFolderId={selectedFolderId}
+          handleSaveVideonext={handleSaveVideonext}
+          setPostId={setPostId}
         />
       ) : (
         <MainMobile
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
           getPost={getPost}
           substance={substance}
           mentalHealth={mentalHealth}
@@ -794,6 +871,11 @@ export default function PageComponent() {
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
           handleGetCategories={handleGetCategories}
+          setSaveVideoScreen={setSaveVideoScreen}
+          saveVideoScreen={saveVideoScreen}
+          handleDeleteSubFolder={handleSaveSubFolderVideo}
+          handleGetFolder ={handleGetFolder}
+          selectedFolderId={selectedFolderId}
         />
       )}
 

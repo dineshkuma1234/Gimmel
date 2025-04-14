@@ -7,20 +7,9 @@ import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import defoultImages from "../../../assets/images/defoultmage.jpg";
 import Image from "next/image";
 import Modal from "react-bootstrap/Modal";
-import {
-  MdMoreVert,
-  MdAddCircleOutline,
-  MdDeleteOutline,
-} from "react-icons/md";
 import Link from "next/link";
 import { Form, ListGroup } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-
-import { VideoDetailsContext } from "../../Context/VideoDetails/videoDetailsContext";
-import { useRouter } from "next/navigation";
-import { FiAlertOctagon } from "react-icons/fi";
-import { TbEdit } from "react-icons/tb";
-import {calculateMonthsAgo} from "@/app/utils/monthsAgo/page";
 import VideoCard from './VideoCard';
 
 const VideoCardGrid = ({
@@ -45,6 +34,13 @@ const VideoCardGrid = ({
   getSaveVideo,
   getSubFolder,
   handleCreateFolderSub,
+  setSaveVideoScreen,
+  handleGetFolder,
+  handleDeleteSubFolder,
+  handleGetFolderSub,handleSaveSubFolderVideo,
+  selectedFolderId,
+  handleSaveVideonext,
+  setPostId
 }) => (
   
   <div className="row">
@@ -52,6 +48,7 @@ const VideoCardGrid = ({
       Array.isArray(getPost) &&
       getPost?.map((video, index) => (
         <VideoCard
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
           key={`video-${index}`}
           video={video}
           index={index}
@@ -75,6 +72,14 @@ const VideoCardGrid = ({
           getSaveVideo={getSaveVideo}
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
+          setSaveVideoScreen={setSaveVideoScreen}
+          saveVideoScreen={setSaveVideoScreen}
+          handleGetFolder ={handleGetFolder}
+          handleDeleteSubFolder={handleDeleteSubFolder}
+          handleGetFolderSub={handleGetFolderSub}
+          selectedFolderId={selectedFolderId}
+          handleSaveVideonext={handleSaveVideo}
+          setPostId={setPostId}
         />
       ))}
   </div>

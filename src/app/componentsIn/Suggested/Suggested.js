@@ -23,62 +23,109 @@ function Suggested({
   setRename,
   handleNotIntrested,
   getSubFolder,
-  
+  handleGetFolder,
   getSaveVideo,
+  selectedFolderId,
+  handleDeleteSubFolder,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
+  handleCreateFolderSub,
+  calculateMonthsAgo,
+  handleGetFolderSub
 }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [folders, setFolders] = useState([]);
-  const [subFolderView, setSubfolderView] = useState(false);
-  const [subfolderName, setSubfolderName] = useState("");
-  const [active, setActive] = useState(null);
-  const [renameModel, setRenameModel] = useState(false);
-  const [deleteModel, setDeleteModel] = useState(false);
-  const [Subfolder, setSubfolder] = useState();
-  const [addnewFolder, setAddNewFolder] = useState("");
-  const [color, setColor] = useState(false);
-  const [selectedValue, setSelectedValue] = useState([]);
+
+    const [renameModel, setRenameModel] = useState(false);
+    const [Subfolder, setSubfolder] = useState();
+    const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+    const [subfolderid, setsubfolderid] = useState(null);
+    const [deleteModel, setDeleteModel] = useState(false);
+    const [inerFolder, setinerFolder] = useState()
+    const [selectFolder, setSelectFolder] = useState(null);
+    const [subFolderView, setSubfolderView] = useState(false);
+   const [subfolderName, setSubfolderName] = useState("");
+   const [color, setColor] = useState(false);
+   const [active, setActive] = useState(null);
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+   const [folders, setFolders] = useState([]);
+   const [addnewFolder, setAddNewFolder] = useState("");
+   const [selectedValue, setSelectedValue] = useState([]);
     const { openModal,setIsOpen } = useModal(); 
+    
+    const dropdownRefnwe = useRef(null);
+    const dropdownRef = useRef()
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [show6, setShow6] = useState(false);
+    const handleClose6 = () => setShow6(false);
+    const handleShow6 = () => setShow6(true);
+  
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => {
+      setShow1(false);
+      setSubfolder("");
+      setSubfolderView(false);
+    };
+    const handleShow1 = () => setShow1(true);
+ const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+  
+ const [show8, setShow8] = useState(false);
+  const handleClose8 = () => setShow8(false);
+  const handleShow8 = () => setShow8(true);
+    const handleNavigateSave = (item) => {
+      // ('_id', _id)
+      setSelectedFolderId(item?._id);
+      setSubfolderName(item?.name);
+      setSubfolderView(true);
+      // setActive(item?._id);
+      setsubfolderid(item?._id);
+      setinerFolder(item?._id)
+      // handleCreateFolderSub(addnewFolder);
+      handleGetFolderSub(item?._id)
+    };
+
+    const handleNavigatename = (item) => {
+      // ('_id', _id)
+      setSelectedFolderId(item?._id);
+      setColor(true);
+      setActive(item?._id);
+      handleGetFolderSub(item?._id)
+    };
+
+    const handleChange = (e) => {
+      if (subFolderView) {
+        setAddNewFolder(e.target.value);
+      } else {
+        setFolders(e.target.value);
+      }
+    };
+
+    
+
+    const toggleDropdownnwe = (item) => {
+      // (item,"if")
+      setisDropdownOpenid((prev) => (prev === item ? null : item));
+      setThreeDotItem(item);
+    };
+
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+  
   
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const [show1, setShow1] = useState(false);
-  useEffect(() => {
-    if (!show1) {
-      setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
-    }
-  }, [show1]);
-
-  const handleClose1 = () => {
-    setShow1(false);
-    setSubfolder("");
-    setSubfolderView(false);
-  };
-  const handleShow1 = () => setShow1(true);
-  
-  const [show5, setShow5] = useState(false);
-  const handleClose5 = () => setShow5(false);
-  const handleShow5 = () => setShow5(true);
-
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-
-  const [show6, setShow6] = useState(false);
-  const handleClose6 = () => setShow6(false);
-  const handleShow6 = () => setShow6(true);
-
-  const dropdownRef = useRef()
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-  };
+ 
 
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
@@ -86,7 +133,12 @@ function Suggested({
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
+ 
+  
 
+    const [threeDotItem, setThreeDotItem] = useState(null);
+   
+  
  
   const convertToKM = (num) => {
     if (num >= 1000000) {
@@ -124,38 +176,10 @@ function Suggested({
     return timeAgo;
   };
 
-  const handleChange = (e) => {
-    if (subFolderView) {
-      setAddNewFolder(e.target.value);
-    } else {
-      setFolders(e.target.value);
-    }
-  };
+  
 
 
-  const handleNavigateSave = (item) => {
-    // ('_id', _id)
-    setSelectedFolderId(item?._id);
-    setSubfolderName(item?.name);
-    setSubfolderView(true);
-    setActive(item?._id);
-    // handleCreateFolderSub(addnewFolder);
-    // handleGetFolderSub(item?._id)
-  };
-  // ('folders====00000098888', folders)
-  // const [selectedItem, setSelectedItem] = useState(null);
  
-
-  const dropdownRefnwe = useRef(null);
-
-  const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
-  const [threeDotItem, setThreeDotItem] = useState(null);
-
-  const toggleDropdownnwe = (item) => {
-    // (item,"if")
-    setisDropdownOpenid((prev) => (prev === item ? null : item));
-    setThreeDotItem(item);
-  };
 
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
 
@@ -171,88 +195,20 @@ function Suggested({
     }
   };
 
-  const toggleSelection = (topicText) => {
-    setSelectedTopics((prevSelected) => {
-      if (prevSelected.includes(topicText)) {
-        // Remove topic if already selected
-        return prevSelected.filter((item) => item !== topicText);
-      } else {
-        // Add topic if not selected
-        return [...prevSelected, topicText];
-      }
-    });
-  };
 
-  const handleTranscript = (topic) => {
-    if (transcript.includes(topic)) {
-      setTranscript(transcript.filter((item) => item !== topic));
-    } else {
-      setTranscript([...transcript, topic]);
-    }
-  };
-
-  const isTranscript = (topic) => transcript.includes(topic);
-
-  const toggleCheckbox = (itemName) => {
-    if (selectedValues.includes(itemName)) {
-      setSelectedValues(selectedValues.filter((item) => item !== itemName));
-    } else {
-      setSelectedValues([...selectedValues, itemName]);
-    }
-  };
-
-  const isTopicSelectedTeach = (itemName) => {
-    return selectedValues.includes(itemName);
-  };
-
-  getSaveVideo, "getSaveVideo";
+ 
   const copyUrl = () => {
     navigator.clipboard.writeText(shareLink);
   };
   const Share = [];
 
-  const handleChange1 = (e) => {
-    setSelectedValue(e.target.value);
-  };
-  const [text, setText] = useState("");
 
-  const handleChange2 = (e) => {
-    setText(e.target.value);
-  };
-  // (text,"text value8888")
-  // (selectedValue,"selectedValue value8888")
  
-  const handleNavigatename = (item) => {
-    // ('_id', _id)
-    setSelectedFolderId(item?._id);
-    setColor(true);
-    setActive(item?._id);
-    // handleCreateFolderSub(addnewFolder);
-    // handleGetFolderSub(item?._id)
-  };
 
   return (
     <>
-      {/* Rename folder modal start */}
-      {/* <Modal open={renameModel} show={show} onHide={handleClose} centered className='custom-modal'>
-                <Modal.Header closeButton>
-                    <Modal.Title>Rename folder</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="modal-body-container">
-                        <div className="input-container modal-input">
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder="" value={rename}  onChange={(event) => setRename(event.target.value)} />
-                            </Form.Group>
-                        </div>
-                    </div>
-                    <div className="btn-container">
-                        <button className="btn btn-color-orange" onClick={()=>{handleClose(); handleRename( rename, isDropdownOpenid?._id); setRenameModel(false); }}>Save</button>
-                    </div>
-                </Modal.Body>
-            </Modal> */}
-      <RenameModel
+   
+      {/* <RenameModel
         renameModel={renameModel}
         show7={show}
         handleClose7={handleClose}
@@ -261,41 +217,13 @@ function Suggested({
         setRename={setRename}
         handleRename={handleRename}
         setRenameModel={setRenameModel}
-      />
+      /> */}
 
-      {/* Delete folder modal start */}
-      {/* <Modal open={deleteModel} show={show6} onHide={handleClose6} centered className='custom-modal'>
-                <Modal.Body>
-                    <div className="modal-body-container">
-                        <div className="icon-container d-flex justify-content-center">
-                            <FiAlertOctagon />
-                        </div>
-                        <div className="title-container d-flex justify-content-center align-items-center">
-                            <p className='modal-title'>Are you sure?</p>
-                        </div>
-                        <div className="input-container modal-input">
-                            <p className='modal-text text-center'>Do you want to delete this folder? This action cannot be undone.</p>
-                        </div>
-                    </div>
-                    <div className="btn-container d-flex gap-3">
-                        <button className="btn btn-color-orange" onClick={()=>{handleDeleteFolder(isDropdownOpenid?._id) ;setDeleteModel(true); handleClose6()}}>Delete</button>
-                        <button className="btn btn-color-orange-outline" onClick={handleClose6}>Cancel</button>
-                    </div>
-                </Modal.Body>
-            </Modal> */}
+     
 
-      <DeleteModel
-        deleteModel={deleteModel}
-        show={show6}
-        handleClose={handleClose6}
-        handleShow5={handleShow5}
-        handleClose1={handleClose1}
-        handleDeleteFolder={handleDeleteFolder}
-        setDeleteModel={setDeleteModel}
-        isDropdownOpenid={isDropdownOpenid}
-      />
+     
 
-      <Modal show={show} onHide={handleClose} centered className='custom-modal'>
+      <Modal show={show8} onHide={handleClose8} centered className='custom-modal'>
                 <Modal.Header closeButton>
                     <Modal.Title>Full Summary</Modal.Title>
                 </Modal.Header>
@@ -304,227 +232,37 @@ function Suggested({
      </Modal.Body>
             </Modal>
 
-      {/* Save to My Library Modal start */}
-      {/* <Modal show={show1} onHide={handleClose1} onClick={() => setSubfolder("Subfolder")}  centered className='custom-modal pe-0'>
-                <Modal.Header closeButton>
-                    <Modal.Title>{subFolderView? subfolderName :`Save to My Library`}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className='body-top'>
-                        <div className='body-top-left'>
-                            <div className='short-by'>
-                                <p>Sort by</p>
-                                <select name="" id="" className='short-by-select'>
-                                    <option>Most recent</option>
-                                    <option>Most popular</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className='body-top-right'>
-                            <div className='view-type'>
-                                <div className='list-type-view'>
-                                    <div className='list-icon-text'>List view</div>
-                                    <div className='list-icon'>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 20H20C20.55 20 21.0208 19.8042 21.4125 19.4125C21.8042 19.0208 22 18.55 22 18V16H9V20ZM2 8H7V4H4C3.45 4 2.97917 4.19583 2.5875 4.5875C2.19583 4.97917 2 5.45 2 6V8ZM2 14H7V10H2V14ZM4 20H7V16H2V18C2 18.55 2.19583 19.0208 2.5875 19.4125C2.97917 19.8042 3.45 20 4 20ZM9 14H22V10H9V14ZM9 8H22V6C22 5.45 21.8042 4.97917 21.4125 4.5875C21.0208 4.19583 20.55 4 20 4H9V8Z" fill="#104E5B" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='body-middle'>
-                    <div className='folder-lists'>
-
-                        {/* // doesnt make sense */}
-      {/* {getSaveVideo === "getFolder"} */}
-      {/* 
-                    {Array.isArray(getFolder) &&!subFolderView ?    
-                    getFolder.map((item, index) => (
-                            <div key={index} className='folder-view'>
-                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item)}}>
-                                <div className='folder-content-inline'>
-                                <div className='folder-content-left'>
-                                    <div className='folder-icon'>
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                        fill="#104E5B"
-                                        />
-                                    </svg>
-                                    </div>
-                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
-                                        <p className="" onClick={(event) => { setColor(true);event.stopPropagation();handleNavigatename(item)}}>{item.name}</p>
-                                    </div>
-                                </div>
-
-                                <div className='folder-content-right'>
-                                    <div className='folder-icon'>
-                                    <div className="folder-content-right" ref={dropdownRefnwe}>
-                                        <button
-                                        className="folder-icon"
-                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                        >
-                                        <MdMoreVert />
-                                        </button>
-
-                                        {/* Show the dropdown only if it matches the current item's ID */}
-      {/* {isDropdownOpenid?._id === item._id && (
-                                        <div className="dropdown-menu-card">
-                                            <ul>
-                                            <li>
-                                                <button variant="primary" onClick={handleShow}>
-                                                <TbEdit />
-                                                Rename
-                                                </button>
-                                            </li>
-                                            <li className="hide_mobile">
-                                                <button variant="primary" onClick={handleShow6}>
-                                                <MdDeleteOutline />
-                                                Delete
-                                                </button>
-                                            </li>
-                                            </ul>
-                                        </div> 
-                                        )}
-                                    </div>
-                                    </div> */}
-
-      {/* </div>
-                                
-                                </div>
-                                
-                            </div>
-                            </div>
-                        )):subFolderView ? */}
-      {/* <> */}
-      {/* { Array.isArray(getSubFolder)&&getSubFolder?.map((item, index) => (
-                            <div key={index} className='folder-view'>
-                            <div className='folder-inner' onClick={() =>{ handleNavigateSave(item?._id)}}>
-                                <div className='folder-content-inline'>
-                                <div className='folder-content-left' onClick={() => handleNavigateSave(item?._id)}>
-                                    <div className='folder-icon'>
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                        d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                        fill="#104E5B"
-                                        />
-                                    </svg>
-                                    </div>
-                                    <div className={`folder-name ${active === item._id ? "active" : ""}`} >
-                                        <p className="">{item.name}</p>
-                                    </div>
-                                </div>
-
-                                <div className='folder-content-right'>
-                                    <div className='folder-icon'>
-                                    <div className="folder-content-right" ref={dropdownRefnwe}>
-                                        <button
-                                        className="folder-icon"
-                                        onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                        >
-                                        <MdMoreVert />
-                                        </button>
-
-                                        {/* Show the dropdown only if it matches the current item's ID */}
-      {/* {isDropdownOpenid?._id === item._id && (
-                                        <div className="dropdown-menu-card">
-                                            <ul>
-                                            <li>
-                                                <button variant="primary" onClick={handleShow}>
-                                                <TbEdit />
-                                                Rename
-                                                </button>
-                                            </li>
-                                            <li className="hide_mobile">
-                                                <button variant="primary" onClick={handleShow6}>
-                                                <MdDeleteOutline />
-                                                Delete
-                                                </button>
-                                            </li>
-                                            </ul>
-                                        </div> 
-                                        )}
-                                    </div>
-                                    </div>
-                         */}
-      {/* </div>
-                                
-                                </div>
-                                
-                            </div>
-                            </div>
-                        ))} */}
-      {/* {Array.isArray(getSaveVideo) && getSaveVideo.map((item, index) => (
-                             <div className="video-card-container" key={index}>
-                             <div className="video-card-content">
-                                 {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
-      {/* <div className="video-card-image">
-                                         <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
-                                         <div className="video-duration">{item?.duration}</div>
-                                     </div> */}
-      {/* </Link> */}
-      {/* <div className="inline-gap-8">
-                                    <div className="video-title">
-                                        <h2>{item?.title}</h2>
-                                    </div>
-                                </div>
-                                <div className="bold-text">
-                                {item?.channelName}
-                                </div>
-                                <div className="accout-rating"> */}
-      {/* <div className="rating-icon align-items-center gap-2 "><Image src={require("../../../assets/images/time.svg")} alt="Rating" /><span>{calculateMonthsAgo(item?.createdAt)}</span>
-                                                    </div> */}
-      {/* <span>month</span> */}
-      {/* </div>
-                                 <div className="video-card-detail">
-                                     <div className="video-de-title">
-                                         <div className="de-title"> */}
-      {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
-      {/* </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                        ))}
-                        </>
-                        :null
-                        }
-                        
-                        </div> */}
-
-      {/* <div className='add-new-folder'>
-                            <button
-                                type="button"
-                                className="btn btn-new-folder"
-                                onClick={handleShow5}
-                            >
-                                <MdAddCircleOutline /> New Folder
-                            </button>
-                        </div>
-                    </div>
-                    <div className="body-footer">
-                        <button type="button" value={color}  className="btn-color-orange" onClick={ () =>{
-                        handleClose1()
-                        handleSaveVideo()
-                        }}>Save here</button>
-                    </div>
-                </Modal.Body>
-            </Modal> */}
-
-      <SaveLibraryModal
+        
+       <RenameModel
+        renameModel={renameModel}
+        show7={show}
+        handleClose7={handleClose}
+        setSubfolder={setSubfolder}
+        rename={rename}
+        setRename={setRename}
+        handleRename={handleRename}
+        setRenameModel={setRenameModel}
+        handleGetFolder={handleGetFolder}
+        isDropdownOpenid={isDropdownOpenid}
+        getFolder={getFolder}
+        getSubFolder={getSubFolder}
+        subfolderid={subfolderid}
+        selectedFolderId={selectedFolderId}
+      />
+   
+      <DeleteModel
+        deleteModel={deleteModel}
+        show={show6}
+        handleClose={handleClose6}
+        handleDeleteFolder={handleDeleteFolder}
+        setDeleteModel={setDeleteModel}
+        isDropdownOpenid={isDropdownOpenid}
+        selectedFolderId={selectedFolderId}
+        getSubFolder={getSubFolder}
+        handleDeleteSubFolder={handleDeleteSubFolder}
+        selectFolder={selectFolder}
+      />
+       <SaveLibraryModal
         show_modal={show1}
         close_library_modal={handleClose1}
         handleShow={handleShow}
@@ -547,43 +285,13 @@ function Suggested({
         color={color}
         handleSaveVideo={handleSaveVideo}
         handle_show_delete={handleShow6}
+        handleSaveVideonext={handleSaveVideonext}
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+        inerFolder={inerFolder}
+        setSelectFolder={setSelectFolder}
+        selectFolder={selectFolder}
       />
-
-      {/* New folder Modal start */}
-      {/* <Modal show={show5} onHide={handleClose5} centered className='custom-modal new-folder-modal'>
-                <Modal.Header closeButton>
-                    <Modal.Title>New folder</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="modal-body-container">
-                        <div className="input-container modal-input">
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Folder name</Form.Label>
-                                <Form.Control type="text" placeholder=""  onChange={(e) => handleChange(e)}  />
-                            </Form.Group>
-                        </div>
-                    </div>
-                    <div className="btn-container">
-                        <button className="btn btn-color-orange" onClick={
-                            () => {
-                                handleClose5();
-                                // addNewFolder();
-                                if(subFolderView){
-                                    handleCreateFolderSub(active,addnewFolder)
-
-                                }
-                                else{
-                                    handleCreateFolder(folders);
-                                }
-                              
-                                
-                            }
-
-                        }>Create folder</button>
-                    </div>
-                </Modal.Body>
-            </Modal> */}
-      <NewfolderAdd
+        <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
         handleChange={handleChange}
@@ -592,6 +300,8 @@ function Suggested({
         addnewFolder={addnewFolder}
         folders={folders}
         handleCreateFolder={handleCreateFolder}
+        handleGetFolder={handleGetFolder}
+        handleCreateFolderSub={handleCreateFolderSub}
       />
       <div className="video-card suggested-card">
         <div className="video-card-content row">
@@ -628,7 +338,7 @@ function Suggested({
                     <div className="dropdown-menu-card">
                       <ul>
                         <li>
-                          <button variant="primary" onClick={handleShow}>
+                          <button variant="primary" onClick={handleShow8}>
                             <Image
                               src={require("../../../assets/images/summary.svg")}
                               alt="summary"
@@ -746,6 +456,7 @@ const SuggestedCardGrid = ({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
+  calculateMonthsAgo
 }) => (
   <div className="row">
     {suggested?.map((video) => (
@@ -765,6 +476,7 @@ const SuggestedCardGrid = ({
         getSubFolder={getSubFolder}
         handleCreateFolderSub={handleCreateFolderSub}
         handleGetFolderSub={handleGetFolderSub}
+        calculateMonthsAgo={calculateMonthsAgo}
       />
     ))}
   </div>

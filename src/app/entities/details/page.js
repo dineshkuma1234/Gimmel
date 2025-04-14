@@ -86,13 +86,15 @@ function VideoDetails({
   handleTestPdf,
   TestRegenrate,
   handleSaveVideonext,
-  handleSaveSubFolderVideo
+  handleSaveSubFolderVideo,
+  handleDeleteSubFolder
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
   const [materialItem, setMaterialItem] = useState("Quiz");
   const { openModal,setIsOpen } = useModal(); 
   const [showMore, setShowMore] = useState(false);
+  const [selectFolder, setSelectFolder] = useState(null);
 
   useEffect(() => {
     if (!show1) {
@@ -148,61 +150,7 @@ function VideoDetails({
   }, []);
 
   const [folders, setFolders] = useState("");
-  // Function to add a new folder
-  // const addNewFolder = () => {
-  //     const newFolder = {
-  //         id: folders.length + 1,
-  //         name: `New Folder ${folders.length + 1}`,
-  //     };
-  //     setFolders([...folders, newFolder]);
-  // };
-
-  // (data,"datat9999")
-
-  const convertToKM = (num) => {
-    if (num >= 1000000) {
-      return `${(num / 1000000).toFixed(1)}M`;
-    } else if (num >= 1000) {
-      return `${(num / 1000).toFixed(1)}K`;
-    } else {
-      return `${num}`;
-    }
-  };
-  const inputDate = data?.createdAt;
-  const formatTimeAgo = (inputDate) => {
-    // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
-
-    const date = new Date(data?.createdAt); // Convert backend date to Date object
-    const currentDate = new Date(); // Get current date
-
-    // Calculate the difference in months
-    const monthsDiff =
-      currentDate.getMonth() -
-      date.getMonth() +
-      12 * (currentDate.getFullYear() - date.getFullYear());
-
-    // Calculate the difference in days
-    const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
-
-    let timeAgo = "";
-    if (monthsDiff > 0) {
-      timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
-    } else if (daysDiff > 0) {
-      timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
-    } else {
-      timeAgo = "Today";
-    }
-    return timeAgo;
-  };
-
-  const handleChange = (e) => {
-    if (subFolderView) {
-      setAddNewFolder(e.target.value);
-    } else {
-      setFolders(e.target.value);
-    }
-  };
-
+ 
   const [active, setActive] = useState(null);
   const [subfolderid, setsubfolderid] = useState(null);
 const [inerFolder, setinerFolder] = useState()
@@ -250,7 +198,54 @@ const [inerFolder, setinerFolder] = useState()
     setThreeDotItem(item);
   };
 
-  const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
+
+  const convertToKM = (num) => {
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`;
+    } else if (num >= 1000) {
+      return `${(num / 1000).toFixed(1)}K`;
+    } else {
+      return `${num}`;
+    }
+  };
+  const inputDate = data?.createdAt;
+  const formatTimeAgo = (inputDate) => {
+    // if (!data?.createdAt) return "Invalid date"; // Handle empty/null values
+
+    const date = new Date(data?.createdAt); // Convert backend date to Date object
+    const currentDate = new Date(); // Get current date
+
+    // Calculate the difference in months
+    const monthsDiff =
+      currentDate.getMonth() -
+      date.getMonth() +
+      12 * (currentDate.getFullYear() - date.getFullYear());
+
+    // Calculate the difference in days
+    const daysDiff = Math.floor((currentDate - date) / (1000 * 3600 * 24));
+
+    let timeAgo = "";
+    if (monthsDiff > 0) {
+      timeAgo = `${monthsDiff} month${monthsDiff > 1 ? "s" : ""} ago`;
+    } else if (daysDiff > 0) {
+      timeAgo = `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+    } else {
+      timeAgo = "Today";
+    }
+    return timeAgo;
+  };
+
+  const handleChange = (e) => {
+    if (subFolderView) {
+      setAddNewFolder(e.target.value);
+    } else {
+      setFolders(e.target.value);
+    }
+  };
+
+  
+
+
 
   const deselectAll = () => {
     if (!setIsSelectTeachingAll) {
@@ -276,29 +271,7 @@ const [inerFolder, setinerFolder] = useState()
     });
   };
 
-  const handleTranscript = (topic) => {
-    if (transcript.includes(topic)) {
-      setTranscript(transcript.filter((item) => item !== topic));
-    } else {
-      setTranscript([...transcript, topic]);
-    }
-  };
-
-  const isTranscript = (topic) => transcript.includes(topic);
-
-  const toggleCheckbox = (itemName) => {
-    if (selectedValues.includes(itemName)) {
-      setSelectedValues(selectedValues.filter((item) => item !== itemName));
-    } else {
-      setSelectedValues([...selectedValues, itemName]);
-    }
-  };
-
-  const isTopicSelectedTeach = (itemName) => {
-    return selectedValues.includes(itemName);
-  };
-
-  const copyUrl = (idvideo) => {
+   const copyUrl = (idvideo) => {
     <Toaster position="top-right" reverseOrder={false} />;
     toast.success("Link copied to clipboard");
     navigator.clipboard.writeText(
@@ -346,49 +319,9 @@ const [inerFolder, setinerFolder] = useState()
         getFolder={getFolder}
         getSubFolder={getSubFolder}
         subfolderid={subfolderid}
+        selectedFolderId={selectedFolderId}
       />
-      {/* Delete folder modal start */}
-      {/* <Modal
-        open={deleteModel}
-        show={show6}
-        onHide={handleClose6}
-        centered
-        className="custom-modal"
-      >
-        <Modal.Body>
-          <div className="modal-body-container">
-            <div className="icon-container d-flex justify-content-center">
-              <FiAlertOctagon />
-            </div>
-            <div className="title-container d-flex justify-content-center align-items-center">
-              <p className="modal-title">Are you sure?</p>
-            </div>
-            <div className="input-container modal-input">
-              <p className="modal-text text-center">
-                Do you want to delete this folder? This action cannot be undone.
-              </p>
-            </div>
-          </div>
-          <div className="btn-container d-flex gap-3">
-            <button
-              className="btn btn-color-orange"
-              onClick={() => {
-                handleDeleteFolder(isDropdownOpenid?._id);
-                setDeleteModel(true);
-                handleClose6();
-              }}
-            >
-              Delete
-            </button>
-            <button
-              className="btn btn-color-orange-outline"
-              onClick={handleClose6}
-            >
-              Cancel
-            </button>
-          </div>
-        </Modal.Body>
-      </Modal> */}
+   
       <DeleteModel
         deleteModel={deleteModel}
         show={show6}
@@ -396,6 +329,39 @@ const [inerFolder, setinerFolder] = useState()
         handleDeleteFolder={handleDeleteFolder}
         setDeleteModel={setDeleteModel}
         isDropdownOpenid={isDropdownOpenid}
+        selectedFolderId={selectedFolderId}
+        getSubFolder={getSubFolder}
+        handleDeleteSubFolder={handleDeleteSubFolder}
+        selectFolder={selectFolder}
+      />
+       <SaveLibraryModal
+        show_modal={show1}
+        close_library_modal={handleClose1}
+        handleShow={handleShow}
+        show_new_folder_popup={handleShow5}
+        setSubfolder={setSubfolder}
+        subFolderView={subFolderView}
+        subfolderName={subfolderName}
+        getFolder={getFolder}
+        handleNavigateSave={handleNavigateSave}
+        setColor={setColor}
+        handleNavigatename={handleNavigatename}
+        dropdownRefnwe={dropdownRefnwe}
+        toggleDropdownnwe={toggleDropdownnwe}
+        setRenameModel={setRenameModel}
+        isDropdownOpenid={isDropdownOpenid}
+        getSubFolder={getSubFolder}
+        active={active}
+        getSaveVideo={getSaveVideo}
+        calculateMonthsAgo={calculateMonthsAgo}
+        color={color}
+        handleSaveVideo={handleSaveVideo}
+        handle_show_delete={handleShow6}
+        handleSaveVideonext={handleSaveVideonext}
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+        inerFolder={inerFolder}
+        setSelectFolder={setSelectFolder}
+        selectFolder={selectFolder}
       />
       {/* Share Modal */}
       <Modal
@@ -563,280 +529,9 @@ const [inerFolder, setinerFolder] = useState()
           <p>{data?.description}</p>
         </Modal.Body>
       </Modal>
-      {/* Save to My Library Modal start */}
-      {/* <Modal
-        show={show1}
-        onHide={handleClose1}
-        onClick={() => c("Subfolder")}
-        centered
-        className="custom-modal pe-0"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {subFolderView ? subfolderName : `Save to My Library`}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="body-top">
-            <div className="body-top-left">
-              <div className="short-by">
-                <p>Sort by</p>
-                <select name="" id="" className="short-by-select">
-                  <option>Most recent</option>
-                  <option>Most popular</option>
-                </select>
-              </div>
-            </div>
-            <div className="body-top-right">
-              <div className="view-type">
-                <div className="list-type-view">
-                  <div className="list-icon-text">List view</div>
-                  <div className="list-icon">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9 20H20C20.55 20 21.0208 19.8042 21.4125 19.4125C21.8042 19.0208 22 18.55 22 18V16H9V20ZM2 8H7V4H4C3.45 4 2.97917 4.19583 2.5875 4.5875C2.19583 4.97917 2 5.45 2 6V8ZM2 14H7V10H2V14ZM4 20H7V16H2V18C2 18.55 2.19583 19.0208 2.5875 19.4125C2.97917 19.8042 3.45 20 4 20ZM9 14H22V10H9V14ZM9 8H22V6C22 5.45 21.8042 4.97917 21.4125 4.5875C21.0208 4.19583 20.55 4 20 4H9V8Z"
-                        fill="#104E5B"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="body-middle">
-            <div className="folder-lists">
-              {/* // doesnt make sense */}
-      {/* {getSaveVideo === "getFolder"} */}/
-      {/* {Array.isArray(getSubFolder) &&
-                    getSubFolder?.map((item, index) => (
-                      <div key={index} className="folder-view">
-                        <div
-                          className="folder-inner"
-                          onClick={() => {
-                            handleNavigateSave(item?._id);
-                          }}
-                        >
-                          <div className="folder-content-inline">
-                            <div
-                              className="folder-content-left"
-                              onClick={() => handleNavigateSave(item?._id)}
-                            >
-                              <div className="folder-icon">
-                                <svg
-                                  width="32"
-                                  height="32"
-                                  viewBox="0 0 32 32"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                    fill="#104E5B"
-                                  />
-                                </svg>
-                              </div>
-                              <div
-                                className={`folder-name ${
-                                  active === item._id ? "active" : ""
-                                }`}
-                              >
-                                <p className="">{item.name}</p>
-                              </div>
-                            </div>
-
-                            <div className="folder-content-right">
-                              <div className="folder-icon">
-                                <div
-                                  className="folder-content-right"
-                                  ref={dropdownRefnwe}
-                                >
-                                  <button
-                                    className="folder-icon"
-                                    onClick={() => toggleDropdownnwe(item)} // Use item.id here
-                                  >
-                                    <MdMoreVert />
-                                  </button>
-
-                                  {/* Show the dropdown only if it matches the current item's ID */}
-      {/* {isDropdownOpenid?._id === item._id && (
-                                    <div className="dropdown-menu-card">
-                                      <ul>
-                                        <li>
-                                          <button
-                                            variant="primary"
-                                            onClick={handleShow}
-                                          >
-                                            <TbEdit />
-                                            Rename
-                                          </button>
-                                        </li>
-                                        <li className="hide_mobile">
-                                          <button
-                                            variant="primary"
-                                            onClick={handleShow6}
-                                          >
-                                            <MdDeleteOutline />
-                                            Delete
-                                          </button>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))} */}
-      {/* {Array.isArray(getSaveVideo) &&
-                    getSaveVideo.map((item, index) => (
-                      <div className="video-card-container" key={index}>
-                        <div className="video-card-content">
-                          {/* <Link href={`/mainHome/${item?._id}/videodetails2`}> */}
-      {/* <div className="video-card-image">
-                            <Image
-                              src={item?.thumbnailUrl}
-                              alt="video card"
-                              width={150}
-                              height={200}
-                            />
-                            <div className="video-duration">
-                              {item?.duration}
-                            </div>
-                          </div> */}
-      {/* </Link> */}
-      {/* <div className="inline-gap-8">
-                            <div className="video-title">
-                              <h2>{item?.title}</h2>
-                            </div>
-                          </div>
-                          <div className="bold-text">{item?.channelName}</div>
-                          <div className="accout-rating">
-                            <div className="rating-icon align-items-center gap-2 ">
-                              <Image
-                                src={require("../../../assets/images/time.svg")}
-                                alt="Rating"
-                              />{" "}
-                              <span>{calculateMonthsAgo(item?.createdAt)}</span>
-                            </div> */}
-      {/* <span>month</span> */}
-      {/* </div>
-                          <div className="video-card-detail">
-                            <div className="video-de-title">
-                              <div className="de-title"> */}
-      {/* <Link href={`/mainHome/${item?._id}/videodetails2`}>{item?.title}</Link> */}
-      {/* </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                </>
-              ) : null}
-            </div> */}
-      {/* <div className="add-new-folder">
-              <button
-                type="button"
-                className="btn btn-new-folder"
-                onClick={handleShow5}
-              >
-                <MdAddCircleOutline /> New Folder
-              </button>
-            </div>
-          </div> */}
-      {/* <div className="body-footer">
-            <button
-              type="button"
-              value={color}
-              className="btn-color-orange"
-              onClick={() => {
-                handleClose1();
-                handleSaveVideo();
-              }}
-            >
-              Save here
-            </button>
-          </div>--
-        </Modal.Body>
-      </Modal>  */}
-      <SaveLibraryModal
-        show_modal={show1}
-        close_library_modal={handleClose1}
-        handleShow={handleShow}
-        show_new_folder_popup={handleShow5}
-        setSubfolder={setSubfolder}
-        subFolderView={subFolderView}
-        subfolderName={subfolderName}
-        getFolder={getFolder}
-        handleNavigateSave={handleNavigateSave}
-        setColor={setColor}
-        handleNavigatename={handleNavigatename}
-        dropdownRefnwe={dropdownRefnwe}
-        toggleDropdownnwe={toggleDropdownnwe}
-        setRenameModel={setRenameModel}
-        isDropdownOpenid={isDropdownOpenid}
-        getSubFolder={getSubFolder}
-        active={active}
-        getSaveVideo={getSaveVideo}
-        calculateMonthsAgo={calculateMonthsAgo}
-        color={color}
-        handleSaveVideo={handleSaveVideo}
-        handle_show_delete={handleShow6}
-        handleSaveVideonext={handleSaveVideonext}
-        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-        inerFolder={inerFolder}
-      />
-      {/* New folder Modal start */}
-      {/* <Modal
-        show={show5}
-        onHide={handleClose5}
-        centered
-        className="custom-modal new-folder-modal"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>New folder</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="modal-body-container">
-            <div className="input-container modal-input">
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Folder name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder=""
-                  onChange={(e) => handleChange(e)}
-                />
-              </Form.Group>
-            </div>
-          </div>
-          <div className="btn-container">
-            <button
-              className="btn btn-color-orange"
-              onClick={() => {
-                handleClose5();
-                // addNewFolder();
-                if (subFolderView) {
-                  handleCreateFolderSub(active, addnewFolder);
-                } else {
-                  handleCreateFolder(folders);
-                }
-              }}
-            >
-              Create folder
-            </button>
-          </div>
-        </Modal.Body>
-      </Modal> */}
+     
+     
+ 
       <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
@@ -1282,6 +977,13 @@ const [inerFolder, setinerFolder] = useState()
                               getSubFolder={getSubFolder}
                               handleCreateFolderSub={handleCreateFolderSub}
                               handleGetFolderSub={handleGetFolderSub}
+                              handleGetFolder={handleGetFolder}
+                              selectedFolderId={selectedFolderId}
+                              handleDeleteSubFolder={handleDeleteSubFolder}
+                              handleSaveVideonext={handleSaveVideonext}
+                              handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+                               calculateMonthsAgo={calculateMonthsAgo}
+                              
                             />
                           </div>
                         </Tab.Pane>
