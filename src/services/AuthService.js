@@ -177,21 +177,30 @@ const AuthService = {
   },
 
   getvideoid: async (postId) => {
-    let token = await localStorage.getItem("token");
-    let userId =await localStorage.getItem("userId");
-    if (!token) {
-      token = await localStorage.getItem("unAuthToken");
+    try {
+      let token = await localStorage.getItem("token");
+      let userId = await localStorage.getItem("userId");
+  
+      if (!token) {
+        token = await localStorage.getItem("unAuthToken");
+      }
+  
+      const { authBaseUrl, homegetvideoid } = ApiConfig;
+
+      const params = new URLSearchParams();
+      if (userId) params.append("userId", userId);
+      const url = `${authBaseUrl}${homegetvideoid}/${postId}${params.toString() ? `?${params.toString()}` : ""}`;
+  
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+  
+      return ApiCallGet(url, {}, headers);
+    } catch (error) {
+      console.error("Error in getvideoid:", error);
+      throw error;
     }
-    token, "token---";
-    const { authBaseUrl, homegetvideoid } = ApiConfig;
-    const url = authBaseUrl + homegetvideoid + "/" + postId + "?userId=" + userId;
-    url, "url----";
-    const params = {};
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    };
-    return ApiCallGet(url, params, headers);
   },
 
   NotIntrested: async (id) => {

@@ -20,27 +20,29 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
     const [selectAll1, setSelectAll1] = useState(false);
     const [selectAll3, setSelectAll3] = useState(false);
     const [checkedItems3, setCheckedItems3] = useState({});
-    const [selected, setSelected] = useState('');
-
     const [selectedval, setSelectedval] = useState([])
-// ;    ( selected,'selected----');
-    const handleSelect = (label) => {
-        setSelected(label);
-        const arr =[label];
-        setSelectedval(arr);
-        // ( arr,'selected value---',);
-    };
-    // (handleSelect,'handleSelect----');
+
+const handleSelect = (label) => {
+    setSelectedval((prevSelected) => {
+        if (prevSelected.includes(label)) {
+            // If already selected, remove it
+            return prevSelected.filter((item) => item !== label);
+        } else {
+            // If not selected, add it
+            return [...prevSelected, label];
+        }
+    });
+};
+
     const [minValue, setMinValue] = useState(12);
     const [maxValue, setMaxValue] = useState(30);
-    const [sliderValues, setSliderValues] = useState([])
+    const [sliderValues, setSliderValues] = useState([12, 30]);
 
     const handleSliderChange = ([min, max]) => {
         setMinValue(min);
         setMaxValue(max);
         const arr = [min, max]
         setSliderValues(arr);
-        // ('min max array', arr);
     };
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -241,13 +243,13 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                 </div>
                                 <div className="banner-btn-inner">
                                     <button
-                                        className={`btn-border ${selected === "School staff member" ? "selected" : ""}`}
+                                        className={`btn-border ${selectedval.includes("School staff member") ? "selected" : ""}`}
                                         onClick={() => handleSelect("School staff member")}
                                     >
                                         School staff member
                                     </button>
                                     <button
-                                        className={`btn-border ${selected === "Parent/guardian" ? "selected" : ""}`}
+                                        className={`btn-border ${selectedval.includes("Parent/guardian") ? "selected" : ""}`}
                                         onClick={() => handleSelect("Parent/guardian")}
                                     >
                                         Parent/guardian
@@ -481,7 +483,7 @@ const TeachingStep = ({ handleOnboarding, teachingTopic, contentMaturity, teachi
                                     currentIndex === images.length - 1 ? (
                                         <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(selectedval,sliderValues,item,selectedmaturity,slectedEducation)}>Finish</Link>
                                     ) : (
-                                        <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={currentIndex === 2 &&item.length<3}>Next</button>
+                                        <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={(currentIndex === 0 && selectedval.length < 1) || (currentIndex === 2 &&item.length<3)}>Next</button>
                                     )
                                 }
                             </div>

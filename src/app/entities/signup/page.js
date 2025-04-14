@@ -125,14 +125,14 @@ const Signup = ({handleSignUp}) => {
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="fname">First Name*</label>
-                                                        <input name="firstName" type="text" className={`form-control ${firstName?.error ? 'is-invalid' : ''}`} id="firstName" placeholder="" value={firstName.value} onFocus={()=>handleFocus('firstName',true)} onBlur={()=>handleFocus('firstName',false)} onChange={(e)=>{ handleChange('firstName',e.target.value,null,"First Name")}}  />
+                                                        <input name="firstName" type="text" className={`form-control ${firstName?.error ? 'is-invalid' : ''}`} id="firstName" placeholder="" value={firstName.value} onFocus={()=>handleFocus('firstName',true)} onBlur={()=>handleFocus('firstName',false)} onChange={(e)=>{ const value = e.target.value;if (/^[a-zA-Z\s]*$/.test(value)) { handleChange('firstName',e.target.value,null,"First Name")}}}  />
                                                         {firstName?.error && <div className="invalid-feedback">{firstName.error}</div>}
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
                                                         <label htmlFor="lname">Last Name*</label>
-                                                        <input type="text" name="lastName" className={`form-control ${lastName?.error?'is-invalid':''}`} id="lastName" placeholder="" value={lastName.value} onFocus={()=>handleFocus('lastName',true)} onBlur={()=>handleFocus('lastName',false)} onChange={(e)=>{handleChange('lastName',e.target.value,null,'Last Name')}} />
+                                                        <input type="text" name="lastName" className={`form-control ${lastName?.error?'is-invalid':''}`} id="lastName" placeholder="" value={lastName.value} onFocus={()=>handleFocus('lastName',true)} onBlur={()=>handleFocus('lastName',false)} onChange={(e)=>{const value = e.target.value;if (/^[a-zA-Z\s]*$/.test(value)) {handleChange('lastName',e.target.value,null,'Last Name')}}} />
                                                         {lastName?.error && <div className="invalid-feedback">{lastName.error}</div>}
                                                     </div>
                                                 </div>
