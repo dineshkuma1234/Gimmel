@@ -7,7 +7,17 @@ import LoderHelper from "../../../app/LoderHelper/page"
 import Link from "next/link";
 
 
-function Main({getPost,substance,mentalHealth,handleGetCategories,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,categoryVideo,}) {
+function Main({getPost,substance,mentalHealth,handleGetCategories,neuroScience,socialIssues,handleInterestFilter,interest,data ,getFolder, rename, setValue, handleCreateFolder, handleDeleteFolder, handleRename, handleSaveVideo, setSelectedFolderId, setRename,handleNotIntrested,getSaveVideo,getSubFolder,handleCreateFolderSub,categoryVideo,
+     setSaveVideoScreen,
+  saveVideoScreen,
+  handleSaveSubFolderVideo,
+  handleDeleteSubFolder,
+  handleGetFolder,
+  handleGetFolderSub,
+  selectedFolderId,
+  handleSaveVideonext,
+  setPostId
+}) {
     return (
         <>
             <LoderHelper/>
@@ -30,7 +40,17 @@ function Main({getPost,substance,mentalHealth,handleGetCategories,neuroScience,s
                         <h3>Recommended for you</h3>
                     </div>
 
-                    <VideoCardGrid getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub}/>
+                    <VideoCardGrid getPost={getPost} substance={substance} mentalHealth={mentalHealth} neuroScience={neuroScience} socialIssues={socialIssues} handleInterestFilter={handleInterestFilter} interest={interest} data={data} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub}
+                     setSaveVideoScreen={setSaveVideoScreen}
+                     saveVideoScreen={setSaveVideoScreen}
+                     handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+  handleDeleteSubFolder={handleDeleteSubFolder}
+  handleGetFolder ={handleGetFolder}
+  handleGetFolderSub={handleGetFolderSub}
+  selectedFolderId={selectedFolderId}
+  handleSaveVideonext={handleSaveVideonext}
+  setPostId={setPostId}
+                    />
 
 
                     

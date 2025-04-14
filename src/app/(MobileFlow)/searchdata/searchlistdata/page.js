@@ -10,7 +10,29 @@ import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import FilterData from "@/components/header/filterdata";
 
-function SearchList({searchListState,}) {
+function SearchList({searchListState,
+  getFolder,
+  handleCreateFolder,
+  handleDeleteFolder,
+  handleSaveVideo,
+  handleRename,
+  rename,
+  setRename,
+  getSubFolder,
+  handleGetFolder,
+  getSaveVideo,
+  selectedFolderId,
+  handleDeleteSubFolder,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
+  handleCreateFolderSub,
+  handleGetFolderSub,
+  setSelectedFolderId,
+  setValue,
+  saveVideoScreen,
+    setSaveVideoScreen
+
+}) {
   // ("this is conole on searchlist")
     const {headerSearch,setHeaderSearch,handleSearchCont,handleNotIntrested} = useHeader();
     const router = useRouter();
@@ -100,7 +122,16 @@ function SearchList({searchListState,}) {
             <main id="main" className="top-space">
                 <div className="custom-container">
                     <div className="history-list-container">
-                        <VideoCardGridMobile getPost={searchListState} handleNotIntrested={handleNotIntrested}/>
+                        <VideoCardGridMobile getPost={searchListState} handleNotIntrested={handleNotIntrested}
+                          getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+                          getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+                          handleSaveVideonext={handleSaveVideonext}
+                          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+                          handleDeleteSubFolder={handleDeleteSubFolder}
+                          selectedFolderId={selectedFolderId}
+                          saveVideoScreen={saveVideoScreen}
+                          setSaveVideoScreen={setSaveVideoScreen}
+                        />
                     </div>
                 </div>
             </main>

@@ -11,7 +11,9 @@ import { formatDuration } from "@/app/utils/monthsAgo/page";
 import AuthService from "@/services/AuthService";
 import {calculateMonthsAgo} from "../../app/utils/monthsAgo/page";
 
-function SaveLibraryModal({
+
+
+function SaveLibraryModalHome({
   show_modal,
   close_library_modal,
   show_new_folder_popup,
@@ -35,7 +37,6 @@ function SaveLibraryModal({
   handleSaveVideo,
   handleSaveVideonext,
   handleSaveSubFolderVideo,
-  inerFolder,
   setSelectFolder,
   selectFolder
 }) {
@@ -44,14 +45,10 @@ function SaveLibraryModal({
   const [subFolderVideos, setSubFolderVideos] = useState(false);
   const [getSubFolderVideo,setGetSubFolderVideo]=useState("")
 
-  console.log(getSaveVideo, "getSaveVideo");
   const handleGetSubFolderVideo = async (id) => {
-    console.log(selectSubFolder, "selectSubFolder");
-    console.log(selectSubFolderId, "selectSubFolderId");
 
     try {
       const result = await AuthService.getSubFolderVideos(selectFolder,id);
-      console.log(result, "result-----");
       if (result?.success) {
         setGetSubFolderVideo(result?.videos);
       } else {
@@ -59,7 +56,6 @@ function SaveLibraryModal({
     } catch (error) {}
   };
 
-  console.log(subFolderView, "subFolderView");
   return (
     <>
       <Modal
@@ -118,9 +114,8 @@ function SaveLibraryModal({
                     <div
                       className="folder-inner"
                       onClick={() => {
-                        console.log(item, "item");
                         setSelectFolder(item?._id)
-                        handleNavigateSave(item),
+                        (item),
                           handleSaveVideonext(item?._id)
                           
                       }}
@@ -225,17 +220,13 @@ function SaveLibraryModal({
                     <div
                       className="folder-inner"
                       onClick={() => {
-                        console.log(item, "item");
                         handleNavigateSave(item),
                           handleSaveVideonext(item?._id),
                           setSelectSubFolderId(item?._id),
                           setSelectSubFolder(item?._id)
                       }}
                       onDoubleClick={() => {
-                        // console.log(active, "item on double click");
-                        setSubFolderVideos(true); 
-                        setValue(item?._id);
-
+                        setSubFolderVideos(true); handleGetSubFolderVideo(item?._id)
                       } }
                     >
                       <div className="folder-content-inline">
@@ -441,15 +432,12 @@ function SaveLibraryModal({
               value={color}
               className="btn-color-orange"
               onClick={() => {
-               
+                close_library_modal();
                 if (subFolderView) {
-                  console.log("subFolder");
                   handleSaveSubFolderVideo(selectSubFolder,selectFolder);
                 } else {
-                  console.log("folder");
                   handleSaveVideo();
                 }
-                // close_library_modal();
               }}
             >
               Save here
@@ -462,4 +450,4 @@ function SaveLibraryModal({
   );
 }
 
-export default SaveLibraryModal;
+export default SaveLibraryModalHome;

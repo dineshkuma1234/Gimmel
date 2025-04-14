@@ -44,6 +44,11 @@ function MainMobile({
   handleGetFolderSub,
   categoryVideo,
   handleGetCategories,
+  setSaveVideoScreen,
+  saveVideoScreen,
+  handleGetFolder,
+  handleDeleteSubFolder,
+  selectedFolderId,handleSaveSubFolderVideo
 }) {
   const [show2, setShow2] = useState(false);
 
@@ -165,6 +170,11 @@ function MainMobile({
             handleGetFolderSub={handleGetFolderSub}
             categoryVideo={categoryVideo}
             handleGetCategories={handleGetCategories}
+            setSaveVideoScreen={setSaveVideoScreen}
+  saveVideoScreen={saveVideoScreen}
+  handleDeleteSubFolder={handleSaveSubFolderVideo}
+  handleGetFolder ={handleGetFolder}
+  selectedFolderId={selectedFolderId}
           />
         </div>
       </main>

@@ -30,14 +30,17 @@ const PageComponent = () => {
     const [deviceWidth, setDeviceWidth] = useState(0);
     const [getSaveVideo,setGetSaveVideo] = useState([]);
     const [getSubFolder,setGetFolderSub]= useState();
+
+    console.log(getvideoid,"getvideoid---")
+    console.log(selectedFolderId,"selectedFolderId---")
+
     useEffect(() => {
        
             handleGetPostid();
-            
-            // handleSave()
+            handleGetFolderSub()
+
             handleGetFolder(value);
-            // handleCreateFolder()
-            // handleSaveVideonext(selectedFolderId)
+           
            
     }, []);
     useEffect(() => {
@@ -218,29 +221,25 @@ const PageComponent = () => {
       };
      
       const handleSaveVideonext = async (selectedFolderId) => {
-        ("Function called with Folder ID:", selectedFolderId);
-  
+ 
         // LoaderHelper.loaderStatus(true);
         try {
           ("Calling API to fetch saved videos...");
           const result = await AuthService.GetSaveVideo(selectedFolderId);
-          ("API Response:", result);
-  
-  
+   
+   
           if (result?.success) {
-            ("Videos received successfully:", result.videos);
-  
+   
             // LoaderHelper.loaderStatus(false);
             setGetSaveVideo(result?.videos);
           } else {
-            ("API call was unsuccessful:", result?.message || result);
-  
+   
             // LoaderHelper.loaderStatus(false);
             // AlertHelper.show('danger', 'Gimmel', result?.message || result );
           }
         } catch (error) {
           console.error("Error occurred while fetching videos:", error);
-  
+   
           // LoaderHelper.loaderStatus(false);
           // ('Error occurred:', 'Gimmel', error);
         }
@@ -269,9 +268,10 @@ const PageComponent = () => {
         // LoaderHelper.loaderStatus(true);
         try {
           const result = await AuthService.GetSubFolder(selectedFolderId,value);
+          console.log(result,"result---test")
           if (result?.success) {
             // LoaderHelper.loaderStatus(false);
-            (result?.data?.data,"dat in api")
+            console.log(result?.data?.data,"dat in api")
             setGetFolderSub(result?.data?.data);
           } else {
             // LoaderHelper.loaderStatus(false);
@@ -282,9 +282,33 @@ const PageComponent = () => {
           // ('Error occurred:', 'Gimmel', error);
         }
       };
+
+      const handleDeleteSubFolder = async (id,SubFolderId) => {
+        console.log("delete sub folder----")
+         setLoader(true);
+         try {
+           const result = await AuthService.DeleteSubFolder(id,SubFolderId);
+          console.log(result,"resultDeletefolder---")
+           // (result, "result---delete")
+           if (result) {
+             console.log("r-test----")
+             setLoader(false);
+             handleGetFolderSub(selectedFolderId);
+             handleGetFolder();
+       
+             AlertHelper.show('success', 'Gimmel',result?.message);
+           } else {
+             setLoader(false);
+             AlertHelper.show('danger', 'Gimmel', result?.message);
+           }
+         } catch (error) {
+           setLoader(false);
+           // ('Error occurred:', 'Gimmel', error);
+         }
+       };
     return (
         <>
-            <MyLibrary  getvideoid={getvideoid} handleGetFolderSub={handleGetFolderSub} VideoDetailsState={VideoDetailsState} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename}  getSaveVideo={getSaveVideo}  getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} />
+            <MyLibrary  getvideoid={getvideoid} handleGetFolderSub={handleGetFolderSub} VideoDetailsState={VideoDetailsState} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename}  getSaveVideo={getSaveVideo}  getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} selectedFolderId={selectedFolderId} handleGetFolder={handleGetFolder} handleDeleteSubFolder={handleDeleteSubFolder} handleSaveVideonext={handleSaveVideonext} />
         </>
     );
 };

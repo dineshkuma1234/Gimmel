@@ -5,7 +5,28 @@ import "../../CommenStyle/filter.css";
 import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 
-function WatchHistoryData({watchHistoryData,title}) {
+function WatchHistoryData({watchHistoryData,title,
+    getFolder,
+    handleCreateFolder,
+    handleDeleteFolder,
+    handleSaveVideo,
+    handleRename,
+    rename,
+    setRename,
+    getSubFolder,
+    handleGetFolder,
+    getSaveVideo,
+    selectedFolderId,
+    handleDeleteSubFolder,
+    handleSaveVideonext,
+    handleSaveSubFolderVideo,
+    handleCreateFolderSub,
+    calculateMonthsAgo,
+    handleGetFolderSub,
+    setSelectedFolderId,
+    setValue
+
+}) {
 
 
     return (
@@ -32,7 +53,14 @@ function WatchHistoryData({watchHistoryData,title}) {
                         </div>
 
                         <div className="video-list-container">
-                            <CategoriesCard watchHistoryData={watchHistoryData} />
+                            <CategoriesCard watchHistoryData={watchHistoryData}
+                              getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+                              getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+                              handleSaveVideonext={handleSaveVideonext}
+                              handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+                              handleDeleteSubFolder={handleDeleteSubFolder}
+
+                            />
                         </div>
                     </div>
                 </div>

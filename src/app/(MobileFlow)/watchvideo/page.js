@@ -47,7 +47,12 @@ function WatchVideo({
    handleLikeReview,
     handleDislikeReview,
      handleReplayPost,
-  handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate
+  handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate,
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
+  handleDeleteSubFolder,
+  selectedFolderId,
+  handleGetFolder
 }) {
   // (data,"data in mobile viwe ==========")
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
@@ -611,18 +616,25 @@ function WatchVideo({
 
       {saveVideoScreen ? (
         <SaveLibrary
-          getFolder={getFolder}
-          handleCreateFolder={handleCreateFolder}
-          handleDeleteFolder={handleDeleteFolder}
-          handleSaveVideo={handleSaveVideo}
-          setSelectedFolderId={setSelectedFolderId}
-          handleRename={handleRename}
-          rename={rename}
-          setRename={setRename}
-          getSaveVideo={getSaveVideo}
-          getSubFolder={getSubFolder}
-          handleCreateFolderSub={handleCreateFolderSub}
-          handleGetFolderSub={handleGetFolderSub}
+        getFolder={getFolder}
+        handleCreateFolder={handleCreateFolder}
+        handleDeleteFolder={handleDeleteFolder}
+        handleSaveVideo={handleSaveVideo}
+        setSelectedFolderId={setSelectedFolderId}
+        handleRename={handleRename}
+        rename={rename}
+        setRename={setRename}
+        getSaveVideo={getSaveVideo}
+        getSubFolder={getSubFolder}
+        handleCreateFolderSub={handleCreateFolderSub}
+        handleGetFolderSub={handleGetFolderSub}
+        selectedFolderId={selectedFolderId}
+        handleGetFolder={handleGetFolder}
+        handleDeleteSubFolder={handleDeleteSubFolder}
+        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+        handleSaveVideonext={handleSaveVideonext}
+        saveVideoScreen={saveVideoScreen}
+        setSaveVideoScreen={setSaveVideoScreen}
         />
       ) : (
         <>

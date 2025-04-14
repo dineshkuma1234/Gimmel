@@ -469,6 +469,21 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
+  getSubFolderVideos: async (folderId, subFolderId) => {
+    let token = await localStorage.getItem("token");
+    if (!token) {
+      token = await localStorage.getItem("unAuthToken");
+    }
+    const { authBaseUrl, subfolderSaveVideo } = ApiConfig;
+    const url = authBaseUrl + subfolderSaveVideo + folderId + `/${subFolderId}`;
+    const params = {};
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return ApiCallGet(url, params, headers);
+  },
+
   sendComment: async (commentText, PostId) => {
     let token = await localStorage.getItem("token");
     if (!token) {
@@ -646,7 +661,7 @@ const AuthService = {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
-
+    console.log(selectedFolderId, postId,"selectedFolderId, postId-----")
     const params = {
       folderId: selectedFolderId,
       _id: postId,
@@ -806,12 +821,10 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  DeleteSubFolder: async (id, subId) => {
-    subId, "subId----";
+  DeleteSubFolder: async (id,SubFolderId) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, deleteSubFolder } = ApiConfig;
-    const url = authBaseUrl + deleteSubFolder + id + "/" + subId?._id;
-    url, "url----";
+    const url = authBaseUrl + deleteSubFolder + id + "/" + SubFolderId;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
@@ -820,10 +833,10 @@ const AuthService = {
     return ApiCallDelete(url, params, headers);
   },
 
-  RenameSubFolder: async (id, rename, SubId) => {
+  RenameSubFolder: async (id,rename,selectedFolderId) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, renameSubFolder } = ApiConfig;
-    const url = authBaseUrl + renameSubFolder + id + "/" + SubId?._id;
+    const url = authBaseUrl + renameSubFolder + selectedFolderId + "/" + id;
     const params = {
       subfolderName: rename,
     }
