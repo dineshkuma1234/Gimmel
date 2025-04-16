@@ -11,8 +11,7 @@ const HeaderContext = createContext();
 
 // Provider Component
 export const HeaderProvider = ({ children }) => {
-  const [searchListState, updatesearchListState] =
-    useContext(SearchListContext);
+  const [searchListState, updatesearchListState] =useContext(SearchListContext);
   const router = useRouter();
   const { setLoader } = UseLoader();
 
@@ -97,21 +96,20 @@ const handleSaveSearchHistory = async (
   headerSearch,postid
   
 ) => {
-  console.log(postid,"this is handleSaveSearchHistory")
   try {
     const result = await AuthService.saveSearchHistory(
       headerSearch,postid
       
     );
     // LoaderHelper.loaderStatus(false);
-    console.log(result,"ressslllllllll")
+    // console.log(result,"ressslllllllll")
     if (result?.success) {
       
       
     } 
   } catch (error) {
     // LoaderHelper.loaderStatus(false);
-    console.log('Error occurred:', 'Gimmel', error);
+    // console.log('Error occurred:', 'Gimmel', error);
   }
 };
 
@@ -189,7 +187,6 @@ const handleSaveSearchHistory = async (
       <Suspense fallback={<div>Loading...</div>}>
       <HeaderContext.Provider
         value={{
-          // isOn,setIsOn,chips,setChips,inputValue, setInputValue,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,sliderValue, setSliderValue,selectedValue,setSelectedValue,selectedAudience, setSelectedAudience,
           handleSearchCont,
           handleHistoryList,
           headerSearch,

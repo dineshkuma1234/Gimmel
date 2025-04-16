@@ -677,7 +677,7 @@ const AuthService = {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, saveVideos } = ApiConfig;
     const url = authBaseUrl + saveVideos;
-    console.log(selectedFolderId, postId,"selectedFolderId, postId-----")
+    // console.log(selectedFolderId, postId,"selectedFolderId, postId-----")
     const params = {
       folderId: selectedFolderId,
       _id: postId,
@@ -1315,7 +1315,7 @@ const AuthService = {
   },
 
   saveSearchHistory: async (val,postid) => {
-    console.log(postid, "postid----")
+    // console.log(postid, "postid----")
     const token = await localStorage.getItem('token');
     const id =  await localStorage.getItem('userId');
     const { authBaseUrl, saveSearchHistory } = ApiConfig;

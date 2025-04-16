@@ -540,17 +540,17 @@ function PageComponent() {
     };
   
     const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
-      console.log("sub folder Api")
+      // console.log("sub folder Api")
       if(!selectedFolderId){
         // AlertHelper.show('warning', 'Gimmel',"Please select folder");
-        console.log("select sub folder")
+        // console.log("select sub folder")
         return;
       }
       // LoaderHelper.loaderStatus(true);
       try {
-        console.log("sub folder Api ++")
+        // console.log("sub folder Api ++")
           const result = await AuthService.SaveSubFolderVideo(postId,selectSubFolder,selectFolder);
-          console.log(result,"result")
+          // console.log(result,"result")
           if (result?.success) {
               // LoaderHelper.loaderStatus(false);
               // AlertHelper.show('success', 'Gimmel', result?.data);
@@ -611,7 +611,7 @@ function PageComponent() {
   };
 
   const handleGetFolderSub = async (selectedFolderId) => {
-    console.log(selectedFolderId,"selectedFolderId-----")
+    // console.log(selectedFolderId,"selectedFolderId-----")
     // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.GetSubFolder(selectedFolderId,value);
@@ -811,14 +811,14 @@ function PageComponent() {
 };
 
 const handleDeleteSubFolder = async (id,SubFolderId) => {
- console.log("delete sub folder----")
+//  console.log("delete sub folder----")
   setLoader(true);
   try {
     const result = await AuthService.DeleteSubFolder(id,SubFolderId);
-   console.log(result,"resultDeletefolder---")
+  //  console.log(result,"resultDeletefolder---")
     // (result, "result---delete")
     if (result) {
-      console.log("r-test----")
+      // console.log("r-test----")
       setLoader(false);
       handleGetFolderSub(selectedFolderId);
       handleGetFolder();

@@ -10,6 +10,8 @@ import "../../CommenStyle/filter.css";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import historyIcon from "../../../assets/images/history.svg";
 import vectorIcon from "../../../assets/images/Vector.svg";
+import filter from "../../../assets/images/filter.svg";
+import northEast from "../../../assets/images/north_east.svg"
 
 function Search() {
   const {
@@ -50,7 +52,7 @@ function Search() {
             <div className="model-custom-header-left">
               <div className="model-head-title">
                 <Image
-                  src={require("../../../assets/images/filter.svg")}
+                  src={filter}
                   alt=""
                 />
                 <h3 className="model-title">Filters</h3>
@@ -109,7 +111,7 @@ function Search() {
             <div className="add-folder-button">
               <button className="btn" onClick={handleShow}>
                 <Image
-                  src={require("../../../assets/images/filter.svg")}
+                  src={filter}
                   alt="add folder"
                 />
               </button>
@@ -138,12 +140,12 @@ function Search() {
                     <div className="inline-search">
                       {item?.thumbnail && (
                         <div className="search-history-img">
-                          <Image src={item?.thumbnail} alt="slider thumbnail" />
+                          <Image src={item?.thumbnail} alt="slider thumbnail"  width={20} height={20}/>
                         </div>
                       )}
                       <div className="search-history-icon">
                         <Image
-                          src={require("../../../assets/images/north_east.svg")}
+                          src={northEast}
                           alt="slider thumbnil"
                         />
                       </div>

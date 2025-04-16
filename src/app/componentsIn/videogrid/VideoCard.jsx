@@ -50,6 +50,8 @@ const VideoCard = ({
   
 }) => {
 
+  const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
+  const router = useRouter();
 
   const [renameModel, setRenameModel] = useState(false);
   const [Subfolder, setSubfolder] = useState();
@@ -58,8 +60,6 @@ const VideoCard = ({
   const [deleteModel, setDeleteModel] = useState(false);
   const [inerFolder, setinerFolder] = useState()
   const [selectFolder, setSelectFolder] = useState(null);
-  const{handleSaveSearchHistory}=useHeader()
-  const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
   const [subFolderView, setSubfolderView] = useState(false);
  const [subfolderName, setSubfolderName] = useState("");
  const [color, setColor] = useState(false);
@@ -67,7 +67,7 @@ const VideoCard = ({
  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
  const [folders, setFolders] = useState([]);
  const [addnewFolder, setAddNewFolder] = useState("");
-  const router = useRouter();
+
   const [checkedItems, setCheckedItems] = useState({});
   const [checkedItems1, setCheckedItems1] = useState({});
   const [checkedItems2, setCheckedItems2] = useState({});

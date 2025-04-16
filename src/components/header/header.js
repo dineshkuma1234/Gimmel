@@ -82,7 +82,6 @@ function Header() {
     }, []);
 
      const handleHistoryItemClick =(item)=>{
-        ("this is called from")
         handleSearchCont(item.title);
         setHeaderSearch(item.title);
 
@@ -94,26 +93,6 @@ function Header() {
      
     return (
         <>
-       
-        {/* <Modal show={isOpen} onHide={() => setIsOpen(false)} centered className='custom-modal register-modal '>
-        <Modal.Header closeButton>
-          <Modal.Title>Register to Gimmel for free</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Some features are available only to registered users. Register for
-            free now to build a personal library and access several other
-            features.
-          </p>
-          <input type="email" placeholder="Email" className="modal-input" />
-
-          <Button className="btn-orange-header mb-3"><Link href="/signup" className="">Continue   Registration</Link></Button>
-          <Button onClick={() => setIsOpen(false)} className="btn-orange-outline">
-            Close
-          </Button>
-        </Modal.Body>
-    
-      </Modal> */}
         <header className="header" id="header">
             <nav className="navbar container-fluid">
                 <div className="menu-left">
@@ -128,10 +107,6 @@ function Header() {
                             placeholder="Search"
                             value={headerSearch}
                             onChange={(e) => setHeaderSearch(e.target.value)}
-                            // onFocus={() => {
-                            //     handleShowHistory();
-                            //     handleHistoryList(headerSearch);
-                            //   }}
                             onClick={(e) => handleHistoryList(e.target.value)}
                             onFocus={()=>{handleShowHistory(); setShow(false); }}
                             onKeyDown={(e) => {

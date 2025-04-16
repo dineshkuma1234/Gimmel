@@ -67,7 +67,7 @@ function Sidebar() {
     );
   };
 
-  const [selectedAge, setSelectedAge] = useState("18+");
+  const [selectedAge, setSelectedAge] = useState("");
 
   const handleClick = (age) => {
     setSelectedAge(age);

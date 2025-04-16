@@ -41,10 +41,10 @@ export default function PageComponent() {
   // const id = params.video_id;            
   // const postId = getPost?.video_id;
   // const idvideo = data?._id;
-  console.log('value', value)
-console.log('postId', postId)
-console.log('selectedFolderId', selectedFolderId)
-console.log('getPost', getPost)
+//   console.log('value', value)
+// console.log('postId', postId)
+// console.log('selectedFolderId', selectedFolderId)
+// console.log('getPost', getPost)
   
   useEffect(() => {
     checkUserLogedIn();
@@ -534,17 +534,17 @@ console.log('getPost', getPost)
 
   const handleSaveVideo = async () => {
     // setLoader(true);
-    console.log(selectedFolderId,"selectedFolderId, postId")
+    // console.log(selectedFolderId,"selectedFolderId, postId")
     if (!selectedFolderId) {
       // ("No folder selected. Exiting function.");
-      console.log('first ok test')
+      // console.log('first ok test')
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
       return;
     }
     setLoader(true);
 
     try {
-      console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+      // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
@@ -567,7 +567,7 @@ console.log('getPost', getPost)
       }
     } catch (error) {
       // setLoader(false);
-      console.log('Error occurred:', 'Gimmel', error);
+      // console.log('Error occurred:', 'Gimmel', error);
     } finally{
       setLoader(false)
     }
@@ -676,7 +676,7 @@ console.log('getPost', getPost)
   };
 
   const handleGetFolderSub = async (id,value) => {
-    console.log("Get Subfolder function called with ID:", id,value);
+    // console.log("Get Subfolder function called with ID:", id,value);
     // LoaderHelper.loaderStatus(true);
     try {
       const result = await AuthService.GetSubFolder(id, value);
@@ -740,15 +740,6 @@ console.log('getPost', getPost)
   };
 
 
-
-
-
-
-
-
-
-
-
   const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
     if(!selectedFolderId){
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
@@ -773,7 +764,7 @@ console.log('getPost', getPost)
 };
 
 const handleDeleteSubFolder = async (id,SubFolderId) => {
-  console.log("Delete function called with ID");
+  // console.log("Delete function called with ID");
    setLoader(true);
    try {
      const result = await AuthService.DeleteSubFolder(id,SubFolderId);

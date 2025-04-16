@@ -44,14 +44,14 @@ function SaveLibraryModal({
   const [subFolderVideos, setSubFolderVideos] = useState(false);
   const [getSubFolderVideo,setGetSubFolderVideo]=useState("")
 
-  console.log(getSaveVideo, "getSaveVideo");
+  // console.log(getSaveVideo, "getSaveVideo");
   const handleGetSubFolderVideo = async (id) => {
-    console.log(selectSubFolder, "selectSubFolder");
-    console.log(selectSubFolderId, "selectSubFolderId");
+    // console.log(selectSubFolder, "selectSubFolder");
+    // console.log(selectSubFolderId, "selectSubFolderId");
 
     try {
       const result = await AuthService.getSubFolderVideos(selectFolder,id);
-      console.log(result, "result-----");
+      // console.log(result, "result-----");
       if (result?.success) {
         setGetSubFolderVideo(result?.videos);
       } else {
@@ -59,7 +59,7 @@ function SaveLibraryModal({
     } catch (error) {}
   };
 
-  console.log(subFolderView, "subFolderView");
+  // console.log(subFolderView, "subFolderView");
   return (
     <>
       <Modal
@@ -118,7 +118,7 @@ function SaveLibraryModal({
                     <div
                       className="folder-inner"
                       onClick={() => {
-                        console.log(item, "item");
+                        // console.log(item, "item");
                         setSelectFolder(item?._id)
                         handleNavigateSave(item),
                           handleSaveVideonext(item?._id)
@@ -225,7 +225,7 @@ function SaveLibraryModal({
                     <div
                       className="folder-inner"
                       onClick={() => {
-                        console.log(item, "item");
+                        // console.log(item, "item");
                         handleNavigateSave(item),
                           handleSaveVideonext(item?._id),
                           setSelectSubFolderId(item?._id),
@@ -443,10 +443,10 @@ function SaveLibraryModal({
               onClick={() => {
                
                 if (subFolderView) {
-                  console.log("subFolder");
+                  // console.log("subFolder");
                   handleSaveSubFolderVideo(selectSubFolder,selectFolder);
                 } else {
-                  console.log("folder");
+                  // console.log("folder");
                   handleSaveVideo();
                 }
                 // close_library_modal();

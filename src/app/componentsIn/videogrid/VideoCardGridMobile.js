@@ -14,6 +14,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
+import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 
 const VideoCard = ({
   video,
@@ -671,7 +672,7 @@ const VideoCard = ({
             <Link href={`/mainHome/${video?._id}/videodetails2`}>
               <div className="video-card-image">
                 <Image
-                  src={video.thumbnail}
+                  src={video?.thumbnail}
                   alt="video card"
                   width={300}
                   height={150}
@@ -876,76 +877,79 @@ const VideoCardGrid = ({
   saveVideoScreen,
   setSaveVideoScreen,
  
-}) => (
-  // (getPost, "this is get post---11111"),
-  <div className="row">
-    {saveVideoScreen ? (
-                          <SaveLibrary
-                            getFolder={getFolder}
-                            handleCreateFolder={handleCreateFolder}
-                            handleDeleteFolder={handleDeleteFolder}
-                            handleSaveVideo={handleSaveVideo}
-                            setSelectedFolderId={setSelectedFolderId}
-                            handleRename={handleRename}
-                            rename={rename}
-                            setRename={setRename}
-                            getSaveVideo={getSaveVideo}
-                            getSubFolder={getSubFolder}
-                            handleCreateFolderSub={handleCreateFolderSub}
-                            handleGetFolderSub={handleGetFolderSub}
-                            selectedFolderId={selectedFolderId}
-                            handleGetFolder={handleGetFolder}
-                            handleDeleteSubFolder={handleDeleteSubFolder}
-                            handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-                            handleSaveVideonext={handleSaveVideonext}
-                            saveVideoScreen={saveVideoScreen}
-                            setSaveVideoScreen={setSaveVideoScreen}
-
-                          />
-                        ) : (getPost &&
-      Array.isArray(getPost) &&
-      getPost?.map((video, index) => (
-        <VideoCard
-          key={`video-${index}`}
-          video={video}
-          index={index}
-          topicPost={topicPost}
-          substance={substance}
-          mentalHealth={mentalHealth}
-          neuroScience={neuroScience}
-          socialIssues={socialIssues}
-          handleInterestFilter={handleInterestFilter}
-          interest={interest}
-          handleMoreLike={handleMoreLike}
-          handleNotInterestedTopic={handleNotInterestedTopic}
-          handleRemoveSuggation={handleRemoveSuggation}
-          data={data}
+}) => {
+  const { loaderState } = UseLoader(); 
+  return (
+    <div className="row">
+      {saveVideoScreen ? (
+        <SaveLibrary
           getFolder={getFolder}
-          rename={rename}
-          setValue={setValue}
           handleCreateFolder={handleCreateFolder}
           handleDeleteFolder={handleDeleteFolder}
-          handleRename={handleRename}
           handleSaveVideo={handleSaveVideo}
           setSelectedFolderId={setSelectedFolderId}
+          handleRename={handleRename}
+          rename={rename}
           setRename={setRename}
-          handleNotIntrested={handleNotIntrested}
           getSaveVideo={getSaveVideo}
           getSubFolder={getSubFolder}
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
-
-          handleGetFolder={handleGetFolder}
-          handleSaveVideonext={handleSaveVideonext}
-          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-          handleDeleteSubFolder={handleDeleteSubFolder}
           selectedFolderId={selectedFolderId}
-          getPost={getPost}
+          handleGetFolder={handleGetFolder}
+          handleDeleteSubFolder={handleDeleteSubFolder}
+          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+          handleSaveVideonext={handleSaveVideonext}
           saveVideoScreen={saveVideoScreen}
-  setSaveVideoScreen={setSaveVideoScreen}
+          setSaveVideoScreen={setSaveVideoScreen}
         />
-      )))}
-  </div>
-);
+      ) : getPost && Array.isArray(getPost) && getPost.length > 0 ? (
+        getPost?.map((video, index) => (
+          <VideoCard
+            key={`video-${index}`}
+            video={video}
+            index={index}
+            topicPost={topicPost}
+            substance={substance}
+            mentalHealth={mentalHealth}
+            neuroScience={neuroScience}
+            socialIssues={socialIssues}
+            handleInterestFilter={handleInterestFilter}
+            interest={interest}
+            handleMoreLike={handleMoreLike}
+            handleNotInterestedTopic={handleNotInterestedTopic}
+            handleRemoveSuggation={handleRemoveSuggation}
+            data={data}
+            getFolder={getFolder}
+            rename={rename}
+            setValue={setValue}
+            handleCreateFolder={handleCreateFolder}
+            handleDeleteFolder={handleDeleteFolder}
+            handleRename={handleRename}
+            handleSaveVideo={handleSaveVideo}
+            setRename={setRename}
+            handleNotIntrested={handleNotIntrested}
+            getSaveVideo={getSaveVideo}
+            getSubFolder={getSubFolder}
+            handleCreateFolderSub={handleCreateFolderSub}
+            handleGetFolderSub={handleGetFolderSub}
+            handleGetFolder={handleGetFolder}
+            handleSaveVideonext={handleSaveVideonext}
+            handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+            handleDeleteSubFolder={handleDeleteSubFolder}
+            selectedFolderId={selectedFolderId}
+            getPost={getPost}
+            saveVideoScreen={saveVideoScreen}
+            setSaveVideoScreen={setSaveVideoScreen}
+          />
+        ))
+      ) : !loaderState ? (
+        <p className="no-search">
+          <span>Stay tuned!</span> We are working on finding you the best fitting materials.
+        </p>
+      ) : null}
+    </div>
+  );
+};
 
 export default VideoCardGrid;

@@ -96,10 +96,10 @@ const RenameModel = ({
             className="btn btn-color-orange"
             onClick={(event) => {
               if (getSubFolder) {
-                console.log("test-+1");
+                // console.log("test-+1");
                 handleRenameFolder(rename,selectedFolderId);  // Agar getSubFolder exist kare to yeh chale
               } else {
-                console.log("test-+2");
+                // console.log("test-+2");
                 handleRename(rename, id); // Agar getFolder exist kare to yeh chale
               }
               handleClose7(); // Modal ya dropdown close kare

@@ -30,7 +30,7 @@ function SignupScreen() {
           const result = await AuthService.SignUp(data);
 
           if (result?.success) {
-            console.log(result, "result----1010")
+            // console.log(result, "result----1010")
             // return
             setLoader(false);
             localStorage.setItem('token', result?.data?.token);

@@ -41,7 +41,7 @@ const options = [
                                     <Select options={options} />
                                 </div> */}
                             </div>
-                            {/* <div className='body-top-right'>
+                            <div className='body-top-right'>
                                 <div className='view-type'>
                                     <div className='list-type-view'>
                                         <div className='list-icon-text'>List view</div>
@@ -52,7 +52,7 @@ const options = [
                                         </div>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
 
                         <div className="video-list-container">
