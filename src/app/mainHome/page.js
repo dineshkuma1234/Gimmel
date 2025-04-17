@@ -61,7 +61,7 @@ export default function Home() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
-    // setLoader(true);
+    setLoader(true);
     setLoading(true);
     try {
     
@@ -75,11 +75,11 @@ export default function Home() {
       if (result?.success) {
         setTotal(result?.data?.totalPosts);
         const newPosts = result?.data?.posts || [];
-        // setLoader(false);
+        setLoader(false);
 
         if (newPosts.length === 0) {
           setNoLoad(true); // Stop further API calls when no more data
-          // setLoader(false);
+          setLoader(false);
 
         } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);

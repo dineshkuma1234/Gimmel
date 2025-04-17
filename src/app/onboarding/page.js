@@ -43,7 +43,7 @@ function PageComponent() {
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);
-            console.log('Error occurred:', 'Gimmel', error);
+            // console.log('Error occurred:', 'Gimmel', error);
         }
     };
 

@@ -27,7 +27,7 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
         return counts;
     });
 
-    console.log(getReview, "getReview");
+    // console.log(getReview, "getReview");
     const handleLike = (commentId) => {
         if (likedComments[commentId]) return;
 

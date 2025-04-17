@@ -34,7 +34,7 @@ function MyLibrary({
   handleDeleteSubFolder,
   handleSaveVideonext
 }) {
-  console.log(getSubFolder, "getSubFolder+++++++++++:getSubFolder");
+  // console.log(getSubFolder, "getSubFolder+++++++++++:getSubFolder");
   const router = useRouter();
   const [getSubFolderVideo,setGetSubFolderVideo]=useState("")
   const [selectFolder, setSelectFolder] = useState(null);
@@ -73,7 +73,7 @@ function MyLibrary({
   const [subfolderid, setsubfolderid] = useState(null);
   const [inerFolder, setinerFolder] = useState()
 
-  console.log(subfolderid,"subfolderid")
+  // console.log(subfolderid,"subfolderid")
   const toggleDropdown = (folderId) => {
     setIsDropdownOpen((prev) => (prev === folderId ? null : folderId));
   };
@@ -97,7 +97,7 @@ function MyLibrary({
 
   const handleNavigateSave = (item) => {
     // ('_id', _id)
-    console.log(item,"item for subfolder")
+    // console.log(item,"item for subfolder")
     setSelectedFolderId(item?._id);
     setSubfolderName(item?.name);
     setSubfolderView(true);
@@ -178,7 +178,7 @@ function MyLibrary({
 
     try {
       const result = await AuthService.getSubFolderVideos(selectFolder,id);
-      console.log(result, "result-----+++++++++++++++++++++");
+      // console.log(result, "result-----+++++++++++++++++++++");
       if (result?.success) {
         setGetSubFolderVideo(result?.videos);
       } else {
@@ -193,7 +193,7 @@ function MyLibrary({
     setActive(item?._id);
     handleGetFolderSub(item?._id)
   };
-console.log('getSubFolderVideo=====', getSubFolderVideo)
+// console.log('getSubFolderVideo=====', getSubFolderVideo)
   return (
     <>
      <RenameModel
@@ -283,7 +283,7 @@ console.log('getSubFolderVideo=====', getSubFolderVideo)
                                <div
                                  className="folder-inner"
                                  onClick={() => {
-                                   console.log(item, "item");
+                                  //  console.log(item, "item");
                                    setSelectFolder(item?._id)
                                    handleNavigateSave(item),
                                      handleSaveVideonext(item?._id)
@@ -390,7 +390,7 @@ console.log('getSubFolderVideo=====', getSubFolderVideo)
                                <div
                                  className="folder-inner"
                                  onClick={() => {
-                                   console.log(item, "item");
+                                  //  console.log(item, "item");
                                    handleNavigateSave(item),
                                      handleSaveVideonext(item?._id),
                                      setSelectSubFolderId(item?._id),

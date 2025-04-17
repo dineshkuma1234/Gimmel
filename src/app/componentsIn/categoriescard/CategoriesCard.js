@@ -22,7 +22,8 @@ import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 
-function CategoriesCard({ watchHistoryData, 
+function CategoriesCard({
+  watchHistoryData,
   getFolder,
   handleCreateFolder,
   handleDeleteFolder,
@@ -40,169 +41,147 @@ function CategoriesCard({ watchHistoryData,
   handleCreateFolderSub,
   handleGetFolderSub,
   setSelectedFolderId,
-  setValue
-
+  setValue,
 }) {
+  const [renameModel, setRenameModel] = useState(false);
+  const [Subfolder, setSubfolder] = useState();
+  const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+  const [subfolderid, setsubfolderid] = useState(null);
+  const [deleteModel, setDeleteModel] = useState(false);
+  const [inerFolder, setinerFolder] = useState();
+  const [selectFolder, setSelectFolder] = useState(null);
+  const [subFolderView, setSubfolderView] = useState(false);
+  const [subfolderName, setSubfolderName] = useState("");
+  const [color, setColor] = useState(false);
+  const [active, setActive] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [addnewFolder, setAddNewFolder] = useState("");
+  const [selectedValue, setSelectedValue] = useState([]);
+  const { openModal, setIsOpen } = useModal();
+  const dropdownRefnwe = useRef(null);
+  const dropdownRef = useRef();
+  const [show, setShow] = useState(false);
 
+  const [showFullSummary, setShowFullSummary] = useState(false);
+  const handleShowFullSummary = () => setShowFullSummary(true);
+  const handleCloseFullSummary = () => setShowFullSummary(false);
 
-   const [renameModel, setRenameModel] = useState(false);
-                const [Subfolder, setSubfolder] = useState();
-                const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
-                const [subfolderid, setsubfolderid] = useState(null);
-                const [deleteModel, setDeleteModel] = useState(false);
-                const [inerFolder, setinerFolder] = useState()
-                const [selectFolder, setSelectFolder] = useState(null);
-                const [subFolderView, setSubfolderView] = useState(false);
-               const [subfolderName, setSubfolderName] = useState("");
-               const [color, setColor] = useState(false);
-               const [active, setActive] = useState(null);
-               const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-               const [folders, setFolders] = useState([]);
-               const [addnewFolder, setAddNewFolder] = useState("");
-               const [selectedValue, setSelectedValue] = useState([]);
-                const { openModal,setIsOpen } = useModal(); 
-                const dropdownRefnwe = useRef(null);
-                const dropdownRef = useRef()
-            const [show, setShow] = useState(false);
-          
-            const handleClose = () => setShow(false);
-            const handleShow = () => setShow(true);
-          
-            const [show1, setShow1] = useState(true);
-          
-            const handleClose1 = () => setShow1(false);
-            const handleShow1 = () => setShow1(true);
-          
-            const [show6, setShow6] = useState(false);
-            const handleClose6 = () => setShow6(false);
-            const handleShow6 = () => setShow6(true);
-          
-            const [show5, setShow5] = useState(false);
-            const handleClose5 = () => setShow5(false);
-            const handleShow5 = () => setShow5(true)
-            const swiperRef = useRef(null);
-          
-          
-            const handleNavigateSave = (item) => {
-              // ('_id', _id)
-              console.log(item,"item for subfolder")
-              setSelectedFolderId(item?._id);
-              setSubfolderName(item?.name);
-              setSubfolderView(true);
-              // setActive(item?._id);
-              setsubfolderid(item?._id);
-              setinerFolder(item?._id)
-              // handleCreateFolderSub(addnewFolder);
-              handleGetFolderSub(item?._id)
-            };
-          
-            const handleNavigatename = (item) => {
-              // ('_id', _id)
-              setSelectedFolderId(item?._id);
-              setColor(true);
-              setActive(item?._id);
-              handleGetFolderSub(item?._id)
-            };
-          
-            const handleChange = (e) => {
-              if (subFolderView) {
-                setAddNewFolder(e.target.value);
-              } else {
-                setFolders(e.target.value);
-              }
-            };
-          
-            
-          
-            const toggleDropdownnwe = (item) => {
-              // (item,"if")
-              setisDropdownOpenid((prev) => (prev === item ? null : item));
-              setThreeDotItem(item);
-            };
-          
-            const handleClickOutside = (event) => {
-              if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsDropdownOpen(false);
-              }
-            };
-          
-          
-          
-          
-          
-            
-          
-          
-          
-          useEffect(() => {
-            window.addEventListener("click", handleClickOutside);
-            return () => {
-              window.removeEventListener("click", handleClickOutside);
-            };
-          }, []);
-          
-          
-            const [openDropdownId, setOpenDropdownId] = useState(null);
-            const toggleDropdown = (id) => {
-              setOpenDropdownId((prevId) => (prevId === id ? null : id));
-            };
-          
-            const handleOutsideClick = (event) => {
-              if (
-                !event.target.closest(".dropdown-menu-card") &&
-                !event.target.closest(".dropdown-toggle")
-              ) {
-                setOpenDropdownId(null);
-              }
-            };
-          
-            useEffect(() => {
-              document.addEventListener("mousedown", handleOutsideClick);
-              return () => {
-                document.removeEventListener("mousedown", handleOutsideClick);
-              };
-            }, []);
-          
-           
-          
-            // Function to add a new folder
-            const addNewFolder = () => {
-              const newFolder = {
-                id: folders.length + 1,
-                name: `New Folder ${folders.length + 1}`,
-              };
-              setFolders([...folders, newFolder]);
-            };
-          
-            const [expandedVideoId, setExpandedVideoId] = useState(null);
-          
-            const handleToggleExpand = (_id) => {
-              setExpandedVideoId(expandedVideoId === _id ? null : _id);
-            };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
+  const [show1, setShow1] = useState(false);
 
-  
-  
-  const { handleNotIntrested } = useHeader();
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
 
- 
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = () => setShow6(true);
 
-  
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+  const swiperRef = useRef(null);
+
+  const handleNavigateSave = (item) => {
+    // ('_id', _id)
+    // console.log(item, "item for subfolder");
+    setSelectedFolderId(item?._id);
+    setSubfolderName(item?.name);
+    setSubfolderView(true);
+    // setActive(item?._id);
+    setsubfolderid(item?._id);
+    setinerFolder(item?._id);
+    // handleCreateFolderSub(addnewFolder);
+    handleGetFolderSub(item?._id);
+  };
+
+  const handleNavigatename = (item) => {
+    // ('_id', _id)
+    setSelectedFolderId(item?._id);
+    setColor(true);
+    setActive(item?._id);
+    handleGetFolderSub(item?._id);
+  };
+
+  const handleChange = (e) => {
+    if (subFolderView) {
+      setAddNewFolder(e.target.value);
+    } else {
+      setFolders(e.target.value);
+    }
+  };
+
+  const toggleDropdownnwe = (item) => {
+    // (item,"if")
+    setisDropdownOpenid((prev) => (prev === item ? null : item));
+    setThreeDotItem(item);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const [openDropdownId, setOpenDropdownId] = useState(null);
+  const toggleDropdown = (id) => {
+    setOpenDropdownId((prevId) => (prevId === id ? null : id));
+  };
+
+  const handleOutsideClick = (event) => {
+    if (
+      !event.target.closest(".dropdown-menu-card") &&
+      !event.target.closest(".dropdown-toggle")
+    ) {
+      setOpenDropdownId(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   // Function to add a new folder
-  
+  const addNewFolder = () => {
+    const newFolder = {
+      id: folders.length + 1,
+      name: `New Folder ${folders.length + 1}`,
+    };
+    setFolders([...folders, newFolder]);
+  };
+
+  const [expandedVideoId, setExpandedVideoId] = useState(null);
+
+  const handleToggleExpand = (_id) => {
+    setExpandedVideoId(expandedVideoId === _id ? null : _id);
+  };
+
+  const { handleNotIntrested } = useHeader();
+
+  // Function to add a new folder
+
   const [disc, setDisc] = useState(null);
 
-    const [show4, setShow4] = useState(false);
+  const [show4, setShow4] = useState(false);
 
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
 
-
   const toggleDropdownFolder = (folderId) => {
     setOpenDropdownId((prev) => (prev === folderId ? null : folderId));
   };
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -216,7 +195,16 @@ function CategoriesCard({ watchHistoryData,
 
   return (
     <>
-     <RenameModel
+    <Modal show={showFullSummary} onHide={handleCloseFullSummary} centered className="custom-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Full Summary</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p> {disc}</p>
+        </Modal.Body>
+      </Modal>
+
+      <RenameModel
         renameModel={renameModel}
         show7={show}
         handleClose7={handleClose}
@@ -232,7 +220,7 @@ function CategoriesCard({ watchHistoryData,
         subfolderid={subfolderid}
         selectedFolderId={selectedFolderId}
       />
-    <DeleteModel
+      <DeleteModel
         deleteModel={deleteModel}
         show={show6}
         handleClose={handleClose6}
@@ -245,7 +233,7 @@ function CategoriesCard({ watchHistoryData,
         selectFolder={selectFolder}
       />
 
-<SaveLibraryModal
+      <SaveLibraryModal
         show_modal={show1}
         close_library_modal={handleClose1}
         handleShow={handleShow}
@@ -273,7 +261,7 @@ function CategoriesCard({ watchHistoryData,
         setSelectFolder={setSelectFolder}
         selectFolder={selectFolder}
       />
-        <NewfolderAdd
+      <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
         handleChange={handleChange}
@@ -286,7 +274,8 @@ function CategoriesCard({ watchHistoryData,
         handleCreateFolderSub={handleCreateFolderSub}
       />
       {watchHistoryData &&
-        Array.isArray(watchHistoryData) && watchHistoryData.length > 0 ? (
+      Array.isArray(watchHistoryData) &&
+      watchHistoryData.length > 0 ? (
         watchHistoryData.map((item, index) => (
           <div className="categories-card" key={(item, index)}>
             <div className="row">
@@ -301,8 +290,7 @@ function CategoriesCard({ watchHistoryData,
                     />
                     <div className="video-duration">
                       {formatDuration(item?.duration)}
-
-                      </div>
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -318,7 +306,6 @@ function CategoriesCard({ watchHistoryData,
                         onClick={() => {
                           toggleDropdown(item?._id);
                           setDisc(item?.description);
-                          
                         }}
                       >
                         <FaEllipsisV />
@@ -327,7 +314,7 @@ function CategoriesCard({ watchHistoryData,
                         <div className="dropdown-menu-card">
                           <ul>
                             <li>
-                              <button variant="primary" onClick={handleShow}>
+                              <button variant="primary" onClick={handleShowFullSummary}>
                                 <svg
                                   width="24"
                                   height="24"
@@ -344,15 +331,17 @@ function CategoriesCard({ watchHistoryData,
                               </button>
                             </li>
                             <li>
-                              <button variant="primary" 
-                               onClick={(e) => {
-                                const token = localStorage.getItem("token");
-                                if (!token) {
-                                e.preventDefault(); // Prevents navigation
-                                setIsOpen(true);
-                                } else {
-                                  handleShow1();                  }
-                            }}
+                              <button
+                                variant="primary"
+                                onClick={(e) => {
+                                  const token = localStorage.getItem("token");
+                                  if (!token) {
+                                    e.preventDefault(); // Prevents navigation
+                                    setIsOpen(true);
+                                  } else {
+                                    handleShow1();
+                                  }
+                                }}
                               >
                                 <svg
                                   width="24"
@@ -373,16 +362,16 @@ function CategoriesCard({ watchHistoryData,
                             <li>
                               <button
                                 href="#"
-                               
                                 onClick={(e) => {
                                   const token = localStorage.getItem("token");
                                   if (!token) {
-                                  e.preventDefault(); // Prevents navigation
-                                  setIsOpen(true);
+                                    e.preventDefault(); // Prevents navigation
+                                    setIsOpen(true);
                                   } else {
                                     handleNotIntrested(item?._id);
-                                  setOpenDropdownId(null);                 }
-                              }}
+                                    setOpenDropdownId(null);
+                                  }
+                                }}
                               >
                                 <svg
                                   width="24"
@@ -450,7 +439,10 @@ function CategoriesCard({ watchHistoryData,
           </div>
         ))
       ) : (
-        <p className="no-search"><span>Stay tuned!</span> We are working on finding you the best fitting materials.</p>
+        <p className="no-search">
+          <span>Stay tuned!</span> We are working on finding you the best
+          fitting materials.
+        </p>
       )}
     </>
   );

@@ -459,9 +459,9 @@ const SuggestedCardGrid = ({
   calculateMonthsAgo
 }) => (
   <div className="row">
-    {suggested?.map((video) => (
+    {suggested?.map((video, index) => (
       <Suggested
-        key={video?.id}
+        key={video?.id || index}
         video={video}
         getFolder={getFolder}
         rename={rename}

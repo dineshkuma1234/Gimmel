@@ -143,7 +143,7 @@ function PageComponent() {
         try {
           const result = await AuthService.UpdateProfileImage(data);
           if (result?.success) {
-            console.log(result,"result")
+            // console.log(result,"result")
             // navigation.navigate('Profile');
             // LoaderHelper.loaderStatus(false);
             // AlertHelper.show('success', 'Gimmel', result?.data);

@@ -328,14 +328,14 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                     <div className="tab-select">
                         <div className="list-group btn-list-2" id="list-tab" role="tablist">
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAudience === "Student" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAudience === "Students" ? "active" : ""}`}
                                 id="list-home-list"
                                 onClick={() => handleClick3("Students")}
                             >
                                 Student
                             </button>
                             <button
-                                className={`list-group-item list-group-item-action ${selectedAudience === "Parent" ? "active" : ""}`}
+                                className={`list-group-item list-group-item-action ${selectedAudience === "Parents" ? "active" : ""}`}
                                 id="list-messages-list"
                                 onClick={() => handleClick3("Parents")}
                             >

@@ -31,8 +31,8 @@ const PageComponent = () => {
     const [getSaveVideo,setGetSaveVideo] = useState([]);
     const [getSubFolder,setGetFolderSub]= useState();
 
-    console.log(getvideoid,"getvideoid---")
-    console.log(selectedFolderId,"selectedFolderId---")
+    // console.log(getvideoid,"getvideoid---")
+    // console.log(selectedFolderId,"selectedFolderId---")
 
     useEffect(() => {
        
@@ -268,10 +268,10 @@ const PageComponent = () => {
         // LoaderHelper.loaderStatus(true);
         try {
           const result = await AuthService.GetSubFolder(selectedFolderId,value);
-          console.log(result,"result---test")
+          // console.log(result,"result---test")
           if (result?.success) {
             // LoaderHelper.loaderStatus(false);
-            console.log(result?.data?.data,"dat in api")
+            // console.log(result?.data?.data,"dat in api")
             setGetFolderSub(result?.data?.data);
           } else {
             // LoaderHelper.loaderStatus(false);
@@ -284,14 +284,14 @@ const PageComponent = () => {
       };
 
       const handleDeleteSubFolder = async (id,SubFolderId) => {
-        console.log("delete sub folder----")
+        // console.log("delete sub folder----")
          setLoader(true);
          try {
            const result = await AuthService.DeleteSubFolder(id,SubFolderId);
-          console.log(result,"resultDeletefolder---")
+          // console.log(result,"resultDeletefolder---")
            // (result, "result---delete")
            if (result) {
-             console.log("r-test----")
+            //  console.log("r-test----")
              setLoader(false);
              handleGetFolderSub(selectedFolderId);
              handleGetFolder();

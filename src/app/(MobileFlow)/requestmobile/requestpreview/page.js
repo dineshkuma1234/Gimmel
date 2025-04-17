@@ -21,7 +21,7 @@ function RequestPreview() {
   const handleShow = () => setShow(true);
 
   const [selectedIndex, setSelectedIndex] = useState([]);
-console.log(selectedIndex,"selectedIndex------twst")
+// console.log(selectedIndex,"selectedIndex------twst")
 
 
   const handleRadioChange = (index, item) => {
@@ -47,7 +47,7 @@ console.log(selectedIndex,"selectedIndex------twst")
     requestListData,
     handleRequestSaveVideo,
   } = useRequestContext();
-console.log('getVideoRequestData":OP:O', yourRequest)
+// console.log('getVideoRequestData":OP:O', yourRequest)
 // console.log('avoidedDetails', avoidedDetails)
 // console.log('addDetails', addDetails)
 

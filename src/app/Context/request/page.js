@@ -44,7 +44,7 @@ export const RequestProvider = ({ children }) => {
     
     try {
       const result = await AuthService.CreateRequest(yourRequest, discription, avoided, details);
-      console.log("Create Request Result:", result);
+      // console.log("Create Request Result:", result);
       if (result?.success) {
         handleRequestList();
       }
@@ -60,7 +60,7 @@ export const RequestProvider = ({ children }) => {
       setLoader(false);
 
       const result = await AuthService.RequestList();
-      console.log("Request List Result:", result);
+      // console.log("Request List Result:", result);
       if (result?.success) {
         setLoader(false);
 
@@ -81,7 +81,7 @@ export const RequestProvider = ({ children }) => {
 
       if (!id) return; // Ensure `id` is set before calling
       const result = await AuthService.getVideoRequest(id);
-      console.log("Video Request Result:", result);
+      // console.log("Video Request Result:", result);
       if (result?.success) {
         setgetVideoRequestData(result?.data?.data);
       }
