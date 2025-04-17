@@ -1,4 +1,5 @@
-'use client'
+"use client"
+
 import React, { useEffect, useState } from 'react';
 import Header from "../../../components/header/header";
 import SliderSection from "../../componentsIn/slidercategories/slider";
