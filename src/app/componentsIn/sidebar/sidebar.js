@@ -27,17 +27,44 @@ function Sidebar() {
   const [inputValue, setInputValue] = useState("");
   const [sliderValue, setSliderValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  const [selectedAudience, setSelectedAudience] = useState("");
+  const [selectedAge, setSelectedAge] = useState("");
+  const [selectedEngagement, setSelectedEngagement] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [isSearchListPage, setIsSearchListPage] = useState(false);
+
+  useEffect(() => {
+    handleSearchCont(
+      headerSearch,
+      isOn,
+      chips,
+      inputValue,
+      selectedAge,
+      selectedEngagement,
+      selectedDate,
+      sliderValue,
+      selectedValue,
+      selectedAudience
+    );
+  }, [
+    headerSearch,
+    isOn,
+    chips,
+    selectedAge,
+    selectedEngagement,
+    selectedDate,
+    sliderValue,
+    selectedValue,
+    selectedAudience,
+  ]);
 
   const handleSelectedChange = (e) => {
-    // ("yes it call")
-    const newValue = e.target.value; // Get the new selected value
-    setSelectedValue(newValue); // Update state
-    handleSearchCont(headerSearch, "", "", "", "", "", "", "", newValue);
+    const newValue = e.target.value;
+    setSelectedValue(newValue);
   };
   const handleSliderChange = (value) => {
     const newValue = value[1];
     setSliderValue(newValue);
-    handleSearchCont(headerSearch, "", "", "", "", "", "", newValue);
   };
 
   const addChip = () => {
@@ -45,14 +72,12 @@ function Sidebar() {
       const updatedChips = [...chips, inputValue];
       setChips(updatedChips);
       setInputValue("");
-      handleSearchCont(headerSearch, "", updatedChips);
     }
   };
 
   const removeChip = (index) => {
     const updatedChips = chips.filter((_, i) => i !== index);
     setChips(updatedChips);
-    handleSearchCont(headerSearch, "", updatedChips);
   };
 
   const handleKeyDown = (event) => {
@@ -67,25 +92,16 @@ function Sidebar() {
     );
   };
 
-  const [selectedAge, setSelectedAge] = useState("");
-
   const handleClick = (age) => {
     setSelectedAge(age);
-    handleSearchCont(headerSearch, "", "", "", age);
   };
-
-  const [selectedEngagement, setSelectedEngagement] = useState("");
 
   const handleClick1 = (engagement) => {
     setSelectedEngagement(engagement);
-    handleSearchCont(headerSearch, "", "", "", "", engagement);
   };
-
-  const [selectedDate, setSelectedDate] = useState("");
 
   const handleClick2 = (date) => {
     setSelectedDate(date);
-    handleSearchCont(headerSearch, "", "", "", "", "", date);
   };
 
   const [show, setShow] = useState(false);
@@ -93,14 +109,9 @@ function Sidebar() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [selectedAudience, setSelectedAudience] = useState("");
-
   const handleClick3 = (audience) => {
     setSelectedAudience(audience);
-    handleSearchCont(headerSearch, "", "", "", "", "", "", "", "", audience);
   };
-
-  const [isSearchListPage, setIsSearchListPage] = useState(false);
 
   useEffect(() => {
     setIsSearchListPage(window.location.pathname.includes("searchlist"));
@@ -140,14 +151,6 @@ function Sidebar() {
 
       {!isSearchListPage && (
         <>
-          {/* <div className="search-bar-">
-            <input
-              type="text"
-              placeholder="Search in library"
-              className="search-input-bar"
-            />
-          </div> */}
-
           <div className="add-folder">
             <button
               type="button"
@@ -160,7 +163,7 @@ function Sidebar() {
           <div className="dropdown-divider"></div>
         </>
       )}
-   
+
       <div className="middle-sidebar">
         <div className="switch-container">
           <span className="switch-label-text">
@@ -179,7 +182,7 @@ function Sidebar() {
             />
           </Form>
         </div>
-        
+
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput1">
             <Form.Label>Topic of the content</Form.Label>
@@ -271,13 +274,6 @@ function Sidebar() {
           </Form.Group>
           <div className="tab-select">
             <div className="list-group" id="list-tab" role="tablist">
-              {/* <button
-                                className={`list-group-item list-group-item-action ${selectedDate === "NewlyPublished" ? "active" : ""}`}
-                                id="list-home-list"
-                                onClick={() => handleClick2(date)}
-                            >
-                                Today
-                            </button> */}
               <button
                 className={`list-group-item list-group-item-action w-100 ${
                   selectedDate === "NewlyPublished" ? "active" : ""
@@ -296,7 +292,7 @@ function Sidebar() {
             <Form.Control
               type="number"
               placeholder="Set difficulty"
-              value={sliderValue.toString()}
+              value={sliderValue !== null ? sliderValue.toString() : ""}
               readOnly
             />
           </Form.Group>
@@ -309,8 +305,8 @@ function Sidebar() {
               min={1}
               max={10}
               step={1}
-              defaultValue={[1, sliderValue]}
-              value={[1, sliderValue]}
+              defaultValue={[1, 1]}
+              value={[1, sliderValue || 1]}
               thumbsDisabled={[true, false]}
               rangeSlideDisabled={true}
               onInput={handleSliderChange}

@@ -143,93 +143,61 @@ export default function PageComponent() {
   };
 
   ///////Search \\\\\\
-  const [historyList, setHistoryList] = useState([]);
-  const [historyList1, setHistoryList1] = useState([]);
-  const [headerSearch, setHeaderSearch] = useState("");
-
-  const [searchListState, updatesearchListState] =
-    useContext(SearchListContext);
-  useEffect(() => {
-    if (headerSearch) {
-      handleHistoryList(headerSearch);
-    }
-  }, []);
-  useEffect(() => {
-    handleHistoryList();
-  }, []);
-
   
-  const handleHistoryList = async (headerSearch) => {
-    // setLoader(true);
-    try {
-      const result = await AuthService.SearchHistory(headerSearch);
-      if (result?.success) {
-        // setLoader(false);
-        setHistoryList(result?.data?.data || []);
-      } else {
-        // setLoader(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-        toast.error(result?.message, {
-          className: "custom-toast", // Apply the custom class
-        });
-      }
-    } catch (error) {}
-  };
 
-  const handleSearchCont = async (
-    headerSearch,
-    isOn,
-    chips,
-    inputValue,
-    selectedAge,
-    selectedEngagement,
-    selectedDate,
-    sliderValue,
-    selectedValue,
-    selectedAudience
-  ) => {
-    // setLoader(true);
+  //   headerSearch,
+  //   isOn,
+  //   chips,
+  //   inputValue,
+  //   selectedAge,
+  //   selectedEngagement,
+  //   selectedDate,
+  //   sliderValue,
+  //   selectedValue,
+  //   selectedAudience
+  // ) => {
+  //   // setLoader(true);
 
-    try {
-      const result = await AuthService.SearchResult(
-        headerSearch,
-        isOn,
-        chips,
-        inputValue,
-        selectedAge,
-        selectedEngagement,
-        selectedDate,
-        sliderValue,
-        selectedValue,
-        selectedAudience
-      );
-      // setLoader(false);
+  //   try {
+  //     const result = await AuthService.SearchResult(
+  //       headerSearch,
+  //       isOn,
+  //       chips,
+  //       inputValue,
+  //       selectedAge,
+  //       selectedEngagement,
+  //       selectedDate,
+  //       sliderValue,
+  //       selectedValue,
+  //       selectedAudience
+  //     );
+  //     // setLoader(false);
 
-      if (result?.success) {
-        if (result?.data?.length <= 0) {
-          // AlertHelper.show('gray', 'Gimmel', 'No data');
-          toast.error(result?.message, {
-            className: "custom-toast", // Apply the custom class
-          });
-        } else {
-          updatesearchListState(result?.data);
-          // navigation.navigate('TabNavigation', {
-          //   screen: 'Search',
-          //   params: { data: result?.data },
-          // });
-          router.push(
-            "/searchlist",
-            { data: JSON.stringify(result?.data) } // Convert the object to a JSON string
-          );
-        }
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-        // setLoader(false);
-      }
-    } catch (error) {
-      // setLoader(false);
-    }
-  };
+  //     if (result?.success) {
+  //       if (result?.data?.length <= 0) {
+  //         // AlertHelper.show('gray', 'Gimmel', 'No data');
+  //         toast.error(result?.message, {
+  //           className: "custom-toast", // Apply the custom class
+  //         });
+  //       } else {
+  //         updatesearchListState(result?.data);
+  //         // navigation.navigate('TabNavigation', {
+  //         //   screen: 'Search',
+  //         //   params: { data: result?.data },
+  //         // });
+  //         router.push(
+  //           "/searchlist",
+  //           { data: JSON.stringify(result?.data) } // Convert the object to a JSON string
+  //         );
+  //       }
+  //     } else {
+  //       // AlertHelper.show('danger', 'Gimmel', result?.message);
+  //       // setLoader(false);
+  //     }
+  //   } catch (error) {
+  //     // setLoader(false);
+  //   }
+  // };
 
   // My Intrest //
 
@@ -791,12 +759,12 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
       {deviceWidth > 991 ? (
         <Main
           getPost={getPost}
-          historyList={historyList}
-          setHeaderSearch={setHeaderSearch}
-          headerSearch={headerSearch}
+          // historyList={historyList}
+          // setHeaderSearch={setHeaderSearch}
+          // headerSearch={headerSearch}
           handleGetCategories={handleGetCategories}
-          handleHistoryList={handleHistoryList}
-          handleSearchCont={handleSearchCont}
+          // handleHistoryList={handleHistoryList}
+          // handleSearchCont={handleSearchCont}
           substance={substance}
           mentalHealth={mentalHealth}
           neuroScience={neuroScience}

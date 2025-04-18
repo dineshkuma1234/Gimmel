@@ -13,7 +13,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
     const handleClick = (age) => {
         setSelectedAge(age);
     };
-    (selectedAge,"selectedAge---")
+    
 
     const [selectedEngagement, setSelectedEngagement] = useState("");
 
@@ -63,7 +63,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
             addChip();
         }
     };
-    const [sliderValue, setSliderValue] = useState(5);
+    const [sliderValue, setSliderValue] = useState(null);
     const handleSliderChange = (value)=>{
         setSliderValue(value[1]);
     }
@@ -255,7 +255,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                 <div className="select-container">
                     <Form.Group controlId="exampleForm.ControlInput5">
                         <Form.Label>Difficulty Level</Form.Label>
-                        <Form.Control type="text" placeholder="Set difficulty" value={sliderValue.toString()} readOnly />
+                        <Form.Control type="text" placeholder="Set difficulty" value={sliderValue !==null?sliderValue.toString() : ""} readOnly />
                     </Form.Group>
                 </div>
                 <div className="select-container mt-4">
@@ -266,7 +266,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                             min={1}
                             max={10}
                             step={1}
-                            defaultValue={[1,sliderValue]}    
+                            defaultValue={[1,1]}    
                             value={[1,sliderValue]}
                             thumbsDisabled={[true, false]}
                             rangeSlideDisabled={true}

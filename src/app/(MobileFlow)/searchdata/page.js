@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,  } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Modal } from "react-bootstrap";
@@ -12,6 +12,7 @@ import historyIcon from "../../../assets/images/history.svg";
 import vectorIcon from "../../../assets/images/Vector.svg";
 import filter from "../../../assets/images/filter.svg";
 import northEast from "../../../assets/images/north_east.svg"
+import { useRouter,  } from "next/navigation";
 
 function Search() {
   const {
@@ -22,17 +23,21 @@ function Search() {
     handleSearchCont
    
   } = useHeader();
+  const router = useRouter();
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+ 
   const handleHistoryItemClick = (item) => {
     setHeaderSearch(item.title);
     handleSearchCont(item.title);
   };
-//   (historyList, "historyList====");
+  const handleBackClick=()=>{
+    setHeaderSearch("");
+    router.push("/");
+  }
   return (
     <>
       <Modal
@@ -77,7 +82,7 @@ function Search() {
         <div className="page-inner">
           <div className="page-section-left">
             <div className="back-button">
-              <button className="btn" onClick={() => window.history.back()}>
+              <button className="btn"  onClick={handleBackClick} >
                 <svg
                   width="32"
                   height="32"
@@ -97,6 +102,7 @@ function Search() {
                 type="text"
                 placeholder="Search"
                 value={headerSearch}
+                autoFocus={true}
                 onChange={(e) => setHeaderSearch(e.target.value)}
                 onClick={(e) => handleHistoryList(e.target.value)}
                 onKeyDown={(e) => {

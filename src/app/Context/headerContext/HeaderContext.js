@@ -20,13 +20,18 @@ export const HeaderProvider = ({ children }) => {
   const [topicPost, setTopicPost] = useState("");
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchQuery = searchParams.get("search_query");
+    if (searchQuery) {
+      setHeaderSearch(searchQuery);
+    }
+    handleHistoryList();
+  }, []);
+  useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
     }
   }, [headerSearch]);
-  useEffect(() => {
-    handleHistoryList();
-  }, []);
 
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
@@ -81,7 +86,7 @@ export const HeaderProvider = ({ children }) => {
           handleSaveSearchHistory(headerSearch);
             updatesearchListState(result?.data);
             router.push(
-                "/searchlist",
+                 `/searchlist?search_query=${encodeURIComponent(headerSearch)}`,
                 { data: JSON.stringify(result?.data) } 
             );
         } else {
