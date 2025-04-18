@@ -10,7 +10,7 @@ import './header.css';
 import '../../app/CommenStyle/filter.css';
 import FilterData from "./filterdata";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 import { Button, Modal } from 'react-bootstrap';
 import { useModal } from '../registerpop/page';
@@ -22,6 +22,7 @@ function Header() {
     
 
     const pathname = usePathname()
+    const searchParams = useSearchParams();
     const { openModal,setIsOpen } = useModal(); 
 
 
@@ -49,6 +50,15 @@ function Header() {
     const [showHistory, setShowHistory] = useState(false);
     const [showFilter,setShow] = useState(false);
     const containerRef = useRef(null);
+
+    useEffect(() => {
+        const query = searchParams.get("search_query");
+        if (query) {
+          setHeaderSearch(query);
+          handleSearchCont(query);
+        }
+      }, [searchParams]);
+      
 
     const handleShowHistory = () => {
         setShowHistory(true);

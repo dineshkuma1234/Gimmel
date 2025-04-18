@@ -349,7 +349,6 @@ const AuthService = {
     selectedValue,
     selectedAudience
   ) => {
-    headerSearch, "headerSearch--12";
     let token = await localStorage.getItem("token");
     const userId =await localStorage.getItem("userId");
     if (!token) {
@@ -357,8 +356,6 @@ const AuthService = {
     }
 
     const { authBaseUrl, Search } = ApiConfig;
-
-    // Build query parameters dynamically
     const params = new URLSearchParams();
 
     if (headerSearch) params.append("search", headerSearch);
@@ -379,17 +376,15 @@ const AuthService = {
       params.append("ageRange", selectedAge);
     }
     if (userId) params.append("userId", userId);
-    // if (selectedItem) params.append('postId', selectedItem);
     const url = `${authBaseUrl}${Search}${
       params.toString() ? `?${params.toString()}` : ""
     }`;
 
-    // const params = {};
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-    url, params, "url-----";
+
     return ApiCallGet(url, {}, headers);
   },
 
