@@ -47,7 +47,7 @@ function Sidebar() {
       selectedAudience
     );
   }, [
-    headerSearch,
+    // headerSearch,
     isOn,
     chips,
     selectedAge,
@@ -348,7 +348,7 @@ function Sidebar() {
 
                 <Form.Check
                   type={type}
-                  label={`15+`}
+                  label={`15+ Minutes`}
                   name="group1"
                   id={`inline-${type}-4`}
                   value="15"

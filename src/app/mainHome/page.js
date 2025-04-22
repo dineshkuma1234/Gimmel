@@ -120,94 +120,94 @@ const handleTopicPost = async () => {
 };
 
   ///////Search \\\\\\
-  const [historyList, setHistoryList] = useState([]);
-  const [selectSearchList, setSelectSearchList] = useState('')
-  const [headerSearch, setHeaderSearch] = useState("")
-  const [searchList, setSearchList] = useState('');
-  useEffect(() => {
-    if (headerSearch) {
-      handleHistoryList(headerSearch);
-    }
-  }, [headerSearch])
-  // useEffect(() => {
-  //   handleHistoryList();
-  // },[]);
+//   const [historyList, setHistoryList] = useState([]);
+//   const [selectSearchList, setSelectSearchList] = useState('')
+//   const [headerSearch, setHeaderSearch] = useState("")
+//   const [searchList, setSearchList] = useState('');
+//   useEffect(() => {
+//     if (headerSearch) {
+//       handleHistoryList(headerSearch);
+//     }
+//   }, [headerSearch])
+//   // useEffect(() => {
+//   //   handleHistoryList();
+//   // },[]);
 
   
-  // (historyList,"historyList--------");
-const handleHistoryList = async (headerSearch) => {
+//   // (historyList,"historyList--------");
+// const handleHistoryList = async (headerSearch) => {
 
-  // setLoader(true);
-  try {
-      const result = await AuthService.SearchHistory(headerSearch);
-      // (result.data, 'result');
-      if (result?.success) {
-        // setLoader(false);
-        setHistoryList(result?.data?.data || []);
-      } else {
-        // setLoader(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      // ('Error occurred:', 'Gimmel', error);
-    }
-  };
-  const handleSearchCont = async (
-    headerSearch,
-    isOn,
-    chips,
-    inputValue,
-    selectedAge,
-    selectedEngagement,
-    selectedDate,
-    sliderValue,
-    selectedValue,
-    selectedAudience,
-  ) => {
-    // (headerSearch,"usecase--0000")
-    // setLoader(true);
-      try {
-      const result = await AuthService.SearchResult(
-        headerSearch,
-        isOn,
-        chips,
-        inputValue,
-        selectedAge,
-        selectedEngagement,
-        selectedDate,
-        sliderValue,
-        selectedValue,
-        selectedAudience,
-      );
-      // (result, 'result---');
-      // setLoader(false);
+//   // setLoader(true);
+//   try {
+//       const result = await AuthService.SearchHistory(headerSearch);
+//       // (result.data, 'result');
+//       if (result?.success) {
+//         // setLoader(false);
+//         setHistoryList(result?.data?.data || []);
+//       } else {
+//         // setLoader(false);
+//         // AlertHelper.show('danger', 'Gimmel', result?.message);
+//       }
+//     } catch (error) {
+//       // ('Error occurred:', 'Gimmel', error);
+//     }
+//   };
+//   const handleSearchCont = async (
+//     headerSearch,
+//     isOn,
+//     chips,
+//     inputValue,
+//     selectedAge,
+//     selectedEngagement,
+//     selectedDate,
+//     sliderValue,
+//     selectedValue,
+//     selectedAudience,
+//   ) => {
+//     // (headerSearch,"usecase--0000")
+//     // setLoader(true);
+//       try {
+//       const result = await AuthService.SearchResult(
+//         headerSearch,
+//         isOn,
+//         chips,
+//         inputValue,
+//         selectedAge,
+//         selectedEngagement,
+//         selectedDate,
+//         sliderValue,
+//         selectedValue,
+//         selectedAudience,
+//       );
+//       // (result, 'result---');
+//       // setLoader(false);
 
-      if (result?.success) {
-        if (result?.data?.length <= 0) {
-          // AlertHelper.show('gray', 'Gimmel', 'No data');
-        } else {
-          setSearchList(result?.data);
-          // navigation.navigate('TabNavigation', {
-          //   screen: 'Search',
-          //   params: { data: result?.data },
-          // });
-          router.push( "/searchlist",
-            { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
-          );
-        }
-      } else {
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      // setLoader(false);
-      // ('Error occurred:', 'Gimmel', error);
-    }
-  };
+//       if (result?.success) {
+//         if (result?.data?.length <= 0) {
+//           // AlertHelper.show('gray', 'Gimmel', 'No data');
+//         } else {
+//           setSearchList(result?.data);
+//           // navigation.navigate('TabNavigation', {
+//           //   screen: 'Search',
+//           //   params: { data: result?.data },
+//           // });
+//           router.push( "/searchlist",
+//             { data: JSON.stringify(result?.data) }, // Convert the object to a JSON string
+//           );
+//         }
+//       } else {
+//         // AlertHelper.show('danger', 'Gimmel', result?.message);
+//       }
+//     } catch (error) {
+//       // setLoader(false);
+//       // ('Error occurred:', 'Gimmel', error);
+//     }
+//   };
 
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} historyList={historyList} setHeaderSearch={setHeaderSearch} headerSearch={headerSearch} handleHistoryList={handleHistoryList} handleSearchCont={handleSearchCont} id= {video_id} />
+        <Main getPost={getPost}  id= {video_id} />
       ) : (
         <MainMobile  getPost={getPost} topicPost={topicPost} />
         

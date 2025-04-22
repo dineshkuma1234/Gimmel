@@ -16,17 +16,21 @@ function PageComponent() {
     const [contentMaturity, setContentMaturity] = useState([])
     const [eduction, setEducation] = useState([])
     const {setLoader} = UseLoader();
+    const [page, setPage] = useState(1);
+    const  [total,setTotal] = useState()
     // ("page load")
     useEffect(()=>{
         handleUserInfo();
         handleWatchHistory();
         handleLibraryVideos();
-        handleTeachingToic();
+        
         handleContentmaturity();
         handleEducationalObjectives();
         // ("this is console") 
     },[]);
-   
+   useEffect(() => {
+    handleTeachingToic(page);
+   },[page])
     
     const handleUserInfo = async () => {
         setLoader(true);
@@ -78,13 +82,24 @@ function PageComponent() {
         }
     };
     
-    const handleTeachingToic = async () => {
-        setLoader(true);
+    const handleTeachingToic = async (page) => {
+        if(total === teachingTopic?.length){
+            return
+        }
+        // setLoader(true);
         try {
-            const result = await AuthService.Teaching();
+            const result = await AuthService.Teaching(page);
             if (result?.success) {
-                setLoader(false);
-                setTeachingTopic(result?.data?.teachTopic)
+               setTotal(result?.data?.total);
+                // setLoader(false);
+                if(page ===1){
+                    setTeachingTopic(result?.data?.teachTopic)
+                }else{ 
+                    const newTeachingTopic = [...teachingTopic, ...result?.data?.teachTopic]
+                    setTeachingTopic(newTeachingTopic)
+                }
+                if(result?.data?.total > teachingTopic?.length){
+                    setPage(page+1)}
             } else {
                 setLoader(false);
             }
@@ -107,7 +122,7 @@ function PageComponent() {
             setLoader(false);
         }
     };
-
+console.log("teachingTopic",teachingTopic)
     const handleEducationalObjectives = async () => {
         setLoader(true);
         try {

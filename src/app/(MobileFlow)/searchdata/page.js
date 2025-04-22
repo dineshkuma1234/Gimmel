@@ -33,6 +33,7 @@ function Search() {
   const handleHistoryItemClick = (item) => {
     setHeaderSearch(item.title);
     handleSearchCont(item.title);
+    console.log( "item in search page")
   };
   const handleBackClick=()=>{
     setHeaderSearch("");

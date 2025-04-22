@@ -7,7 +7,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 
 
-function FilterData({handleSearchCont,headerSearch,setShow}) {
+function FilterData({handleSearchCont,headerSearch,setShow, setIsFilterApplied   }) {
     const [selectedAge, setSelectedAge] = useState("");
 
     const handleClick = (age) => {
@@ -354,6 +354,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
 
                 <div className="hide_mobile">
                 <button type="button" className="btn-color-orange" onClick={()=>{
+                    setIsFilterApplied(true);
                     handleSearchCont(
                     headerSearch,
                     isOn,
@@ -375,6 +376,7 @@ function FilterData({handleSearchCont,headerSearch,setShow}) {
                     <div className="bottom-bar-modal">
                         <div className="bottom-btn-bar-inner">
                             <button type="button" className="btn-color-orange" data-bs-dismiss="modal"  onClick={()=>{
+                                setIsFilterApplied(true);
                                 handleSearchCont(
                                     headerSearch,
                                     isOn,

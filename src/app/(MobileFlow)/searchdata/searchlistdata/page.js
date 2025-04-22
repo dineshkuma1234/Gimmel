@@ -52,7 +52,8 @@ function SearchList({
       setHeaderSearch(query);
       handleSearchCont(query);
     }
-  }, [searchParams]);
+    console.log("this is call from  mobile flow")
+  }, []);
 
   const [show, setShow] = useState(false);
 

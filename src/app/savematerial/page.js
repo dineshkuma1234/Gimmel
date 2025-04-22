@@ -103,9 +103,7 @@ const PageComponent = () => {
     }
   } catch (error) {
     console.error("Error occurred:", error);
-  } finally {
-    setLoading(false);
-  }
+  } 
   };
   
     const handleGetFolder = async (value) => {
