@@ -11,8 +11,9 @@ import { MdLogout } from "react-icons/md";
 import { Form, Modal } from 'react-bootstrap';
 import '../../CommenStyle/details.css';
 import { MultiSelect } from "react-multi-select-component";
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useRef} from 'react';
 import { formatDuration } from '../../utils/monthsAgo/page';
+import profileImage from "../../../assets/images/user.svg"
 
 function UserProfile({
     profileInfo,
@@ -38,19 +39,30 @@ function UserProfile({
     const [school, setSchool] = useState(profileInfo?.school || "");
     const [minAge, setMinAge] = useState(profileInfo?.onboarding?.ageFrom || "");
     const [maxAge, setMaxAge] = useState(profileInfo?.onboarding?.ageTo || "");
+    const [name,setName]=useState( `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim());
     useEffect(() => {
+        if(profileInfo &&Object.keys(profileInfo).length > 0){
     setPhoneNumber(profileInfo?.phone || "");
     setSchool(profileInfo?.school || "");
     setMinAge(profileInfo?.onboarding?.ageFrom || "");
     setMaxAge(profileInfo?.onboarding?.ageTo || "");
+    setName(`${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim());
     const initialValue = `${profileInfo?.onboarding?.ageFrom}-${profileInfo?.onboarding?.ageTo}`;
     setAge({ value: initialValue, error: "" });
-    }, [profileInfo?.phone, profileInfo?.school,profileInfo?.onboarding?.ageFrom, profileInfo?.onboarding?.ageTo]);
+        }
+    }, [profileInfo]);
+    const [imageSrc, setImageSrc] = useState(profileImage.src );
+
     
     const [options,setOptions]= useState([]);
     const [options1,setOptions1]= useState([]);
     const [options2,setOptions2]= useState([]);
     const [age, setAge] = useState({ value: "", error: "" });
+    useEffect(() => {
+        if (profileInfo?.image) {
+            setImageSrc(profileInfo.image); // Update the image source
+        }
+    }, [profileInfo]);
 
     useEffect(()=>{
     if (teachingTopic && Array.isArray(teachingTopic)){
@@ -133,10 +145,21 @@ function UserProfile({
         setAge({
             ...age,
             value: text,
-            error: isNaN(min) || isNaN(max) ? 'Invalid age range' : '',
+            error: isNaN(min) || isNaN(max) ? 'Enter a valid age range (e.g., 1-80).' : '',
         });
 
     };
+   
+     
+      const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          setImageSrc(URL.createObjectURL(file));
+          handleImageUpdate(file);
+            // setImgFile(file);
+        }
+      };
+
 
     return (
         <>
@@ -181,9 +204,10 @@ function UserProfile({
                                 <Form.Label>Age range of your students</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder="12-18"
+                                    placeholder="e.g., 1-80"
                                     value={age.value}
                                     onChange={(e) => handleAgeChange(e.target.value)}
+                                    className='light-placeholder'
                                 />
                                 {age.error && <span style={{ color: 'red' }}>{age.error}</span>}
                             </Form.Group>
@@ -204,6 +228,7 @@ function UserProfile({
                                     valueRenderer={(selected) => 
                                         selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
                                         }
+                                        
                                 />
 
                             </Form.Group>
@@ -275,14 +300,28 @@ function UserProfile({
                     <div className="account-details-inner">
                         <div className="account-user-info">
                             <div className="account-user-avatar">
-                                <Image src={require("../../../assets/images/user.svg")} alt="User Avatar" />
+                            <div className="profile-pic">
+                                <label className="-label" htmlFor="file">
+                                <span className="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                                </label>
+                                <input
+                                        id="file"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        style={{ display: "none" }}
+                                    />
+                                <img src={imageSrc} id="output" width="200" alt="Profile Preview" />
                             </div>
+                            </div>
+                           
                             <div>
                                 <div className="account-name">
-                                    <h3>Examy Pella</h3>
+                                    <h3>{name}</h3>
                                 </div>
                                 <div className="account-user-name">
-                                    <p>@exam_pel</p>
+                                    <p>@{name}</p>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +508,7 @@ function UserProfile({
                                         <div className="video-card-container" key={index}>
                                             <div className="video-card-content">
                                                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
-                                                    <div className="video-card-image">
+                                                    <div className="video-card-image profile-video-image">
                                                         <Image src={item?.thumbnailUrl} alt="video card" width={300} height={150} />
                                                         <div className="video-duration">
                                                             {formatDuration(item?.duration)}
@@ -511,7 +550,7 @@ function UserProfile({
                                         <div className="video-card-container" key={index}>
                                             <div className="video-card-content">
                                                 <Link href={`/mainHome/${item?._id}/videodetails2`}>
-                                                    <div className="video-card-image">
+                                                    <div className="video-card-image profile-video-image">
                                                         <Image src={item?.thumbnail} alt="video card" width={300} height={150} />
                                                         <div className="video-duration">
                                                         {formatDuration(item?.duration)}

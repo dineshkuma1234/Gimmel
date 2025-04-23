@@ -20,6 +20,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { formatDuration } from '../../utils/monthsAgo/page';
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
+import profileImage from "../../../assets/images/user.svg"
 
 
 function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic,contentMaturity,eduction,handleEditProfile,handleImageUpdate}) {
@@ -38,8 +39,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const [phoneNumber, setPhoneNumber] = useState(profileInfo?.phone || "");
     const [school, setSchool] = useState(profileInfo?.school || "");
     const [name,setName]=useState( `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim());
-    const [imgFile, setImgFile] = useState(null);
-   const [imagePath, setImagePath] = useState(profileInfo?.image || "/default-avatar.png");
+    const [imageSrc, setImageSrc] = useState(profileImage.src );
 
     const [age, setAge] = useState("");
     const [isEditable, setIsEditable] = useState(false);
@@ -60,6 +60,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
             setSchool(profileInfo?.school || "");
             setName(`${profileInfo.firstName || ""} ${profileInfo.lastName || ""}`.trim());
             setAge(profileInfo?.onboarding?.ageFrom?.toString() + "-" + profileInfo?.onboarding?.ageTo?.toString() || "")
+            setImageSrc(profileInfo?.image || profileImage.src );
         }
         
       }, [profileInfo]);
@@ -117,7 +118,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
             }));
                 setOptions2(transformedOptions2);
         }
-     },[teachingTopic,contentMaturity]);
+     },[teachingTopic,contentMaturity,eduction]);
 
      useEffect(() => {
        if (profileInfo?.onboarding){
@@ -154,6 +155,20 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
     const handleSelectChange2 = (selectedItems) => {
         setSelected2(selectedItems);
     };
+
+      const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          setImageSrc(URL.createObjectURL(file));
+          handleImageUpdate(file)
+        //   setImgFile(file);
+        }
+        else {
+            console.log("No file selected");
+        }
+       
+      };
+
 
     const handleLogout = () => {
       localStorage.removeItem("token"); 
@@ -215,14 +230,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
 
         setAge(value);
     };
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          setImagePath(URL.createObjectURL(file)); // for preview
-          setImgFile(file);
-          handleImageUpdate(file); // send file to backend
-        }
-      };
+  
 
     return (
         <>
@@ -358,7 +366,20 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                             <div className="account-details">
                                 <div className="account-user-info">
                                     <div className="account-user-avatar">
-                                        <Image src={require("../../../assets/images/user.svg")} alt="User Avatar" width={100} height={100} />
+                                    <div className="profile-pic">
+                                <label className="-label" htmlFor="file">
+                                <span className="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                                </label>
+                                <input
+                                        id="file"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        style={{ display: "none" }}
+                                    />
+                                <img src={imageSrc} id="output" width="200" alt="Profile Preview" />
+                            </div>
                                     </div>
                                     <div>
                                         <div className="account-name">
@@ -438,6 +459,7 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                         valueRenderer={(selected) => 
                                                             selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
                                                           }
+                                                          
                                                     />
                                                 )}
                                             </div>
@@ -462,12 +484,13 @@ function AccountDetails({profileInfo,watchHistoryData,libraryVideo,teachingTopic
                                                     labelledBy="Select"
                                                     overrideStrings={{
                                                         selectSomeItems: "Select topics",
+                                                        allItemsAreSelected: "",
                                                     }}
                                                     className="multi-select"
                                                     hasSelectAll={false} // Disable "Select All"
                                                     disableSearch={true} // Disable search box
-                                                    valueRenderer={(selected) => 
-                                                        selected.length ? selected.map(({ label }) => label).join(", ") : "Select topics"
+                                                    valueRenderer={(selected1) => 
+                                                        selected1.length ? selected1.map(({ label }) => label).join(", ") : "Select topics"
                                                       }
                                                 />
                                                

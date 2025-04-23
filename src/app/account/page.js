@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect,useState,} from "react";
+import React, { use, useEffect,useState,} from "react";
 import AccountDetails from "../entities/account-details/page";
 import AuthService from "../../services/AuthService";
 import {useIsMobile} from "../../hooks/useIsMobile"
@@ -17,14 +17,14 @@ function PageComponent() {
     const [eduction, setEducation] = useState([])
     const {setLoader} = UseLoader();
     const [page, setPage] = useState(1);
+    const [maturitypage, setMaturityPage] = useState(1);
+    const [maturitytotal, setMaturityTotal] = useState()
     const  [total,setTotal] = useState()
     // ("page load")
     useEffect(()=>{
         handleUserInfo();
         handleWatchHistory();
         handleLibraryVideos();
-        
-        handleContentmaturity();
         handleEducationalObjectives();
         // ("this is console") 
     },[]);
@@ -32,6 +32,11 @@ function PageComponent() {
     handleTeachingToic(page);
    },[page])
     
+   useEffect(() =>{
+    handleContentmaturity(maturitypage);
+   },[maturitypage])
+  
+
     const handleUserInfo = async () => {
         setLoader(true);
         try {
@@ -108,13 +113,24 @@ function PageComponent() {
         }
     };
 
-    const handleContentmaturity = async () => {
-        setLoader(true);
+    const handleContentmaturity = async (maturitypage) => {
+        if(maturitytotal === contentMaturity?.length){
+            return
+        }
         try {
-            const result = await AuthService.Contentmaturity();
+            const result = await AuthService.Contentmaturity(maturitypage);
             if (result?.success) {
-                setLoader(false);
-                setContentMaturity(result?.data?.contMaturity)
+                setMaturityTotal(result?.data?.total)
+                if(page===1){
+                    setContentMaturity(result?.data?.contMaturity)
+                }else{
+                    const newTeachingTopic = [...contentMaturity, ...result?.data?.contMaturity]
+                    setContentMaturity(newTeachingTopic)
+                }
+                if(result?.data?.total > contentMaturity?.length){
+                    setMaturityPage(maturitypage+1)
+                }
+                
             } else {
                 setLoader(false);
             }
@@ -122,7 +138,7 @@ function PageComponent() {
             setLoader(false);
         }
     };
-console.log("teachingTopic",teachingTopic)
+
     const handleEducationalObjectives = async () => {
         setLoader(true);
         try {
@@ -153,11 +169,12 @@ console.log("teachingTopic",teachingTopic)
             setLoader(false);
         }
     };
-    const handleImageUpdate = async data => {
+    const handleImageUpdate = async (data) => {
         // LoaderHelper.loaderStatus(true);
         try {
           const result = await AuthService.UpdateProfileImage(data);
           if (result?.success) {
+            handleUserInfo();
             // console.log(result,"result")
             // navigation.navigate('Profile');
             // LoaderHelper.loaderStatus(false);
@@ -177,7 +194,7 @@ console.log("teachingTopic",teachingTopic)
     return (
         <>{isMobile ? 
             
-            <UserProfile profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} handleImageUpdate={handleImageUpdate}/>
+            <UserProfile profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} handleImageUpdate={handleImageUpdate} />
             :
             <AccountDetails  profileInfo={profileInfo} watchHistoryData={watchHistoryData} libraryVideo={libraryVideo} teachingTopic={teachingTopic} contentMaturity={contentMaturity} eduction={eduction} handleEditProfile={handleEditProfile} handleImageUpdate={handleImageUpdate}/>
          } </>

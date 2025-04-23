@@ -115,13 +115,13 @@ const AuthService = {
     token, "token";
     return ApiCallGet(url, params, headers);
   },
-  Contentmaturity: async () => {
+  Contentmaturity: async (maturitypage) => {
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Content } = ApiConfig;
-    const url = authBaseUrl + Content;
+    const url = authBaseUrl + Content +'?page='+maturitypage;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
@@ -1328,24 +1328,21 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  UpdateProfileImage: async (data, type) => {
+  UpdateProfileImage: async (file) => {
     const token = await localStorage.getItem('token');
     const formData = new FormData();
-    formData.append('image', {
-      uri: data?.uri,
-      type: data?.type, // Change the type according to your requirements
-      name: data?.fileName,
-    });
-
-    // const email = await AsyncStorage.getItem('email');
+    formData.append('image', file); // ✅ Directly append the File object
+  
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
     const headers = {
-      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
+      // ✅ Do NOT set 'Content-Type' manually when sending FormData
     };
+  
     return ApiCallPut(url, formData, headers);
   },
+  
 };
 export default AuthService;
 export const Logout = () => {
