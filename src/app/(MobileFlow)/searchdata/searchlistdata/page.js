@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import VideoCardGridMobile from "../../../componentsIn/videogrid/VideoCardGridMobile";
-import BottomBar from "../../../../components/BottomBar/BottomBar";
-import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
+
+import VideoCardGridMobile from "../../../componentsIn/videogrid/VideoCardGridMobile";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import BottomBar from "../../../../components/BottomBar/BottomBar";
 import FilterData from "@/components/header/filterdata";
+import Image from "next/image";
 
 function SearchList({
   searchListState,
@@ -52,7 +53,6 @@ function SearchList({
       setHeaderSearch(query);
       handleSearchCont(query);
     }
-    console.log("this is call from  mobile flow")
   }, []);
 
   const [show, setShow] = useState(false);

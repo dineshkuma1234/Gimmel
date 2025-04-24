@@ -62,7 +62,7 @@ function Header() {
           handleSearchCont(query);
         }
         // setIsFilterApplied(false);
-        console.log(isFilterApplied,"this is call from useEffect***********")
+        // console.log(isFilterApplied,"this is call from useEffect***********")
       }, [searchParams, isFilterApplied]);
       
 
@@ -100,7 +100,7 @@ function Header() {
      const handleHistoryItemClick =(item)=>{
         handleSearchCont(item.title);
         setHeaderSearch(item.title);
-        console.log("this is call from handleHistoryItemClick")
+        // console.log("this is call from handleHistoryItemClick")
      }
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import Image from "next/image";
 import Modal from "react-bootstrap/Modal";
+import { FiAlertOctagon } from "react-icons/fi";
 import {
   MdMoreVert,
   MdAddCircleOutline,
@@ -13,8 +13,8 @@ import { TbEdit } from "react-icons/tb";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
 import Link from "next/link";
 import { Form } from "react-bootstrap";
-import { FiAlertOctagon } from "react-icons/fi";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import { useModal } from "@/components/registerpop/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import RenameModel from "@/components/Models/Rename";
@@ -195,7 +195,12 @@ function CategoriesCard({
 
   return (
     <>
-    <Modal show={showFullSummary} onHide={handleCloseFullSummary} centered className="custom-modal">
+      <Modal
+        show={showFullSummary}
+        onHide={handleCloseFullSummary}
+        centered
+        className="custom-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
@@ -314,7 +319,10 @@ function CategoriesCard({
                         <div className="dropdown-menu-card">
                           <ul>
                             <li>
-                              <button variant="primary" onClick={handleShowFullSummary}>
+                              <button
+                                variant="primary"
+                                onClick={handleShowFullSummary}
+                              >
                                 <svg
                                   width="24"
                                   height="24"
