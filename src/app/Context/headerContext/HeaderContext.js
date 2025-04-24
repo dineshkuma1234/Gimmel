@@ -14,6 +14,7 @@ export const HeaderProvider = ({ children }) => {
   const [searchListState, updatesearchListState] =useContext(SearchListContext);
   const router = useRouter();
   const { setLoader } = UseLoader();
+  const searchParams = useSearchParams();
 
   const [historyList, setHistoryList] = useState([]);
   const [headerSearch, setHeaderSearch] = useState("");
@@ -27,12 +28,13 @@ export const HeaderProvider = ({ children }) => {
     }
     handleHistoryList();
   }, []);
+
   useEffect(() => {
     if (headerSearch) {
       handleHistoryList(headerSearch);
     }
   }, [headerSearch]);
-
+  
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     // (headerSearch,"headerSearch in api func")
@@ -85,10 +87,11 @@ export const HeaderProvider = ({ children }) => {
         if (result?.success) {
           handleSaveSearchHistory(headerSearch);
             updatesearchListState(result?.data);
+            if (headerSearch) {
             router.push(
                  `/searchlist?search_query=${encodeURIComponent(headerSearch)}`,
                 { data: JSON.stringify(result?.data) } 
-            );
+            );}
         } else {
             setLoader(false);
         }
@@ -137,7 +140,7 @@ const handleSaveSearchHistory = async (
     }
   };
 
-  const searchParams = useSearchParams();
+
   const category = searchParams.get("category") || "No Category Selected";
 
   const [getCategoryData, setGetCategoryData] = useState([]);

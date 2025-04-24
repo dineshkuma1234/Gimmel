@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState,  } from "react";
+import { useRouter,  } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Modal } from "react-bootstrap";
@@ -12,7 +13,7 @@ import historyIcon from "../../../assets/images/history.svg";
 import vectorIcon from "../../../assets/images/Vector.svg";
 import filter from "../../../assets/images/filter.svg";
 import northEast from "../../../assets/images/north_east.svg"
-import { useRouter,  } from "next/navigation";
+
 
 function Search() {
   const {

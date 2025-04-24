@@ -448,7 +448,16 @@
         object-fit: fill;
         border-radius: 4.61px;
     }
+
+    .rmsc .dropdown-content {
+        position: relative !important;
+    }
+
+    .profile-video-image img {
+        height: 80px;
+    }
 }
+
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
     .hide_mobile {

@@ -259,6 +259,40 @@
     z-index: auto !important;
 }
 
+.rmsc .item-renderer input {
+    height: auto !important;
+}
+
+.rmsc .select-item.selected {
+    background-color: #F3F0EE !important;
+    color: #F18D51 !important;
+}
+
+.rmsc .select-item.selected:hover {
+    background-color: #F3F0EE !important;
+    color: #F18D51 !important;
+}
+
+.rmsc .select-item:hover {
+    background-color: #F3F0EE !important;
+    color: #F18D51 !important;
+}
+
+.rmsc .item-renderer input[type="checkbox"]:checked {
+    background-color: #F3F0EE !important;
+    color: #F18D51 !important;
+    /* accent-color: #F18D51 !important; */
+}
+
+/* .rmsc .item-renderer input[type="checkbox"] ~ .checkmark {
+    left: 6px;
+    top: 6px;
+    width: 6px;
+    height: 12px;
+    border-width: solid #ffffff;
+    transform: rotate(45deg);
+
+} */
 
 @media screen and (min-width: 280px) and (max-width: 767px) {
     .account-user-info {
