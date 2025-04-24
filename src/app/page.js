@@ -7,9 +7,9 @@ import AuthService from "../services/AuthService";
 import { useParams, useRouter } from "next/navigation";
 import { UseLoader } from "./LoderHelper/context/loaderHelperContext";
 import unAuthToken from "../Constants/constant";
-import { SearchListContext } from "./Context/searchlist/searchListContext";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "./LoderHelper/page";
+import { categorylistcontext } from "./Context/categorylistcontext/categorylistcontext";
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
@@ -17,6 +17,7 @@ import Loader from "./LoderHelper/page";
 export default function PageComponent() {
   const router = useRouter();
   const { setLoader } = UseLoader();
+  const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -34,18 +35,9 @@ export default function PageComponent() {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
-    const [saveVideoScreen, setSaveVideoScreen] = useState(false);
-    const [postId,setPostId]=useState("")
-    
-  // const params = useParams();             
-  // const id = params.video_id;            
-  // const postId = getPost?.video_id;
-  // const idvideo = data?._id;
-//   console.log('value', value)
-// console.log('postId', postId)
-// console.log('selectedFolderId', selectedFolderId)
-// console.log('getPost', getPost)
-  
+  const [saveVideoScreen, setSaveVideoScreen] = useState(false);
+  const [postId, setPostId] = useState("");
+
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -143,7 +135,6 @@ export default function PageComponent() {
   };
 
   ///////Search \\\\\\
-  
 
   //   headerSearch,
   //   isOn,
@@ -536,8 +527,8 @@ export default function PageComponent() {
     } catch (error) {
       // setLoader(false);
       // console.log('Error occurred:', 'Gimmel', error);
-    } finally{
-      setLoader(false)
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -643,7 +634,7 @@ export default function PageComponent() {
     }
   };
 
-  const handleGetFolderSub = async (id,value) => {
+  const handleGetFolderSub = async (id, value) => {
     // console.log("Get Subfolder function called with ID:", id,value);
     // LoaderHelper.loaderStatus(true);
     try {
@@ -684,7 +675,7 @@ export default function PageComponent() {
   // const searchParams = useSearchParams();
   // const category = searchParams.get("category") || "No Category Selected";
 
-  const [getCategoryData, setGetCategoryData] = useState([]);
+  
 
   // useEffect(() => {
   //     if (category) {
@@ -695,11 +686,12 @@ export default function PageComponent() {
   const handleGetCategories = async (category) => {
     try {
       const result = await AuthService.GetCategories(category);
+      console.log(result, "result of category video list");
 
       if (result?.success) {
-        updatesearchListState(result?.data?.posts);
+        setGetCategoryData(result?.data?.posts);
         router.push(
-          "/searchlist",
+          "/categorieslist",
           { data: JSON.stringify(category) } // Convert the object to a JSON string
         );
         // setGetCategoryData(result?.data?.posts);
@@ -707,51 +699,57 @@ export default function PageComponent() {
     } catch (error) {}
   };
 
+  console.log(getCategoryData, "getCategoryData in main page");
 
-  const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
-    if(!selectedFolderId){
+
+  const handleSaveSubFolderVideo = async (selectSubFolder, selectFolder) => {
+    if (!selectedFolderId) {
       // AlertHelper.show('warning', 'Gimmel',"Please select folder");
       return;
     }
     // LoaderHelper.loaderStatus(true);
     try {
-        const result = await AuthService.SaveSubFolderVideo(postId,selectSubFolder,selectFolder);
-        if (result?.success) {
-            // LoaderHelper.loaderStatus(false);
-            // AlertHelper.show('success', 'Gimmel', result?.data);
-            // navigation.navigate('TabNavigation', {
-            //   screen: 'Home',
-            // })
-        } else {
-            // LoaderHelper.loaderStatus(false);
-            // AlertHelper.show('danger', 'Gimmel', result?.message);
-        }
-    } catch (error) {
+      const result = await AuthService.SaveSubFolderVideo(
+        postId,
+        selectSubFolder,
+        selectFolder
+      );
+      if (result?.success) {
         // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('success', 'Gimmel', result?.data);
+        // navigation.navigate('TabNavigation', {
+        //   screen: 'Home',
+        // })
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
     }
-};
+  };
 
-const handleDeleteSubFolder = async (id,SubFolderId) => {
-  // console.log("Delete function called with ID");
-   setLoader(true);
-   try {
-     const result = await AuthService.DeleteSubFolder(id,SubFolderId);
-     // (result, "result---delete")
-     if (result) {
-       setLoader(false);
-       handleGetFolderSub(selectedFolderId);
-       handleGetFolder();
- 
-       AlertHelper.show('success', 'Gimmel',result?.message);
-     } else {
-       setLoader(false);
-       AlertHelper.show('danger', 'Gimmel', result?.message);
-     }
-   } catch (error) {
-     setLoader(false);
-     // ('Error occurred:', 'Gimmel', error);
-   }
- };
+  const handleDeleteSubFolder = async (id, SubFolderId) => {
+    // console.log("Delete function called with ID");
+    setLoader(true);
+    try {
+      const result = await AuthService.DeleteSubFolder(id, SubFolderId);
+      // (result, "result---delete")
+      if (result) {
+        setLoader(false);
+        handleGetFolderSub(selectedFolderId);
+        handleGetFolder();
+
+        AlertHelper.show("success", "Gimmel", result?.message);
+      } else {
+        setLoader(false);
+        AlertHelper.show("danger", "Gimmel", result?.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
 
   return (
     <>
@@ -787,18 +785,18 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
           handleCreateFolderSub={handleCreateFolderSub}
           handleGetFolderSub={handleGetFolderSub}
           categoryVideo={categoryVideo}
-            setSaveVideoScreen={setSaveVideoScreen}
+          setSaveVideoScreen={setSaveVideoScreen}
           saveVideoScreen={saveVideoScreen}
           handleSaveSubFolderVideo={handleSaveSubFolderVideo}
           handleDeleteSubFolder={handleDeleteSubFolder}
-          handleGetFolder ={handleGetFolder}
+          handleGetFolder={handleGetFolder}
           selectedFolderId={selectedFolderId}
           handleSaveVideonext={handleSaveVideonext}
           setPostId={setPostId}
         />
       ) : (
         <MainMobile
-        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
           getPost={getPost}
           substance={substance}
           mentalHealth={mentalHealth}
@@ -832,7 +830,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
           setSaveVideoScreen={setSaveVideoScreen}
           saveVideoScreen={saveVideoScreen}
           handleDeleteSubFolder={handleSaveSubFolderVideo}
-          handleGetFolder ={handleGetFolder}
+          handleGetFolder={handleGetFolder}
           selectedFolderId={selectedFolderId}
         />
       )}

@@ -8,9 +8,11 @@ import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
 import toast, { Toaster } from "react-hot-toast";
 import AuthService from "../../services/AuthService";
 import { useParams, useRouter } from "next/navigation";
+import { categorylistcontext } from '../Context/categorylistcontext/categorylistcontext';
 
 function search() {
-  const [searchListState, updatesearchListState] = useContext(SearchListContext);
+//   const [searchListState, updatesearchListState] = useContext(SearchListContext);
+  const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
   const isMobile = useIsMobile()
 
   const params = useParams();
@@ -27,7 +29,7 @@ function search() {
   const {setLoader} = UseLoader()
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
 
-   console.log(searchListState,"searchListState=============")
+ 
   useEffect(() => {
      
     handleGetPostid();
@@ -325,7 +327,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     <>
     <Toaster position="top-right" reverseOrder={false} />
      { isMobile?
-    <SearchListMobile  searchListState={searchListState} 
+    <SearchListMobile  searchListState={getCategoryData} 
     getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
     getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
     handleSaveVideonext={handleSaveVideonext}
@@ -336,7 +338,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     />
     :
 
-   <SearchList searchListState={searchListState}
+   <SearchList searchListState={getCategoryData}
    
    getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
    getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}

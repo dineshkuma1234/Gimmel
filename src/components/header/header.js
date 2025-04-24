@@ -57,7 +57,8 @@ function Header() {
           setHeaderSearch(query);
           handleSearchCont(query);
         }
-      }, [searchParams]);
+        console.log("call from useeffect header")
+      }, []);
       
 
     const handleShowHistory = () => {
