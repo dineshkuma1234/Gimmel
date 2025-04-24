@@ -32,6 +32,7 @@ function Sidebar() {
   const [selectedEngagement, setSelectedEngagement] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [isSearchListPage, setIsSearchListPage] = useState(false);
+  const [iscategoriesPage, setcategoriesPage] = useState(false);
 
   useEffect(() => {
     handleSearchCont(
@@ -47,7 +48,7 @@ function Sidebar() {
       selectedAudience
     );
   }, [
-    headerSearch,
+    // headerSearch,
     isOn,
     chips,
     selectedAge,
@@ -116,6 +117,10 @@ function Sidebar() {
   useEffect(() => {
     setIsSearchListPage(window.location.pathname.includes("searchlist"));
   }, []);
+  useEffect(() => {
+    setcategoriesPage(window.location.pathname.includes("categorieslist"));
+  }, []);
+
 
   return (
     <>
@@ -149,7 +154,7 @@ function Sidebar() {
         </Modal.Body>
       </Modal>
 
-      {!isSearchListPage && (
+      {!isSearchListPage && !iscategoriesPage && (
         <>
           <div className="add-folder">
             <button
@@ -348,7 +353,7 @@ function Sidebar() {
 
                 <Form.Check
                   type={type}
-                  label={`15+`}
+                  label={`15+ Minutes`}
                   name="group1"
                   id={`inline-${type}-4`}
                   value="15"

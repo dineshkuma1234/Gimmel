@@ -100,13 +100,13 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  Teaching: async () => {
+  Teaching: async (page) => {
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, teaching } = ApiConfig;
-    const url = authBaseUrl + teaching;
+    const url = authBaseUrl + teaching +'?page='+page;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
@@ -115,13 +115,13 @@ const AuthService = {
     token, "token";
     return ApiCallGet(url, params, headers);
   },
-  Contentmaturity: async () => {
+  Contentmaturity: async (maturitypage) => {
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, Content } = ApiConfig;
-    const url = authBaseUrl + Content;
+    const url = authBaseUrl + Content +'?page='+maturitypage;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
@@ -550,32 +550,33 @@ const AuthService = {
     maxAge,
     profileInfo
   ) => {
-    phoneNumber, "phoneNumber";
     const token = await localStorage.getItem("token");
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
-    const params = {
-      phone: phoneNumber,
-      school: school,
-      ageFrom: minAge ? minAge : profileInfo?.onboarding?.ageFrom,
-      ageTo: maxAge ? maxAge : profileInfo?.onboarding?.ageTo,
-      contentMaturityRestrictions: selected1
-        ? selected1
-        : profileInfo?.onboarding?.contentMaturityRestrictions,
-      teachingTopics: selected
-        ? selected
-        : profileInfo?.onboarding?.teachingTopics,
-
-      educationalObjectives: selected2
-        ? selected2
-        : profileInfo?.onboarding?.educationalObjectives,
+    const formData = new FormData();
+  console.log( phoneNumber ," minAge",school," maxAge")
+    const safeAppend = (key, value) => {
+      if (value !== undefined && value !== null && value !== "") {
+        formData.append(key, value);
+      }
     };
+    safeAppend('phone', phoneNumber);
+    safeAppend('school', school);
+  
+    safeAppend('ageFrom', minAge );
+    safeAppend('ageTo', maxAge );
+
+    safeAppend('contentMaturityRestrictions', JSON.stringify(selected1 ));
+    safeAppend('teachingTopics', JSON.stringify(selected ));
+    safeAppend('educationalObjectives', JSON.stringify(selected2 ));
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-    return ApiCallPut(url, params, headers);
+    return ApiCallPut(url, formData, headers);
   },
+
+  
 
   userInfo: async () => {
     const token = await localStorage.getItem("token");
@@ -1327,25 +1328,21 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  UpdateProfileImage: async (data, type) => {
+  UpdateProfileImage: async (file) => {
     const token = await localStorage.getItem('token');
     const formData = new FormData();
-    formData.append('image', {
-      uri: data?.uri,
-      type: data?.type, // Change the type according to your requirements
-      name: data?.fileName,
-    });
-
-    // const email = await AsyncStorage.getItem('email');
+    formData.append('image', file); // ✅ Directly append the File object
+  
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
-    
     const headers = {
-      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
+      // ✅ Do NOT set 'Content-Type' manually when sending FormData
     };
+  
     return ApiCallPut(url, formData, headers);
   },
+  
 };
 export default AuthService;
 export const Logout = () => {

@@ -39,6 +39,7 @@ function Main({
   selectedFolderId,
   handleSaveVideonext,
   setPostId,
+  categoryimg
 }) {
   return (
     <>
@@ -59,6 +60,7 @@ function Main({
           <SliderSection
             categoryVideo={categoryVideo}
             handleGetCategories={handleGetCategories}
+            categoryimg={categoryimg}
           />
         </div>
 

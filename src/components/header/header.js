@@ -14,6 +14,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useHeader } from '@/app/Context/headerContext/HeaderContext';
 import { Button, Modal } from 'react-bootstrap';
 import { useModal } from '../registerpop/page';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -23,11 +24,13 @@ function Header() {
 
     const pathname = usePathname()
     const searchParams = useSearchParams();
+    const router = useRouter()
     const { openModal,setIsOpen } = useModal(); 
 
 
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isFilterApplied, setIsFilterApplied] = useState(false);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -51,9 +54,10 @@ function Header() {
     const [showFilter,setShow] = useState(false);
     const containerRef = useRef(null);
 
+
     useEffect(() => {
         const query = searchParams.get("search_query");
-        if (query) {
+        if (query && !isFilterApplied) {
           setHeaderSearch(query);
           handleSearchCont(query);
         }
@@ -95,7 +99,7 @@ function Header() {
      const handleHistoryItemClick =(item)=>{
         handleSearchCont(item.title);
         setHeaderSearch(item.title);
-
+        // console.log("this is call from handleHistoryItemClick")
      }
     
      const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -160,7 +164,7 @@ function Header() {
                         {showFilter && (
                             <div className="filter-history" id="searchHistory">
                                 <div className='filter-content'>
-                                    <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch} setShow={setShow}/>
+                                    <FilterData  handleSearchCont={handleSearchCont} headerSearch={headerSearch} setShow={setShow} setIsFilterApplied={setIsFilterApplied}/>
                                 </div>
                             </div>
                         )}
@@ -193,7 +197,7 @@ function Header() {
                                     Categories
                                 </Link>
                             </li>
-                            <li className="menu-item">
+                            <li className="menu-item" onClick={()=>{handleLinkClick (); setHeaderSearch("");}} >
                                 <Link
                                     href="/library"
                                     className={`menu-link ${pathname === "/library" ? "active" : ""}`}
@@ -202,9 +206,7 @@ function Header() {
                                         if (!token) {
                                         e.preventDefault(); // Prevents navigation
                                         setIsOpen(true);
-                                        } else {
-                                        handleLinkClick();
-                                        }
+                                        } 
                                     }}
                                 >
                                     <svg
@@ -222,7 +224,7 @@ function Header() {
                                     My Library
                                 </Link>
                             </li>
-                            <li className="menu-item">
+                            <li className="menu-item" onClick={()=>{handleLinkClick(); setHeaderSearch("");}}>
                                 <Link
                                     href="/request"
                                     className={`menu-link ${pathname === "/request" ? "active" : ""}`}
@@ -231,9 +233,7 @@ function Header() {
                                         if (!token) {
                                         e.preventDefault(); // Prevents navigation
                                         setIsOpen(true);
-                                        } else {
-                                            handleLinkClick();
-                                        }
+                                        } 
                                     }}
                                 >
                                     <svg

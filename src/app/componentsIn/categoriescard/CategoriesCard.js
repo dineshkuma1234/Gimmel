@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import Image from "next/image";
 import Modal from "react-bootstrap/Modal";
+import { FiAlertOctagon } from "react-icons/fi";
 import {
   MdMoreVert,
   MdAddCircleOutline,
@@ -13,8 +13,8 @@ import { TbEdit } from "react-icons/tb";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
 import Link from "next/link";
 import { Form } from "react-bootstrap";
-import { FiAlertOctagon } from "react-icons/fi";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
 import { useModal } from "@/components/registerpop/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import RenameModel from "@/components/Models/Rename";
@@ -195,7 +195,12 @@ function CategoriesCard({
 
   return (
     <>
-    <Modal show={showFullSummary} onHide={handleCloseFullSummary} centered className="custom-modal">
+      <Modal
+        show={showFullSummary}
+        onHide={handleCloseFullSummary}
+        centered
+        className="custom-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
@@ -314,7 +319,10 @@ function CategoriesCard({
                         <div className="dropdown-menu-card">
                           <ul>
                             <li>
-                              <button variant="primary" onClick={handleShowFullSummary}>
+                              <button
+                                variant="primary"
+                                onClick={handleShowFullSummary}
+                              >
                                 <svg
                                   width="24"
                                   height="24"
@@ -324,7 +332,7 @@ function CategoriesCard({
                                 >
                                   <path
                                     d="M4 19V17H14V19H4ZM4 15V13H20V15H4ZM4 11V9H20V11H4ZM4 7V5H20V7H4Z"
-                                    fill="#242424"
+                                    fill="#104E5B"
                                   />
                                 </svg>
                                 See full summary
@@ -352,7 +360,7 @@ function CategoriesCard({
                                 >
                                   <path
                                     d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                    fill="#242424"
+                                    fill="#104E5B"
                                   />
                                 </svg>
                                 Save
@@ -382,7 +390,7 @@ function CategoriesCard({
                                 >
                                   <path
                                     d="M12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C12.9 20 13.7667 19.8542 14.6 19.5625C15.0781 19.3952 15.5342 19.1853 15.9684 18.933C16.4868 18.6317 16.5269 17.9269 16.103 17.503L6.49703 7.89703C6.07311 7.47311 5.36828 7.51324 5.06703 8.03157C4.81467 8.46577 4.60483 8.92192 4.4375 9.4C4.14583 10.2333 4 11.1 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20ZM17.503 16.103C17.9269 16.5269 18.6317 16.4868 18.933 15.9684C19.1853 15.5342 19.3952 15.0781 19.5625 14.6C19.8542 13.7667 20 12.9 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C11.1 4 10.2333 4.14583 9.4 4.4375C8.92192 4.60483 8.46577 4.81467 8.03157 5.06703C7.51324 5.36828 7.47311 6.07311 7.89703 6.49703L17.503 16.103Z"
-                                    fill="#3D3D3D"
+                                    fill="#104E5B"
                                   />
                                 </svg>
                                 Not interested in this channel
