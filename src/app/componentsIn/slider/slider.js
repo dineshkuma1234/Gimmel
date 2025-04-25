@@ -38,7 +38,7 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
     handleGetCategories(category);
 
   };
-  console.log(categoryimg, "categocategoryimgryVideo");
+ 
   return (
     <>
       {deviceWidth > 991 ? (

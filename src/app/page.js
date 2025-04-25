@@ -629,12 +629,11 @@ export default function PageComponent() {
     }
   };
 
-console.log(categoryimg,"categoryimg")
 
   const handleGetCategories = async (category) => {
     try {
       const result = await AuthService.GetCategories(category);
-      console.log(result, "result of category video list");
+
 
       if (result?.success) {
         setGetCategoryData(result?.data?.posts);
@@ -647,7 +646,7 @@ console.log(categoryimg,"categoryimg")
     } catch (error) {}
   };
 
-  console.log(getCategoryData, "getCategoryData in main page");
+
 
 
   const handleSaveSubFolderVideo = async (selectSubFolder, selectFolder) => {

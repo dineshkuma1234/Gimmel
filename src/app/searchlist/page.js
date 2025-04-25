@@ -27,7 +27,7 @@ function search() {
   const {setLoader} = UseLoader()
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
 
-   console.log(searchListState,"searchListState=============")
+
   useEffect(() => {
      
     handleGetPostid();
