@@ -24,25 +24,45 @@ function Learning() {
     }, []);
 
     // const navigation = useNavigation();
-    const [interest,serInterest]=useState('')
+    const [interest,setInterest]=useState('')
     const searchParams = useSearchParams();
         const option = searchParams.get("option");
     const [educationalObjective ,setEducationalObjective]=useState('')
+     const [page, setPage] = useState(1);
+          const [total, setTotal] = useState();
     useEffect(()=>{
-        handlePersonalInterst();
+        
         handleEducationalObjectives()
     },[])
+    useEffect(() => {
+        handlePersonalInterst(page);
+    },[page])
     // (educationalObjective,"interest--------111")
-    const handlePersonalInterst = async () => {
+    const handlePersonalInterst = async (page) => {
+        if (total === interest?.length){
+            return;
+        } 
         // LoaderHelper.loaderStatus(true);
         try {
-            const result = await AuthService.Interest();
+            const result = await AuthService.Interest(page);
             if (result?.success) {
+                setTotal(result?.data?.total);
                 // LoaderHelper.loaderStatus(false);
-                serInterest(result?.data?.teachTopic)
+                if (page === 1) {
+                    setInterest(result?.data?.teachTopic);
+                
             } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
+                const newTeachingTopic = [
+                    ...interest,
+                    ...result?.data?.teachTopic,
+                  ];
+                  setInterest(newTeachingTopic);
+            }
+            if (result?.data?.total > interest?.length) {
+                setPage(page + 1);
+              }
+            }else{
+                setLoader(false);
             }
         } catch (error) {
             // LoaderHelper.loaderStatus(false);

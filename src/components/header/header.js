@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation';
 
 
 function Header() {
-    const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont}= useHeader()
+    const {historyList=[],setHeaderSearch ,headerSearch,handleHistoryList,handleSearchCont,isOn,selectedAge,selectedEngagement,selectedDate,selectedAudience,chips,sliderValue,selectedValue}= useHeader()
     
 
     const pathname = usePathname()
@@ -55,14 +55,23 @@ function Header() {
     const containerRef = useRef(null);
 
 
-    useEffect(() => {
-        const query = searchParams.get("search_query");
-        if (query && !isFilterApplied) {
-          setHeaderSearch(query);
-          handleSearchCont(query);
-        }
-        console.log("call from useeffect header")
-      }, []);
+        // useEffect(() => {
+        //     const query = searchParams.get("search_query");
+        //     if (query && !isFilterApplied) {
+        //       setHeaderSearch(query);
+        //       handleSearchCont(query);
+        //     }
+        //     console.log("call from useeffect header")
+        //   }, []);
+
+         useEffect(() => {
+            const query = searchParams.get("search_query");
+            if (query) {
+              setHeaderSearch(query);
+              handleSearchCont(query,isOn,selectedAge,selectedEngagement,selectedDate,selectedAudience,chips,sliderValue,selectedValue);
+            }
+            console.log("callling header");
+          }, []);
       
 
     const handleShowHistory = () => {

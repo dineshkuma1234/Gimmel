@@ -259,6 +259,21 @@ ul.account-list li {
     background-image: url("../../assets/images/radio-check.svg");
 }
 
+.check-sidebar .form-check-input {
+    border: 1px solid var(--gimmel-darkBlue);
+    border-radius: 50%;
+}
+
+.check-sidebar .form-check-input:checked {
+    background-color: transparent;
+    border-color: var(--gimmel-orange);
+}
+
+.check-sidebar .form-check-input:checked[type="checkbox"] {
+    background-image: url("../../assets/images/radio-check.svg");
+    background-size: 22px;
+}
+
 .question-select .form-check-input:checked[type="checkbox"] {
     background-image: url("../../assets/images/check-bg.svg");
 }

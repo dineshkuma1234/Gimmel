@@ -40,6 +40,7 @@ function SearchList({
     setHeaderSearch,
     handleSearchCont,
     handleNotIntrested,
+    isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue
   } = useHeader();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,8 +52,9 @@ function SearchList({
     const query = searchParams.get("search_query");
     if (query) {
       setHeaderSearch(query);
-      handleSearchCont(query);
+      handleSearchCont(query,isOn,selectedAge,selectedEngagement,selectedDate,selectedAudience,chips,sliderValue,selectedValue);
     }
+    console.log("callling search list");
   }, []);
 
   const [show, setShow] = useState(false);

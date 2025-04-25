@@ -604,13 +604,13 @@ const AuthService = {
     return ApiCallPut(url, params, headers);
   },
 
-  Interest: async () => {
+  Interest: async (page) => {
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, onBoardingInterest } = ApiConfig;
-    const url = authBaseUrl + onBoardingInterest;
+    const url = authBaseUrl + onBoardingInterest+ '?page='+page;
     const params = {};
     const headers = {
       "Content-Type": "application/json",

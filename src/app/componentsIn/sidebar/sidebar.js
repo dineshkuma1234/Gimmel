@@ -22,15 +22,7 @@ function Sidebar() {
   // (headerSearch,"setHeaderSearch---")
 
   const [selected, setSelected] = useState([]);
-  const [isOn, setIsOn] = useState(false);
-  const [chips, setChips] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [sliderValue, setSliderValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedAudience, setSelectedAudience] = useState("");
-  const [selectedAge, setSelectedAge] = useState("");
-  const [selectedEngagement, setSelectedEngagement] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
   const [isSearchListPage, setIsSearchListPage] = useState(false);
   const [iscategoriesPage, setcategoriesPage] = useState(false);
 
@@ -61,7 +53,9 @@ function Sidebar() {
 
   const handleSelectedChange = (e) => {
     const newValue = e.target.value;
-    setSelectedValue(newValue);
+    setSelectedValue((prevSelected) =>
+      prevSelected === newValue ? "" : newValue
+    );
   };
   const handleSliderChange = (value) => {
     const newValue = value[1];
@@ -94,15 +88,27 @@ function Sidebar() {
   };
 
   const handleClick = (age) => {
-    setSelectedAge(age);
+    if (selectedAge === age) {
+      setSelectedAge(""); // Deselect if already selected
+    } else {
+      setSelectedAge(age); // Select the new age
+    }
   };
 
   const handleClick1 = (engagement) => {
-    setSelectedEngagement(engagement);
+    if (selectedEngagement === engagement) {
+      setSelectedEngagement("");
+    } else {
+      setSelectedEngagement(engagement);
+    }
   };
 
   const handleClick2 = (date) => {
-    setSelectedDate(date);
+    if (selectedDate === date) {
+      setSelectedDate("");
+    } else {
+      setSelectedDate(date);
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -111,7 +117,11 @@ function Sidebar() {
   const handleShow = () => setShow(true);
 
   const handleClick3 = (audience) => {
-    setSelectedAudience(audience);
+    if (selectedAudience === audience) {
+      setSelectedAudience("");
+    } else {
+      setSelectedAudience(audience);
+    }
   };
 
   useEffect(() => {
@@ -120,7 +130,6 @@ function Sidebar() {
   useEffect(() => {
     setcategoriesPage(window.location.pathname.includes("categorieslist"));
   }, []);
-
 
   return (
     <>
@@ -319,44 +328,48 @@ function Sidebar() {
             <div className="number-text">10</div>
           </div>
         </div>
-        <div className="select-container">
+        <div className="select-container check-sidebar">
           <Form.Group controlId="exampleForm.ControlInput6">
             <Form.Label>Duration</Form.Label>
-            {["radio"].map((type) => (
+            {["checkbox"].map((type) => (
               <div key={`default-${type}`} className="mb-3">
                 <Form.Check
-                  label={`Under 5 Minutes`}
+                  label="Under 5 Minutes"
                   name="group1"
-                  type={type}
-                  id={`inline-${type}-1`}
+                  type="checkbox"
+                  id="inline-checkbox-1"
                   value="under-5"
+                  checked={selectedValue === "under-5"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
+                  label="5-10 Minutes"
                   name="group1"
-                  label={`5-10 Minutes`}
-                  type={type}
+                  type="checkbox"
+                  id="inline-checkbox-2"
                   value="5-10"
-                  id={`inline-${type}-2`}
+                  checked={selectedValue === "5-10"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
-                  type={type}
-                  label={`10-15 Minutes`}
+                  label="10-15 Minutes"
                   name="group1"
-                  id={`inline-${type}-3`}
+                  type="checkbox"
+                  id="inline-checkbox-3"
                   value="10-15"
+                  checked={selectedValue === "10-15"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
-                  type={type}
-                  label={`15+ Minutes`}
+                  label="15+ Minutes"
                   name="group1"
-                  id={`inline-${type}-4`}
+                  type="checkbox"
+                  id="inline-checkbox-4"
                   value="15"
+                  checked={selectedValue === "15"}
                   onChange={handleSelectedChange}
                 />
               </div>

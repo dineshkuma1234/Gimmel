@@ -27,6 +27,10 @@ function Teaching() {
     const [contentMaturity,setContentMaturity]=useState([])
     const [teachingLocation,setTeachingLocation]=useState([])
     const [eduction,setEducation]=useState([])
+      const [page, setPage] = useState(1);
+      const [total, setTotal] = useState();
+      const [maturitypage, setMaturityPage] = useState(1);
+        const [maturitytotal, setMaturityTotal] = useState();
     const searchParams = useSearchParams();
     const option = searchParams.get("option");
   
@@ -39,12 +43,18 @@ function Teaching() {
         navigation.navigate('TabNavigation');
     };
     useEffect(()=>{
-        handleTeachingToic();
-        handleContentmaturity();
+       
         handleTeachingLocations();
         handleEducationalObjectives();
     },[])
 
+    useEffect(() => {
+        handleTeachingToic(page);
+      }, [page]);
+      useEffect(() => {
+        handleContentmaturity(maturitypage);
+      }, [maturitypage]);
+    
     const handleOnboarding = async (selectedval,sliderValues,item,selectedmaturity,slectedEducation) => {
         // LoaderHelper.loaderStatus(true);
         // (selectedval,"this is selected val---2");
@@ -68,36 +78,64 @@ function Teaching() {
     };
     
 
-    const handleTeachingToic = async () => {
-        try {
-            const result = await AuthService.Teaching();
-            if (result?.success) {
-                setTeachingTopic(result?.data?.teachTopic)
-            } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
-            }
-        } catch (error) {
-            // ('Error occurred:', 'Gimmel', error);
+    const handleTeachingToic = async (page) => {
+        if (total === teachingTopic?.length) {
+          return;
         }
-    };
+        // setLoader(true);
+        try {
+          const result = await AuthService.Teaching(page);
+          if (result?.success) {
+            setTotal(result?.data?.total);
+            // setLoader(false);
+            if (page === 1) {
+              setTeachingTopic(result?.data?.teachTopic);
+            } else {
+              const newTeachingTopic = [
+                ...teachingTopic,
+                ...result?.data?.teachTopic,
+              ];
+              setTeachingTopic(newTeachingTopic);
+            }
+            if (result?.data?.total > teachingTopic?.length) {
+              setPage(page + 1);
+            }
+          } else {
+            setLoader(false);
+          }
+        } catch (error) {
+          setLoader(false);
+        }
+      };
 
-    const handleContentmaturity = async () => {
-        // LoaderHelper.loaderStatus(true);
-        try {
-            const result = await AuthService.Contentmaturity();
-            if (result?.success) {
-                // LoaderHelper.loaderStatus(false);
-                setContentMaturity(result?.data?.contMaturity)
-            } else {
-                // LoaderHelper.loaderStatus(false);
-                // AlertHelper.show('danger', 'Gimmel', result?.message);
-            }
-        } catch (error) {
-            // LoaderHelper.loaderStatus(false);
-            // ('Error occurred:', 'Gimmel', error);
+      const handleContentmaturity = async (maturitypage) => {
+        if (maturitytotal === contentMaturity?.length) {
+          return;
         }
-    };
+        try {
+          const result = await AuthService.Contentmaturity(maturitypage);
+          if (result?.success) {
+            setMaturityTotal(result?.data?.total);
+            if (page === 1) {
+              setContentMaturity(result?.data?.contMaturity);
+            } else {
+              const newTeachingTopic = [
+                ...contentMaturity,
+                ...result?.data?.contMaturity,
+              ];
+              setContentMaturity(newTeachingTopic);
+            }
+            if (result?.data?.total > contentMaturity?.length) {
+              setMaturityPage(maturitypage + 1);
+            }
+          } else {
+            setLoader(false);
+          }
+        } catch (error) {
+          setLoader(false);
+        }
+      };
+    
 
     const handleTeachingLocations = async () => {
         // LoaderHelper.loaderStatus(true);
