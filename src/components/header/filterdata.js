@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
+import { HeadManagerContext } from "next/dist/shared/lib/head-manager-context.shared-runtime";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 function FilterData({
   handleSearchCont,
@@ -11,28 +13,44 @@ function FilterData({
   setShow,
   setIsFilterApplied,
 }) {
-  const [selectedAge, setSelectedAge] = useState("");
-
+  
+  const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
+  
   const handleClick = (age) => {
-    setSelectedAge(age);
+    if (selectedAge === age) {
+      setSelectedAge("");
+    }else{
+      setSelectedAge(age);
+    }
   };
 
-  const [selectedEngagement, setSelectedEngagement] = useState("");
 
   const handleClick1 = (engagement) => {
-    setSelectedEngagement(engagement);
+    if (selectedEngagement === engagement) {
+      setSelectedEngagement("");
+    }else{
+      setSelectedEngagement(engagement);
+    }
   };
   // (selectedEngagement,"selectedEngagement---")
-  const [selectedDate, setSelectedDate] = useState("");
+  
 
   const handleClick2 = (date) => {
+    if (selectedDate === date) {
+      setSelectedDate("");
+    }else{
     setSelectedDate(date);
+    }
   };
   // (selectedDate,"selectedDate---")
-  const [selectedAudience, setSelectedAudience] = useState("");
+  
 
   const handleClick3 = (audience) => {
+    if (selectedAudience === audience) {
+      setSelectedAudience("");
+    }else{
     setSelectedAudience(audience);
+    }
   };
   // (selectedAudience,"Audience----");
 
@@ -47,8 +65,7 @@ function FilterData({
       prevSelected.filter((item) => item.value !== value)
     );
   };
-  const [chips, setChips] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+
   // (inputValue,"inputvalue---");
   const addChip = () => {
     if (inputValue.trim() !== "") {
@@ -65,21 +82,24 @@ function FilterData({
       addChip();
     }
   };
-  const [sliderValue, setSliderValue] = useState(null);
+
   const handleSliderChange = (value) => {
     setSliderValue(value[1]);
   };
 
   // (sliderValue,"slidervalue");
 
-  const [selectedValue, setSelectedValue] = useState("");
+ 
 
   const handleSelectedChange = (e) => {
-    setSelectedValue(e.target.value);
+    const newValue = e.target.value;
+    setSelectedValue((prevSelected) =>
+      prevSelected === newValue ? "" : newValue
+    );
   };
   // (selectedValue,"duration---")
 
-  const [isOn, setIsOn] = useState(false);
+  
 
   return (
     <>
@@ -291,7 +311,7 @@ function FilterData({
               max={10}
               step={1}
               defaultValue={[1, 1]}
-              value={[1, sliderValue]}
+              value={[1, sliderValue || 1]}
               thumbsDisabled={[true, false]}
               rangeSlideDisabled={true}
               onInput={handleSliderChange}
@@ -300,44 +320,48 @@ function FilterData({
           </div>
         </div>
         <div className="dropdown-divider"></div>
-        <div className="select-container">
+        <div className="select-container check-sidebar">
           <Form.Group controlId="exampleForm.ControlInput6">
             <Form.Label>Duration</Form.Label>
-            {["radio"].map((type) => (
+            {["checkbox"].map((type) => (
               <div key={`default-${type}`} className="mb-3">
                 <Form.Check
-                  label={`Under 5 Minutes`}
+                  label="Under 5 Minutes"
                   name="group1"
-                  type={type}
-                  id={`inline-${type}-1`}
+                  type="checkbox"
+                  id="inline-checkbox-1"
                   value="under-5"
+                  checked={selectedValue === "under-5"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
-                  label={`5-10 Minutes`}
+                  label="5-10 Minutes"
                   name="group1"
-                  type={type}
+                  type="checkbox"
+                  id="inline-checkbox-2"
                   value="5-10"
-                  id={`inline-${type}-2`}
+                  checked={selectedValue === "5-10"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
-                  type={type}
-                  label={`10-15 Minutes`}
+                  label="10-15 Minutes"
                   name="group1"
-                  id={`inline-${type}-3`}
+                  type="checkbox"
+                  id="inline-checkbox-3"
                   value="10-15"
+                  checked={selectedValue === "10-15"}
                   onChange={handleSelectedChange}
                 />
 
                 <Form.Check
-                  type={type}
-                  label={`15+ Minutes`}
+                  label="15+ Minutes"
                   name="group1"
-                  id={`inline-${type}-4`}
+                  type="checkbox"
+                  id="inline-checkbox-4"
                   value="15"
+                  checked={selectedValue === "15"}
                   onChange={handleSelectedChange}
                 />
               </div>
@@ -387,7 +411,7 @@ function FilterData({
             type="button"
             className="btn-color-orange"
             onClick={() => {
-              setIsFilterApplied(true);
+              // setIsFilterApplied(true);
               handleSearchCont(
                 headerSearch,
                 isOn,
@@ -417,7 +441,7 @@ function FilterData({
                 className="btn-color-orange"
                 data-bs-dismiss="modal"
                 onClick={() => {
-                  setIsFilterApplied(true);
+                  // setIsFilterApplied(true);
                   handleSearchCont(
                     headerSearch,
                     isOn,

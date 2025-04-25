@@ -20,6 +20,16 @@ export const HeaderProvider = ({ children }) => {
   const [headerSearch, setHeaderSearch] = useState("");
   const [topicPost, setTopicPost] = useState("");
 
+  const [isOn, setIsOn] = useState(false);
+  const [selectedAge, setSelectedAge] = useState("");
+  const [selectedEngagement, setSelectedEngagement] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedAudience, setSelectedAudience] = useState("");
+  const [chips, setChips] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [sliderValue, setSliderValue] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("");
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const searchQuery = searchParams.get("search_query");
@@ -87,11 +97,11 @@ export const HeaderProvider = ({ children }) => {
         if (result?.success) {
           handleSaveSearchHistory(headerSearch);
             updatesearchListState(result?.data);
-            if (headerSearch) {
+            // if (headerSearch) {
             router.push(
                  `/searchlist?search_query=${encodeURIComponent(headerSearch)}`,
                 { data: JSON.stringify(result?.data) } 
-            );}
+            );
         } else {
             setLoader(false);
         }
@@ -202,6 +212,7 @@ const handleSaveSearchHistory = async (
           historyList,
           handleNotIntrested,
           handleSaveSearchHistory,
+          isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue
         }}
       > 
         {children}

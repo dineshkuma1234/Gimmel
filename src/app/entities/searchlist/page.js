@@ -7,13 +7,23 @@ import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 import Image from "next/image";
 import Select from "react-select";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 function SearchList({searchListState}){
     const [reset, setReset] = useState(false);
    
-//   const router = useRouter();
-//   const { data } = router.query;
-//   (data,"datat")
+ const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
+
+//  console.log(isOn,"ison value");
+//   console.log(selectedAge,"selectedAge value");
+//   console.log(selectedEngagement,"selectedEngagement value");
+//   console.log(selectedDate,"selectedDate value");
+//   console.log(selectedAudience,"selectedAudience value");
+//   console.log(chips,"chips value");
+//   console.log(inputValue,"inputValue value");
+//   console.log(sliderValue,"sliderValue value");
+//   console.log(selectedValue,"selectedValue value");
+
 
 const options = [
     { value: "relevancy", label: "Relevancy" },
