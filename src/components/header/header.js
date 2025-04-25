@@ -61,9 +61,8 @@ function Header() {
           setHeaderSearch(query);
           handleSearchCont(query);
         }
-        // setIsFilterApplied(false);
-        // console.log(isFilterApplied,"this is call from useEffect***********")
-      }, [searchParams, isFilterApplied]);
+        console.log("call from useeffect header")
+      }, []);
       
 
     const handleShowHistory = () => {

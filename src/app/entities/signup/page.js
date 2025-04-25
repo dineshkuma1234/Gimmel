@@ -58,7 +58,7 @@ const Signup = ({handleSignUp}) => {
         if (token) {
           setIsCaptchaVerified(true);
           setCaptchaValue(token);
-          console.log("Recaptcha verified!", token);
+        //   console.log("Recaptcha verified!", token);
         } else {
           setIsCaptchaVerified(false);
           setCaptchaValue("");

@@ -554,7 +554,7 @@ const AuthService = {
     const { authBaseUrl, profileEdit } = ApiConfig;
     const url = authBaseUrl + profileEdit;
     const formData = new FormData();
-  console.log( phoneNumber ," minAge",school," maxAge")
+
     const safeAppend = (key, value) => {
       if (value !== undefined && value !== null && value !== "") {
         formData.append(key, value);

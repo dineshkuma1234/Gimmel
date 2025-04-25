@@ -7,6 +7,7 @@ import "./globals.css";
 import "../assets/css/style.css";
 import "../assets/css/responsive.css";
 import { SearchListProvider } from "./Context/searchlist/searchListContext";
+import {CategoriesProvider} from "./Context/categorylistcontext/categorylistcontext";
 import {HeaderProvider} from "./Context/headerContext/HeaderContext";
 import { LoaderProvider, UseLoader } from "../app/LoderHelper/context/loaderHelperContext";  // Import loader context provider
 import Loader from "../app/LoderHelper/page";  // Import your loader component
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Suspense fallback={<Loading />}>
         <LoaderProvider>
+          <CategoriesProvider>
           <SearchListProvider>
           <HeaderProvider >
             <RequestProvider>
@@ -50,6 +52,7 @@ export default function RootLayout({ children }) {
             </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
+          </CategoriesProvider>
          
         </LoaderProvider>
         </Suspense>

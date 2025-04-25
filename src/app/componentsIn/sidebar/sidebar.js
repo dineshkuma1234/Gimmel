@@ -32,6 +32,7 @@ function Sidebar() {
   const [selectedEngagement, setSelectedEngagement] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [isSearchListPage, setIsSearchListPage] = useState(false);
+  const [iscategoriesPage, setcategoriesPage] = useState(false);
 
   useEffect(() => {
     handleSearchCont(
@@ -116,6 +117,10 @@ function Sidebar() {
   useEffect(() => {
     setIsSearchListPage(window.location.pathname.includes("searchlist"));
   }, []);
+  useEffect(() => {
+    setcategoriesPage(window.location.pathname.includes("categorieslist"));
+  }, []);
+
 
   return (
     <>
@@ -149,7 +154,7 @@ function Sidebar() {
         </Modal.Body>
       </Modal>
 
-      {!isSearchListPage && (
+      {!isSearchListPage && !iscategoriesPage && (
         <>
           <div className="add-folder">
             <button
