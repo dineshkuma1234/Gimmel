@@ -409,7 +409,7 @@ function FilterData({
         <div className="hide_mobile">
           <button
             type="button"
-            className="btn-color-orange"
+            className={headerSearch ? "btn-color-orange" : "btn-color-blue"}
             onClick={() => {
               // setIsFilterApplied(true);
               handleSearchCont(
@@ -438,7 +438,7 @@ function FilterData({
             <div className="bottom-btn-bar-inner">
               <button
                 type="button"
-                className="btn-color-orange"
+                className={headerSearch ? "btn-color-orange" : "disabled-btn"}
                 data-bs-dismiss="modal"
                 onClick={() => {
                   // setIsFilterApplied(true);

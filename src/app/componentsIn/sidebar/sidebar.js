@@ -22,15 +22,7 @@ function Sidebar() {
   // (headerSearch,"setHeaderSearch---")
 
   const [selected, setSelected] = useState([]);
-  const [isOn, setIsOn] = useState(false);
-  const [chips, setChips] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [sliderValue, setSliderValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedAudience, setSelectedAudience] = useState("");
-  const [selectedAge, setSelectedAge] = useState("");
-  const [selectedEngagement, setSelectedEngagement] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
   const [isSearchListPage, setIsSearchListPage] = useState(false);
   const [iscategoriesPage, setcategoriesPage] = useState(false);
 
