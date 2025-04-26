@@ -221,7 +221,7 @@ function PageComponent() {
       try{
         const result = await AuthService.QuizRegenerate(id);
         if(result?.success){
-          setGetQuiz(result?.questions)
+          setGetQuiz(result?.data?.questions)
           setLoader(false);
  
         }else{
@@ -237,7 +237,7 @@ function PageComponent() {
       try{
         const result = await AuthService.DiscussionRegenerate(id);
         if(result?.success){
-          setDiscussion(result?.discussionPoints);
+          setDiscussion(result?.data?.discussionPoints);
           setLoader(false);
  
         }else{
@@ -253,7 +253,7 @@ function PageComponent() {
       try{
         const result = await AuthService.ActivityRegenerate(id);
         if(result?.success){
-          setActivity(result?.activities?.activities);
+          setActivity(result?.data?.activities?.activities);
           setLoader(false);
  
         }else{
@@ -269,7 +269,7 @@ function PageComponent() {
       try{
         const result = await AuthService.HomeWorkRegenerate(id);
         if(result?.success){
-          setHomeWork(result?.homework.assignments);
+          setHomeWork(result?.data?.assignments);
           setLoader(false);
  
         }else{
@@ -285,7 +285,7 @@ function PageComponent() {
       try{
         const result = await AuthService.TestRegenerate(id);
         if(result?.success){
-          setTest(result?.test?.tasks);
+          setTest(result?.data?.tasks);
           setLoader(false);
  
         }else{

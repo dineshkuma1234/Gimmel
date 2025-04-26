@@ -528,7 +528,7 @@ function AccountDetails({
                           type="text"
                           className="light-placeholder"
                           placeholder="Enter age range (e.g., 20-25)"
-                          value={`${age}`}
+                          value={age || ""}
                           onChange={handleChange2}
                           readOnly={!isEditable}
                         />
