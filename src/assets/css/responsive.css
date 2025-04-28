@@ -6,7 +6,7 @@
 
     .swiper-container {
         width: 100%;
-        padding: 0px 16px;
+        padding: 0px 0px;
     }
 
     .page-main-title h3 {
@@ -321,11 +321,11 @@
     }
 
     .category-card {
-        height: 100px;
+        height: 80px;
     }
 
     .category-card-image img {
-        height: 90px;
+        height: 80px;
     }
 
     .category-card-title {
@@ -334,7 +334,7 @@
     }
 
     .category-card-image .category-card-image-icon:nth-child(3) {
-        height: 90px;
+        height: 80px;
     }
 
     .video-card {
@@ -405,7 +405,7 @@
     }
 
     .filter-modal .modal-body {
-        padding: 16px 16px 40px;
+        padding: 16px 0px 40px;
     }
 
     .custom-modal .modal-header {
@@ -455,6 +455,10 @@
 
     .profile-video-image img {
         height: 80px;
+    }
+
+    .filter-content {
+        padding: 0px !important;
     }
 }
 

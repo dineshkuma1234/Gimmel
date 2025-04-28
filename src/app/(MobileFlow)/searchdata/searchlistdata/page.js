@@ -54,7 +54,6 @@ function SearchList({
       setHeaderSearch(query);
       handleSearchCont(query,isOn,selectedAge,selectedEngagement,selectedDate,selectedAudience,chips,sliderValue,selectedValue);
     }
-    console.log("callling search list");
   }, []);
 
   const [show, setShow] = useState(false);

@@ -301,6 +301,10 @@ ul {
     color: var(--white-color) ! important;
 }
 
+.btn-color-orange:disabled {
+    opacity: 0.5;
+}
+
 .btn-color-orange-outline {
     background-color: #F3DACC;
     color: var(--gimmel-orange) ! important;

@@ -9,10 +9,8 @@ import Image from "next/image";
 import Select from "react-select";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
-function SearchList({searchListState}){
+function CategoriesList({getCategoryData}){
     const [reset, setReset] = useState(false);
-
-
 
 const options = [
     { value: "relevancy", label: "Relevancy" },
@@ -55,7 +53,7 @@ const options = [
                         </div>
 
                         <div className="video-list-container">
-                            <CategoriesCard watchHistoryData={searchListState} />
+                            <CategoriesCard watchHistoryData={getCategoryData} />
                         </div>
                     </div>
                 </div>
@@ -64,4 +62,4 @@ const options = [
     );
 }
 
-export default SearchList;
+export default CategoriesList;
