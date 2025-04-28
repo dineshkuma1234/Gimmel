@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext,useEffect,useState } from 'react'
-import SearchList from '../entities/searchlist/page';
+import CategoriesList from '../entities/category/page';
 import SearchListMobile from '../(MobileFlow)/searchdata/searchlistdata/page';
 import { SearchListContext } from '../Context/searchlist/searchListContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
@@ -328,25 +328,25 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     <Toaster position="top-right" reverseOrder={false} />
      { isMobile?
     <SearchListMobile  searchListState={getCategoryData} 
-    getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
-    getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
-    handleSaveVideonext={handleSaveVideonext}
-    handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-    handleDeleteSubFolder={handleDeleteSubFolder}
-    saveVideoScreen={saveVideoScreen}
-    setSaveVideoScreen={setSaveVideoScreen}
+    // getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+    // getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+    // handleSaveVideonext={handleSaveVideonext}
+    // handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+    // handleDeleteSubFolder={handleDeleteSubFolder}
+    // saveVideoScreen={saveVideoScreen}
+    // setSaveVideoScreen={setSaveVideoScreen}
     />
     :
 
-   <SearchList searchListState={getCategoryData}
+   <CategoriesList getCategoryData={getCategoryData}
    
-   getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
-   getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
-   handleSaveVideonext={handleSaveVideonext}
-   handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-   handleDeleteSubFolder={handleDeleteSubFolder}
-   saveVideoScreen={saveVideoScreen}
-    setSaveVideoScreen={setSaveVideoScreen}
+  //  getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+  //  getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+  //  handleSaveVideonext={handleSaveVideonext}
+  //  handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+  //  handleDeleteSubFolder={handleDeleteSubFolder}
+  //  saveVideoScreen={saveVideoScreen}
+  //   setSaveVideoScreen={setSaveVideoScreen}
    />}
     </>
    

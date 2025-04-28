@@ -1,5 +1,11 @@
 "use client";
-import { createContext, useContext, useState, useEffect, Suspense } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Suspense,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
@@ -11,7 +17,8 @@ const HeaderContext = createContext();
 
 // Provider Component
 export const HeaderProvider = ({ children }) => {
-  const [searchListState, updatesearchListState] =useContext(SearchListContext);
+  const [searchListState, updatesearchListState] =
+    useContext(SearchListContext);
   const router = useRouter();
   const { setLoader } = UseLoader();
   const searchParams = useSearchParams();
@@ -44,7 +51,7 @@ export const HeaderProvider = ({ children }) => {
       handleHistoryList(headerSearch);
     }
   }, [headerSearch]);
-  
+
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
     // (headerSearch,"headerSearch in api func")
@@ -77,59 +84,52 @@ export const HeaderProvider = ({ children }) => {
     sliderValue,
     selectedValue,
     selectedAudience
-) => {
+  ) => {
     setLoader(true);
     try {
-        const result = await AuthService.SearchResult(
-            headerSearch,
-            isOn,
-            chips,
-            inputValue,
-            selectedAge,
-            selectedEngagement,
-            selectedDate,
-            sliderValue,
-            selectedValue,
-            selectedAudience
-        );
-        setLoader(false);
+      const result = await AuthService.SearchResult(
+        headerSearch,
+        isOn,
+        chips,
+        inputValue,
+        selectedAge,
+        selectedEngagement,
+        selectedDate,
+        sliderValue,
+        selectedValue,
+        selectedAudience
+      );
+      setLoader(false);
 
-        if (result?.success) {
-          handleSaveSearchHistory(headerSearch);
-            updatesearchListState(result?.data);
-            // if (headerSearch) {
-            router.push(
-                 `/searchlist?search_query=${encodeURIComponent(headerSearch)}`,
-                { data: JSON.stringify(result?.data) } 
-            );
-        } else {
-            setLoader(false);
+      if (result?.success) {
+        handleSaveSearchHistory(headerSearch);
+        updatesearchListState(result?.data);
+        if (headerSearch) {
+          router.push(
+            `/searchlist?search_query=${encodeURIComponent(headerSearch)}`,
+            { data: JSON.stringify(result?.data) }
+          );
         }
-    } catch (error) {
+      } else {
         setLoader(false);
+      }
+    } catch (error) {
+      setLoader(false);
     }
-};
+  };
 
-const handleSaveSearchHistory = async (
-  headerSearch,postid
-  
-) => {
-  try {
-    const result = await AuthService.saveSearchHistory(
-      headerSearch,postid
-      
-    );
-    // LoaderHelper.loaderStatus(false);
-    // console.log(result,"ressslllllllll")
-    if (result?.success) {
-      
-      
-    } 
-  } catch (error) {
-    // LoaderHelper.loaderStatus(false);
-    // console.log('Error occurred:', 'Gimmel', error);
-  }
-};
+  const handleSaveSearchHistory = async (headerSearch, postid) => {
+    try {
+      const result = await AuthService.saveSearchHistory(headerSearch, postid);
+      // LoaderHelper.loaderStatus(false);
+      // console.log(result,"ressslllllllll")
+      if (result?.success) {
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
 
   const handleTopicPost = async () => {
     setLoader(true);
@@ -149,7 +149,6 @@ const handleSaveSearchHistory = async (
       // ('Error occurred:', 'Gimmel', error);
     }
   };
-
 
   const category = searchParams.get("category") || "No Category Selected";
 
@@ -203,20 +202,37 @@ const handleSaveSearchHistory = async (
     <>
       <Toaster position="top-right" reverseOrder={false} />
       <Suspense fallback={<div>Loading...</div>}>
-      <HeaderContext.Provider
-        value={{
-          handleSearchCont,
-          handleHistoryList,
-          headerSearch,
-          setHeaderSearch,
-          historyList,
-          handleNotIntrested,
-          handleSaveSearchHistory,
-          isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue
-        }}
-      > 
-        {children}
-      </HeaderContext.Provider>
+        <HeaderContext.Provider
+          value={{
+            handleSearchCont,
+            handleHistoryList,
+            headerSearch,
+            setHeaderSearch,
+            historyList,
+            handleNotIntrested,
+            handleSaveSearchHistory,
+            isOn,
+            setIsOn,
+            selectedAge,
+            setSelectedAge,
+            selectedEngagement,
+            setSelectedEngagement,
+            selectedDate,
+            setSelectedDate,
+            selectedAudience,
+            setSelectedAudience,
+            chips,
+            setChips,
+            inputValue,
+            setInputValue,
+            sliderValue,
+            setSliderValue,
+            selectedValue,
+            setSelectedValue,
+          }}
+        >
+          {children}
+        </HeaderContext.Provider>
       </Suspense>
     </>
   );

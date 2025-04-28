@@ -775,6 +775,7 @@ export default function PageComponent() {
           handleDeleteSubFolder={handleSaveSubFolderVideo}
           handleGetFolder={handleGetFolder}
           selectedFolderId={selectedFolderId}
+          categoryimg={categoryimg}
         />
       )}
 

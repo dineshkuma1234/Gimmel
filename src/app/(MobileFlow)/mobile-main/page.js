@@ -48,7 +48,9 @@ function MainMobile({
   saveVideoScreen,
   handleGetFolder,
   handleDeleteSubFolder,
-  selectedFolderId,handleSaveSubFolderVideo
+  selectedFolderId,
+  handleSaveSubFolderVideo,
+  categoryimg,
 }) {
   const [show2, setShow2] = useState(false);
 
@@ -128,14 +130,9 @@ function MainMobile({
             <SliderSection
               categoryVideo={categoryVideo}
               handleGetCategories={handleGetCategories}
+              categoryimg={categoryimg}
             />
           </div>
-          {/* <div className="page-main-title">
-                        <h3>Recommended for you</h3>
-                    </div>
- 
-                    <VideoCardGridMobile /> */}
-
           <div className="page-main-title">
             <h3>Recommended for you</h3>
           </div>
@@ -171,10 +168,10 @@ function MainMobile({
             categoryVideo={categoryVideo}
             handleGetCategories={handleGetCategories}
             setSaveVideoScreen={setSaveVideoScreen}
-  saveVideoScreen={saveVideoScreen}
-  handleDeleteSubFolder={handleSaveSubFolderVideo}
-  handleGetFolder ={handleGetFolder}
-  selectedFolderId={selectedFolderId}
+            saveVideoScreen={saveVideoScreen}
+            handleDeleteSubFolder={handleSaveSubFolderVideo}
+            handleGetFolder={handleGetFolder}
+            selectedFolderId={selectedFolderId}
           />
         </div>
       </main>

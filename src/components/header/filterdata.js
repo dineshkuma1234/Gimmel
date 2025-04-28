@@ -13,60 +13,58 @@ function FilterData({
   setShow,
   setIsFilterApplied,
 }) {
-  
-  const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
-  
+  const {
+    isOn,
+    setIsOn,
+    selectedAge,
+    setSelectedAge,
+    selectedEngagement,
+    setSelectedEngagement,
+    selectedDate,
+    setSelectedDate,
+    selectedAudience,
+    setSelectedAudience,
+    chips,
+    setChips,
+    inputValue,
+    setInputValue,
+    sliderValue,
+    setSliderValue,
+    selectedValue,
+    setSelectedValue,
+  } = useHeader();
+
   const handleClick = (age) => {
     if (selectedAge === age) {
       setSelectedAge("");
-    }else{
+    } else {
       setSelectedAge(age);
     }
   };
 
-
   const handleClick1 = (engagement) => {
     if (selectedEngagement === engagement) {
       setSelectedEngagement("");
-    }else{
+    } else {
       setSelectedEngagement(engagement);
     }
   };
-  // (selectedEngagement,"selectedEngagement---")
-  
 
   const handleClick2 = (date) => {
     if (selectedDate === date) {
       setSelectedDate("");
-    }else{
-    setSelectedDate(date);
+    } else {
+      setSelectedDate(date);
     }
   };
-  // (selectedDate,"selectedDate---")
-  
 
   const handleClick3 = (audience) => {
     if (selectedAudience === audience) {
       setSelectedAudience("");
-    }else{
-    setSelectedAudience(audience);
+    } else {
+      setSelectedAudience(audience);
     }
   };
-  // (selectedAudience,"Audience----");
-
-  const handleResult = (params) => {
-    // (params);
-  };
-
-  const [selected, setSelected] = useState([]);
-
-  const handleRemove = (value) => {
-    setSelected((prevSelected) =>
-      prevSelected.filter((item) => item.value !== value)
-    );
-  };
-
-  // (inputValue,"inputvalue---");
   const addChip = () => {
     if (inputValue.trim() !== "") {
       setChips([...chips, inputValue]);
@@ -87,19 +85,12 @@ function FilterData({
     setSliderValue(value[1]);
   };
 
-  // (sliderValue,"slidervalue");
-
- 
-
   const handleSelectedChange = (e) => {
     const newValue = e.target.value;
     setSelectedValue((prevSelected) =>
       prevSelected === newValue ? "" : newValue
     );
   };
-  // (selectedValue,"duration---")
-
-  
 
   return (
     <>
@@ -236,13 +227,6 @@ function FilterData({
           </Form.Group>
           <div className="tab-select">
             <div className="list-group" id="list-tab" role="tablist">
-              {/* <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "10" ? "active" : ""}`}
-                                id="list-home-list"
-                                onClick={() => handleClick1("10")}
-                            >
-                                10
-                            </button> */}
               <button
                 className={`list-group-item list-group-item-action w-50 ${
                   selectedEngagement === "9+" ? "active" : ""
@@ -261,13 +245,6 @@ function FilterData({
               >
                 7+
               </button>
-              {/* <button
-                                className={`list-group-item list-group-item-action ${selectedEngagement === "7" ? "active" : ""}`}
-                                id="list-settings-list"
-                                onClick={() => handleClick1("7")}
-                            >
-                                7
-                            </button> */}
             </div>
           </div>
         </div>
@@ -409,9 +386,8 @@ function FilterData({
         <div className="hide_mobile">
           <button
             type="button"
-            className={headerSearch ? "btn-color-orange" : "btn-color-blue"}
+            className="btn-color-orange" 
             onClick={() => {
-              // setIsFilterApplied(true);
               handleSearchCont(
                 headerSearch,
                 isOn,
@@ -425,7 +401,6 @@ function FilterData({
                 selectedAudience
               );
               setShow(false);
-              // (headerSearch,"headerSearch---222")
             }}
             disabled={!headerSearch}
           >
@@ -438,10 +413,9 @@ function FilterData({
             <div className="bottom-btn-bar-inner">
               <button
                 type="button"
-                className={headerSearch ? "btn-color-orange" : "disabled-btn"}
+                className=  "btn-color-orange"
                 data-bs-dismiss="modal"
                 onClick={() => {
-                  // setIsFilterApplied(true);
                   handleSearchCont(
                     headerSearch,
                     isOn,
@@ -456,6 +430,7 @@ function FilterData({
                   );
                   setShow(false);
                 }}
+                disabled={!headerSearch}
               >
                 Apply filters
               </button>

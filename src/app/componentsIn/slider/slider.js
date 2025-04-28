@@ -14,7 +14,8 @@ import { SearchListContext } from "@/app/Context/searchlist/searchListContext";
 import { categorylistcontext } from "@/app/Context/categorylistcontext/categorylistcontext";
 
 const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
-  // const [searchListState, updatesearchListState] = useContext(SearchListContext);
+  
+  const { setHeaderSearch } = useHeader();
   const router = useRouter();
   const swiperRef = useRef(null);
 
@@ -36,9 +37,9 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const handleCategoryClick = (category) => {
     handleGetCategories(category);
+    setHeaderSearch("");
 
   };
- 
   return (
     <>
       {deviceWidth > 991 ? (
@@ -154,7 +155,7 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
               },
             }}
           >
-            {categoryVideo?.map((categories, index) => (
+            {categoryimg?.map((categories, index) => (
               <SwiperSlide key={index}>
                 <div className="col-md-12">
                   <div className="category-card">
@@ -162,13 +163,13 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
                       {/* <Link href="/categorie"> */}
                       <div className="category-card-image">
                         <div className="category-card-image-icon">
-                          <Image
+                          {/* <Image
                             src={SliderThumbnil}
                             alt={categories?.category}
-                          />
+                          /> */}
                         </div>
                         <div className="category-card-image-icon">
-                          <Image src={SliderThumbnil} alt="video card image" />
+                          {/* <Image src={SliderThumbnil} alt="video card image" /> */}
                         </div>
                         <div
                           className="category-card-image-icon"
@@ -176,7 +177,8 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
                             handleCategoryClick(categories?.category)
                           }
                         >
-                          <Image src={SliderThumbnil} alt="video card image" />
+                           <Image src={categories?.thumbnail} alt="video card image" height={30} width={30}/>
+
                           <div className="category-card-title">
                             {categories?.category}
                           </div>

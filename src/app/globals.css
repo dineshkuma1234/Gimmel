@@ -745,11 +745,11 @@ span.user-name {
 
 .category-card-image .category-card-image-icon:nth-child(3) {
   position: absolute;
-  top: 12px;
-  width: calc(100% - 16px);
+  top: 0px;
+  width: calc(100% - 0px);
   height: 160px;
-  left: 12px;
-  right: 18px;
+  left: 0px;
+  right: 0px;
   border-radius: 8px;
 }
 
@@ -858,6 +858,7 @@ span.user-name {
 
 .category-card {
   height: 196px;
+  cursor: pointer;
 }
 
 .menu-link svg {
