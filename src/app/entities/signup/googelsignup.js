@@ -40,25 +40,31 @@ const handleGoogleLogin = async (accessToken) => {
         if (result?.success) {
             if (!result?.data?.isRegister) {
                
-              localStorage.setItem("firstName",result?.data?.firstName);
                 if (typeof window !== "undefined") {
                     localStorage.setItem("token", result?.data?.token);
+                    localStorage.setItem("firstName",result?.data?.firstName);
+                    localStorage.setItem('userId', result?.data?._id);
                     
                    ;
                 }
 
-               
+                router.push("/"); 
 
-                if (!result?.data?.isRegister) {
-                    router.push("/"); 
-                  } else {
-                    router.push("/onboarding"); 
-                  }
+                // if (!result?.data?.isRegister) {
+                //     router.push("/"); 
+                //   } else {
+                //     router.push("/onboarding"); 
+                //   }
             } else {
                 
                 if (typeof window !== "undefined") {
-                    localStorage.removeItem("token");
+                    // localStorage.removeItem("token");
+                    localStorage.setItem("token", result?.data?.token);
+                    localStorage.setItem("firstName",result?.data?.firstName);
+                    localStorage.setItem('userId', result?.data?._id);
+                    router.push("/onboarding"); 
                 }
+                
 
             }
         } else {
