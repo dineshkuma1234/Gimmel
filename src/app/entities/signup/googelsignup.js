@@ -89,7 +89,7 @@ const handleGoogleLogin = async (accessToken) => {
 
 const GoogleAuthsignup = () => {
   return (
-    <GoogleOAuthProvider clientId="505172879655-unqljv6d3dom0lreuvemsioqnv9fscbs.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="352379691785-qlgb2lmpqjc68rp73eevo167nb7b0qi6.apps.googleusercontent.com">
       <GooglesignupButton />
     </GoogleOAuthProvider>
   );

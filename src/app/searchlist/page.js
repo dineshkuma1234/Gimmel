@@ -326,25 +326,25 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     <Toaster position="top-right" reverseOrder={false} />
      { isMobile?
     <SearchListMobile  searchListState={searchListState} 
-    getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
-    getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
-    handleSaveVideonext={handleSaveVideonext}
-    handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-    handleDeleteSubFolder={handleDeleteSubFolder}
-    saveVideoScreen={saveVideoScreen}
-    setSaveVideoScreen={setSaveVideoScreen}
+    // getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+    // getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+    // handleSaveVideonext={handleSaveVideonext}
+    // handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+    // handleDeleteSubFolder={handleDeleteSubFolder}
+    // saveVideoScreen={saveVideoScreen}
+    // setSaveVideoScreen={setSaveVideoScreen}
     />
     :
 
    <SearchList searchListState={searchListState}
    
-   getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
-   getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
-   handleSaveVideonext={handleSaveVideonext}
-   handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-   handleDeleteSubFolder={handleDeleteSubFolder}
-   saveVideoScreen={saveVideoScreen}
-    setSaveVideoScreen={setSaveVideoScreen}
+  //  getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
+  //  getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
+  //  handleSaveVideonext={handleSaveVideonext}
+  //  handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+  //  handleDeleteSubFolder={handleDeleteSubFolder}
+  //  saveVideoScreen={saveVideoScreen}
+  //   setSaveVideoScreen={setSaveVideoScreen}
    />}
     </>
    

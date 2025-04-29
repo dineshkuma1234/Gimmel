@@ -79,6 +79,7 @@ function Header() {
         selectedValue
       );
     }
+    console.log("called from header", query);
   }, []);
 
   const handleShowHistory = () => {
