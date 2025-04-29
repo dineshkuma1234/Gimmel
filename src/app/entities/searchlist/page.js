@@ -20,7 +20,7 @@ const options = [
   ];
     return (
         <>
-            <Header reset={reset} setReset={setReset}/>
+            <Header/>
 
             <main id="main" className="top-space-filter">
                 <div className="category-filter-container">

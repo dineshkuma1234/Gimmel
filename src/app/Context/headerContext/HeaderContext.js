@@ -11,6 +11,8 @@ import { SearchListContext } from "../searchlist/searchListContext";
 import AuthService from "../../../services/AuthService";
 import toast, { Toaster } from "react-hot-toast";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
+import { usePathname } from "next/navigation";
+
 
 // Create Context
 const HeaderContext = createContext();
@@ -22,6 +24,8 @@ export const HeaderProvider = ({ children }) => {
   const router = useRouter();
   const { setLoader } = UseLoader();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
 
   const [historyList, setHistoryList] = useState([]);
   const [headerSearch, setHeaderSearch] = useState("");
@@ -51,6 +55,12 @@ export const HeaderProvider = ({ children }) => {
       handleHistoryList(headerSearch);
     }
   }, [headerSearch]);
+  
+  useEffect(() => {
+    if (pathname === "/") {
+      setHeaderSearch("");
+    }
+  }, [pathname]);
 
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
