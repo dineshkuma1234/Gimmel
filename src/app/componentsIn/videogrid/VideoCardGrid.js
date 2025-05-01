@@ -20,6 +20,7 @@ const VideoCardGrid = ({
   socialIssues,
   handleInterestFilter,
   interest,
+  setInterest,
   data,
   getFolder,
   rename,
@@ -58,6 +59,7 @@ const VideoCardGrid = ({
           socialIssues={socialIssues}
           handleInterestFilter={handleInterestFilter}
           interest={interest}
+          setInterest={setInterest}
           data={data}
           getFolder={getFolder}
           rename={rename}

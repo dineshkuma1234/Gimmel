@@ -27,6 +27,7 @@ const VideoCard = ({
   socialIssues,
   handleInterestFilter,
   interest,
+  setInterest,
   data,
   getFolder,
   rename,
@@ -551,7 +552,8 @@ useEffect(() => {
         <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
           <div className="my-interests-card">
             <div className="video-card-1">
-              <div className="video-card-content">
+              <div className="video-card-content position-relative">  
+              <button className="close-button" onClick={()=>{setShowContent(false)}}>&times;</button>    
                 <div className="video-card-image">
                   <Image
                     src={require("../../../assets/images/bg-in.png")}
@@ -570,7 +572,7 @@ useEffect(() => {
                     className="btn-color-orange-outline"
                     onClick={() => {
                       handleShow3();
-                      setShowContent(false);
+                      // setShowContent(false);
                     }}
                   >
                     My interests

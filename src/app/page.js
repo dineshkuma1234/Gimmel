@@ -711,6 +711,7 @@ export default function PageComponent() {
           socialIssues={socialIssues}
           handleInterestFilter={handleInterestFilter}
           interest={interest}
+          setInterest={setInterest}
           data={data}
           getFolder={getFolder}
           rename={rename}
@@ -747,6 +748,7 @@ export default function PageComponent() {
           socialIssues={socialIssues}
           handleInterestFilter={handleInterestFilter}
           interest={interest}
+          setInterest={setInterest}
           topicPost={topicPost}
           handleMoreLike={handleMoreLike}
           sliderData={sliderData}

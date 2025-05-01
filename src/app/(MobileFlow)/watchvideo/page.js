@@ -174,7 +174,7 @@ function WatchVideo({
     { id: 2, text: "Quizzes", value: "Quizzes" },
     { id: 3, text: "Tests", value: "Tests" },
     { id: 4, text: "Exercises", value: "Exercises" },
-    { id: 5, text: "Homework assignments", value: "homeworkAssignments" },
+    { id: 5, text: "Homework", value: "homeworkAssignments" },
   ];
 
   return (

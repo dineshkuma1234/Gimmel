@@ -619,10 +619,10 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  objective: async () => {
+  objective: async (educationPage) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, educationalObjective } = ApiConfig;
-    const url = authBaseUrl + educationalObjective;
+    const url = authBaseUrl + educationalObjective + '?page='+educationPage;
     const params = {};
     const headers = {
       "Content-Type": "application/json",

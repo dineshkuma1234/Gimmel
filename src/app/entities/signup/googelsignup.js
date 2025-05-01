@@ -44,6 +44,8 @@ const handleGoogleLogin = async (accessToken) => {
                     localStorage.setItem("token", result?.data?.token);
                     localStorage.setItem("firstName",result?.data?.firstName);
                     localStorage.setItem('userId', result?.data?._id);
+                    const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+                     localStorage.setItem("interest", isInterestValue);
                     
                    ;
                 }
@@ -62,6 +64,9 @@ const handleGoogleLogin = async (accessToken) => {
                     localStorage.setItem("token", result?.data?.token);
                     localStorage.setItem("firstName",result?.data?.firstName);
                     localStorage.setItem('userId', result?.data?._id);
+                    const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+                    (result?.data?.isInterest, "interest----")
+                    localStorage.setItem("interest", isInterestValue);
                     router.push("/onboarding"); 
                 }
                 

@@ -17,12 +17,12 @@ import { useRouter } from "next/navigation";
 import Categorie from "../(MobileFlow)/categorie/page";
 import unAuthToken from "@/Constants/constant";
 import Header from "@/components/header/header";
+import { categorylistcontext } from "../Context/categorylistcontext/categorylistcontext";
 const PageComponent = () => {
   const router = useRouter();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
   const { setLoader } = UseLoader();
-  const [searchListState, updatesearchListState] =
-    useContext(SearchListContext);
+const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
   const [deviceWidth, setDeviceWidth] = useState(0);
 
   useEffect(() => {
@@ -94,9 +94,9 @@ const PageComponent = () => {
       const result = await AuthService.GetCategories(category);
 
       if (result?.success) {
-        updatesearchListState(result?.data?.posts);
+        setGetCategoryData(result?.data?.posts);
         router.push(
-          "/searchlist",
+          "/categorieslist",
           { data: JSON.stringify(category) } // Convert the object to a JSON string
         );
         // setGetCategoryData(result?.data?.posts);
@@ -111,6 +111,7 @@ const PageComponent = () => {
       {deviceWidth > 991 ? (
         <>
         <Header/>
+        <main id="main" className="top-space">
          {categoryVideo[0]?.posts?.length >0&& <Categories
             handleNotIntrested={handleNotIntrested}
             categoryVideo={categoryVideo[0]?.posts}
@@ -154,6 +155,7 @@ const PageComponent = () => {
             img={img6}
             handleGetCategories={handleGetCategories}
           />}
+          </main>
         </>
       ) : (
         <>

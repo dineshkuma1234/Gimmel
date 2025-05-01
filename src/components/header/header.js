@@ -31,6 +31,7 @@ function Header() {
     chips,
     sliderValue,
     selectedValue,
+    imageSrc,
   } = useHeader();
 
   const pathname = usePathname();
@@ -342,10 +343,10 @@ function Header() {
               <Link href="/account" className="logo">
                 <div className="for-dropdown profile-btn-view active">
                   <div className="user-image">
-                    <Image
-                      width={50}
-                      height={50}
-                      src={require("../../assets/images/user.png")}
+                    <img
+                      width={20}
+                      height={20}
+                      src={imageSrc}
                       className="img-responsive modal_profile_img2"
                       alt="User Profile"
                     />

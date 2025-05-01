@@ -327,7 +327,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     <>
       
 
-      <main id="main" className="top-space mt-5">
+      <div className="mt-2">
         <div className="custom-container">
           <div className="page-main-title">
             <h3>{categoryVideoname}</h3>
@@ -348,7 +348,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
             handleDeleteSubFolder={handleDeleteSubFolder}
           />
         </div>
-      </main>
+      </div>
     </>
   );
 }
