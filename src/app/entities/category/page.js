@@ -9,7 +9,7 @@ import Image from "next/image";
 import Select from "react-select";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
-function CategoriesList({getCategoryData}){
+function CategoriesList({getCategoryData,}){
     const [reset, setReset] = useState(false);
 
 const options = [

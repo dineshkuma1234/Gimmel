@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Suspense fallback={<Loading />}>
         <LoaderProvider>
-          <CategoriesProvider>
+          {/* <CategoriesProvider> */}
           <SearchListProvider>
           <HeaderProvider >
             <RequestProvider>
@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
             </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
-          </CategoriesProvider>
+          {/* </CategoriesProvider> */}
          
         </LoaderProvider>
         </Suspense>

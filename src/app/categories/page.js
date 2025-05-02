@@ -18,11 +18,12 @@ import Categorie from "../(MobileFlow)/categorie/page";
 import unAuthToken from "@/Constants/constant";
 import Header from "@/components/header/header";
 import { categorylistcontext } from "../Context/categorylistcontext/categorylistcontext";
+import { useHeader } from "../Context/headerContext/HeaderContext";
 const PageComponent = () => {
   const router = useRouter();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
   const { setLoader } = UseLoader();
-const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
+const {getCategoryData, setGetCategoryData} = useHeader();
   const [deviceWidth, setDeviceWidth] = useState(0);
 
   useEffect(() => {

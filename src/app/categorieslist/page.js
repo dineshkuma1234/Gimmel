@@ -9,10 +9,13 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthService from "../../services/AuthService";
 import { useParams, useRouter } from "next/navigation";
 import { categorylistcontext } from '../Context/categorylistcontext/categorylistcontext';
+import { useHeader } from '../Context/headerContext/HeaderContext';
 
 function search() {
 //   const [searchListState, updatesearchListState] = useContext(SearchListContext);
-  const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
+  const {getCategoryData, setGetCategoryData} = useHeader();
+
+  console.log(getCategoryData,"getCategoryData in search+++");
   const isMobile = useIsMobile()
 
   const params = useParams();
@@ -338,7 +341,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     />
     :
 
-   <CategoriesList getCategoryData={getCategoryData}
+   <CategoriesList getCategoryData={getCategoryData} 
    
   //  getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
   //  getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}

@@ -16,17 +16,31 @@ function Sidebar() {
     setHeaderSearch,
     headerSearch,
     handleHistoryList,
-    handleSearchCont,
+    handleSearchCont,isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue, selectedCategory ,handleCategoryFilter
   } = useHeader();
 
   // (headerSearch,"setHeaderSearch---")
 
   const [selected, setSelected] = useState([]);
-const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue}= useHeader();
+
   const [isSearchListPage, setIsSearchListPage] = useState(false);
   const [iscategoriesPage, setcategoriesPage] = useState(false);
 
   useEffect(() => {
+    if (iscategoriesPage){
+      handleCategoryFilter(
+        selectedCategory,
+        isOn,
+        chips,
+        inputValue,
+        selectedAge,
+        selectedEngagement,
+        selectedDate,
+        sliderValue,
+        selectedValue,
+        selectedAudience
+      );
+    }else{
     handleSearchCont(
       headerSearch,
       isOn,
@@ -39,6 +53,7 @@ const {isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelected
       selectedValue,
       selectedAudience
     );
+  }
   }, [
     // headerSearch,
     isOn,
