@@ -34,7 +34,7 @@ function AccountDetails({
   handleImageUpdate,
 }) {
   const router = useRouter();
-  const { setHeaderSearch } = useHeader();
+  const { setHeaderSearch,imageSrc, setImageSrc } = useHeader();
   const [isYearly, setIsYearly] = useState(false);
 
   const [error, setError] = useState("");
@@ -49,7 +49,7 @@ function AccountDetails({
   const [name, setName] = useState(
     `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim()
   );
-  const [imageSrc, setImageSrc] = useState(profileImage.src);
+  // const [imageSrc, setImageSrc] = useState(profileImage.src);
 
   const [age, setAge] = useState("");
   const [isEditable, setIsEditable] = useState(false);
@@ -71,11 +71,14 @@ function AccountDetails({
       setName(
         `${profileInfo.firstName || ""} ${profileInfo.lastName || ""}`.trim()
       );
-      setAge(
-        profileInfo?.onboarding?.ageFrom?.toString() +
-          "-" +
-          profileInfo?.onboarding?.ageTo?.toString() || ""
-      );
+      const ageFrom = profileInfo?.onboarding?.ageFrom;
+      const ageTo = profileInfo?.onboarding?.ageTo;
+  
+      if (ageFrom !== undefined && ageTo !== undefined) {
+        setAge(`${ageFrom}-${ageTo}`);
+      } else {
+        setAge("");
+      }
       setImageSrc(profileInfo?.image || profileImage.src);
     }
   }, [profileInfo]);

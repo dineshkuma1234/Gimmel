@@ -1,3 +1,4 @@
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import { useModal } from "@/components/registerpop/page";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -5,6 +6,8 @@ import { Form } from "react-bootstrap";
 
 
 function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislikeReview }) {
+
+    const {imageSrc}=useHeader();
     const [commentText, setCommentText] = useState("");
     const { setIsOpen } = useModal(); 
 
@@ -76,7 +79,7 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
                 <div className="review-type-container">
                     <div className="user-profile-container">
                         <div className="user-avatar">
-                            <Image src={require("../../../assets/images/user.png")} alt="User Avatar" />
+                            <img src={imageSrc} width={20}  height={20} alt="User Avatar" />
                         </div>
                     </div>
                     <div className="review-comment-container">
@@ -115,7 +118,7 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
                         <div className="review-item" key={index}>
                             <div className="user-profile-container">
                                 <div className="user-avatar">
-                                    <Image src={require("../../../assets/images/user.png")} alt="User Avatar" />
+                                    <img src={imageSrc} width={20}  height={20} alt="User Avatar" />
                                 </div>
                             </div>
                             <div className="review-comment-container">

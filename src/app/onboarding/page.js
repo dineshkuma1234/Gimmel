@@ -65,7 +65,7 @@ function PageComponent() {
 
                         {/* Right Banner Section */}
                         <div className="col-md-5">
-                            <div className="right-banner mt-150">
+                            <div className="right-banner mt-5">
                                 <div className="right-side-content">
                                     {/* Content Sections */}
                                     <div className="page-title">

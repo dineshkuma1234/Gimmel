@@ -115,6 +115,7 @@ const SliderCategories = ({
       const { openModal,setIsOpen } = useModal(); 
       const dropdownRefnwe = useRef(null);
       const dropdownRef = useRef()
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -132,6 +133,11 @@ const SliderCategories = ({
   const [show5, setShow5] = useState(false);
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true)
+
+  const [renamshow, setrenameShow] = useState(false);
+
+  const handlerenamClose = () => setShow(false);
+  const handlerenamShow = () => setShow(true);
   const swiperRef = useRef(null);
 
 
@@ -246,13 +252,13 @@ useEffect(() => {
      
  <RenameModel
         renameModel={renameModel}
-        show7={show}
+        show7={renamshow}
         handleClose7={handleClose}
         setSubfolder={setSubfolder}
         rename={rename}
         setRename={setRename}
         handleRename={handleRename}
-        setRenameModel={setRenameModel}
+        setRenameModel={setrenameShow}
         handleGetFolder={handleGetFolder}
         isDropdownOpenid={isDropdownOpenid}
         getFolder={getFolder}
@@ -353,7 +359,7 @@ useEffect(() => {
           }}
         >
           <SwiperSlide>
-            <div className="multi-video-slider">
+            <div className="multi-video-slider" style={{cursor: "pointer"}}>
               <div
                 className="multi-video-slider-inner"
                 onClick={() => handleGetCategories(categoryVideoname)}
@@ -531,7 +537,7 @@ useEffect(() => {
                           <div className="more-btn">
                             <button
                               className="btn btn-more"
-                              onClick={() => handleToggleExpand(video._id)}
+                              onClick={() => handleShow(video._id)}
                             >
                               <FaCaretDown />
                             </button>

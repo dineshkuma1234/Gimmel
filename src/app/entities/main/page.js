@@ -15,6 +15,7 @@ function Main({
   socialIssues,
   handleInterestFilter,
   interest,
+  setInterest,
   data,
   getFolder,
   rename,
@@ -77,6 +78,7 @@ function Main({
             socialIssues={socialIssues}
             handleInterestFilter={handleInterestFilter}
             interest={interest}
+            setInterest={setInterest}
             data={data}
             getFolder={getFolder}
             rename={rename}

@@ -12,6 +12,7 @@ import AuthService from "../../../services/AuthService";
 import toast, { Toaster } from "react-hot-toast";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import { usePathname } from "next/navigation";
+import profileImage from "../../../assets/images/user.svg";
 
 
 // Create Context
@@ -40,7 +41,7 @@ export const HeaderProvider = ({ children }) => {
   const [inputValue, setInputValue] = useState("");
   const [sliderValue, setSliderValue] = useState(null);
   const [selectedValue, setSelectedValue] = useState("");
-
+ const [imageSrc, setImageSrc] = useState(profileImage.src);
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const searchQuery = searchParams.get("search_query");
@@ -239,6 +240,7 @@ export const HeaderProvider = ({ children }) => {
             setSliderValue,
             selectedValue,
             setSelectedValue,
+            imageSrc, setImageSrc
           }}
         >
           {children}

@@ -22,31 +22,44 @@ const GoogleLoginButton = () => {
   });
 
 
-const handleGoogleLogin = async (accessToken) => {
+  const handleGoogleLogin = async (accessToken) => {
     
     try {
         const result = await AuthService.GoogleLogin(accessToken);
 
         if (result?.success) {
             if (!result?.data?.isRegister) {
-
                
                 if (typeof window !== "undefined") {
                     localStorage.setItem("token", result?.data?.token);
                     localStorage.setItem("firstName",result?.data?.firstName);
+                    localStorage.setItem('userId', result?.data?._id);
+                    const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+                     localStorage.setItem("interest", isInterestValue);
                     
+                   ;
                 }
 
+                router.push("/"); 
 
-               
-                router.push("/");
+                // if (!result?.data?.isRegister) {
+                //     router.push("/"); 
+                //   } else {
+                //     router.push("/onboarding"); 
+                //   }
             } else {
                 
-              
                 if (typeof window !== "undefined") {
-                    localStorage.removeItem("token");
-                    
+                    // localStorage.removeItem("token");
+                    localStorage.setItem("token", result?.data?.token);
+                    localStorage.setItem("firstName",result?.data?.firstName);
+                    localStorage.setItem('userId', result?.data?._id);
+                    const isInterestValue = result?.data?.isInterest === true ? "1" : "0";
+                    (result?.data?.isInterest, "interest----")
+                    localStorage.setItem("interest", isInterestValue);
+                    router.push("/onboarding"); 
                 }
+                
 
             }
         } else {

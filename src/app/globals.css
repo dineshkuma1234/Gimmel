@@ -566,7 +566,7 @@ span.user-name {
 /* video section css start here */
 
 .page-main-title {
-  margin: 32px 0px;
+  margin: 24px 0px;
 }
 
 .page-main-title h3 {
@@ -2639,5 +2639,16 @@ border: 1px solid  #104E5B ;
 
   height: 2em;
 
+}
+
+.close-button {
+  position: absolute;
+  top: -30px;
+  right: -12px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color:var(--gimmel-orange);
+  cursor: pointer;
 }
  

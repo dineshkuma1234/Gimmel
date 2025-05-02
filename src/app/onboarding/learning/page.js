@@ -29,14 +29,17 @@ function Learning() {
         const option = searchParams.get("option");
     const [educationalObjective ,setEducationalObjective]=useState('')
      const [page, setPage] = useState(1);
-          const [total, setTotal] = useState();
-    useEffect(()=>{
-        
-        handleEducationalObjectives()
-    },[])
+     const [total, setTotal] = useState();
+     const [educationPage, setEducationPage] = useState(1);
+     const [educationatotal, setEducationTotal] = useState();
+
     useEffect(() => {
         handlePersonalInterst(page);
     },[page])
+
+    useEffect(()=>{
+        handleEducationalObjectives(educationPage)
+    },[educationPage])
     // (educationalObjective,"interest--------111")
     const handlePersonalInterst = async (page) => {
         if (total === interest?.length){
@@ -70,22 +73,36 @@ function Learning() {
         }
     }
 
-        const handleEducationalObjectives = async () => {
+        const handleEducationalObjectives = async (educationPage) => {
             // LoaderHelper.loaderStatus(true);
-            try {
-                const result = await AuthService.objective();
-                if (result?.success) {
-                    // LoaderHelper.loaderStatus(false);
-                    setEducationalObjective(result?.data?.education)
-                } else {
-                    // LoaderHelper.loaderStatus(false);
-                    // AlertHelper.show('danger', 'Gimmel', result?.message);
-                }
-            } catch (error) {
-                // LoaderHelper.loaderStatus(false);
-                // ('Error occurred:', 'Gimmel', error);
+            if (total === educationalObjective?.length){
+                return;
             }
-    };
+            try {
+                const result = await AuthService.objective(educationPage);
+                if (result?.success) {
+                    setEducationTotal(result?.data?.total);
+                    // LoaderHelper.loaderStatus(false);
+                    if (educationPage === 1) {
+                        setEducationalObjective(result?.data?.education)
+                    } else {
+                        const newEducationalObjective = [
+                            ...educationalObjective,
+                            ...result?.data?.education,
+                          ];
+                          setEducationalObjective(newEducationalObjective);
+                    }
+                    if (result?.data?.total > educationalObjective?.length) {
+                        setEducationPage(page + 1);
+                      }
+                    }else{
+                        setLoader(false);
+                    }
+                } catch (error) {
+                    // LoaderHelper.loaderStatus(false);
+                    // ('Error occurred:', 'Gimmel', error);
+                }
+            }
     const handleOnboarding = async (selectedTopic,selectedObjective) => {
        
         // LoaderHelper.loaderStatus(true);
