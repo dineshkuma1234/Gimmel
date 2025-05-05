@@ -11,6 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Loader from "./LoderHelper/page";
 import { categorylistcontext } from "./Context/categorylistcontext/categorylistcontext";
 import SliderThumbnil from "../assets/images/video-thumbnil.svg"
+import { useHeader } from "./Context/headerContext/HeaderContext";
 // import LoaderHelper from '../LoaderHelper/page';
 // import Home from './Home/page';
 // import LoaderHelper from '../LoaderHelper/page'
@@ -18,7 +19,7 @@ import SliderThumbnil from "../assets/images/video-thumbnil.svg"
 export default function PageComponent() {
   const router = useRouter();
   const { setLoader } = UseLoader();
-  const [getCategoryData, setGetCategoryData] = useContext(categorylistcontext);
+  const {getCategoryData, setGetCategoryData} = useHeader();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -631,16 +632,20 @@ export default function PageComponent() {
 
 
   const handleGetCategories = async (category) => {
+    console.log(category, "category in get categories");
     try {
       const result = await AuthService.GetCategories(category);
 
 
       if (result?.success) {
-        setGetCategoryData(result?.data?.posts);
+        console.log(result, "result in get categories");
+        setGetCategoryData(result?.data?.posts); 
         router.push(
           "/categorieslist",
           { data: JSON.stringify(category) } // Convert the object to a JSON string
         );
+
+        console.log(result, "result in get categories++++++++++");
         // setGetCategoryData(result?.data?.posts);
       }
     } catch (error) {}

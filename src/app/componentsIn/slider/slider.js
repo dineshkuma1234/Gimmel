@@ -13,14 +13,14 @@ import { useRouter } from "next/navigation";
 import { SearchListContext } from "@/app/Context/searchlist/searchListContext";
 import { categorylistcontext } from "@/app/Context/categorylistcontext/categorylistcontext";
 
-const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
+const SliderSection = ({ categoryVideo,categoryimg }) => {
   
-  const { setHeaderSearch } = useHeader();
+  const { setHeaderSearch, setSelectedCategory,getCategoryData, setGetCategoryData,handleGetCategories } = useHeader();
   const router = useRouter();
   const swiperRef = useRef(null);
 
   const [deviceWidth, setDeviceWidth] = useState(0);
- const [getCategoryData, setGetCategoryData]=useContext(categorylistcontext)
+//  const [getCategoryData, setGetCategoryData]=useContext(categorylistcontext)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -34,9 +34,10 @@ const SliderSection = ({ categoryVideo, handleGetCategories,categoryimg }) => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState("");
   const handleCategoryClick = (category) => {
+    console.log(category, "category");
     handleGetCategories(category);
+    setSelectedCategory(category);
     setHeaderSearch("");
 
   };
