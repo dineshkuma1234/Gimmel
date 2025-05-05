@@ -67,6 +67,7 @@ export const HeaderProvider = ({ children }) => {
       setHeaderSearch("");
     }
   }, [pathname]);
+  
 
   const handleHistoryList = async (headerSearch) => {
     // setLoader(true);
@@ -173,7 +174,7 @@ export const HeaderProvider = ({ children }) => {
           !selectedValue&&
           !selectedAudience
    ) {
-    console.log(headerSearch, "headerSearch in handleCategoryFilter0000000");
+    // console.log(headerSearch, "headerSearch in handleCategoryFilter0000000");
     handleGetCategories(headerSearch)
         }
         setGetCategoryData(result?.data?.posts);
@@ -265,7 +266,7 @@ export const HeaderProvider = ({ children }) => {
             { data: JSON.stringify(category) } // Convert the object to a JSON string
           );
   
-          console.log(result, "result in get categories++++++++++");
+          // console.log(result, "result in get categories++++++++++");
           // setGetCategoryData(result?.data?.posts);
         }
       } catch (error) {}

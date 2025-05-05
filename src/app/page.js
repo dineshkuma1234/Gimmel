@@ -19,7 +19,7 @@ import { useHeader } from "./Context/headerContext/HeaderContext";
 export default function PageComponent() {
   const router = useRouter();
   const { setLoader } = UseLoader();
-  const {getCategoryData, setGetCategoryData} = useHeader();
+  const {getCategoryData, setGetCategoryData ,handleGetCategories} = useHeader();
 
   const [page, setPage] = useState(1);
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -629,29 +629,6 @@ export default function PageComponent() {
       // LoaderHelper.loaderStatus(false);
     }
   };
-
-
-  const handleGetCategories = async (category) => {
-    console.log(category, "category in get categories");
-    try {
-      const result = await AuthService.GetCategories(category);
-
-
-      if (result?.success) {
-        console.log(result, "result in get categories");
-        setGetCategoryData(result?.data?.posts); 
-        router.push(
-          "/categorieslist",
-          { data: JSON.stringify(category) } // Convert the object to a JSON string
-        );
-
-        console.log(result, "result in get categories++++++++++");
-        // setGetCategoryData(result?.data?.posts);
-      }
-    } catch (error) {}
-  };
-
-
 
 
   const handleSaveSubFolderVideo = async (selectSubFolder, selectFolder) => {

@@ -4,6 +4,7 @@ import { Form, ListGroup } from "react-bootstrap";
 import Image from "next/image";
 import ReactSlider from "react-slider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
     const images = [
@@ -11,6 +12,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
         require("../../../assets/images/stap-6.svg"),
     ];
 
+    const router = useRouter();
     const [selected, setSelected] = useState("School staff member");
     const handleSelect = (label) => {
         setSelected(label);
@@ -263,7 +265,7 @@ const LearningStep = ({interest,educationalObjective,handleOnboarding}) => {
                             <div className="step-button">
                                 {
                                     currentIndex === images.length - 1 ? (
-                                        <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(item,item1)}>Finish</Link>
+                                        <button  className="btn-color-blue " onClick={()=>{handleOnboarding(item,item1); router.push("/successonboarding")}} disabled={currentIndex===1 && item1.length===0}>Finish</button>
                                     ) : (
                                         <button type="button" className="btn-color-blue" onClick={nextSlide} disabled={currentIndex===0 && item.length<3}>Next</button>
                                     )

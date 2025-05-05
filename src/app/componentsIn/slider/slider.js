@@ -102,7 +102,7 @@ const SliderSection = ({ categoryVideo,categoryimg }) => {
                             handleCategoryClick(categories?.category)
                           }
                         >
-                          <Image src={categories?.thumbnail} alt="video card image" height={30} width={30}/>
+                          <Image src={categories?.thumbnail} alt="video card image" height={100} width={100}/>
                           <div className="category-card-title">
                             {categories?.category}
                           </div>

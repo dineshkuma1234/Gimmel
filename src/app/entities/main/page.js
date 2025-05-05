@@ -60,7 +60,7 @@ function Main({
         <div className="swiper-container">
           <SliderSection
             categoryVideo={categoryVideo}
-            handleGetCategories={handleGetCategories}
+            // handleGetCategories={handleGetCategories}
             categoryimg={categoryimg}
           />
         </div>

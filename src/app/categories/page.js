@@ -23,8 +23,10 @@ const PageComponent = () => {
   const router = useRouter();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
   const { setLoader } = UseLoader();
-const {getCategoryData, setGetCategoryData} = useHeader();
+  const { getCategoryData, setGetCategoryData } = useHeader();
   const [deviceWidth, setDeviceWidth] = useState(0);
+
+  const { handleGetCategories } = useHeader();
 
   useEffect(() => {
     checkUserLogedIn();
@@ -90,118 +92,169 @@ const {getCategoryData, setGetCategoryData} = useHeader();
 
   // const [getCategoryData, setGetCategoryData] = useState([]);
 
-  const handleGetCategories = async (category) => {
-    try {
-      const result = await AuthService.GetCategories(category);
+  // const handleGetCategories = async (category) => {
+  //   try {
+  //     const result = await AuthService.GetCategories(category);
 
-      if (result?.success) {
-        setGetCategoryData(result?.data?.posts);
-        router.push(
-          "/categorieslist",
-          { data: JSON.stringify(category) } // Convert the object to a JSON string
-        );
-        // setGetCategoryData(result?.data?.posts);
-      }
-    } catch (error) {
-      console.error("Error occurred:", error);
-    }
-  };
+  //     if (result?.success) {
+  //       setGetCategoryData(result?.data?.posts);
+  //       router.push(
+  //         "/categorieslist",
+  //         { data: JSON.stringify(category) } // Convert the object to a JSON string
+  //       );
+  //       // setGetCategoryData(result?.data?.posts);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error occurred:", error);
+  //   }
+  // };
 
   return (
     <>
       {deviceWidth > 991 ? (
         <>
-        <Header/>
-        <main id="main" className="top-space">
-         {categoryVideo[0]?.posts?.length >0&& <Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[0]?.posts}
-            categoryVideoname={categoryVideo[0]?.category}
-            img={img1}
-            handleGetCategories={handleGetCategories}
-          />}
+          <Header />
+          <main id="main" className="top-space">
+            {categoryVideo[0]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[0]?.posts}
+                categoryVideoname={categoryVideo[0]?.category}
+                img={img1}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
 
-          {categoryVideo[1]?.posts?.length >0&&<Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[1]?.posts}
-            categoryVideoname={categoryVideo[1]?.category}
-            img={img2}
-            handleGetCategories={handleGetCategories}
-          />}
-         {categoryVideo[2]?.posts?.length >0&& <Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[2]?.posts}
-            categoryVideoname={categoryVideo[2]?.category}
-            img={img3}
-            handleGetCategories={handleGetCategories}
-          />}
-        { categoryVideo[3]?.posts?.length >0&& <Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[3]?.posts}
-            categoryVideoname={categoryVideo[3]?.category}
-            img={img4}
-            handleGetCategories={handleGetCategories}
-          />}
-         {categoryVideo[4]?.posts?.length >0&& <Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[4]?.posts}
-            categoryVideoname={categoryVideo[4]?.category}
-            img={img5}
-            handleGetCategories={handleGetCategories}
-          />}
-       {  categoryVideo[5]?.posts?.length >0&& <Categories
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[5]?.posts}
-            categoryVideoname={categoryVideo[5]?.category}
-            img={img6}
-            handleGetCategories={handleGetCategories}
-          />}
+            {categoryVideo[1]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[1]?.posts}
+                categoryVideoname={categoryVideo[1]?.category}
+                img={img2}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
+            {categoryVideo[2]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[2]?.posts}
+                categoryVideoname={categoryVideo[2]?.category}
+                img={img3}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
+            {categoryVideo[3]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[3]?.posts}
+                categoryVideoname={categoryVideo[3]?.category}
+                img={img4}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
+            {categoryVideo[4]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[4]?.posts}
+                categoryVideoname={categoryVideo[4]?.category}
+                img={img5}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
+            {categoryVideo[5]?.posts?.length > 0 && (
+              <Categories
+                handleNotIntrested={handleNotIntrested}
+                categoryVideo={categoryVideo[5]?.posts}
+                categoryVideoname={categoryVideo[5]?.category}
+                img={img6}
+                handleGetCategories={handleGetCategories}
+              />
+            )}
           </main>
         </>
       ) : (
         <>
-       { categoryVideo[0]?.posts?.length>0&&  <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[0]?.posts}
-            categoryVideoname={categoryVideo[0]?.category}
-            img={img1}
-            handleGetCategories={handleGetCategories}
-          />}
-        { categoryVideo[1]?.posts?.length>0&& <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[1]?.posts}
-            categoryVideoname={categoryVideo[1]?.category}
-            img={img2}
-            handleGetCategories={handleGetCategories}
-          />}
-      {  categoryVideo[2]?.posts?.length>0&&  <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[2]?.posts}
-            categoryVideoname={categoryVideo[2]?.category}
-            img={img3}
-            handleGetCategories={handleGetCategories}
-          />}
-        { categoryVideo[3]?.posts?.length>0&& <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[3]?.posts}
-            categoryVideoname={categoryVideo[3]?.category}
-            img={img4}
-            handleGetCategories={handleGetCategories}
-          />}
-        { categoryVideo[4]?.posts?.length>0&& <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[4]?.posts}
-            categoryVideoname={categoryVideo[4]?.category}
-            img={img5}
-            handleGetCategories={handleGetCategories}
-          />}
-        { categoryVideo[5]?.posts?.length>0&& <Categorie
-            handleNotIntrested={handleNotIntrested}
-            categoryVideo={categoryVideo[5]?.posts}
-            categoryVideoname={categoryVideo[5]?.category}
-            img={img6}
-            handleGetCategories={handleGetCategories}
-          />}
+          <div className="page-top-bar">
+            <div className="page-inner">
+              <div className="page-section-left">
+                <div className="back-button">
+                  <button className="btn" onClick={() => window.history.back()}>
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.434 17.334L17.9007 24.8006L16.0007 26.6673L5.33398 16.0007L16.0007 5.33398L17.9007 7.20065L10.434 14.6673H26.6673V17.334H10.434Z"
+                        fill="#104E5B"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="page-title">
+                  <h5>Categories</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="page-main-section top-space">
+          {categoryVideo[0]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[0]?.posts}
+              categoryVideoname={categoryVideo[0]?.category}
+              img={img1}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          {categoryVideo[1]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[1]?.posts}
+              categoryVideoname={categoryVideo[1]?.category}
+              img={img2}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          {categoryVideo[2]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[2]?.posts}
+              categoryVideoname={categoryVideo[2]?.category}
+              img={img3}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          {categoryVideo[3]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[3]?.posts}
+              categoryVideoname={categoryVideo[3]?.category}
+              img={img4}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          {categoryVideo[4]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[4]?.posts}
+              categoryVideoname={categoryVideo[4]?.category}
+              img={img5}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          {categoryVideo[5]?.posts?.length > 0 && (
+            <Categorie
+              handleNotIntrested={handleNotIntrested}
+              categoryVideo={categoryVideo[5]?.posts}
+              categoryVideoname={categoryVideo[5]?.category}
+              img={img6}
+              handleGetCategories={handleGetCategories}
+            />
+          )}
+          </div>
         </>
       )}
     </>

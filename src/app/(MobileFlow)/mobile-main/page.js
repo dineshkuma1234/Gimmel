@@ -119,12 +119,14 @@ function MainMobile({
 
       <main id="main" className="top-space">
         <div className="custom-container">
-          <div className="page-main-title">
-            <h3>Categories</h3>
-            <Link href="/categories" className="see-all">
-              See more categories
-            </Link>
-          </div>
+          {categoryimg?.length > 0 && (
+            <div className="page-main-title">
+              <h3>Categories</h3>
+              <Link href="/categories" className="see-all">
+                See more
+              </Link>
+            </div>
+          )}
 
           <div className="swiper-container">
             <SliderSection
@@ -133,9 +135,9 @@ function MainMobile({
               categoryimg={categoryimg}
             />
           </div>
-          <div className="page-main-title">
+          {getPost?.length>0 &&(<div className="page-main-title">
             <h3>Recommended for you</h3>
-          </div>
+          </div>)}
 
           <VideoCardGridMobile
             getPost={getPost}
