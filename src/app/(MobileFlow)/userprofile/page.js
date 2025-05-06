@@ -7,6 +7,7 @@ import { useEffect, useState,} from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import Link from "next/link";
 import { MdLogout } from "react-icons/md";
+import { FaCamera } from "react-icons/fa";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
 import SliderThumbnil from "../../../assets/images/video-thumbnil.svg";
@@ -347,7 +348,7 @@ function UserProfile({
                 <div className="profile-pic">
                   <label className="-label" htmlFor="file">
                     <span className="glyphicon glyphicon-camera"></span>
-                    <span>Change Image</span>
+                    <span><FaCamera /></span>
                   </label>
                   <input
                     id="file"

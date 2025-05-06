@@ -49,26 +49,26 @@ function Main({
 
       <main id="main" className="top-space">
         <div className="custom-container">
-          <div className="page-main-title mb-3">
+          {categoryimg?.length > 0 &&(<div className="page-main-title mb-3">
             <h3>Categories</h3>
             <Link href="/categories" className="see-all">
               See more categories
             </Link>
-          </div>
+          </div>)}
         </div>
 
         <div className="swiper-container">
-          <SliderSection
+         {categoryimg?.length > 0 &&( <SliderSection
             categoryVideo={categoryVideo}
             // handleGetCategories={handleGetCategories}
             categoryimg={categoryimg}
-          />
+          />)}
         </div>
 
         <div className="custom-container">
-          <div className="page-main-title">
+          {getPost?.length > 0 &&(<div className="page-main-title">
             <h3>Recommended for you</h3>
-          </div>
+          </div>)}
 
           <VideoCardGrid
             getPost={getPost}

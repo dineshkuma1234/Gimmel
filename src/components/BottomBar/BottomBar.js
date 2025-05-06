@@ -2,13 +2,16 @@
 
 import React from "react";
 import "./style.css";
-import { usePathname } from 'next/navigation'
+import { usePathname ,useRouter} from 'next/navigation'
 import Link from "next/link";
 import Image from "next/image";
+import { useModal } from "../registerpop/page";
 
 const BottomBar = () => {
 
     const pathname = usePathname()
+    const router = useRouter();
+    const { openModal, setIsOpen } = useModal();
 
 
     return (
@@ -40,9 +43,19 @@ const BottomBar = () => {
                                 </Link>
                             </li>
                             <li className="menu-item">
-                                <Link
-                                    href="/mylibrary"
+                                <button
+                                    // href="/mylibrary"
                                     className={`menu-link ${pathname === "/mylibrary" ? "active" : ""}`}
+                                    onClick={(e)=>{
+                                        e.preventDefault();
+                                        const token = localStorage.getItem("token");
+                                        if (!token){
+                                            setIsOpen(true);
+                                        }else{
+                                        router.push("/mylibrary")
+                                        }
+
+                                    }}
                                 >
                                     <svg
                                         width="16"
@@ -57,7 +70,7 @@ const BottomBar = () => {
                                         />
                                     </svg>
                                     My Library
-                                </Link>
+                                </button>
                             </li>
                             <li className="menu-item">
                                 <Link

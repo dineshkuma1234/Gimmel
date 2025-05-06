@@ -26,13 +26,13 @@ import Link from "next/link";
 import { TbEdit } from "react-icons/tb";
 import { FiAlertOctagon } from "react-icons/fi";
 import { type } from "os";
-import {calculateMonthsAgo} from "../../utils/monthsAgo/page";
+import { calculateMonthsAgo } from "../../utils/monthsAgo/page";
 import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "../../../components/Models/Delete";
 import SaveLibraryModal from "../../../components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import toast, { Toaster } from "react-hot-toast";
-import { useModal } from "../../../components/registerpop/page"; 
+import { useModal } from "../../../components/registerpop/page";
 import { IoMdInformationCircle } from "react-icons/io";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
@@ -80,19 +80,19 @@ function VideoDetails({
   handleHomeWorkPdf,
   homeworkRegenrate,
   handleLikeReview,
-   handleDislikeReview,
-    handleReplayPost,
+  handleDislikeReview,
+  handleReplayPost,
   getTest,
   handleTestPdf,
   TestRegenrate,
   handleSaveVideonext,
   handleSaveSubFolderVideo,
-  handleDeleteSubFolder
+  handleDeleteSubFolder,
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
   const [materialItem, setMaterialItem] = useState("Quiz");
-  const { openModal,setIsOpen } = useModal(); 
+  const { openModal, setIsOpen } = useModal();
   const [showMore, setShowMore] = useState(false);
   const [selectFolder, setSelectFolder] = useState(null);
 
@@ -150,10 +150,10 @@ function VideoDetails({
   }, []);
 
   const [folders, setFolders] = useState("");
- 
+
   const [active, setActive] = useState(null);
   const [subfolderid, setsubfolderid] = useState(null);
-const [inerFolder, setinerFolder] = useState()
+  const [inerFolder, setinerFolder] = useState();
   const handleNavigateSave = (item) => {
     // ('_id', _id)
     setSelectedFolderId(item?._id);
@@ -161,9 +161,9 @@ const [inerFolder, setinerFolder] = useState()
     setSubfolderView(true);
     setActive(item?._id);
     setsubfolderid(item?._id);
-    setinerFolder(item?._id)
+    setinerFolder(item?._id);
     // handleCreateFolderSub(addnewFolder);
-    handleGetFolderSub(item?._id)
+    handleGetFolderSub(item?._id);
   };
 
   const handleNavigatename = (item) => {
@@ -172,7 +172,7 @@ const [inerFolder, setinerFolder] = useState()
     setColor(true);
     setActive(item?._id);
     // handleCreateFolderSub(addnewFolder);
-    handleGetFolderSub(item?._id)
+    handleGetFolderSub(item?._id);
   };
   const [deleteModel, setDeleteModel] = useState(false);
   // const [selectedItem, setSelectedItem] = useState(null);
@@ -197,7 +197,6 @@ const [inerFolder, setinerFolder] = useState()
     setisDropdownOpenid((prev) => (prev === item ? null : item));
     setThreeDotItem(item);
   };
-
 
   const convertToKM = (num) => {
     if (num >= 1000000) {
@@ -243,10 +242,6 @@ const [inerFolder, setinerFolder] = useState()
     }
   };
 
-  
-
-
-
   const deselectAll = () => {
     if (!setIsSelectTeachingAll) {
       // Select all topics
@@ -271,7 +266,7 @@ const [inerFolder, setinerFolder] = useState()
     });
   };
 
-   const copyUrl = (idvideo) => {
+  const copyUrl = (idvideo) => {
     <Toaster position="top-right" reverseOrder={false} />;
     toast.success("Link copied to clipboard");
     navigator.clipboard.writeText(
@@ -321,7 +316,7 @@ const [inerFolder, setinerFolder] = useState()
         subfolderid={subfolderid}
         selectedFolderId={selectedFolderId}
       />
-   
+
       <DeleteModel
         deleteModel={deleteModel}
         show={show6}
@@ -334,7 +329,7 @@ const [inerFolder, setinerFolder] = useState()
         handleDeleteSubFolder={handleDeleteSubFolder}
         selectFolder={selectFolder}
       />
-       <SaveLibraryModal
+      <SaveLibraryModal
         show_modal={show1}
         close_library_modal={handleClose1}
         handleShow={handleShow}
@@ -413,14 +408,9 @@ const [inerFolder, setinerFolder] = useState()
               <button
                 className="btn btn-color-orange"
                 onClick={(e) => {
-                  const token = localStorage.getItem("token");
-                  if (!token) {
-                  e.preventDefault(); // Prevents navigation
-                  setIsOpen(true);
-                  } else {
-                    copyUrl(idvideo);
-                    handleClose2();                  }
-              }}
+                  copyUrl(idvideo);
+                  handleClose2();
+                }}
               >
                 Copy Link
               </button>
@@ -495,17 +485,10 @@ const [inerFolder, setinerFolder] = useState()
                 className="btn btn-color-orange"
                 disabled={!text || !selectedValue}
                 onClick={(e) => {
-                  const token = localStorage.getItem("token");
-                  if (!token) {
-                  e.preventDefault(); // Prevents navigation
-                  setIsOpen(true);
-                  } else {
-                    handleClose3(),
-                    handleReportPost(selectedValue, text, data?._id);                 
-                  }
-              }}
+                  handleClose3(),
+                    handleReportPost(selectedValue, text, data?._id);
+                }}
               >
-                   
                 Send Report
               </button>
             </div>
@@ -529,9 +512,7 @@ const [inerFolder, setinerFolder] = useState()
           <p>{data?.description}</p>
         </Modal.Body>
       </Modal>
-     
-     
- 
+
       <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
@@ -591,14 +572,14 @@ const [inerFolder, setinerFolder] = useState()
                         onClick={(e) => {
                           const token = localStorage.getItem("token");
                           if (!token) {
-                          e.preventDefault(); // Prevents navigation
-                          setIsOpen(true);
+                            e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
                           } else {
-                            handleShow1()
-                         }
-                      }}
+                            handleShow1();
+                          }
+                        }}
                       >
-                     {localStorage.getItem("token") && data?.isSaved ?  (
+                        {localStorage.getItem("token") && data?.isSaved ? (
                           <svg
                             width="32"
                             height="32"
@@ -657,18 +638,20 @@ const [inerFolder, setinerFolder] = useState()
                                 </button>
                               </li>
                               <li>
-                                <button variant="primary"
-                                onClick={(e) => {
-                                  const token = localStorage.getItem("token");
-                                  if (!token) {
-                                  e.preventDefault(); // Prevents navigation
-                                  setIsOpen(true);
-                                  } else {
-                                    handleShow1()
-                                 }
-                              }}
+                                <button
+                                  variant="primary"
+                                  onClick={(e) => {
+                                    const token = localStorage.getItem("token");
+                                    if (!token) {
+                                      e.preventDefault(); // Prevents navigation
+                                      setIsOpen(true);
+                                    } else {
+                                      handleShow1();
+                                    }
+                                  }}
                                 >
-                               {localStorage.getItem("token") && data?.isSaved ?  (
+                                  {localStorage.getItem("token") &&
+                                  data?.isSaved ? (
                                     <svg
                                       width="32"
                                       height="32"
@@ -709,7 +692,18 @@ const [inerFolder, setinerFolder] = useState()
                               </li>
                               <div className="dropdown-divider"></div>
                               <li>
-                                <button href="#" onClick={handleShow3}>
+                                <button
+                                  href="#"
+                                  onClick={(e) => {
+                                    const token = localStorage.getItem("token");
+                                    if (!token) {
+                                      e.preventDefault(); // Prevents navigation
+                                      setIsOpen(true);
+                                    } else {
+                                      handleShow3();
+                                    }
+                                  }}
+                                >
                                   <Image
                                     src={require("../../../assets/images/report-icon.svg")}
                                     alt="report"
@@ -764,13 +758,12 @@ const [inerFolder, setinerFolder] = useState()
                     </ul>
                   </div>
                   <div className={`video-description `}>
-                    <p  className={showMore ? "full-text" : "truncated-text"}>
+                    <p className={showMore ? "full-text" : "truncated-text"}>
                       {data?.description}
-                      
-                      </p>
+                    </p>
 
-                      <span className="view-more">
-                      {!showMore && (  
+                    <span className="view-more">
+                      {!showMore && (
                         <button
                           className="btn btn-view"
                           onClick={() => {
@@ -778,13 +771,13 @@ const [inerFolder, setinerFolder] = useState()
                               "none";
                             document.querySelector(".view-less").style.display =
                               "block";
-                              setShowMore(true)
+                            setShowMore(true);
                           }}
                         >
                           ...more
                         </button>
-                          )}
-                      </span>
+                      )}
+                    </span>
 
                     <div className="view-less" style={{ display: "none" }}>
                       <div className="account-info-container">
@@ -866,7 +859,7 @@ const [inerFolder, setinerFolder] = useState()
                             "block";
                           document.querySelector(".view-less").style.display =
                             "none";
-                            setShowMore(false)
+                          setShowMore(false);
                         }}
                       >
                         Show less
@@ -887,31 +880,51 @@ const [inerFolder, setinerFolder] = useState()
                           <Nav.Link eventKey="first">Quiz</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="second"  disabled={!localStorage.getItem("token")}>Discussion</Nav.Link>
+                          <Nav.Link
+                            eventKey="second"
+                            disabled={!localStorage.getItem("token")}
+                          >
+                            Discussion
+                          </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="third"  disabled={!localStorage.getItem("token")}>Activity</Nav.Link>
+                          <Nav.Link
+                            eventKey="third"
+                            disabled={!localStorage.getItem("token")}
+                          >
+                            Activity
+                          </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fourth"  disabled={!localStorage.getItem("token")}>Homework</Nav.Link>
+                          <Nav.Link
+                            eventKey="fourth"
+                            disabled={!localStorage.getItem("token")}
+                          >
+                            Homework
+                          </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="fifth"  disabled={!localStorage.getItem("token")}>Test</Nav.Link>
+                          <Nav.Link
+                            eventKey="fifth"
+                            disabled={!localStorage.getItem("token")}
+                          >
+                            Test
+                          </Nav.Link>
                         </Nav.Item>
                       </Nav>
-                       {/* Alert Message */}
-                       {!localStorage.getItem("token") && (
+                      {/* Alert Message */}
+                      {!localStorage.getItem("token") && (
                         <div className="alert alert-warning custom-alert mt-3">
-                        <span className="Inform-Pop">
-                        <IoMdInformationCircle />
-                          You can generate pressurized attachments by registering and upgrading to our XY Plan.
-                        </span>
-                        <a href="/signup" className="button-sart-ragisration">
-                          Start Registration
-                        </a>
-                      </div>
+                          <span className="Inform-Pop">
+                            <IoMdInformationCircle />
+                            You can generate pressurized attachments by
+                            registering and upgrading to our XY Plan.
+                          </span>
+                          <a href="/signup" className="button-sart-ragisration">
+                            Start Registration
+                          </a>
+                        </div>
                       )}
-
                     </Col>
                     <Col sm={12}>
                       <Tab.Content>
@@ -924,16 +937,39 @@ const [inerFolder, setinerFolder] = useState()
                           />
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                          <Stap2 getDiscussion={getDiscussion} getHeader={getHeader} getid={getid} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
+                          <Stap2
+                            getDiscussion={getDiscussion}
+                            getHeader={getHeader}
+                            getid={getid}
+                            handleDiscussPdf={handleDiscussPdf}
+                            discussionRegenrate={discussionRegenrate}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="third">
-                          <Stap3 getActivity={getActivity} getHeader={getHeader} getid={getid} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate}/>
+                          <Stap3
+                            getActivity={getActivity}
+                            getHeader={getHeader}
+                            getid={getid}
+                            handleActivityPdf={handleActivityPdf}
+                            activityRegenrate={activityRegenrate}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="fourth">
-                          <Stap4 getHomeWork={getHomeWork} getHeader={getHeader} getid={getid} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}/>
+                          <Stap4
+                            getHomeWork={getHomeWork}
+                            getHeader={getHeader}
+                            getid={getid}
+                            handleHomeWorkPdf={handleHomeWorkPdf}
+                            homeworkRegenrate={homeworkRegenrate}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="fifth">
-                          <Stap5 getTest={getTest} getid={getid} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}/>
+                          <Stap5
+                            getTest={getTest}
+                            getid={getid}
+                            handleTestPdf={handleTestPdf}
+                            TestRegenrate={TestRegenrate}
+                          />
                         </Tab.Pane>
                       </Tab.Content>
                     </Col>
@@ -954,7 +990,9 @@ const [inerFolder, setinerFolder] = useState()
                           <Nav.Link eventKey="first">Suggested videos</Nav.Link>
                         </Nav.Item>
                         <Nav.Item className="w-50">
-                          <Nav.Link eventKey="second">Reviews  {getReview?.length || 0}</Nav.Link>
+                          <Nav.Link eventKey="second">
+                            Reviews {getReview?.length || 0}
+                          </Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>
@@ -981,9 +1019,10 @@ const [inerFolder, setinerFolder] = useState()
                               selectedFolderId={selectedFolderId}
                               handleDeleteSubFolder={handleDeleteSubFolder}
                               handleSaveVideonext={handleSaveVideonext}
-                              handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-                               calculateMonthsAgo={calculateMonthsAgo}
-                              
+                              handleSaveSubFolderVideo={
+                                handleSaveSubFolderVideo
+                              }
+                              calculateMonthsAgo={calculateMonthsAgo}
                             />
                           </div>
                         </Tab.Pane>
@@ -993,8 +1032,8 @@ const [inerFolder, setinerFolder] = useState()
                               getReview={getReview}
                               handleSendComment={handleSendComment}
                               handleLikeReview={handleLikeReview}
-                               handleDislikeReview={handleDislikeReview}
-                                handleReplayPost={handleReplayPost}
+                              handleDislikeReview={handleDislikeReview}
+                              handleReplayPost={handleReplayPost}
                             />
                           </div>
                         </Tab.Pane>

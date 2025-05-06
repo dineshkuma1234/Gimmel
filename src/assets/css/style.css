@@ -600,7 +600,7 @@ input[type="range"]::-moz-range-thumb {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: 300px;
+    height: 200px;
     overflow: auto;
     padding: 0px 0 10px;
     padding-bottom: 40px;

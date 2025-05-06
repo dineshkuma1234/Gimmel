@@ -69,10 +69,14 @@ const SliderCategories = ({
       const dropdownRef = useRef()
 
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  const [modalVideoId, setModalVideoId] = useState(null);
+  const handleShow = (videoId) => {
+    setModalVideoId(videoId); 
+  };
+  
+  const handleClose = () => {
+    setModalVideoId(null); 
+  };
   const [show1, setShow1] = useState(false);
 
   const handleClose1 = () => setShow1(false);
@@ -184,14 +188,21 @@ useEffect(() => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} centered className="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Full Summary</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{categoryVideo?.[0]?.description}</p>
-        </Modal.Body>
-      </Modal>
+      {modalVideoId && (
+  <Modal show={true} onHide={handleClose} centered className="custom-modal">
+    <Modal.Header closeButton>
+      <Modal.Title>Full Summary</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <p>
+        {
+          categoryVideo.find((video) => video._id === modalVideoId)
+            ?.description
+        }
+      </p>
+    </Modal.Body>
+  </Modal>
+)}
 
      
  <RenameModel
@@ -389,7 +400,7 @@ useEffect(() => {
                                   <li>
                                     <button
                                       variant="primary"
-                                      onClick={handleShow}
+                                      onClick={()=>handleShow(video._id)}
                                     >
                                       <svg
                                         width="24"
