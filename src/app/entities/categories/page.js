@@ -79,9 +79,10 @@ const handleGetPostid = async () => {
   }
 } catch (error) {
   console.error("Error occurred:", error);
-} finally {
-  setLoading(false);
-}
+} 
+// finally {
+//   setLoading(false);
+// }
 };
 
   const handleGetFolder = async (value) => {

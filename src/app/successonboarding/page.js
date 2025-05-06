@@ -33,7 +33,7 @@ function Success() {
                                 </div>
                                 <div className="banner-btn">
                                     <Link href="/" className="btn-color-orange">
-                                        Okay
+                                        Begin Your Learning Journey!
                                     </Link>
                                 </div>
                             </div>

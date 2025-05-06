@@ -19,58 +19,8 @@ import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
-//     {
-//         id: 1,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 2,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 3,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 4,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-//     {
-//         id: 5,
-//         title: 'Dangers of smoking | Health | Biology | FuseSchool',
-//         duration: '2:30',
-//         rating: '8/10',
-//         engagement: 'Engagement Rating',
-//         description:
-//             'Explain the dangers of smoking in detail based on the biological and scientific aspects of the consequences of nicotine in chain smokers.',
-//         imageSrc: 'assets/images/video-thumbnil.svg',
-//     },
-// ];
 
 const SliderCategories = ({
   categoryVideo,
@@ -97,6 +47,8 @@ const SliderCategories = ({
   handleGetFolderSub,
   setSelectedFolderId
 }) => {
+    const{setSelectedCategory}=useHeader()
+
      const [renameModel, setRenameModel] = useState(false);
       const [Subfolder, setSubfolder] = useState();
       const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
@@ -183,14 +135,6 @@ const SliderCategories = ({
       setIsDropdownOpen(false);
     }
   };
-
-
-
-
-
-  
-
-
 
 useEffect(() => {
   window.addEventListener("click", handleClickOutside);
@@ -362,7 +306,7 @@ useEffect(() => {
             <div className="multi-video-slider" style={{cursor: "pointer"}}>
               <div
                 className="multi-video-slider-inner"
-                onClick={() => handleGetCategories(categoryVideoname)}
+                onClick={() =>{ handleGetCategories(categoryVideoname); setSelectedCategory(categoryVideoname)}}
               >
                 {/* <p>{categoryVideoname}</p> */}
                 <Image src={img} alt="video card" />

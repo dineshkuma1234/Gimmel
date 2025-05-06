@@ -4,6 +4,7 @@ import { Form, ListGroup } from "react-bootstrap";
 import Image from "next/image";
 import ReactSlider from "react-slider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) => {
     const images = [
@@ -11,6 +12,7 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
         require("../../../assets/images/stap-6.svg"),
     ];
 
+    const router = useRouter();
     const [selected, setSelected] = useState("School staff member");
     const handleSelect = (label) => {
         setSelected(label);
@@ -290,16 +292,16 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
                                         </Form>
                                     </ul>
                                 </div>
-                                <div className="step-button">
+                                {/* <div className="step-button">
                                     <Link href="/successonboarding" className="btn-color-blue " onClick={()=>handleOnboarding(item,item1)}>Okay</Link>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="bottom-bar">
-                    <div className="bottom-bar-content">
+                    {/* <div className="bottom-bar-content">
                         <div className="pagination-section pagination">
                             <ul className="">
                                 <li>
@@ -334,8 +336,38 @@ const LearningStepMobile = ({interest,educationalObjective,handleOnboarding}) =>
                             </ul>
                         </div>
                         
-                    </div>
+                    </div> */}
+                  
+                <div className="step-button">
+              {currentIndex === images.length - 1 ? (
+                <button
+                  href="/successonboarding"
+                  className="btn-color-blue "
+                  onClick={() =>{
+                    handleOnboarding(item,item1)
+                    router.push("/successonboarding");
+                  }}
+                  disabled={(currentIndex === 1 && item1?.length === 0) }
+                >
+                  Finish
+                </button>
+              ) : (
+                <button
+                type="button"
+                className="btn-color-blue"
+                onClick={nextSlide}
+                disabled={
+                  
+                  (currentIndex === 0 && item?.length < 3)
+                  
+                }
+              >
+                Next
+              </button>
+              )}
+            </div>
                 </div>
+                
             </div>
         </>
     );
