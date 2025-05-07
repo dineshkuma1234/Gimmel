@@ -80,7 +80,7 @@ function Header() {
         selectedValue
       );
     }
-    console.log("called from header", query);
+    // console.log("called from header", query);
   }, []);
 
   const handleShowHistory = () => {
@@ -140,8 +140,9 @@ function Header() {
                 placeholder="Search"
                 value={headerSearch}
                 onChange={(e) => setHeaderSearch(e.target.value)}
-                onClick={(e) => handleHistoryList(e.target.value)}
+                // onClick={(e) => handleHistoryList(headerSearch)}
                 onFocus={() => {
+                  handleHistoryList(headerSearch)
                   handleShowHistory();
                   setShow(false);
                 }}

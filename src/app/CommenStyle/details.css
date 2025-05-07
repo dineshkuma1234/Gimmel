@@ -86,7 +86,7 @@ ul.account-info-list {
 
 ul.account-info-list li {
     list-style: none;
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 600;
     color: #87A7AD;
     margin: 0;
@@ -98,8 +98,8 @@ ul.account-info-list li {
 
 ul.account-info-list li {
     border-right: 1px solid #87A7AD;
-    padding-right: 16px;
-    margin-right: 16px;
+    padding-right: 10px;
+    margin-right: 10px;
     display: flex;
     align-items: center;
     gap: 8px;

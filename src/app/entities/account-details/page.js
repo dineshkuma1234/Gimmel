@@ -20,6 +20,7 @@ import { formatDuration } from "../../utils/monthsAgo/page";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import profileImage from "../../../assets/images/user.svg";
 import Header from "../../../components/header/header";
+import { FaCamera } from "react-icons/fa";
 import "./account.css";
 
 
@@ -431,7 +432,7 @@ function AccountDetails({
                     <div className="profile-pic">
                       <label className="-label" htmlFor="file">
                         <span className="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
+                        <span><FaCamera /></span>
                       </label>
                       <input
                         id="file"

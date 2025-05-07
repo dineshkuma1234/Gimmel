@@ -919,13 +919,37 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  GetCategories: async (category) => {
+  GetCategories: async (category,isOn,
+    chips,
+    inputValue,
+    selectedAge,
+    selectedEngagement,
+    selectedDate,
+    sliderValue,
+    selectedValue,
+    selectedAudience) => {
     let token = await localStorage.getItem("token");
     const userId =await localStorage.getItem("userId");
     const { authBaseUrl, getCategories } = ApiConfig;
     const params = new URLSearchParams();
     if (userId) params.append('userId', userId);
     if (category) params.append('category', category);
+    if (isOn) params.append("isVerified", isOn);
+
+    if (sliderValue) params.append("difficultyLevel", Number(sliderValue));
+
+    if (selectedValue) params.append("duration", selectedValue);
+
+    if (chips) params.append("topic", chips);
+
+    if (selectedEngagement) params.append("engagement", selectedEngagement);
+    
+
+    if (selectedDate) params.append("createdAt", selectedDate);
+    if (selectedAudience) params.append("audience", selectedAudience);
+    if (selectedAge) {
+      params.append("ageRange", selectedAge);
+    }
     const url = `${authBaseUrl}${getCategories}${params.toString() ? `?${params.toString()}` : ''}`;
 
     const headers = {

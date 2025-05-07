@@ -16,7 +16,7 @@ function Sidebar() {
     setHeaderSearch,
     headerSearch,
     handleHistoryList,
-    handleSearchCont,isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue, selectedCategory ,handleCategoryFilter
+    handleSearchCont,isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue, selectedCategory ,handleGetCategories
   } = useHeader();
 
   // (headerSearch,"setHeaderSearch---")
@@ -28,7 +28,7 @@ function Sidebar() {
 
   useEffect(() => {
     if (iscategoriesPage){
-      handleCategoryFilter(
+      handleGetCategories(
         selectedCategory,
         isOn,
         chips,

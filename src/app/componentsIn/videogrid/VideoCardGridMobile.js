@@ -582,7 +582,7 @@ const VideoCard = ({
 
       {/* My Interests section here  */}
       {index === 6 && showContent && interest === "0" && (
-        <div className="bg-orange-section">
+        <div className="bg-orange-section mb-3">
           <div className="bg-orange-inner">
             <div className="bg-orange-title inline-gap-8">
               <h6>

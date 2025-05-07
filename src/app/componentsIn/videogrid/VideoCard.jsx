@@ -55,6 +55,7 @@ const VideoCard = ({
   const router = useRouter();
 
   const [renameModel, setRenameModel] = useState(false);
+    const { openModal, setIsOpen } = useModal();
   const [Subfolder, setSubfolder] = useState();
   const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
   const [subfolderid, setsubfolderid] = useState(null);
@@ -570,8 +571,14 @@ useEffect(() => {
                   <button
                     type="button"
                     className="btn-color-orange-outline"
-                    onClick={() => {
+                    onClick={(e) => {
+                      const token = localStorage.getItem("token");
+                      if (!token) {
+                      e.preventDefault(); // Prevents navigation
+                      setIsOpen(true);
+                      } else {
                       handleShow3();
+                      }
                       // setShowContent(false);
                     }}
                   >
@@ -668,6 +675,8 @@ useEffect(() => {
                             const token = localStorage.getItem("token");
                             if (!token) {
                             e.preventDefault(); // Prevents navigation
+                            setIsOpen(true);
+
                             } else {
                               setShow(false)
                               handleShow();                           }
@@ -721,6 +730,7 @@ useEffect(() => {
                               const token = localStorage.getItem("token");
                               if (!token) {
                               e.preventDefault(); // Prevents navigation
+                              setIsOpen(true);
                               } else {
                                 handleNotIntrested(video?._id);
                                 setIsDropdownOpen(false); 
