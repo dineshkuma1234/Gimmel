@@ -3,6 +3,7 @@ import { FiDownload, FiRefreshCcw } from "react-icons/fi";
 import { Form, Modal } from "react-bootstrap";
 import Image from "next/image";
 import { useModal } from "@/components/registerpop/page";
+import { useunauthModal } from "@/components/unauthmobile/page";
 function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
 
     const [show, setShow] = useState(false);
@@ -10,6 +11,8 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
     const handleShow = () => setShow(true);
     const [text,setText]=useState("");
       const { openModal,setIsOpen } = useModal(); 
+      const { setIsOpenuauth } = useunauthModal(); 
+
     
     const maxWord=60
 
@@ -115,7 +118,12 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                             const token = localStorage.getItem("token");
                             if (!token) {
                             e.preventDefault(); // Prevents navigation
-                            setIsOpen(true);
+                            if (window.innerWidth < 768) {
+                                setIsOpenuauth(true);
+                              } else {
+                                setIsOpen(true);
+                              }
+                              
                             } else {
                                 handleQuizPdf(getid,handleShow)     
                          }
@@ -126,7 +134,11 @@ function Step1({getQuiz,handleQuizPdf,getid,quizRegenrate}) {
                             const token = localStorage.getItem("token");
                             if (!token) {
                             e.preventDefault(); // Prevents navigation
-                            setIsOpen(true);
+                            if (window.innerWidth < 768) {
+                                setIsOpenuauth(true);
+                              } else {
+                                setIsOpen(true);
+                              }
                             } else {
                                 quizRegenrate()
                         }

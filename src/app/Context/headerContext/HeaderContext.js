@@ -201,6 +201,7 @@ export const HeaderProvider = ({ children }) => {
     selectedAudience
   ) => {
     // console.log(category, "category in get categories");
+    setLoader(true);
     try {
       const result = await AuthService.GetCategories(
         category,
@@ -214,7 +215,7 @@ export const HeaderProvider = ({ children }) => {
         selectedValue,
         selectedAudience
       );
-
+      setLoader(false);
       if (result?.success) {
         console.log(result, "result in get categories");
         setGetCategoryData(result?.data?.posts);
@@ -226,7 +227,7 @@ export const HeaderProvider = ({ children }) => {
         // console.log(result, "result in get categories++++++++++");
         // setGetCategoryData(result?.data?.posts);
       }
-    } catch (error) {}
+    } catch (error) {setLoader(false);}
   };
 
   const handleNotIntrested = async (id) => {

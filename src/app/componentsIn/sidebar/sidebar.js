@@ -283,17 +283,24 @@ function Sidebar() {
           </Form.Group>
           <div className="tab-select">
             <div className="list-group" id="list-tab" role="tablist">
-              {["9+", "7+"].map((engagement) => (
-                <button
-                  key={engagement}
-                  className={`list-group-item list-group-item-action w-50 ${
-                    selectedEngagement === engagement ? "active" : ""
-                  }`}
-                  onClick={() => handleClick1(engagement)}
-                >
-                  {engagement}
-                </button>
-              ))}
+            <button
+                className={`list-group-item list-group-item-action w-50 ${
+                  selectedEngagement === "9" ? "active" : ""
+                }`}
+                id="list-profile-list"
+                onClick={() => handleClick1("9")}
+              >
+                9+
+              </button>
+              <button
+                className={`list-group-item list-group-item-action w-50 ${
+                  selectedEngagement === "7" ? "active" : ""
+                }`}
+                id="list-messages-list"
+                onClick={() => handleClick1("7")}
+              >
+                7+
+              </button>
             </div>
           </div>
         </div>
@@ -305,10 +312,10 @@ function Sidebar() {
             <div className="list-group" id="list-tab" role="tablist">
               <button
                 className={`list-group-item list-group-item-action w-100 ${
-                  selectedDate === "NewlyPublished" ? "active" : ""
+                  selectedDate === "newlyPublished" ? "active" : ""
                 }`}
                 id="list-settings-list"
-                onClick={() => handleClick2("NewlyPublished")}
+                onClick={() => handleClick2("newlyPublished")}
               >
                 Newly Published
               </button>
@@ -331,11 +338,11 @@ function Sidebar() {
             <div className="number-text">1</div>
             <RangeSlider
               className="single-thumb"
-              min={1}
+              min={0}
               max={10}
               step={1}
-              defaultValue={[1, 1]}
-              value={[1, sliderValue || 1]}
+              defaultValue={[0, 1]}
+              value={[0, sliderValue || 0]}
               thumbsDisabled={[true, false]}
               rangeSlideDisabled={true}
               onInput={handleSliderChange}
@@ -417,10 +424,10 @@ function Sidebar() {
               </button>
               <button
                 className={`list-group-item list-group-item-action ${
-                  selectedAudience === "Other" ? "active" : ""
+                  selectedAudience === "School Staff" ? "active" : ""
                 }`}
                 id="list-settings-list"
-                onClick={() => handleClick3("Other")}
+                onClick={() => handleClick3("School Staff")}
               >
                 School staff
               </button>

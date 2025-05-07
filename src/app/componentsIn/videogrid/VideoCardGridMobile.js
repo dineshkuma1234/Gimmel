@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
+import { useunauthModal } from "@/components/unauthmobile/page";
 
 const VideoCard = ({
   video,
@@ -50,12 +51,10 @@ const VideoCard = ({
   setSaveVideoScreen,
   handleDeleteSubFolder,
   selectedFolderId,
-  
-
-  
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { openModal, setIsOpenuauth } = useunauthModal();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -188,7 +187,6 @@ const VideoCard = ({
       }
     });
   };
-
 
   const router = useRouter();
 
@@ -324,7 +322,7 @@ const VideoCard = ({
         </Modal.Body>
       </Modal>
 
-         {/* <div className="video-list">
+      {/* <div className="video-list">
             {videoData.map((video) => (
                 <div key={video.id} className="video-card">
                     <img src={video.imageSrc} alt={video.title} className="video-thumbnail" />
@@ -582,29 +580,37 @@ const VideoCard = ({
 
       {/* My Interests section here  */}
       {index === 6 && showContent && interest === "0" && (
-        <div className="bg-orange-section mb-3">
-          <div className="bg-orange-inner">
-            <div className="bg-orange-title inline-gap-8">
-              <h6>
-                What are you interested about so we can suggest you better
-                content
-              </h6>
-              <div className="remove-section">
-                <button className="btn-orange-close">
-                  <IoCloseSharp />
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+          <div className="bg-orange-section mb-3">
+            <div className="bg-orange-inner">
+              <div className="bg-orange-title inline-gap-8">
+                <h6>
+                  What are you interested about so we can suggest you better
+                  content
+                </h6>
+                <div className="remove-section">
+                  <button className="btn-orange-close">
+                    <IoCloseSharp />
+                  </button>
+                </div>
+              </div>
+              <div className="bg-orange-button">
+                <button
+                  className="btn-orange"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const token = localStorage.getItem("token");
+                    if (!token) {
+                      setIsOpenuauth(true);
+                    } else {
+                    handleShow3();
+                    setShowContent(false);
+                    }
+                  }}
+                >
+                  My interests
                 </button>
               </div>
-            </div>
-            <div className="bg-orange-button">
-              <button
-                className="btn-orange"
-                onClick={() => {
-                  handleShow3();
-                  setShowContent(false);
-                }}
-              >
-                My interests
-              </button>
             </div>
           </div>
         </div>
@@ -647,7 +653,6 @@ const VideoCard = ({
                           />
                           <div className="video-duration">
                             {formatDuration(topicPost?.duration)}
-
                           </div>
                         </div>
                       </Link>
@@ -678,8 +683,8 @@ const VideoCard = ({
                   height={150}
                 />
                 <div className="video-duration">
-                {formatDuration(video?.duration)}
-                  </div>
+                  {formatDuration(video?.duration)}
+                </div>
               </div>
             </Link>
             <div className="video-card-detail">
@@ -767,10 +772,17 @@ const VideoCard = ({
                           {/* <Link href="/savelibrary"> */}
                           <button
                             variant="primary"
-                            onClick={() => {
-                              setIsDropdownOpen(false)
-                              setSaveVideoScreen(true);
-                              setShow2(false);
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const token = localStorage.getItem("token");
+                              if (!token) {
+                                setIsOpenuauth(true);
+                                setIsDropdownOpen(false);
+                              } else {
+                                setIsDropdownOpen(false);
+                                setSaveVideoScreen(true);
+                                setShow2(false);
+                              }
                             }}
                           >
                             <svg
@@ -789,14 +801,21 @@ const VideoCard = ({
                           </button>
                           {/* </Link> */}
                         </li>
-                        
+
                         <div className="dropdown-divider"></div>
                         <li>
                           <button
                             href="#"
-                            onClick={() => {
-                              handleNotIntrested(video?._id);
-                              setIsDropdownOpen(false);
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const token = localStorage.getItem("token");
+                              if (!token) {
+                                setIsOpenuauth(true);
+                                setIsDropdownOpen(false);
+                              } else {
+                                handleNotIntrested(video?._id);
+                                setIsDropdownOpen(false);
+                              }
                             }}
                           >
                             <svg
@@ -819,7 +838,7 @@ const VideoCard = ({
                   )}
                 </div>
               </div>
-              
+
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
@@ -836,8 +855,6 @@ const VideoCard = ({
           </div>
         </div>
       </div>
-
-  
     </>
   );
 };
@@ -876,9 +893,8 @@ const VideoCardGrid = ({
   selectedFolderId,
   saveVideoScreen,
   setSaveVideoScreen,
- 
 }) => {
-  const { loaderState } = UseLoader(); 
+  const { loaderState } = UseLoader();
   return (
     <div className="row">
       {saveVideoScreen ? (
@@ -945,7 +961,8 @@ const VideoCardGrid = ({
         ))
       ) : !loaderState ? (
         <p className="no-search">
-          <span>Stay tuned!</span> We are working on finding you the best fitting materials.
+          <span>Stay tuned!</span> We are working on finding you the best
+          fitting materials.
         </p>
       ) : null}
     </div>

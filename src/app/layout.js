@@ -18,6 +18,7 @@ import Header from "@/components/header/header";
 import {SaveProvider} from "./Context/saveContext/SaveContext"
 import { RequestProvider } from "./Context/request/page";
 import { ModalProvider } from "@/components/registerpop/page";
+import { UnAuthModalProvider } from "@/components/unauthmobile/page";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
           <SearchListProvider>
           <HeaderProvider >
             <RequestProvider>
+              <UnAuthModalProvider>
               <ModalProvider>
           {/* <SaveProvider> */}
             <LoaderSetup /> {/* Separate component for useEffect */}
@@ -49,6 +51,7 @@ export default function RootLayout({ children }) {
             
             {/* </SaveProvider> */}
             </ModalProvider>
+            </UnAuthModalProvider>
             </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
