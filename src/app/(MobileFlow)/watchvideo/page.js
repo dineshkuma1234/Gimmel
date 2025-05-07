@@ -3,6 +3,7 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import { MdMoreVert } from "react-icons/md";
+import { IoMdInformationCircle } from "react-icons/io";
 import Image from "next/image";
 import "../../CommenStyle/details.css";
 import Col from "react-bootstrap/Col";
@@ -20,6 +21,7 @@ import { useState } from "react";
 import Link from "next/link";
 import SaveLibrary from "../savelibrary/page";
 import toast, { Toaster } from "react-hot-toast";
+import { useunauthModal } from "@/components/unauthmobile/page";
 
 function WatchVideo({
   data,
@@ -59,6 +61,7 @@ function WatchVideo({
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+   const { openModal, setIsOpenuauth } = useunauthModal();
 
   const [show2, setShow2] = useState(false);
 
@@ -214,10 +217,19 @@ function WatchVideo({
                 {/* <Link> */}
                 <button
                   variant="primary"
-                  onClick={() => {
-                    setSaveVideoScreen(true);
-                    setShow2(false);
-                  }}
+                  // onClick={() => {
+                  //   setSaveVideoScreen(true);
+                  //   
+                  // }}
+                  onClick={(e)=>{
+                    e.preventDefault();
+                    const token = localStorage.getItem("token");
+                    if (!token){
+                      setIsOpenuauth(true);
+                        setShow2(false);
+                    }
+
+                }}
                 >
                   {data?.isSaved ? (
                     <svg
@@ -253,12 +265,12 @@ function WatchVideo({
               <li>
                 <button
                   variant="primary"
-                  // onClick={
-                  //     () => {
-                  //         handleShow();
-                  //         setShow2(false);
-                  //     }
-                  // }
+                  onClick={
+                      () => {
+                          handleShow();
+                          setShow2(false);
+                      }
+                  }
                 >
                   <svg
                     width="22"
@@ -279,10 +291,19 @@ function WatchVideo({
               <li>
                 <button
                   href="#"
-                  onClick={() => {
-                    handleShow4();
-                    setShow2(false);
-                  }}
+                  // onClick={() => {
+                  //   handleShow4();
+                  //   setShow2(false);
+                  // }}
+                  onClick={(e)=>{
+                    e.preventDefault();
+                    const token = localStorage.getItem("token");
+                    if (!token){
+                      setIsOpenuauth(true);
+                        setShow2(false);
+                    }
+
+                }}
                 >
                   <svg
                     width="24"
@@ -660,7 +681,7 @@ function WatchVideo({
               </div>
               <div className="page-section-right">
                 <div className="add-folder-button">
-                  <button className="btn">
+                  <button className="btn" onClick={handleShow} >
                     <svg
                       width="32"
                       height="32"
@@ -674,7 +695,14 @@ function WatchVideo({
                       />
                     </svg>
                   </button>
-                  <button className="btn">
+                  <button className="btn"  onClick={(e)=>{
+                      e.preventDefault();
+                      const token = localStorage.getItem("token");
+                      if (!token){
+                        setIsOpenuauth(true);
+                      }
+
+                  }}>
                     <svg
                       width="32"
                       height="32"
@@ -704,7 +732,7 @@ function WatchVideo({
 
             <div className="card-white">
               <div className="card-inner">
-                <div className="inline-gap-8">
+                <div className="inline-gap-8 justify-content-between align-items-center">
                   <div className="video-title">
                     <h2>{data?.title}</h2>
                   </div>
@@ -756,9 +784,9 @@ function WatchVideo({
                 </div>
                 <div
                   className="btn-list-container gap-8-flex"
-                  onClick={handleShow}
+                  
                 >
-                  <button className="btn btn-light-bg">
+                  <button className="btn btn-light-bg" onClick={handleShow}> 
                     <Image
                       src={require("../../../assets/images/share.svg")}
                       alt="Share"
@@ -767,10 +795,18 @@ function WatchVideo({
                   </button>
                   <button
                     className="btn btn-light-bg"
-                    onClick={() => {
-                      setSaveVideoScreen(true);
-                      setShow2(false);
-                    }}
+                    // onClick={() => {
+                    //   setSaveVideoScreen(true);
+                    //   setShow2(false);
+                    // }}
+                    onClick={(e)=>{
+                      e.preventDefault();
+                      const token = localStorage.getItem("token");
+                      if (!token){
+                        setIsOpenuauth(true);
+                      }
+
+                  }}
                   >
                     {data?.isSaved ? (
                       <svg
@@ -864,24 +900,36 @@ function WatchVideo({
                                     <Nav.Link eventKey="first">Quiz</Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="second">
+                                    <Nav.Link eventKey="second" disabled={!localStorage.getItem("token")}>
                                       Discussion
                                     </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="third">
+                                    <Nav.Link eventKey="third" disabled={!localStorage.getItem("token")}>
                                       Activity
                                     </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="fourth">Homework</Nav.Link>
+                                    <Nav.Link eventKey="fourth" disabled={!localStorage.getItem("token")}>Homework</Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="fifth">
+                                    <Nav.Link eventKey="fifth" disabled={!localStorage.getItem("token")}>
                                       Test
                                     </Nav.Link>
                                   </Nav.Item>
                                 </Nav>
+                                   {!localStorage.getItem("token") && (
+                                                        <div className="alert alert-warning custom-alert mt-3">
+                                                          <span className="Inform-Pop">
+                                                            <IoMdInformationCircle />
+                                                            You can generate pressurized attachments by
+                                                            registering and upgrading to our XY Plan.
+                                                          </span>
+                                                          <a href="/signup" className="button-sart-ragisration">
+                                                            Start Registration
+                                                          </a>
+                                                        </div>
+                                                      )}
                               </Col>
                               <Col sm={12}>
                                 <Tab.Content>

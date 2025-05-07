@@ -1,5 +1,6 @@
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 import { useModal } from "@/components/registerpop/page";
+import { useunauthModal } from "@/components/unauthmobile/page";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
@@ -10,6 +11,7 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
     const {imageSrc}=useHeader();
     const [commentText, setCommentText] = useState("");
     const { setIsOpen } = useModal(); 
+    const { setIsOpenuauth } = useunauthModal(); 
 
     const [likedComments, setLikedComments] = useState({});
     const [dislikedComments, setDislikedComments] = useState({});
@@ -169,6 +171,13 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
                                     if (e.key === "Enter") {
                                         handleSendComment(commentText, getReview[0]?._id);
                                         setCommentText("");
+                                    }
+                                }}
+                                onClick={(e) => {
+                                    const token = localStorage.getItem("token");
+                                    if (!token) {
+                                        e.preventDefault();
+                                        setIsOpenuauth(true);
                                     }
                                 }}
                             />

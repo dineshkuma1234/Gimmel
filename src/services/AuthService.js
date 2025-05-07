@@ -371,7 +371,7 @@ const AuthService = {
     
 
     if (selectedDate) params.append("createdAt", selectedDate);
-    if (selectedAudience) params.append("audience", selectedAudience);
+    if (selectedAudience) params.append("videoType", selectedAudience);
     if (selectedAge) {
       params.append("ageRange", selectedAge);
     }
@@ -946,7 +946,7 @@ const AuthService = {
     
 
     if (selectedDate) params.append("createdAt", selectedDate);
-    if (selectedAudience) params.append("audience", selectedAudience);
+    if (selectedAudience) params.append("videoType", selectedAudience);
     if (selectedAge) {
       params.append("ageRange", selectedAge);
     }

@@ -71,7 +71,7 @@ function SearchList({
         className="custom-modal filter-modal"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Full Summarys</Modal.Title>
+          <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="modal-bar">

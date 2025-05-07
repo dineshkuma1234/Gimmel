@@ -1876,6 +1876,7 @@ a.see-all {
   background-color: #fff;
   z-index: 999;
   padding: 0px 16px;
+  box-shadow: 0px 3px 9px 0px #000;
 }
 
 .page-slider-section {
@@ -1986,7 +1987,7 @@ a.see-all {
 
 .video-list-item-multi {
   height: 128px;
-  width: -webkit-fill-available;
+  width: initial;
 }
 
 .video-list-item-multi .categories-bg img {
@@ -1998,7 +1999,7 @@ a.see-all {
 
 .video-list-item {
   min-width: 170px;
-  width: 100%;
+  width: min-content;
 }
 
 .bg-orange-section {
@@ -2262,7 +2263,7 @@ button.folder-icon {
   position: relative;
 }
 
-.right-side-content::after {
+/* .right-side-content::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -2271,8 +2272,8 @@ button.folder-icon {
   height: 40px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
   pointer-events: none;
-  z-index: 999;
-}
+  z-index: 9;
+} */
 
 .new-folder-modal .modal-dialog {
   max-width: 450px ! important;
@@ -2302,6 +2303,16 @@ button.folder-icon {
 .multi-video-slider-inner img {
   height: 100%;
   width: 100%;
+}
+
+.category-slider-card {
+  height: 259px;
+}
+
+.category-slider-card .multi-video-slider-inner img {
+  height: 262px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .multi-video-slider-inner {

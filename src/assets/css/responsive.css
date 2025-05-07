@@ -616,20 +616,13 @@
         font-size: 15px;
     }
 
-    .video-de-title {
-        margin: 4px 0px;
-    }
+    .category-slider-card {
+        height: 259px;
+        width: 300px !important;
+      }
 
     .de-info p {
         font-size: 12px;
-    }
-
-    .video-card-detail {
-        padding: 5px 10px 5px 10px !important;
-    }
-
-    .video-card-image img {
-        max-height: 135px !important;
     }
 
     .category-card-title {

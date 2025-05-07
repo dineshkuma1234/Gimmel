@@ -313,7 +313,7 @@ useEffect(() => {
             },
           }}
         >
-          <SwiperSlide>
+          <SwiperSlide className="category-slider-card">
             <div className="multi-video-slider" style={{cursor: "pointer"}}>
               <div
                 className="multi-video-slider-inner"

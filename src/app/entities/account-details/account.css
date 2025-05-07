@@ -214,8 +214,8 @@
 }
 
 .video-card-container {
-    min-width: 120px;
-    width: 100%;
+    min-width: 130px;
+    width: min-content;
 }
 
 .account-details .dropdown-divider {
