@@ -341,7 +341,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
             categoryVideoname={categoryVideoname}
             handleNotIntrested={handleNotIntrested}
             img={img}
-            handleGetCategories={handleGetCategories}
+            // handleGetCategories={handleGetCategories}
             getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} 
             getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleGetFolder={handleGetFolder}
             handleSaveVideonext={handleSaveVideonext}

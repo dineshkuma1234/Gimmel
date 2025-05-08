@@ -44,6 +44,8 @@ export const HeaderProvider = ({ children }) => {
   const [imageSrc, setImageSrc] = useState(profileImage.src);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  console.log(selectedCategory, "selectedCategory in header context");
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const searchQuery = searchParams.get("search_query");
@@ -217,7 +219,7 @@ export const HeaderProvider = ({ children }) => {
       );
       setLoader(false);
       if (result?.success) {
-        console.log(result, "result in get categories");
+        // console.log(result, "result in get categories");
         setGetCategoryData(result?.data?.posts);
         router.push(
           "/categorieslist",

@@ -27,7 +27,7 @@ const SliderCategories = ({
   handleNotIntrested,
   categoryVideoname,
   img,
-  handleGetCategories,
+  
   getFolder,
   handleCreateFolder,
   handleDeleteFolder,
@@ -47,7 +47,15 @@ const SliderCategories = ({
   handleGetFolderSub,
   setSelectedFolderId
 }) => {
-    const{setSelectedCategory}=useHeader()
+    const{setSelectedCategory,handleGetCategories, isOn,
+      chips,
+      inputValue,
+      selectedAge,
+      selectedEngagement,
+      selectedDate,
+      sliderValue,
+      selectedValue,
+      selectedAudience}=useHeader()
 
      const [renameModel, setRenameModel] = useState(false);
       const [Subfolder, setSubfolder] = useState();
@@ -63,7 +71,7 @@ const SliderCategories = ({
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
      const [folders, setFolders] = useState([]);
      const [addnewFolder, setAddNewFolder] = useState("");
-     const [selectedValue, setSelectedValue] = useState([]);
+    //  const [selectedValue, setSelectedValue] = useState([]);
       const { openModal,setIsOpen } = useModal(); 
       const dropdownRefnwe = useRef(null);
       const dropdownRef = useRef()
@@ -317,7 +325,15 @@ useEffect(() => {
             <div className="multi-video-slider" style={{cursor: "pointer"}}>
               <div
                 className="multi-video-slider-inner"
-                onClick={() =>{ handleGetCategories(categoryVideoname); setSelectedCategory(categoryVideoname)}}
+                onClick={() =>{ handleGetCategories(categoryVideoname, isOn,
+                  chips,
+                  inputValue,
+                  selectedAge,
+                  selectedEngagement,
+                  selectedDate,
+                  sliderValue,
+                  selectedValue,
+                  selectedAudience); setSelectedCategory(categoryVideoname)}}
               >
                 {/* <p>{categoryVideoname}</p> */}
                 <Image src={img} alt="video card" />

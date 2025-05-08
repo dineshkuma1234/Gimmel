@@ -16,6 +16,7 @@ import BottomBar from "../../../components/BottomBar/BottomBar";
 import "../../CommenStyle/details.css";
 import { formatDuration } from "../../utils/monthsAgo/page";
 import profileImage from "../../../assets/images/user.svg";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 function UserProfile({
   profileInfo,
@@ -30,6 +31,7 @@ function UserProfile({
   // (profileInfo, "profileInfo--today")
 
   const [show, setShow] = React.useState(false);
+  const { imageSrc, setImageSrc } = useHeader();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -56,7 +58,7 @@ function UserProfile({
       setAge({ value: initialValue, error: "" });
     }
   }, [profileInfo]);
-  const [imageSrc, setImageSrc] = useState(profileImage.src);
+  
 
   const [options, setOptions] = useState([]);
   const [options1, setOptions1] = useState([]);

@@ -201,7 +201,7 @@ export default function Home() {
   return (
     <>
       {deviceWidth > 991 ? (
-        <Main getPost={getPost} id={video_id} />
+        <Main getPost={getPost}  />
       ) : (
         <MainMobile getPost={getPost} topicPost={topicPost} />
       )}

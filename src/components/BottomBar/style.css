@@ -44,7 +44,7 @@ ul.menu-list .menu-item .menu-link svg {
 ul.menu-list .menu-item .menu-link img {
     width: 24px;
     height: 24px;
-    border: 50%;
+    border-radius: 50%;
     object-fit: cover;
 }
 
