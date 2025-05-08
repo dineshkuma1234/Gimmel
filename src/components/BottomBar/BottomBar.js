@@ -8,11 +8,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useModal } from "../registerpop/page";
 import { useunauthModal } from "../unauthmobile/page";
+import { useHeader } from "@/app/Context/headerContext/HeaderContext";
 
 const BottomBar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { openModal, setIsOpenuauth } = useunauthModal();
+  const {imageSrc}=useHeader();
 
   return (
     <>
@@ -149,8 +151,10 @@ const BottomBar = () => {
                       pathname === "/userprofile" ? "active" : ""
                     }`}
                   >
-                    <Image
-                      src={require("../../assets/images/user.png")}
+                    <img
+                      src={imageSrc}
+                      width={20}
+                      height={20}
                       alt="User"
                     />
                     You

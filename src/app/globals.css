@@ -2663,3 +2663,18 @@ border: 1px solid  #104E5B ;
   cursor: pointer;
 }
  
+.no-data-message{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 70vh;
+  color: var(--gimmel-darkBlue);
+  font-size: 14px; 
+  font-weight: bold;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  line-height: 0.5; /* Adjust line height to control spacing */
+   
+}

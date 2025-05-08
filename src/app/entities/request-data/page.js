@@ -21,7 +21,6 @@ import DeleteModel from "@/components/Models/Delete";
 import SaveLibraryModal from "@/components/Models/SaveLibrary";
 import NewfolderAdd from "@/components/Models/NewfolderAdd";
 import { useModal } from "@/components/registerpop/page";
-
 function RequestData({
   handleCreateRequest,
   requestListData,
@@ -107,7 +106,6 @@ function RequestData({
 
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
 
   const [showshare, setShowshare] = useState(false);
 
@@ -492,7 +490,7 @@ function RequestData({
 
       <RenameModel
         renameModel={renameModel}
-        show7={show}
+        // show7={show}
         handleClose7={handleClose}
         setSubfolder={setSubfolder}
         rename={rename}
@@ -520,7 +518,7 @@ function RequestData({
       />
 
       <SaveLibraryModal
-        show_modal={show1}
+        // show_modal={show1}
         close_library_modal={handleClose1}
         handleShow={handleShow}
         show_new_folder_popup={handleShow5}
@@ -579,7 +577,8 @@ function RequestData({
                   </Nav.Item>
                   <div className="dropdown-divider"></div>
                   {requestListData &&
-                    Array.isArray(requestListData) &&
+                  Array.isArray(requestListData) &&
+                  requestListData.length > 0 ? (
                     requestListData.map((request, index) => (
                       <Nav.Item
                         eventKey={`request-${index}`}
@@ -608,10 +607,16 @@ function RequestData({
                             </span>
                           </div>
 
-                          <MdMoreVert />
+                          {/* <MdMoreVert /> */}
                         </Nav.Link>
                       </Nav.Item>
-                    ))}
+                    ))
+                  ) : (
+                    <div className="no-data-message">
+                      <p>Couldn't find the video you're looking for?</p>
+                      <p>Submit a request, we'll help find it for you!</p>
+                    </div>
+                  )}
                 </Nav>
               </div>
             </div>
@@ -929,8 +934,9 @@ function RequestData({
                                                           <div className="button-left-side">
                                                             <button
                                                               className="btn btn-icon eye-icon"
-                                                              onClick={
-                                                                handleShow4
+                                                              onClick={()=> router.push(`/mainHome/${video?._id}/videodetails2`)
+                                                                // handleShow4
+
                                                               }
                                                             >
                                                               <svg
@@ -968,7 +974,7 @@ function RequestData({
                                                             <button
                                                               className="btn btn-icon share-icon"
                                                               onClick={() =>
-                                                                handleShow5()
+                                                              copyUrl(video?._id)
                                                               }
                                                             >
                                                               <svg
@@ -991,10 +997,10 @@ function RequestData({
                                                               <Form.Check
                                                                 type="checkbox"
                                                                 className="check-icon"
-                                                                id={`check-icon-${video._id}`}
+                                                                id={`check-icon-${video?._id}`}
                                                                 name="video-selection"
                                                                 checked={activeItem.includes(
-                                                                  video._id
+                                                                  video?._id
                                                                 )}
                                                                 onChange={() =>
                                                                   handleActiveChange(
@@ -1022,7 +1028,7 @@ function RequestData({
                                                           </div>
                                                         </div>
                                                         <div className="de-title">
-                                                          <Link href="/videodetails2">
+                                                          <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                                             {video.title}
                                                           </Link>
                                                         </div>
@@ -1041,7 +1047,7 @@ function RequestData({
                                               <button
                                                 className="btn btn-orange-request"
                                                 onClick={handleConfirm}
-                                                disabled={!activeItem}
+                                                disabled={activeItem.length === 0}
                                               >
                                                 Confirm
                                               </button>
@@ -1063,7 +1069,7 @@ function RequestData({
                                               <div className="bg-white">
                                                 <div className="row align-items-center">
                                                   <div className="col-6">
-                                                    <div className="video-card-image">
+                                                    <div className="video-card-image request-thumbnail">
                                                       <Image
                                                         src={video.thumbnailUrl}
                                                         alt="video card"
@@ -1080,8 +1086,8 @@ function RequestData({
                                                   </div>
                                                   <div className="col-6 ps-0">
                                                     <div className="video-details">
-                                                      <div className="de-title mb-3">
-                                                        <Link href="/videodetails2">
+                                                      <div className="de-title mb-2">
+                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>
                                                           {video?.title}
                                                         </Link>
                                                       </div>
@@ -1099,8 +1105,8 @@ function RequestData({
                                                         <button
                                                           className="btn btn-bg-light"
                                                           onClick={() => {
-                                                            copyUrl(idvideo);
-                                                            handleClose5();
+                                                            copyUrl(video?._id);
+                                                            // handleClose5();
                                                           }}
                                                         >
                                                           <svg

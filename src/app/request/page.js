@@ -187,8 +187,6 @@ const handleGetPostid = async () => {
   }
 } catch (error) {
   console.error("Error occurred:", error);
-} finally {
-  setLoading(false);
 }
 };
 

@@ -13,14 +13,29 @@ import { useRouter } from "next/navigation";
 import { SearchListContext } from "@/app/Context/searchlist/searchListContext";
 import { categorylistcontext } from "@/app/Context/categorylistcontext/categorylistcontext";
 
-const SliderSection = ({ categoryVideo,categoryimg }) => {
-  
-  const { setHeaderSearch, setSelectedCategory,getCategoryData, setGetCategoryData,handleGetCategories } = useHeader();
+const SliderSection = ({ categoryVideo, categoryimg }) => {
+  const {
+    setHeaderSearch,
+    setSelectedCategory,
+    getCategoryData,
+    setGetCategoryData,
+    handleGetCategories,
+    isOn,
+    chips,
+    inputValue,
+    selectedAge,
+    selectedEngagement,
+    selectedDate,
+    sliderValue,
+    selectedValue,
+    selectedAudience,
+  } = useHeader();
   const router = useRouter();
   const swiperRef = useRef(null);
 
   const [deviceWidth, setDeviceWidth] = useState(0);
-//  const [getCategoryData, setGetCategoryData]=useContext(categorylistcontext)
+  //  const [getCategoryData, setGetCategoryData]=useContext(categorylistcontext)
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -34,12 +49,32 @@ const SliderSection = ({ categoryVideo,categoryimg }) => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const handleCategoryClick = (category) => {
-    console.log(category, "category");
-    handleGetCategories(category);
+  const handleCategoryClick = (
+    category,
+    isOn,
+    chips,
+    inputValue,
+    selectedAge,
+    selectedEngagement,
+    selectedDate,
+    sliderValue,
+    selectedValue,
+    selectedAudience
+  ) => {
+    handleGetCategories(
+      category,
+      isOn,
+      chips,
+      inputValue,
+      selectedAge,
+      selectedEngagement,
+      selectedDate,
+      sliderValue,
+      selectedValue,
+      selectedAudience
+    );
     setSelectedCategory(category);
     setHeaderSearch("");
-
   };
   return (
     <>
@@ -99,10 +134,26 @@ const SliderSection = ({ categoryVideo,categoryimg }) => {
                         <div
                           className="category-card-image-icon"
                           onClick={() =>
-                            handleCategoryClick(categories?.category)
+                            handleCategoryClick(
+                              categories?.category,
+                              isOn,
+                              chips,
+                              inputValue,
+                              selectedAge,
+                              selectedEngagement,
+                              selectedDate,
+                              sliderValue,
+                              selectedValue,
+                              selectedAudience
+                            )
                           }
                         >
-                          <Image src={categories?.thumbnail} alt="video card image" height={100} width={100}/>
+                          <Image
+                            src={categories?.thumbnail}
+                            alt="video card image"
+                            height={100}
+                            width={100}
+                          />
                           <div className="category-card-title">
                             {categories?.category}
                           </div>
@@ -178,7 +229,12 @@ const SliderSection = ({ categoryVideo,categoryimg }) => {
                             handleCategoryClick(categories?.category)
                           }
                         >
-                           <Image src={categories?.thumbnail} alt="video card image" height={30} width={30}/>
+                          <Image
+                            src={categories?.thumbnail}
+                            alt="video card image"
+                            height={30}
+                            width={30}
+                          />
 
                           <div className="category-card-title">
                             {categories?.category}

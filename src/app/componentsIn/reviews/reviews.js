@@ -157,7 +157,7 @@ function Reviews({ getReview, handleSendComment, handleLikeReview, handleDislike
                 <div className="review-type-container">
                     <div className="user-profile-container">
                         <div className="user-avatar">
-                            <Image src={require("../../../assets/images/user.png")} alt="User Avatar" />
+                            <img src={imageSrc} width={20}  height={20} alt="User Avatar" />
                         </div>
                     </div>
                     <div className="review-comment-container">
