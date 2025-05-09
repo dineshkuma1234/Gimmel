@@ -400,7 +400,7 @@ function FilterData({
                 selectedValue,
                 selectedAudience
               );
-              console.log(handleSearchCont,"calling from the filter data " )
+              // console.log(handleSearchCont,"calling from the filter data " )
               setShow(false);
             }}
             disabled={!headerSearch}
@@ -429,7 +429,7 @@ function FilterData({
                     selectedValue,
                     selectedAudience
                   );
-                  console.log(handleSearchCont,"calling from the filter data 1===== " )
+                  // console.log(handleSearchCont,"calling from the filter data 1===== " )
                   setShow(false);
                 }}
                 disabled={!headerSearch}

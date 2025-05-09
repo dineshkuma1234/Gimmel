@@ -45,7 +45,7 @@ const TeachingStepMobile = ({
       }
     });
   };
-  console.log(selected, "selected----");
+  // console.log(selected, "selected----");
   // (handleSelect,'handleSelect----');
   const [minValue, setMinValue] = useState(12);
   const [maxValue, setMaxValue] = useState(30);

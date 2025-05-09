@@ -73,7 +73,7 @@ function Sidebar() {
       selectedValue,
       selectedAudience
     );
-    console.log(handleSearchCont,"calling from sidebar")
+    // console.log(handleSearchCont,"calling from sidebar")
   }
   }, [
     // headerSearch,

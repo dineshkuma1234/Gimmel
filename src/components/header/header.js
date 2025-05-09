@@ -80,7 +80,7 @@ function Header() {
         selectedValue
       );
     }
-    console.log("called from header", query);
+    // console.log("called from header", query);
   }, []);
 
   const handleShowHistory = () => {
@@ -117,7 +117,7 @@ function Header() {
   const handleHistoryItemClick = (item) => {
     handleSearchCont(item.title);
     setHeaderSearch(item.title);
-    console.log("this is call from handleHistoryItemClick")
+    // console.log("this is call from handleHistoryItemClick")
   };
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
