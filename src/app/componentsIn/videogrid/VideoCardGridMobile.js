@@ -842,7 +842,7 @@ const VideoCard = ({
               <div className="video-de-info d-flex">
                 <div className="de-info">
                   <p className={isExpanded ? "expanded" : ""}>
-                    {video.description}
+                    {video.summary}
                   </p>
                 </div>
                 <div className="more-btn">

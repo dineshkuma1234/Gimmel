@@ -38,7 +38,8 @@ const RequestMobile = () => {
 
       <div className="page-main-section top-space-request">
         <div className="custom-container">
-          {requestListData.map((request, index) => (
+          {requestListData?.length > 0 ? (
+             requestListData.map((request, index) => (
             <div key={index} className="request-list" onClick={() => setYourRequest(request)}
             >
               <Link
@@ -73,7 +74,13 @@ const RequestMobile = () => {
                 </div>
               </Link>
             </div>
-          ))}
+          ))
+          ):(
+            <div className="no-data-message">
+                      <p>Couldn't find the video you're looking for?</p>
+                      <p>Submit a request, we'll help find it for you!</p>
+                    </div>
+          )}
         </div>
       </div>
 

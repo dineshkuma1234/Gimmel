@@ -19,6 +19,14 @@ function AddRequest() {
     setDetails,
   } = useRequestContext();
 
+  useEffect(() => {
+    setYourRequest("");
+    setDiscription("");
+    setavoided("");
+    setDetails("");
+  }, [setYourRequest, setDiscription, setavoided, setDetails]);
+
+
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true); // This ensures the code only runs in the browser
@@ -51,6 +59,11 @@ function AddRequest() {
       setDetails(inputValue);
     }
   };
+
+  const handleTitle = (value)=>{
+    const inputValue = value.target.value;
+    setYourRequest(inputValue);
+  }
   const handleBack = () => {
     if (isClient) {
       router.back(); // Use Next.js router instead of `window.history.back()`
@@ -101,7 +114,7 @@ function AddRequest() {
                     type="text"
                     placeholder=""
                     value={yourRequest}
-                    onChange={(e) => setYourRequest(e.target.value)}
+                    onChange={handleTitle}
                   />
                 </Form.Group>
                 <Form.Group
@@ -150,12 +163,15 @@ function AddRequest() {
 
         <div className="bottom-btn-bar">
           <div className="bottom-btn-bar-inner">
-            <Link
-              href={"/requestmobile/requestoverview"}
-              className="btn-color-orange"
+            <button
+            className="btn-color-orange"
+              onClick={() => {
+                router.push("/requestmobile/requestoverview");
+              }}
+              disabled={!yourRequest || !discription || !avoided || !details}
             >
               Review Request
-            </Link>
+            </button>
           </div>
         </div>
       </div>

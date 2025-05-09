@@ -34,6 +34,7 @@ function Search() {
   const handleHistoryItemClick = (item) => {
     setHeaderSearch(item.title);
     handleSearchCont(item.title);
+    console.log(handleSearchCont,"calling from mobile view handle search")
   };
   const handleBackClick=()=>{
     setHeaderSearch("");
@@ -109,6 +110,7 @@ function Search() {
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                         handleSearchCont(headerSearch);
+                        console.log(handleSearchCont,"calling from mobile onclick")
                     }}
                 }    
               />

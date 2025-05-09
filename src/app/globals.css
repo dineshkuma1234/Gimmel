@@ -2292,12 +2292,16 @@ button.folder-icon {
   border-radius: 8px;
   padding: 24px;
 }
+.my-interests-card .video-card-image img {
+  max-height: 120px !important; 
+}
 
 .dark-text {
   color: var(--gimmel-orange);
   font-weight: bold;
   margin: 16px 0;
   line-height: normal;
+  font-size: 13px;
 }
 
 .multi-video-slider-inner img {
