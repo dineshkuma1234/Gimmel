@@ -14,6 +14,8 @@ import { FaEllipsisV } from "react-icons/fa";
 import Link from "next/link";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import requestloader from "../../../../assets/images/request-loader.svg";
+import rating from "../../../../assets/images/rating.svg"
+import feedback from "../../../../assets/images/feedback.svg"
 function RequestPreview() {
   const [show, setShow] = React.useState(false);
 
@@ -75,11 +77,14 @@ function RequestPreview() {
     };
   }, []);
 
-  const [isExpanded, setIsExpanded] = useState(false);
+ const [expandedCards, setExpandedCards] = useState({}); // Object to track expanded state for each card
 
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+const handleToggle = (videoId) => {
+  setExpandedCards((prevState) => ({
+    ...prevState,
+    [videoId]: !prevState[videoId], // Toggle the state for the specific video ID
+  }));
+};
 
   const [show7, setShow7] = React.useState(false);
 
@@ -164,6 +169,7 @@ function RequestPreview() {
                   handleClose();
                   handleRequestSaveVideo(selectedIndex);
                 }}
+                disabled={selectedIndex?.length === 0}
               >
                 Send Selected
               </button>
@@ -179,6 +185,34 @@ function RequestPreview() {
           </div>
         </Modal.Body>
       </Modal>
+
+       {/* Feedback Modal */}
+            <Modal show={show7} onHide={handleClose7} centered className='custom-modal'>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body-container">
+                        <div className="success-icon report-modal">
+                            <Image src={feedback} alt="Success" />
+                        </div>
+ 
+                        <div className="report-modal-text">
+                            <div className="report-modal-title">
+                                How&apos;s your experience so far?
+                            </div>
+                            <div className="share-alart">
+                                We&apos&apos;d love to hear your thoughts! What&apos;s working well, and what would you improve?
+                            </div>
+                            <div className="textarea-container mb-4">
+                                <Form.Control as="textarea" rows={3} placeholder="" />
+                            </div>
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn btn-color-orange" onClick={handleClose7}>Send Report</button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
 
       <div
         className="page-container-mobile"
@@ -259,88 +293,42 @@ function RequestPreview() {
                           <div className="video-card-detail">
                             <div className="eng-rating">
                               <div className="rating-icon">
-                                <svg
-                                  width="16"
-                                  height="17"
-                                  viewBox="0 0 16 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <g clipPath="url(#clip0_3816_18800)">
-                                    <path
-                                      d="M8.00013 12.2465L8.98346 11.2632H10.3335V9.91315L11.3168 8.92982L10.3335 7.94648V6.59648H8.98346L8.00013 5.61315L7.0168 6.59648H5.6668V7.94648L4.68346 8.92982L5.6668 9.91315V11.2632H7.0168L8.00013 12.2465Z"
-                                      fill="#F18D51"
-                                    />
-                                  </g>
-                                </svg>
+                                <Image src={rating} alt="Engagement Rating"/>
                               </div>
                               <div className="rating">
-                                <span>{video.engagement}/10</span>
+                                <span> {video.engagement}/10</span>
                               </div>
                               <div className="eng-name">Engagement Rating</div>
                             </div>
                             <div className="video-de-title">
                               <div className="de-title">
+                                <Link href={`/mainHome/${video._id}/videodetails2`}>
                                 {video.title}
-                                {/* </Link> */}
+                                </Link>
                               </div>
                               <div className="more-btn" ref={dropdownRef}>
                                 <button
                                   className="btn btn-more"
                                   onClick={() => {
-                                    toggleDropdown();
+                                    // toggleDropdown();
                                     handleShow7();
                                   }}
                                 >
-                                  {/* <FaEllipsisV/> */}
+                                  <FaEllipsisV/>
                                 </button>
-                                {isDropdownOpen && (
-                                  <>
-                                    {/* <Modal open={show7} onOpenChange={handleClose7}>
-                                <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto"> */}
-                                    {/* Close Button */}
-                                    {/* <div className="flex justify-between items-center">
-                                    <h2 className="text-lg font-semibold">How's your experience so far?</h2>
-                                    <button onClick={handleClose7} className="text-gray-500 hover:text-gray-700"> */}
-                                    {/* <X size={24} /> */}
-                                    {/* </button>
-                                    </div> */}
-
-                                    {/* Feedback Form */}
-                                    {/* <div>
-                                    <p className="text-gray-600 mb-4">We’d love to hear your thoughts! What’s working well, and what would you improve?</p>
-                                    <Form.Control
-                                        className="w-full p-2 border border-gray-300 rounded-md" 
-                                        value={feedbackDescription}
-                                        onChange={(e) => setFeedbackDescription(e.target.value)}
-                                        placeholder="Write your feedback here..."
-                                    />
-                                    </div> */}
-
-                                    {/* Submit Button */}
-                                    {/* <div className="flex justify-end">
-                                    <Button className="bg-orange-500 text-white" onClick={() => { 
-                                        handleClose7(); 
-                                        }}>
-                                        Send Feedback
-                                    </Button>
-                                    </div>
-                                </div>
-                                </Modal> */}
-                                  </>
-                                )}
+                                
                               </div>
                             </div>
                             <div className="video-de-info d-flex">
                               <div className="de-info">
-                                <p className={isExpanded ? "expanded" : ""}>
+                                <p className={expandedCards[video._id]  ? "expanded" : ""}>
                                   {video?.description}
                                 </p>
                               </div>
                               <div className="more-btn">
                                 <button
                                   className="btn btn-more"
-                                  onClick={handleToggle}
+                                  onClick={()=>handleToggle(video._id)}
                                 >
                                   <FaCaretDown />
                                 </button>

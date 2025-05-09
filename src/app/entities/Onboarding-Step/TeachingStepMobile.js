@@ -32,16 +32,20 @@ const TeachingStepMobile = ({
   const [selectAll1, setSelectAll1] = useState(false);
   const [selectAll3, setSelectAll3] = useState(false);
   const [checkedItems3, setCheckedItems3] = useState({});
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState([]);
 
   const [selectedval, setSelectedval] = useState([]);
   // ;    ( selected,'selected----');
   const handleSelect = (label) => {
-    setSelected(label);
-    const arr = [label];
-    setSelectedval(arr);
-    // ( arr,'selected value---',);
+    setSelected((prevSlected)=>{
+      if (prevSlected.includes(label)) {
+        return prevSlected.filter((item) => item !== label);
+      }else{
+        return [...prevSlected, label];
+      }
+    });
   };
+  // console.log(selected, "selected----");
   // (handleSelect,'handleSelect----');
   const [minValue, setMinValue] = useState(12);
   const [maxValue, setMaxValue] = useState(30);
@@ -260,7 +264,7 @@ const TeachingStepMobile = ({
                 <div className="banner-btn-inner">
                   <button
                     className={`btn-border ${
-                      selected === "School staff member" ? "selected" : ""
+                      selected.includes ("School staff member" )? "selected" : ""
                     }`}
                     onClick={() => handleSelect("School staff member")}
                   >
@@ -268,7 +272,7 @@ const TeachingStepMobile = ({
                   </button>
                   <button
                     className={`btn-border ${
-                      selected === "Parent/guardian" ? "selected" : ""
+                      selected.includes  ("Parent/guardian") ? "selected" : ""
                     }`}
                     onClick={() => handleSelect("Parent/guardian")}
                   >
@@ -276,7 +280,7 @@ const TeachingStepMobile = ({
                   </button>
                   <button
                     className={`btn-border ${
-                      selected === "Therapist" ? "selected" : ""
+                      selected.includes  ("Therapist") ? "selected" : ""
                     }`}
                     onClick={() => handleSelect("Therapist")}
                   >
@@ -513,7 +517,7 @@ const TeachingStepMobile = ({
                   className="btn-color-blue "
                   onClick={() =>{
                     handleOnboarding(
-                      selectedval,
+                      selected,
                       sliderValues,
                       item,
                       selectedmaturity,
@@ -531,7 +535,7 @@ const TeachingStepMobile = ({
                   className="btn-color-blue"
                   onClick={nextSlide}
                   disabled={
-                    (currentIndex === 0 && !selected) ||
+                    (currentIndex === 0 && selected?.length === 0) ||
                     (currentIndex === 2 && item?.length < 3) ||
                     (currentIndex === 3 && selectedmaturity?.length === 0) 
                   }

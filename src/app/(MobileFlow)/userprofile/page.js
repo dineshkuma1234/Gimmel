@@ -3,7 +3,7 @@
 import React from "react";
 
 import { MultiSelect } from "react-multi-select-component";
-import { useEffect, useState,} from "react";
+import { useEffect, useState } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import Link from "next/link";
 import { MdLogout } from "react-icons/md";
@@ -58,7 +58,6 @@ function UserProfile({
       setAge({ value: initialValue, error: "" });
     }
   }, [profileInfo]);
-  
 
   const [options, setOptions] = useState([]);
   const [options1, setOptions1] = useState([]);
@@ -207,6 +206,11 @@ function UserProfile({
                   placeholder="+1 713 892 5638"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
+                  onInput ={(e) => {
+                    if (!/[0-9]/.test(e.key)) {
+                      e.preventDefault(); // Block non-numeric characters
+                    }
+                  }}
                 />
               </Form.Group>
               <Form.Group
@@ -216,7 +220,7 @@ function UserProfile({
                 <Form.Label>School Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="School Name"
                   // value={profileInfo?.school || ""}
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
@@ -350,7 +354,9 @@ function UserProfile({
                 <div className="profile-pic">
                   <label className="-label" htmlFor="file">
                     <span className="glyphicon glyphicon-camera"></span>
-                    <span><FaCamera /></span>
+                    <span>
+                      <FaCamera />
+                    </span>
                   </label>
                   <input
                     id="file"
@@ -562,122 +568,124 @@ function UserProfile({
             </div>
           </div>
 
-          <div className="dropdown-divider"></div>
-
           {libraryVideo?.length > 0 ? (
-            <div className="sec-account">
-              <div className="inline- d-flex align-items-center justify-content-between">
-                <div className="card-white-title">
-                  <Image
-                    src={require("../../../assets/images/save.svg")}
-                    alt="User Avatar"
-                  />
-                  <h3>My Library</h3>
+            <>
+              <div className="dropdown-divider"></div>
+              <div className="sec-account">
+                <div className="inline- d-flex align-items-center justify-content-between">
+                  <div className="card-white-title">
+                    <Image
+                      src={require("../../../assets/images/save.svg")}
+                      alt="User Avatar"
+                    />
+                    <h3>My Library</h3>
+                  </div>
+                  <Link
+                    href={{
+                      pathname: "/savematerial",
+                      query: { from: "saveMaterial" },
+                    }}
+                    className="view-all-btn"
+                  >
+                    View all
+                  </Link>
                 </div>
-                <Link
-                  href={{
-                    pathname: "/savematerial",
-                    query: { from: "saveMaterial" },
-                  }}
-                  className="view-all-btn"
-                >
-                  View all
-                </Link>
-              </div>
 
-              <div className="library-list mt-4">
-                <div className="list-item">
-                  {libraryVideo &&
-                    Array.isArray(libraryVideo) &&
-                    libraryVideo.map((item, index) => (
-                      <div className="video-card-container" key={index}>
-                        <div className="video-card-content">
-                          <Link href={`/mainHome/${item?._id}/videodetails2`}>
-                            <div className="video-card-image profile-video-image">
-                              <Image
-                                src={item?.thumbnailUrl}
-                                alt="video card"
-                                width={300}
-                                height={150}
-                              />
-                              <div className="video-duration">
-                                {formatDuration(item?.duration)}
+                <div className="library-list mt-4">
+                  <div className="list-item">
+                    {libraryVideo &&
+                      Array.isArray(libraryVideo) &&
+                      libraryVideo.map((item, index) => (
+                        <div className="video-card-container" key={index}>
+                          <div className="video-card-content">
+                            <Link href={`/mainHome/${item?._id}/videodetails2`}>
+                              <div className="video-card-image profile-video-image">
+                                <Image
+                                  src={item?.thumbnailUrl}
+                                  alt="video card"
+                                  width={300}
+                                  height={150}
+                                />
+                                <div className="video-duration">
+                                  {formatDuration(item?.duration)}
+                                </div>
                               </div>
-                            </div>
-                          </Link>
-                          <div className="video-card-detail">
-                            <div className="video-de-title">
-                              <div className="de-title">
-                                <Link
-                                  href={`/mainHome/${item?._id}/videodetails2`}
-                                >
-                                  {item?.title}
-                                </Link>
+                            </Link>
+                            <div className="video-card-detail">
+                              <div className="video-de-title">
+                                <div className="de-title">
+                                  <Link
+                                    href={`/mainHome/${item?._id}/videodetails2`}
+                                  >
+                                    {item?.title}
+                                  </Link>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           ) : null}
 
-          <div className="dropdown-divider"></div>
-
           {watchHistoryData?.length > 0 ? (
-            <div className="sec-account">
-              <div className="inline- d-flex align-items-center justify-content-between">
-                <div className="card-white-title">
-                  <Image
-                    src={require("../../../assets/images/history.svg")}
-                    alt="User Avatar"
-                  />
-                  <h3>Watch history</h3>
+            <>
+              <div className="dropdown-divider"></div>
+              <div className="sec-account">
+                <div className="inline- d-flex align-items-center justify-content-between">
+                  <div className="card-white-title">
+                    <Image
+                      src={require("../../../assets/images/history.svg")}
+                      alt="User Avatar"
+                    />
+                    <h3>Watch history</h3>
+                  </div>
+                  <Link href="/watchhistory" className="view-all-btn">
+                    View all
+                  </Link>
                 </div>
-                <Link href="/watchhistory" className="view-all-btn">
-                  View all
-                </Link>
-              </div>
 
-              <div className="library-list mt-4">
-                <div className="list-item">
-                  {watchHistoryData &&
-                    Array.isArray(watchHistoryData) &&
-                    watchHistoryData.map((item, index) => (
-                      <div className="video-card-container" key={index}>
-                        <div className="video-card-content">
-                          <Link href={`/mainHome/${item?._id}/videodetails2`}>
-                            <div className="video-card-image profile-video-image">
-                              <Image
-                                src={item?.thumbnail}
-                                alt="video card"
-                                width={300}
-                                height={150}
-                              />
-                              <div className="video-duration">
-                                {formatDuration(item?.duration)}
+                <div className="library-list mt-4">
+                  <div className="list-item">
+                    {watchHistoryData &&
+                      Array.isArray(watchHistoryData) &&
+                      watchHistoryData.map((item, index) => (
+                        <div className="video-card-container" key={index}>
+                          <div className="video-card-content">
+                            <Link href={`/mainHome/${item?._id}/videodetails2`}>
+                              <div className="video-card-image profile-video-image">
+                                <Image
+                                  src={item?.thumbnail}
+                                  alt="video card"
+                                  width={300}
+                                  height={150}
+                                />
+                                <div className="video-duration">
+                                  {formatDuration(item?.duration)}
+                                </div>
                               </div>
-                            </div>
-                          </Link>
-                          <div className="video-card-detail">
-                            <div className="video-de-title">
-                              <div className="de-title">
-                                <Link
-                                  href={`/mainHome/${item?._id}/videodetails2`}
-                                >
-                                  {item?.title}
-                                </Link>
+                            </Link>
+                            <div className="video-card-detail">
+                              <div className="video-de-title">
+                                <div className="de-title">
+                                  <Link
+                                    href={`/mainHome/${item?._id}/videodetails2`}
+                                  >
+                                    {item?.title}
+                                  </Link>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           ) : null}
 
           <div className="dropdown-divider"></div>

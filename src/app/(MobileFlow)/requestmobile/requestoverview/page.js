@@ -81,7 +81,7 @@ function RequestOverview() {
                     className="height-96"
                     value={discription}
                   />
-                  <div className="count-text">0/60</div>
+                  {/* <div className="count-text">0/60</div> */}
                 </Form.Group>
                 <Form.Group
                   className="mb-4"
@@ -95,7 +95,7 @@ function RequestOverview() {
                     className="height-96"
                     value={avoided}
                   />
-                  <div className="count-text">0/60</div>
+                  {/* <div className="count-text">0/60</div> */}
                 </Form.Group>
                 <Form.Group className="" controlId="exampleForm.ControlInput4">
                   <Form.Label>Additional details</Form.Label>
@@ -106,7 +106,7 @@ function RequestOverview() {
                     className="height-96"
                     value={details}
                   />
-                  <div className="count-text">0/60</div>
+                  {/* <div className="count-text">0/60</div> */}
                 </Form.Group>
               </Form>
             </div>

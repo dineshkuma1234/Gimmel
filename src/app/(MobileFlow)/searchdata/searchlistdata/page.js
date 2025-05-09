@@ -54,7 +54,7 @@ function SearchList({
       setHeaderSearch(query);
       handleSearchCont(query,isOn,selectedAge,selectedEngagement,selectedDate,selectedAudience,chips,sliderValue,selectedValue);
     }
-    console.log("caled from searchlist page",query);
+    // console.log("caled from searchlist page",query);
   }, []);
 
   const [show, setShow] = useState(false);

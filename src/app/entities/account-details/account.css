@@ -69,7 +69,7 @@
 }
 
 .question-select input::placeholder {
-    color: var(--gimmel-darkBlue);
+    color: var(--gimmel-lightGray);
 }
 
 .question-select input:focus-visible {
