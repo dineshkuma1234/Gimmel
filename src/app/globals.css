@@ -912,6 +912,10 @@ span.user-name {
   text-align: left;
 }
 
+.dropdown-menu-card li button.active {
+  color: var(--gimmel-orange);
+}
+
 .dropdown-menu-card li button svg {
   margin-right: 16px;
 }
@@ -977,7 +981,7 @@ span.user-name {
 
 .short-by p {
   font-size: 14px !important;
-  font-weight: bold;
+  font-weight: bold !important;
   color: #87A7AD !important;
   margin: 0 !important;
   padding: 0;
@@ -1413,6 +1417,11 @@ a.see-all {
   gap: 8px;
 }
 
+.video-item-inline .video-item-title p {
+  font-size: 14px !important;
+  margin-bottom: 2px !important;
+}
+
 .video-item-thumbnail {
   width: 140px;
   height: auto;
@@ -1420,7 +1429,7 @@ a.see-all {
 
 .video-item-thumbnail img {
   width: 100%;
-  height: 100%;
+  height: 85px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -2682,4 +2691,19 @@ border: 1px solid  #104E5B ;
   padding: 0; /* Remove default padding */
   line-height: 0.5; /* Adjust line height to control spacing */
    
+}
+
+.modal-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--gimmel-darkBlue);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 5px;
+  line-height : 20px;
+}
+
+.rename-modal .modal-dialog {
+  max-width: 480px !important;
 }

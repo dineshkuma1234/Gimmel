@@ -49,15 +49,15 @@ function DeleteModel({
               // }}
 
               onClick={(event) => {
-                if (getSubFolder.length === 0) {
-                  console.log("3-test-+");
+                // if (getSubFolder.length === 0) {
+                  // console.log("3-test-+");
                   handleDeleteFolder(isDropdownOpenid?._id);
                  
-                } else {
-                  console.log("3-test----");
-                  handleDeleteSubFolder(selectFolder, isDropdownOpenid?._id);
-                  // console.log("-2-+");
-                }
+                // } else {
+                //   console.log("3-test----");
+                //   handleDeleteSubFolder(selectFolder, isDropdownOpenid?._id);
+                //   // console.log("-2-+");
+                // }
                 setDeleteModel(true);
                 handleClose();
               }}

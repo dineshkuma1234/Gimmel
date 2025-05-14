@@ -66,6 +66,9 @@ export const HeaderProvider = ({ children }) => {
     if (pathname === "/") {
       setHeaderSearch("");
     }
+    if ( pathname === "/categorieslist") {
+      setHeaderSearch("");
+    }
   }, [pathname]);
 
   const handleHistoryList = async (headerSearch) => {
@@ -202,7 +205,7 @@ export const HeaderProvider = ({ children }) => {
     selectedValue,
     selectedAudience
   ) => {
-    // console.log(category, "category in get categories");
+    console.log(category, "category in get categories");
     setLoader(true);
     try {
       const result = await AuthService.GetCategories(

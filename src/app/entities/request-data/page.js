@@ -1174,12 +1174,13 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <Form.Control
+                                      <div className="input-des">{request?.description}</div>
+                                      {/* <Form.Control
                                         as="textarea"
                                         placeholder=""
                                         className="height-96"
                                         value={request?.description}
-                                      />
+                                      /> */}
                                     </div>
                                   </Form.Group>
                                   <Form.Group
@@ -1192,12 +1193,13 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <Form.Control
+                                      <div className="input-des">{request?.avoidedDetails}</div>
+                                      {/* <Form.Control
                                         as="textarea"
                                         placeholder=""
                                         className="height-96"
                                         value={request?.avoidedDetails}
-                                      />
+                                      /> */}
                                     </div>
                                   </Form.Group>
                                   <Form.Group
@@ -1210,12 +1212,13 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <Form.Control
+                                      <div className="input-des">{request?.addDetails}</div>
+                                      {/* <Form.Control
                                         as="textarea"
                                         placeholder=""
                                         className="height-96"
                                         value={request?.addDetails}
-                                      />
+                                      /> */}
                                     </div>
                                   </Form.Group>
                                 </Form>

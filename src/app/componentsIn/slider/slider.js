@@ -28,7 +28,7 @@ const SliderSection = ({ categoryVideo, categoryimg }) => {
     selectedDate,
     sliderValue,
     selectedValue,
-    selectedAudience,
+    selectedAudience,selectedCategory
   } = useHeader();
   const router = useRouter();
   const swiperRef = useRef(null);
@@ -76,6 +76,7 @@ const SliderSection = ({ categoryVideo, categoryimg }) => {
     setSelectedCategory(category);
     setHeaderSearch("");
   };
+  // console.log(selectedCategory, "selectedCategory in slider");
   return (
     <>
       {deviceWidth > 991 ? (

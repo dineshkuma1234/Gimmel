@@ -95,6 +95,7 @@ export default function PageComponent() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
+    console.log("Page number:", page);
     setLoading(true);
     setLoader(true);
 
@@ -109,8 +110,13 @@ export default function PageComponent() {
           setNoLoad(true); // Stop further API calls when no more data
           setLoader(false);
         } else {
+          if (page === 1) {
+            setGetPost(newPosts);
+          } else {
           setGetPost((prevPosts) => [...prevPosts, ...newPosts]);
-          setLoader(false);
+         
+          }
+           setLoader(false);
         }
       }
     } catch (error) {
@@ -425,18 +431,18 @@ export default function PageComponent() {
   };
 
   const handleRename = async (rename, id) => {
-    // (rename, id, "rename and id --------------")
-    // setLoader(true);
+    // console.log(rename, id, "rename and id --------------");
+    setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
       if (result?.success) {
-        // (result, "result of rename")
-        // setLoader(false);
+        // console.log("yes its call rename")
+        setLoader(false);
         handleGetFolder();
         setRename("");
         AlertHelper.show("success", "Gimmel", result?.message);
       } else {
-        // setLoader(false);
+        setLoader(false);
         AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
@@ -460,10 +466,12 @@ export default function PageComponent() {
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
-
+        // handleGetPost();
+        setNoLoad(false); 
+        setPage(1);
         setLoader(false);
         setSelectedFolderId(null);
-       
+       console.log("  id save after check")
         handleGetPostid();
          toast.success(result?.data || "success", {
           className: "custom-toast-success",

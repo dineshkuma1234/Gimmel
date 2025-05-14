@@ -16,30 +16,31 @@ const RenameModel = ({
   getFolder,
   getSubFolder,
   subfolderid,
-  selectedFolderId
+  selectedFolderId,
+  handleRename
 }) => {
   const id = isDropdownOpenid?._id;
 
 
-  const handleRename = async (rename, id) => {
-    // setLoader(true);
-    try {
-      const result = await AuthService.renames(rename, id);
+  // const handleRename = async (rename, id) => {
+  //   setLoader(true);
+  //   try {
+  //     const result = await AuthService.renames(rename, id);
 
-      if (result?.success) {
-        // setLoader(false);
-        handleGetFolder();
-        setRename("");
-        // AlertHelper.show('success', 'Gimmel', result?.message);
-      } else {
-        // setLoader(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
-      }
-    } catch (error) {
-      // setLoader(false);
-      // ('Error occurred:', 'Gimmel', error);
-    }
-  };
+  //     if (result?.success) {
+  //       setLoader(false);
+  //       handleGetFolder();
+  //       setRename("");
+  //       // AlertHelper.show('success', 'Gimmel', result?.message);
+  //     } else {
+  //       setLoader(false);
+  //       // AlertHelper.show('danger', 'Gimmel', result?.message);
+  //     }
+  //   } catch (error) {
+  //     setLoader(false);
+  //     // ('Error occurred:', 'Gimmel', error);
+  //   }
+  // };
 
 
   const handleRenameFolder = async (rename,selectedFolderId) => {
@@ -64,15 +65,18 @@ const RenameModel = ({
 
 
   return (
+    <>
+    {/* {show7 && <div className="modal-backdrop fade show"></div>} */}
     <Modal
       open={renameModel}
+      size="md"
       show={show7}
       onHide={() => {
         handleClose7();
       }}
       onClick={() => setSubfolder("Subfolder")}
       centered
-      className="custom-modal"
+      className="custom-modal rename-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title>Rename folder</Modal.Title>
@@ -95,13 +99,13 @@ const RenameModel = ({
           <button
             className="btn btn-color-orange"
             onClick={(event) => {
-              if (getSubFolder) {
-                // console.log("test-+1");
-                handleRenameFolder(rename,selectedFolderId);  // Agar getSubFolder exist kare to yeh chale
-              } else {
-                // console.log("test-+2");
+              // if (getSubFolder) {
+              //   console.log("test-+1");
+              //   handleRenameFolder(rename,selectedFolderId);  // Agar getSubFolder exist kare to yeh chale
+              // } else {
+                console.log("test-+2");
                 handleRename(rename, id); // Agar getFolder exist kare to yeh chale
-              }
+              // }
               handleClose7(); // Modal ya dropdown close kare
               setRenameModel(false); // Modal ko close kare
             }}
@@ -111,6 +115,7 @@ const RenameModel = ({
         </div>
       </Modal.Body>
     </Modal>
+    </>
   );
 };
 

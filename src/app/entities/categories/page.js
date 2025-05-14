@@ -134,7 +134,7 @@ const handleGetPostid = async () => {
       // (result, "result---delete")
       if (result?.success) {
         setLoader(false);
-        handleGetFolderSub();
+        // handleGetFolderSub();
         handleGetFolder()
 
         AlertHelper.show('success', 'Gimmel',result?.message);
@@ -148,21 +148,20 @@ const handleGetPostid = async () => {
     }
   };
 
-  const handleRename = async (rename, id) => {
-
-    // (rename, id, "rename and id --------------")
-    // setLoader(true);
+const handleRename = async (rename, id) => {
+    console.log(rename, id, "rename and id --------------");
+    setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
       if (result?.success) {
-        // (result, "result of rename")
-        // setLoader(false);
+        // console.log("yes its call rename")
+        setLoader(false);
         handleGetFolder();
         setRename("");
-        // AlertHelper.show('success', 'Gimmel', result?.message);
+        AlertHelper.show("success", "Gimmel", result?.message);
       } else {
-        // setLoader(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       // setLoader(false);
@@ -189,7 +188,7 @@ const handleGetPostid = async () => {
         setLoader(false);
         setSelectedFolderId(null);
        
-        handleGetPostid();
+        // handleGetPostid();
          toast.success(result?.data || "success", {
           className: "custom-toast-success",
         });
@@ -236,7 +235,7 @@ const handleSaveVideonext = async (selectedFolderId) => {
 
   // LoaderHelper.loaderStatus(true);
   try {
-    ("Calling API to fetch saved videos...");
+    // ("Calling API to fetch saved videos...");
     const result = await AuthService.GetSaveVideo(selectedFolderId);
 
 
