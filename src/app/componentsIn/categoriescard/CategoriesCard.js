@@ -42,6 +42,7 @@ function CategoriesCard({
   handleGetFolderSub,
   setSelectedFolderId,
   setValue,
+  setPostId,
 }) {
   const [renameModel, setRenameModel] = useState(false);
   const [Subfolder, setSubfolder] = useState();
@@ -135,6 +136,8 @@ function CategoriesCard({
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
+    // console.log("setPostId will be called with:", id?._id);
+    setPostId(id);
   };
 
   const handleOutsideClick = (event) => {
@@ -192,6 +195,8 @@ function CategoriesCard({
       document.removeEventListener("click", handleClickOutside);
     };
   }, [openDropdownId]);
+
+  console.log(isDropdownOpenid, "isDropdownOpenid");
 
   return (
     <>

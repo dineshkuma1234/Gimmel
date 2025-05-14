@@ -37,7 +37,7 @@ function SaveLibraryModal({
   handleSaveSubFolderVideo,
   inerFolder,
   setSelectFolder,
-  selectFolder
+  selectFolder,
 }) {
   const [selectSubFolder, setSelectSubFolder] = useState(null);
   const [selectSubFolderId, setSelectSubFolderId] = useState(null);
@@ -59,6 +59,7 @@ function SaveLibraryModal({
     } catch (error) {}
   };
 
+  // console.log(selectSubFolder,"selectSubFolder+++++++")
   // console.log(subFolderView, "subFolderView");
   return (
     <>
@@ -189,10 +190,11 @@ function SaveLibraryModal({
                                     <li>
                                       <button
                                         variant="primary"
-                                        onClick={(event) => {
-                                          event.stopPropagation();
-                                          handleShow();
-                                        }}
+                                        onClick={handleShow}
+                                        // onClick={(event) => {
+                                        //   event.stopPropagation();
+                                        //   handleShow();
+                                        // }}
                                       >
                                         <TbEdit />
                                         Rename
@@ -225,11 +227,11 @@ function SaveLibraryModal({
                     <div
                       className="folder-inner"
                       onClick={() => {
-                        // console.log(item, "item");
-                        handleNavigateSave(item),
-                          handleSaveVideonext(item?._id),
-                          setSelectSubFolderId(item?._id),
-                          setSelectSubFolder(item?._id)
+                        console.log( "item++++++++");
+                        handleNavigateSave(item);
+                          handleSaveVideonext(item?._id);
+                          setSelectSubFolderId(item?._id);
+                         
                       }}
                       onDoubleClick={() => {
                         // console.log(active, "item on double click");
@@ -262,10 +264,12 @@ function SaveLibraryModal({
                             <p
                               className=""
                               onClick={(event) => {
+                                // console.log("yes this is clicked")
                                 setColor(true);
                                 event.stopPropagation();
                                 handleNavigatename(item);
                                 setRenameModel(true);
+                                 setSelectSubFolder(item?._id);
                               }}
                             >
                               {item.name}
@@ -298,10 +302,11 @@ function SaveLibraryModal({
                                     <li>
                                       <button
                                         variant="primary"
-                                        onClick={(event) => {
-                                          event.stopPropagation();
-                                          handleShow();
-                                        }}
+                                        onClick={handleShow}
+                                        // onClick={(event) => {
+                                        //   event.stopPropagation();
+                                        //   handleShow();
+                                        // }}
                                       >
                                         <TbEdit />
                                         Rename
@@ -449,7 +454,7 @@ function SaveLibraryModal({
                   // console.log("folder");
                   handleSaveVideo();
                 }
-                // close_library_modal();
+                close_library_modal();
               }}
             >
               Save here

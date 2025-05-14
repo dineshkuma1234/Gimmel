@@ -27,10 +27,10 @@ function Sidebar() {
   const [iscategoriesPage, setcategoriesPage] = useState(false);
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const category = searchParams.get("query"); // Get the 'query' parameter from the URL
+    const category = searchParams.get("query");
   
     if (category) {
-      // Call the API with the category and other default values
+     
       handleGetCategories(
         category,
         isOn,
@@ -44,7 +44,15 @@ function Sidebar() {
         selectedAudience
       );
     }
-  }, []);
+  }, [ isOn,
+        chips,
+        inputValue,
+        selectedAge,
+        selectedEngagement,
+        selectedDate,
+        sliderValue,
+        selectedValue,
+        selectedAudience]);
 
   useEffect(() => {
     if (iscategoriesPage){

@@ -414,6 +414,15 @@
     max-height: 200px !important;
 }
 
+.input-des {
+    border: 1px solid var(--gimmel-gray);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gimmel-darkBlue);
+}
+
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
     .card-padding-request {
         padding: 40px 0px;

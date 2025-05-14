@@ -40,7 +40,8 @@ function Main({
   selectedFolderId,
   handleSaveVideonext,
   setPostId,
-  categoryimg
+  categoryimg,
+  
 }) {
   return (
     <>

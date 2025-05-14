@@ -35,12 +35,17 @@ export default function PageComponent() {
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [value, setValue] = useState(null);
   const [getSaveVideo, setGetSaveVideo] = useState([]);
+  const [isSaved,setIsSaved]=useState();
   const [getSubFolder, setGetFolderSub] = useState();
   const [categoryVideo, setgetCategoryVideo] = useState([]);
   const [categoryimg, setgetCategoryimg] = useState();
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
   const [postId, setPostId] = useState("");
+  
 
+  // console.log(selectedFolderId, "selectedFolderId============");
+
+  console.log(getSubFolder,"getSubFolder")
   useEffect(() => {
     checkUserLogedIn();
     if (typeof window === "undefined") return;
@@ -441,12 +446,11 @@ export default function PageComponent() {
   };
 
   const handleSaveVideo = async () => {
-    // setLoader(true);
-    // console.log(selectedFolderId,"selectedFolderId, postId")
+    
     if (!selectedFolderId) {
-      // ("No folder selected. Exiting function.");
-      // console.log('first ok test')
-      // AlertHelper.show('warning', 'Gimmel',"Please select folder");
+      toast.error( "Please select folder", {
+          className: "custom-toast",
+        });
       return;
     }
     setLoader(true);
@@ -456,31 +460,25 @@ export default function PageComponent() {
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
-        // ("Video saved successfully:", result);
 
-        // setLoader(false);
+        setLoader(false);
         setSelectedFolderId(null);
-        // navigation.navigate("videodetails2");
+       
         handleGetPostid();
-        // navigation.setParams({
-        //   data: null,
-        // });
-        // ("Navigation to videodetails2 triggered.");
-
-        // AlertHelper.show('success', 'Gimmel', result?.data);
+         toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
       } else {
-        // setLoader(false);
-        // ("Failed to save video. Error message:", result?.message);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
       }
     } catch (error) {
-      // setLoader(false);
+      setLoader(false);
       // console.log('Error occurred:', 'Gimmel', error);
     } finally {
       setLoader(false);
     }
   };
-
+// console.log(selectedFolderId,"selectedFolderId");
   const handleGetPostid = async () => {
     setLoader(true);
 
@@ -538,6 +536,7 @@ export default function PageComponent() {
 
   const handleSaveVideonext = async (id) => {
     "Function called with Folder ID:", id;
+    console.log( "function called with Folder ID:", id);
 
     // LoaderHelper.loaderStatus(true);
     try {
@@ -549,7 +548,8 @@ export default function PageComponent() {
         "Videos received successfully:", result.videos;
 
         // LoaderHelper.loaderStatus(false);
-        setGetSaveVideo(result?.videos);
+        setGetSaveVideo(result?.data?.videos);
+      
       } else {
         "API call was unsuccessful:", result?.message || result;
 
@@ -564,15 +564,16 @@ export default function PageComponent() {
     }
   };
 
-  const handleCreateFolderSub = async (id, addnewFolder) => {
+  // console.log(isSaved, "isSaved");.
+  const handleCreateFolderSub = async (addnewFolder) => {
     // LoaderHelper.loaderStatus(true);
     try {
-      const result = await AuthService.createSubFolder(id, addnewFolder);
+      const result = await AuthService.createSubFolder(selectedFolderId, addnewFolder);
       result, "result---";
       if (result?.success) {
         // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('success', 'Gimmel', result?.data);
-        handleGetFolderSub(id);
+        handleGetFolderSub();
       } else {
         // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message  );

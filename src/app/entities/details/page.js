@@ -98,7 +98,7 @@ function VideoDetails({
 
   useEffect(() => {
     if (!show1) {
-      setSubfolder(""); // Jab modal close ho jaye to subfolder clear ho jaye
+      setSubfolder(""); 
     }
   }, [show1]);
 
