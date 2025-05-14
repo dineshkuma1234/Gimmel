@@ -45,7 +45,8 @@ const SliderCategories = ({
   handleCreateFolderSub,
   calculateMonthsAgo,
   handleGetFolderSub,
-  setSelectedFolderId
+  setSelectedFolderId,
+  setPostId
 }) => {
     const{setSelectedCategory,handleGetCategories, isOn,
       chips,
@@ -142,6 +143,7 @@ const SliderCategories = ({
     setThreeDotItem(item);
   };
 
+  
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
@@ -159,6 +161,7 @@ useEffect(() => {
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
+    setPostId(id);
   };
 
   const handleOutsideClick = (event) => {

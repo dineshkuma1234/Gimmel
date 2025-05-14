@@ -46,29 +46,29 @@ const VideoCard = ({
   handleDeleteSubFolder,
   handleGetFolderSub,
   selectedFolderId,
-  handleSaveVideonext, handleSaveSubFolderVideo,
-  setPostId
-  
+  handleSaveVideonext,
+  handleSaveSubFolderVideo,
+  setPostId,
 }) => {
-
-  const [VideoDetailsState, updateVideoDetailsState] =useContext(VideoDetailsContext);
+  const [VideoDetailsState, updateVideoDetailsState] =
+    useContext(VideoDetailsContext);
   const router = useRouter();
 
   const [renameModel, setRenameModel] = useState(false);
-    const { openModal, setIsOpen } = useModal();
+  const { openModal, setIsOpen } = useModal();
   const [Subfolder, setSubfolder] = useState();
   const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
   const [subfolderid, setsubfolderid] = useState(null);
   const [deleteModel, setDeleteModel] = useState(false);
-  const [inerFolder, setinerFolder] = useState()
+  const [inerFolder, setinerFolder] = useState();
   const [selectFolder, setSelectFolder] = useState(null);
   const [subFolderView, setSubfolderView] = useState(false);
- const [subfolderName, setSubfolderName] = useState("");
- const [color, setColor] = useState(false);
- const [active, setActive] = useState(null);
- const [isDropdownOpen, setIsDropdownOpen] = useState(false);
- const [folders, setFolders] = useState([]);
- const [addnewFolder, setAddNewFolder] = useState("");
+  const [subfolderName, setSubfolderName] = useState("");
+  const [color, setColor] = useState(false);
+  const [active, setActive] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [addnewFolder, setAddNewFolder] = useState("");
 
   const [checkedItems, setCheckedItems] = useState({});
   const [checkedItems1, setCheckedItems1] = useState({});
@@ -81,7 +81,7 @@ const VideoCard = ({
   const [interestsDescription, setInterestsDescription] = useState("");
   const [showContent, setShowContent] = useState(true);
   const dropdownRefnwe = useRef(null);
-  const dropdownRef = useRef()
+  const dropdownRef = useRef();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const [show, setShow] = useState(false);
@@ -99,21 +99,21 @@ const VideoCard = ({
     setSubfolderView(false);
   };
   const handleShow1 = () => setShow1(true);
-const [show5, setShow5] = useState(false);
-const handleClose5 = () => setShow5(false);
-const handleShow5 = () => setShow5(true);
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
 
-const [show8, setShow8] = useState(false);
-const handleClose8 = () => setShow8(false);
-const handleShow8 = () => setShow8(true);
+  const [show8, setShow8] = useState(false);
+  const handleClose8 = () => setShow8(false);
+  const handleShow8 = () => setShow8(true);
 
-const [show3, setShow3] = useState(false);
-const handleClose3 = () => setShow3(false);
-const handleShow3 = () => setShow3(true);
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
 
-const [show7, setShow7] = useState(false);
-const handleClose7 = () => setShow7(false);
-const handleShow7 = () => setShow7(true);
+  const [show7, setShow7] = useState(false);
+  const handleClose7 = () => setShow7(false);
+  const handleShow7 = () => setShow7(true);
   const handleNavigateSave = (item) => {
     // ('_id', _id)
     setSelectedFolderId(item?._id);
@@ -121,9 +121,9 @@ const handleShow7 = () => setShow7(true);
     setSubfolderView(true);
     // setActive(item?._id);
     setsubfolderid(item?._id);
-    setinerFolder(item?._id)
+    setinerFolder(item?._id);
     // handleCreateFolderSub(addnewFolder);
-    handleGetFolderSub(item?._id)
+    handleGetFolderSub(item?._id);
   };
 
   const handleNavigatename = (item) => {
@@ -131,8 +131,7 @@ const handleShow7 = () => setShow7(true);
     setSelectedFolderId(item?._id);
     setColor(true);
     setActive(item?._id);
-    handleGetFolderSub(item?._id)
-
+    handleGetFolderSub(item?._id);
   };
 
   const handleChange = (e) => {
@@ -142,8 +141,6 @@ const handleShow7 = () => setShow7(true);
       setFolders(e.target.value);
     }
   };
-
-  
 
   const toggleDropdownnwe = (item) => {
     // (item,"if")
@@ -156,26 +153,11 @@ const handleShow7 = () => setShow7(true);
     }
   };
 
-
-
-
-const toggleDropdown = (video) => {
-  setIsDropdownOpen(!isDropdownOpen);
-  setPostId(video?._id);
-  
-
-};
-
-
-
-useEffect(() => {
-  window.addEventListener("click", handleClickOutside);
-  return () => {
-    window.removeEventListener("click", handleClickOutside);
+  const toggleDropdown = (video) => {
+    setIsDropdownOpen(!isDropdownOpen);
+    // console.log("setPostId will be called with=====:", video?._id);
+    setPostId(video?._id);
   };
-}, []);
-
-
 
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
@@ -184,7 +166,12 @@ useEffect(() => {
     };
   }, []);
 
-;
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   // Function to add a new folder
   const addNewFolder = () => {
@@ -267,17 +254,17 @@ useEffect(() => {
   const handlediscription = (event) => {
     const words = event.target.value.split(/\s+/).filter(Boolean); // Split into words
     if (words.length <= 60) {
-        setInterestsDescription(event.target.value);
+      setInterestsDescription(event.target.value);
     }
-};
+  };
 
   // (video,"video")
   const handleNavigate = (video) => {
     updateVideoDetailsState(video);
     router.push(`/mainHome/${video?._id}/videodetails2`);
   };
+  console.log(isDropdownOpenid, "isDropdownOpenid=====");
 
- 
   return (
     <>
       {/* Rename folder modal start */}
@@ -291,12 +278,13 @@ useEffect(() => {
         handleRename={handleRename}
         setRenameModel={setRenameModel}
         isDropdownOpenid={isDropdownOpenid}
+        setShow7={setShow7}
       />
 
-     
-<DeleteModel
+      <DeleteModel
         deleteModel={deleteModel}
         show={show6}
+        setShow7={setShow6}
         handleClose={handleClose6}
         handleDeleteFolder={handleDeleteFolder}
         setDeleteModel={setDeleteModel}
@@ -307,9 +295,7 @@ useEffect(() => {
         selectFolder={selectFolder}
       />
 
-
-
-<SaveLibraryModal
+      <SaveLibraryModal
         show_modal={show}
         close_library_modal={handleClose}
         handleShow={handleShow7}
@@ -339,7 +325,7 @@ useEffect(() => {
         selectFolder={selectFolder}
         setValue={setValue}
       />
-        <NewfolderAdd
+      <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
         handleChange={handleChange}
@@ -530,12 +516,13 @@ useEffect(() => {
         </Modal.Body>
       </Modal>
 
-      
-
-     
-
       {/* Full summary Modal start */}
-      <Modal show={show1} onHide={handleClose1} centered className="custom-modal">
+      <Modal
+        show={show1}
+        onHide={handleClose1}
+        centered
+        className="custom-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
@@ -547,14 +534,19 @@ useEffect(() => {
         </Modal.Body>
       </Modal>
 
-    
-     
       {index === 5 && showContent && interest === "0" && (
         <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-3">
           <div className="my-interests-card">
             <div className="video-card-1">
-              <div className="video-card-content position-relative">  
-              <button className="close-button" onClick={()=>{setShowContent(false)}}>&times;</button>    
+              <div className="video-card-content position-relative">
+                <button
+                  className="close-button"
+                  onClick={() => {
+                    setShowContent(false);
+                  }}
+                >
+                  &times;
+                </button>
                 <div className="video-card-image">
                   <Image
                     src={require("../../../assets/images/bg-in.png")}
@@ -574,10 +566,10 @@ useEffect(() => {
                     onClick={(e) => {
                       const token = localStorage.getItem("token");
                       if (!token) {
-                      e.preventDefault(); // Prevents navigation
-                      setIsOpen(true);
+                        e.preventDefault(); // Prevents navigation
+                        setIsOpen(true);
                       } else {
-                      handleShow3();
+                        handleShow3();
                       }
                       // setShowContent(false);
                     }}
@@ -609,7 +601,7 @@ useEffect(() => {
                   />
                 </Link>
                 <div className="video-duration">
-                {formatDuration(video?.duration)}
+                  {formatDuration(video?.duration)}
                 </div>
               </div>
             </div>
@@ -654,7 +646,12 @@ useEffect(() => {
                   </Link>
                 </div>
                 <div className="more-btn" ref={dropdownRef}>
-                  <button className="btn btn-more" onClick={()=>{toggleDropdown(video)}}>
+                  <button
+                    className="btn btn-more"
+                    onClick={() => {
+                      toggleDropdown(video);
+                    }}
+                  >
                     <FaEllipsisV />
                   </button>
                   {isDropdownOpen && (
@@ -662,40 +659,60 @@ useEffect(() => {
                       <ul>
                         <li>
                           <button variant="primary" onClick={handleShow1}>
-                             <Image
-                                src={require("../../../assets/images/summary.svg")}
-                                alt="summary"
-                              />
+                            <Image
+                              src={require("../../../assets/images/summary.svg")}
+                              alt="summary"
+                            />
                             See full summary
                           </button>
                         </li>
                         <li className="hide_mobile">
-                          <button variant="primary"
-                           onClick={(e) => {
-                            const token = localStorage.getItem("token");
-                            if (!token) {
-                            e.preventDefault(); // Prevents navigation
-                            setIsOpen(true);
-
-                            } else {
-                              setShow(false)
-                              handleShow();                           }
-                        }}
-                          >
-                          <svg
-                              width="32"
-                              height="32"
-                              viewBox="0 0 32 32"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                          {video?.isSaved ? (
+                            <button>
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                  fill="#F18D51"
+                                />
+                              </svg>
+                              Save to your library
+                            </button>
+                          ) : (
+                            <button
+                              variant="primary"
+                              onClick={(e) => {
+                                const token = localStorage.getItem("token");
+                                if (!token) {
+                                  e.preventDefault(); // Prevents navigation
+                                  setIsOpen(true);
+                                } else {
+                                  setShow(false);
+                                  handleShow();
+                                  setIsDropdownOpen(false);
+                                }
+                              }}
                             >
-                              <path
-                                d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z"
-                                fill="#104E5B"
-                              />
-                            </svg>
-                            Save
-                          </button>
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z"
+                                  fill="#104E5B"
+                                />
+                              </svg>
+                              Save
+                            </button>
+                          )}
                         </li>
                         <li className="show_mobile">
                           {/* <Link href="/savelibrary"> */}
@@ -729,13 +746,13 @@ useEffect(() => {
                             onClick={(e) => {
                               const token = localStorage.getItem("token");
                               if (!token) {
-                              e.preventDefault(); // Prevents navigation
-                              setIsOpen(true);
+                                e.preventDefault(); // Prevents navigation
+                                setIsOpen(true);
                               } else {
                                 handleNotIntrested(video?._id);
-                                setIsDropdownOpen(false); 
-                             }
-                          }}
+                                setIsDropdownOpen(false);
+                              }
+                            }}
                           >
                             <Image
                               src={require("../../../assets/images/notIntrest.svg")}

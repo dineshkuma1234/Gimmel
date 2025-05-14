@@ -46,7 +46,7 @@ function NewfolderAdd({show,handleClose,handleChange,subFolderView,active,addnew
                                 handleClose();
                                 // addNewFolder();
                                 if(subFolderView){
-                                    handleCreateFolderSub(active,addnewFolder)
+                                    handleCreateFolderSub(addnewFolder)
 
                                 }
                                 else{

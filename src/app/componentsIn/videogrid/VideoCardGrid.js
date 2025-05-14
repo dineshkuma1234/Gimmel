@@ -80,7 +80,7 @@ const VideoCardGrid = ({
           handleDeleteSubFolder={handleDeleteSubFolder}
           handleGetFolderSub={handleGetFolderSub}
           selectedFolderId={selectedFolderId}
-          handleSaveVideonext={handleSaveVideo}
+          handleSaveVideonext={handleSaveVideonext}
           setPostId={setPostId}
         />
       ))}

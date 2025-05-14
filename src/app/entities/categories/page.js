@@ -6,6 +6,7 @@ import SliderSection from "../../componentsIn/slidercategories/slider";
 import AuthService from "@/services/AuthService";
 import { useParams, useRouter } from "next/navigation";
 import { UseLoader } from '@/app/LoderHelper/context/loaderHelperContext';
+import toast, { Toaster } from "react-hot-toast";
 import   calculateMonthsAgo from "@/app/utils/monthsAgo/page";
 
 function Categories({
@@ -24,7 +25,8 @@ function Categories({
   const [getSubFolder,setGetFolderSub]= useState();
   const [suggested,setsuggested]=useState()
   const id = params.video_id;
-  const postId = id?.video_id|| id;
+  // const postId = id?.video_id|| id;
+  const [postId, setPostId] = useState("");
   // const idvideo = data?._id;
   const [value, setValue] = useState(null);
   const {setLoader} = UseLoader()
@@ -168,45 +170,37 @@ const handleGetPostid = async () => {
     }
   };
 
-  const handleSaveVideo = async () => {
-    // ("handleSaveVideo function called");
-
-    // setLoader(true);
-
-    if(!selectedFolderId){
-      // ("No folder selected. Exiting function.");
-
-      // AlertHelper.show('warning', 'Gimmel',"Please select folder");
+   const handleSaveVideo = async () => {
+    
+    if (!selectedFolderId) {
+      toast.error( "Please select folder", {
+          className: "custom-toast",
+        });
       return;
     }
-    // setLoader(false);
+    setLoader(true);
 
     try {
-      // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+      // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
-        // ("Video saved successfully:", result);
 
-        // setLoader(false);
-        setSelectedFolderId(null)
-        // navigation.navigate("videodetails2");
-        handleGetPostid()
-        // navigation.setParams({
-        //   data: null,
-        // });
-        // ("Navigation to videodetails2 triggered.");
-
-        // AlertHelper.show('success', 'Gimmel', result?.data);
+        setLoader(false);
+        setSelectedFolderId(null);
+       
+        handleGetPostid();
+         toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
       } else {
-        // setLoader(false);
-        // ("Failed to save video. Error message:", result?.message);
-
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
       }
     } catch (error) {
-      // setLoader(false);
-      // ('Error occurred:', 'Gimmel', error);
+      setLoader(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -326,6 +320,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
 
   return (
     <>
+    <Toaster position="top-right" reverseOrder={false} />
       
 
       <div className="mt-2">
@@ -347,6 +342,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
             handleSaveVideonext={handleSaveVideonext}
             handleSaveSubFolderVideo={handleSaveSubFolderVideo}
             handleDeleteSubFolder={handleDeleteSubFolder}
+            setPostId={setPostId}
           />
         </div>
       </div>

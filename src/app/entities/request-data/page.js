@@ -789,14 +789,8 @@ function RequestData({
                                     </Form.Label>
                                   </div>
                                   <div className="col-8">
-                                    <Form.Control
-                                      as="textarea"
-                                      placeholder=""
-                                      className="height-96"
-                                      value={discription}
-                                      readOnly
-                                    />
-                                    {/* <div className="count-text">0/60</div> */}
+                                    <div className="input-des">{discription}</div>
+                                    
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -809,14 +803,8 @@ function RequestData({
                                     </Form.Label>
                                   </div>
                                   <div className="col-8">
-                                    <Form.Control
-                                      as="textarea"
-                                      placeholder=""
-                                      className="height-96"
-                                      value={avoided}
-                                      readOnly
-                                    />
-                                    {/* <div className="count-text">0/60</div> */}
+                                    <div className="input-des">{avoided}</div>
+                                   
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -827,14 +815,8 @@ function RequestData({
                                     <Form.Label>Additional details</Form.Label>
                                   </div>
                                   <div className="col-8">
-                                    <Form.Control
-                                      as="textarea"
-                                      placeholder=""
-                                      className="height-96"
-                                      value={details}
-                                      readOnly
-                                    />
-                                    {/* <div className="count-text">0/60</div> */}
+                                    <div className="input-des">{details}</div>
+                                    
                                   </div>
                                 </Form.Group>
                               </Form>

@@ -1098,6 +1098,7 @@ span.user-name {
   background-color: #D1DDE0;
   border: 1px solid var(--gimmel-darkBlue);
   padding: 16px 24px;
+  cursor: pointer;
 }
 
 .folder-content-inline {
