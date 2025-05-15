@@ -263,7 +263,7 @@ const VideoCard = ({
     updateVideoDetailsState(video);
     router.push(`/mainHome/${video?._id}/videodetails2`);
   };
-  console.log(isDropdownOpenid, "isDropdownOpenid=====");
+  // console.log(isDropdownOpenid, "isDropdownOpenid=====");
 
   return (
     <>
@@ -324,6 +324,7 @@ const VideoCard = ({
         setSelectFolder={setSelectFolder}
         selectFolder={selectFolder}
         setValue={setValue}
+        setSubfolderView={setSubfolderView}
       />
       <NewfolderAdd
         show={show5}
@@ -668,7 +669,7 @@ const VideoCard = ({
                         </li>
                         <li className="hide_mobile">
                           {video?.isSaved ? (
-                            <button>
+                            <button className="active">
                               <svg
                                 width="32"
                                 height="32"

@@ -13,9 +13,9 @@ import { useHeader } from '../Context/headerContext/HeaderContext';
 
 function search() {
 //   const [searchListState, updatesearchListState] = useContext(SearchListContext);
-  const {getCategoryData, setGetCategoryData} = useHeader();
+  const {getCategoryData, handleGetCategories,selectedCategory} = useHeader();
 
-  // console.log(getCategoryData,"getCategoryData in search+++");
+  console.log(selectedCategory,"selectedCategory in search+++");
   const isMobile = useIsMobile()
 
   const params = useParams();
@@ -126,21 +126,19 @@ const handleGetPostid = async () => {
   };
 
   const handleDeleteFolder = async (id) => {
-
+    // console.log("these is delete function")
     setLoader(true);
     try {
       const result = await AuthService.deleteFolder(id);
-     
+
       // (result, "result---delete")
       if (result?.success) {
         setLoader(false);
-        handleGetFolderSub();
-        handleGetFolder()
-
-        AlertHelper.show('success', 'Gimmel',result?.message);
+        handleGetFolder();
+        AlertHelper.show("success", "Gimmel", result?.message);
       } else {
         setLoader(false);
-        AlertHelper.show('danger', 'Gimmel', result?.message);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       setLoader(false);
@@ -149,23 +147,24 @@ const handleGetPostid = async () => {
   };
 
   const handleRename = async (rename, id) => {
+    //  console.log(rename, id, "rename and id --------------");
 
     // (rename, id, "rename and id --------------")
-    // setLoader(true);
+    setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
       if (result?.success) {
         // (result, "result of rename")
-        // setLoader(false);
+        setLoader(false);
         handleGetFolder();
         setRename("");
         // AlertHelper.show('success', 'Gimmel', result?.message);
       } else {
-        // setLoader(false);
+        setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message);
       }
     } catch (error) {
-      // setLoader(false);
+      setLoader(false);
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -186,12 +185,14 @@ const handleGetPostid = async () => {
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
+
+        handleGetCategories(selectedCategory);
         // ("Video saved successfully:", result);
 
         // setLoader(false);
         setSelectedFolderId(null);
         // navigation.navigate("videodetails2");
-        handleGetPostid();
+        // handleGetPostid();
         // navigation.setParams({
         //   data: null,
         // });
@@ -253,7 +254,7 @@ const handleSaveVideonext = async (selectedFolderId) => {
     if (result?.success) {
 
       // LoaderHelper.loaderStatus(false);
-      setGetSaveVideo(result?.videos);
+      setGetSaveVideo(result?.data?.videos);
     } else {
 
       // LoaderHelper.loaderStatus(false);

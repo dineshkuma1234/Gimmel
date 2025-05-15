@@ -8,9 +8,11 @@ import { UseLoader } from '../LoderHelper/context/loaderHelperContext';
 import toast, { Toaster } from "react-hot-toast";
 import AuthService from "../../services/AuthService";
 import { useParams, useRouter } from "next/navigation";
+import { useHeader } from '../Context/headerContext/HeaderContext';
 
 function search() {
   const [searchListState, updatesearchListState] = useContext(SearchListContext);
+  const {handleSearchCont, headerSearch}=useHeader();
   const isMobile = useIsMobile()
 
   const params = useParams();
@@ -141,21 +143,20 @@ const handleGetPostid = async () => {
     }
   };
 
-  const handleRename = async (rename, id) => {
-
-    // (rename, id, "rename and id --------------")
-    // setLoader(true);
+   const handleRename = async (rename, id) => {
+    // console.log(rename, id, "rename and id --------------");
+    setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
       if (result?.success) {
-        // (result, "result of rename")
-        // setLoader(false);
+        // console.log("yes its call rename")
+        setLoader(false);
         handleGetFolder();
         setRename("");
-        // AlertHelper.show('success', 'Gimmel', result?.message);
+        AlertHelper.show("success", "Gimmel", result?.message);
       } else {
-        // setLoader(false);
-        // AlertHelper.show('danger', 'Gimmel', result?.message);
+        setLoader(false);
+        AlertHelper.show("danger", "Gimmel", result?.message);
       }
     } catch (error) {
       // setLoader(false);
@@ -179,12 +180,13 @@ const handleGetPostid = async () => {
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
+        // handleSearchCont(headerSearch);
         // ("Video saved successfully:", result);
 
         // setLoader(false);
         setSelectedFolderId(null);
         // navigation.navigate("videodetails2");
-        handleGetPostid();
+        // handleGetPostid();
         // navigation.setParams({
         //   data: null,
         // });

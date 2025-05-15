@@ -270,6 +270,8 @@ function CategoriesCard({
         inerFolder={inerFolder}
         setSelectFolder={setSelectFolder}
         selectFolder={selectFolder}
+         setValue={setValue}
+        setSubfolderView={setSubfolderView}
       />
       <NewfolderAdd
         show={show5}
@@ -344,7 +346,24 @@ function CategoriesCard({
                               </button>
                             </li>
                             <li>
-                              <button
+                              {item?.isSaved ? (
+                                <button className="active">
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                  fill="#F18D51"
+                                />
+                              </svg>
+                              Save to your library
+                            </button>
+                              ):(
+                                <button
                                 variant="primary"
                                 onClick={(e) => {
                                   const token = localStorage.getItem("token");
@@ -370,6 +389,8 @@ function CategoriesCard({
                                 </svg>
                                 Save
                               </button>
+                              )}
+                              
                             </li>
                             <div className="dropdown-divider"></div>
                             <li>
