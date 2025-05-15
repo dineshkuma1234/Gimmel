@@ -52,7 +52,9 @@ function RequestData({
   handleCreateFolderSub,
   calculateMonthsAgo,
   handleGetFolderSub,
-  setSelectedFolderId,setValue
+  setSelectedFolderId,
+  setValue,
+  setPostId,
 }) {
   const [renameModel, setRenameModel] = useState(false);
   const [Subfolder, setSubfolder] = useState();
@@ -493,7 +495,7 @@ function RequestData({
       </Modal> */}
 
       <RenameModel
-         renameModel={renameModel}
+        renameModel={renameModel}
         show7={show7}
         handleClose7={handleClose7}
         setSubfolder={setSubfolder}
@@ -545,7 +547,7 @@ function RequestData({
         handleSaveSubFolderVideo={handleSaveSubFolderVideo}
         inerFolder={inerFolder}
         setSelectFolder={setSelectFolder}
-        selectFolder={selectFolder} 
+        selectFolder={selectFolder}
         setValue={setValue}
         setSubfolderView={setSubfolderView}
       />
@@ -792,8 +794,9 @@ function RequestData({
                                     </Form.Label>
                                   </div>
                                   <div className="col-8">
-                                    <div className="input-des">{discription}</div>
-                                    
+                                    <div className="input-des">
+                                      {discription}
+                                    </div>
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -807,7 +810,6 @@ function RequestData({
                                   </div>
                                   <div className="col-8">
                                     <div className="input-des">{avoided}</div>
-                                   
                                   </div>
                                 </Form.Group>
                                 <Form.Group
@@ -819,7 +821,6 @@ function RequestData({
                                   </div>
                                   <div className="col-8">
                                     <div className="input-des">{details}</div>
-                                    
                                   </div>
                                 </Form.Group>
                               </Form>
@@ -919,9 +920,12 @@ function RequestData({
                                                           <div className="button-left-side">
                                                             <button
                                                               className="btn btn-icon eye-icon"
-                                                              onClick={()=> router.push(`/mainHome/${video?._id}/videodetails2`)
+                                                              onClick={
+                                                                () =>
+                                                                  router.push(
+                                                                    `/mainHome/${video?._id}/videodetails2`
+                                                                  )
                                                                 // handleShow4
-
                                                               }
                                                             >
                                                               <svg
@@ -937,29 +941,52 @@ function RequestData({
                                                                 />
                                                               </svg>
                                                             </button>
-                                                            <button
-                                                              className="btn btn-icon save-icon"
-                                                              onClick={
-                                                                handleShow1
-                                                              }
-                                                            >
-                                                              <svg
-                                                                width="24"
-                                                                height="24"
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            {video?.isSaved ? (
+                                                              <button className="btn btn-icon save-icon">
+                                                                <svg
+                                                                  width="24"
+                                                                  height="24"
+                                                                  viewBox="0 0 32 32"
+                                                                  fill="none"
+                                                                  xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                  <path
+                                                                    d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                                                    fill="#F18D51"
+                                                                  />
+                                                                </svg>
+                                                              </button>
+                                                            ) : (
+                                                              <button
+                                                                className="btn btn-icon save-icon"
+                                                                onClick={() => {
+                                                                  handleShow1();
+                                                                  setPostId(
+                                                                    video?._id
+                                                                  );
+                                                                }}
                                                               >
-                                                                <path
-                                                                  d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                                                  fill="#242424"
-                                                                />
-                                                              </svg>
-                                                            </button>
+                                                                <svg
+                                                                  width="24"
+                                                                  height="24"
+                                                                  viewBox="0 0 32 32"
+                                                                  fill="none"
+                                                                  xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                  <path
+                                                                    d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z"
+                                                                    fill="#104E5B"
+                                                                  />
+                                                                </svg>
+                                                              </button>
+                                                            )}
+
                                                             <button
                                                               className="btn btn-icon share-icon"
                                                               onClick={() =>
-                                                              copyUrl(video?._id)
+                                                                copyUrl(
+                                                                  video?._id
+                                                                )
                                                               }
                                                             >
                                                               <svg
@@ -1013,7 +1040,9 @@ function RequestData({
                                                           </div>
                                                         </div>
                                                         <div className="de-title">
-                                                          <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                                                          <Link
+                                                            href={`/mainHome/${video?._id}/videodetails2`}
+                                                          >
                                                             {video.title}
                                                           </Link>
                                                         </div>
@@ -1032,7 +1061,9 @@ function RequestData({
                                               <button
                                                 className="btn btn-orange-request"
                                                 onClick={handleConfirm}
-                                                disabled={activeItem.length === 0}
+                                                disabled={
+                                                  activeItem.length === 0
+                                                }
                                               >
                                                 Confirm
                                               </button>
@@ -1072,7 +1103,9 @@ function RequestData({
                                                   <div className="col-6 ps-0">
                                                     <div className="video-details">
                                                       <div className="de-title mb-2">
-                                                        <Link href={`/mainHome/${video?._id}/videodetails2`}>
+                                                        <Link
+                                                          href={`/mainHome/${video?._id}/videodetails2`}
+                                                        >
                                                           {video?.title}
                                                         </Link>
                                                       </div>
@@ -1110,11 +1143,14 @@ function RequestData({
                                                         </button>
                                                         <button
                                                           className="btn btn-bg-light"
-                                                          onClick={() =>{
-                                                            handleRequestSaveVideo(
-                                                              activeItem
-                                                            )
-                                                            // handleShow1
+                                                          onClick={() => {
+                                                            // handleRequestSaveVideo(
+                                                            //   activeItem
+                                                            // );
+                                                            handleShow1();
+                                                            setPostId(
+                                                              video?._id
+                                                            );
                                                           }}
                                                         >
                                                           <svg
@@ -1178,7 +1214,9 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <div className="input-des">{request?.description}</div>
+                                      <div className="input-des">
+                                        {request?.description}
+                                      </div>
                                       {/* <Form.Control
                                         as="textarea"
                                         placeholder=""
@@ -1197,7 +1235,9 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <div className="input-des">{request?.avoidedDetails}</div>
+                                      <div className="input-des">
+                                        {request?.avoidedDetails}
+                                      </div>
                                       {/* <Form.Control
                                         as="textarea"
                                         placeholder=""
@@ -1216,7 +1256,9 @@ function RequestData({
                                       </Form.Label>
                                     </div>
                                     <div className="col-9">
-                                      <div className="input-des">{request?.addDetails}</div>
+                                      <div className="input-des">
+                                        {request?.addDetails}
+                                      </div>
                                       {/* <Form.Control
                                         as="textarea"
                                         placeholder=""

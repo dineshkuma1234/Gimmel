@@ -32,8 +32,10 @@ function PageComponent() {
       const [getSaveVideo,setGetSaveVideo] = useState([]);
       const [getSubFolder,setGetFolderSub]= useState();
       const [suggested,setsuggested]=useState()
-      const postId = id?.video_id|| id;
-      const [value, setValue] = useState(null);
+      // const postId = id?.video_id|| id;
+      const [postId, setPostId] = useState(id);
+
+      const [value, setValue] = useState("");
     
     
       useEffect(() => {
@@ -50,7 +52,7 @@ function PageComponent() {
         // handleSaveVideonext(selectedFolderId)
     }, []);
     
-    console.log(getSaveVideo,"getSaveVideo-----------")
+    // console.log(getSaveVideo,"getSaveVideo-----------")
     
     useEffect(() => {
     if (selectedFolderId) {
@@ -290,6 +292,7 @@ const handleGetPostid = async () => {
 
       const result = await AuthService.SaveVideo(selectedFolderId, postId);
       if (result?.success) {
+        handlegetVideoRequest(id);
         // handleGetPost();
         // setNoLoad(false); 
         // setPage(1);
@@ -448,6 +451,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
             handleSaveVideonext={handleSaveVideonext}
             handleSaveSubFolderVideo={handleSaveSubFolderVideo}
             handleDeleteSubFolder={handleDeleteSubFolder}
+            setPostId={setPostId}
         />
       ) : (
         <>

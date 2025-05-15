@@ -88,6 +88,7 @@ function VideoDetails({
   handleSaveVideonext,
   handleSaveSubFolderVideo,
   handleDeleteSubFolder,
+  setValue,setPostId
 }) {
   const [color, setColor] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -98,7 +99,7 @@ function VideoDetails({
 
   useEffect(() => {
     if (!show1) {
-      setSubfolder(""); 
+      setSubfolder("");
     }
   }, [show1]);
 
@@ -131,8 +132,9 @@ function VideoDetails({
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const toggleDropdown = () => {
+  const toggleDropdown = (data) => {
     setIsDropdownOpen(!isDropdownOpen);
+    setPostId(data?._id)
   };
 
   const handleClickOutside = (event) => {
@@ -357,6 +359,8 @@ function VideoDetails({
         inerFolder={inerFolder}
         setSelectFolder={setSelectFolder}
         selectFolder={selectFolder}
+        setValue={setValue}
+        setSubfolderView={setSubfolderView}
       />
       {/* Share Modal */}
       <Modal
@@ -567,19 +571,8 @@ function VideoDetails({
                         />
                         Share
                       </button>
-                      <button
-                        className="btn btn-light-bg"
-                        onClick={(e) => {
-                          const token = localStorage.getItem("token");
-                          if (!token) {
-                            e.preventDefault(); // Prevents navigation
-                            setIsOpen(true);
-                          } else {
-                            handleShow1();
-                          }
-                        }}
-                      >
-                        {localStorage.getItem("token") && data?.isSaved ? (
+                      {data?.isSaved ? (
+                        <button className="btn btn-light-bg orange-active">
                           <svg
                             width="32"
                             height="32"
@@ -592,7 +585,22 @@ function VideoDetails({
                               fill="#F18D51"
                             />
                           </svg>
-                        ) : (
+                          Saved
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-light-bg"
+                          onClick={(e) => {
+                            const token = localStorage.getItem("token");
+                            if (!token) {
+                              e.preventDefault(); // Prevents navigation
+                              setIsOpen(true);
+                            } else {
+                              handleShow1();
+                              setPostId(data?._id)
+                            }
+                          }}
+                        >
                           <svg
                             width="32"
                             height="32"
@@ -605,9 +613,10 @@ function VideoDetails({
                               fill="#104E5B"
                             />
                           </svg>
-                        )}
-                        Save
-                      </button>
+                          Save
+                        </button>
+                      )}
+
                       <button
                         className="btn btn-light-bg"
                         onClick={handleShow4}
@@ -621,7 +630,7 @@ function VideoDetails({
                       <div className="more-btn" ref={dropdownRef}>
                         <button
                           className="btn btn-light-bg w-40"
-                          onClick={toggleDropdown}
+                          onClick={()=>{toggleDropdown(data)}}
                         >
                           <MdMoreVert />
                         </button>
@@ -638,20 +647,8 @@ function VideoDetails({
                                 </button>
                               </li>
                               <li>
-                                <button
-                                  variant="primary"
-                                  onClick={(e) => {
-                                    const token = localStorage.getItem("token");
-                                    if (!token) {
-                                      e.preventDefault(); // Prevents navigation
-                                      setIsOpen(true);
-                                    } else {
-                                      handleShow1();
-                                    }
-                                  }}
-                                >
-                                  {localStorage.getItem("token") &&
-                                  data?.isSaved ? (
+                                {data?.isSaved ? (
+                                  <button className="active">
                                     <svg
                                       width="32"
                                       height="32"
@@ -664,7 +661,22 @@ function VideoDetails({
                                         fill="#F18D51"
                                       />
                                     </svg>
-                                  ) : (
+                                    Save to your library
+                                  </button>
+                                ) : (
+                                  <button
+                                    variant="primary"
+                                    onClick={(e) => {
+                                      const token =
+                                        localStorage.getItem("token");
+                                      if (!token) {
+                                        e.preventDefault(); // Prevents navigation
+                                        setIsOpen(true);
+                                      } else {
+                                        handleShow1();
+                                      }
+                                    }}
+                                  >
                                     <svg
                                       width="32"
                                       height="32"
@@ -677,9 +689,9 @@ function VideoDetails({
                                         fill="#104E5B"
                                       />
                                     </svg>
-                                  )}
-                                  Save
-                                </button>
+                                    Save
+                                  </button>
+                                )}
                               </li>
                               <li>
                                 <button variant="primary" onClick={handleShow2}>
@@ -1019,10 +1031,11 @@ function VideoDetails({
                               selectedFolderId={selectedFolderId}
                               handleDeleteSubFolder={handleDeleteSubFolder}
                               handleSaveVideonext={handleSaveVideonext}
-                              handleSaveSubFolderVideo={
-                                handleSaveSubFolderVideo
-                              }
+                              handleSaveSubFolderVideo={handleSaveSubFolderVideo}
                               calculateMonthsAgo={calculateMonthsAgo}
+                               setValue={setValue}
+                               setSubfolderView={setSubfolderView}
+                               setPostId={setPostId}
                             />
                           </div>
                         </Tab.Pane>

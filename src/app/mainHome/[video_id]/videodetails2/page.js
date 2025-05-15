@@ -33,6 +33,7 @@ function PageComponent() {
   const [shareLink,setShareLink] = useState("")
   const [selectedTopics, setSelectedTopics] = useState([]);
   const postId = id?.video_id|| id;
+  const [postIds, setPostId] = useState("");
   const {setLoader} = UseLoader()
   const [deviceWidth, setDeviceWidth] = useState(0);
   const [suggested,setsuggested]=useState()
@@ -67,7 +68,7 @@ function PageComponent() {
  
   useEffect(() => {
     if (selectedFolderId) {
-        // handleSaveVideonext(selectedFolderId);
+        handleSaveVideonext(selectedFolderId);
     }
 }, [selectedFolderId]);
  
@@ -498,46 +499,38 @@ function PageComponent() {
     };
  
     const handleSaveVideo = async () => {
-      // ("handleSaveVideo function called");
- 
-      // setLoader(true);
- 
-      if(!selectedFolderId){
-        // ("No folder selected. Exiting function.");
- 
-        // AlertHelper.show('warning', 'Gimmel',"Please select folder");
-        return;
+    
+    if (!selectedFolderId) {
+      toast.error( "Please select folder", {
+          className: "custom-toast",
+        });
+      return;
+    }
+    setLoader(true);
+
+    try {
+      // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+
+      const result = await AuthService.SaveVideo(selectedFolderId, postIds);
+      if (result?.success) {
+        handleGetSuggested();
+        setLoader(false);
+        setSelectedFolderId(null);
+      //  console.log("  id save after check")
+        handleGetPostid();
+         toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
+      } else {
+        setLoader(false);
       }
-      // setLoader(false);
- 
-      try {
-        // ("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
- 
-        const result = await AuthService.SaveVideo(selectedFolderId, postId);
-        if (result?.success) {
-          // ("Video saved successfully:", result);
- 
-          // setLoader(false);
-          setSelectedFolderId(null)
-          // navigation.navigate("videodetails2");
-          handleGetPostid()
-          // navigation.setParams({
-          //   data: null,
-          // });
-          // ("Navigation to videodetails2 triggered.");
- 
-          // AlertHelper.show('success', 'Gimmel', result?.data);
-        } else {
-          // setLoader(false);
-          // ("Failed to save video. Error message:", result?.message);
- 
-          // AlertHelper.show('danger', 'Gimmel', result?.message);
-        }
-      } catch (error) {
-        // setLoader(false);
-        // ('Error occurred:', 'Gimmel', error);
-      }
-    };
+    } catch (error) {
+      setLoader(false);
+      // console.log('Error occurred:', 'Gimmel', error);
+    } finally {
+      setLoader(false);
+    }
+  };
   
     const handleSaveSubFolderVideo = async (selectSubFolder,selectFolder) => {
       // console.log("sub folder Api")
@@ -567,18 +560,18 @@ function PageComponent() {
       }
   };
 
-  const handleSaveVideonext = async (selectedFolderId) => {
+  const handleSaveVideonext = async (id) => {
  
     // LoaderHelper.loaderStatus(true);
     try {
       ("Calling API to fetch saved videos...");
-      const result = await AuthService.GetSaveVideo(selectedFolderId);
+      const result = await AuthService.GetSaveVideo(id);
 
 
       if (result?.success) {
 
         // LoaderHelper.loaderStatus(false);
-        setGetSaveVideo(result?.videos);
+        setGetSaveVideo(result?.data?.videos);
       } else {
 
         // LoaderHelper.loaderStatus(false);
@@ -647,6 +640,7 @@ function PageComponent() {
         // setLoader(false); // Ensure loader stops after API call
       }
     };
+    console.log(suggested,"suggested-------")
  
  
    
@@ -848,6 +842,7 @@ const handleDeleteSubFolder = async (id,SubFolderId) => {
     handleSaveVideonext={handleSaveVideonext}
     handleSaveSubFolderVideo={handleSaveSubFolderVideo}
     handleDeleteSubFolder={handleDeleteSubFolder}
+    setPostId={setPostId}
     />
   ) : (
     <WatchVideo getvideoid={getvideoid} data={data} VideoDetailsState={VideoDetailsState} getQuiz={getQuiz} getFolder={getFolder} rename={rename} setValue={setValue} handleCreateFolder={handleCreateFolder} handleDeleteFolder={handleDeleteFolder} handleRename={handleRename} handleSaveVideo={handleSaveVideo} setSelectedFolderId={setSelectedFolderId} setRename={setRename} handleSharePost={handleSharePost} shareLink={shareLink} setSelectedTopics={setSelectedTopics} selectedTopics={selectedTopics} handleReportPost={handleReportPost} suggested={suggested} handleNotIntrested={handleNotIntrested} getSaveVideo={getSaveVideo} getSubFolder={getSubFolder} handleCreateFolderSub={handleCreateFolderSub} handleGetFolderSub={handleGetFolderSub} handleQuizPdf={handleQuizPdf} getid={getid} quizRegenrate={quizRegenrate} getDiscussion={getDiscussion} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate} getActivity={getActivity}  handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate} getHomeWork={getHomeWork} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate} getTest={getTest} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}

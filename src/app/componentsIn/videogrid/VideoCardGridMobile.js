@@ -17,6 +17,7 @@ import { formatDuration } from "@/app/utils/monthsAgo/page";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import { useunauthModal } from "@/components/unauthmobile/page";
 
+
 const VideoCard = ({
   video,
   index,
@@ -55,6 +56,7 @@ const VideoCard = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { openModal, setIsOpenuauth } = useunauthModal();
+  console.log("videogridmobile file ")
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -751,24 +753,7 @@ const VideoCard = ({
                             See full summary
                           </button>
                         </li>
-                        <li className="hide_mobile">
-                          <button variant="primary" onClick={handleShow1}>
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                fill="#242424"
-                              />
-                            </svg>
-                            Save
-                          </button>
-                        </li>
-                        <li className="show_mobile">
+                        <li>
                           {/* <Link href="/savelibrary"> */}
                           <button
                             variant="primary"
@@ -779,9 +764,7 @@ const VideoCard = ({
                                 setIsOpenuauth(true);
                                 setIsDropdownOpen(false);
                               } else {
-                                setIsDropdownOpen(false);
-                                setSaveVideoScreen(true);
-                                setShow2(false);
+                               router.push("/savelibrary")
                               }
                             }}
                           >
@@ -893,33 +876,13 @@ const VideoCardGrid = ({
   selectedFolderId,
   saveVideoScreen,
   setSaveVideoScreen,
+  setSelectedFolderId
 }) => {
   const { loaderState } = UseLoader();
   return (
     <div className="row">
-      {saveVideoScreen ? (
-        <SaveLibrary
-          getFolder={getFolder}
-          handleCreateFolder={handleCreateFolder}
-          handleDeleteFolder={handleDeleteFolder}
-          handleSaveVideo={handleSaveVideo}
-          setSelectedFolderId={setSelectedFolderId}
-          handleRename={handleRename}
-          rename={rename}
-          setRename={setRename}
-          getSaveVideo={getSaveVideo}
-          getSubFolder={getSubFolder}
-          handleCreateFolderSub={handleCreateFolderSub}
-          handleGetFolderSub={handleGetFolderSub}
-          selectedFolderId={selectedFolderId}
-          handleGetFolder={handleGetFolder}
-          handleDeleteSubFolder={handleDeleteSubFolder}
-          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-          handleSaveVideonext={handleSaveVideonext}
-          saveVideoScreen={saveVideoScreen}
-          setSaveVideoScreen={setSaveVideoScreen}
-        />
-      ) : getPost && Array.isArray(getPost) && getPost.length > 0 ? (
+      
+      {getPost && Array.isArray(getPost) && getPost.length > 0 ? (
         getPost?.map((video, index) => (
           <VideoCard
             key={`video-${index}`}

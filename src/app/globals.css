@@ -2707,3 +2707,7 @@ border: 1px solid  #104E5B ;
 .rename-modal .modal-dialog {
   max-width: 480px !important;
 }
+
+.orange-active{
+  color: var(--gimmel-orange) !important;
+}
