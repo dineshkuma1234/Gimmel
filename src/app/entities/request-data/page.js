@@ -52,7 +52,7 @@ function RequestData({
   handleCreateFolderSub,
   calculateMonthsAgo,
   handleGetFolderSub,
-  setSelectedFolderId,
+  setSelectedFolderId,setValue
 }) {
   const [renameModel, setRenameModel] = useState(false);
   const [Subfolder, setSubfolder] = useState();
@@ -121,6 +121,10 @@ function RequestData({
 
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
+
+  const [show7, setShow7] = useState(false);
+  const handleClose7 = () => setShow7(false);
+  const handleShow7 = () => setShow7(true);
 
   const handleNavigateSave = (item) => {
     // ('_id', _id)
@@ -428,7 +432,7 @@ function RequestData({
       </Modal>
 
       {/* Share Modal */}
-      <Modal
+      {/* <Modal
         show={show5}
         onHide={handleClose5}
         centered
@@ -486,27 +490,24 @@ function RequestData({
             </div>
           </div>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
 
       <RenameModel
-        renameModel={renameModel}
-        // show7={show}
-        handleClose7={handleClose}
+         renameModel={renameModel}
+        show7={show7}
+        handleClose7={handleClose7}
         setSubfolder={setSubfolder}
         rename={rename}
         setRename={setRename}
         handleRename={handleRename}
         setRenameModel={setRenameModel}
-        handleGetFolder={handleGetFolder}
         isDropdownOpenid={isDropdownOpenid}
-        getFolder={getFolder}
-        getSubFolder={getSubFolder}
-        subfolderid={subfolderid}
-        selectedFolderId={selectedFolderId}
+        setShow7={setShow7}
       />
       <DeleteModel
         deleteModel={deleteModel}
         show={show6}
+        setShow7={setShow6}
         handleClose={handleClose6}
         handleDeleteFolder={handleDeleteFolder}
         setDeleteModel={setDeleteModel}
@@ -518,9 +519,9 @@ function RequestData({
       />
 
       <SaveLibraryModal
-        // show_modal={show1}
+        show_modal={show1}
         close_library_modal={handleClose1}
-        handleShow={handleShow}
+        handleShow={handleShow7}
         show_new_folder_popup={handleShow5}
         setSubfolder={setSubfolder}
         subFolderView={subFolderView}
@@ -544,11 +545,13 @@ function RequestData({
         handleSaveSubFolderVideo={handleSaveSubFolderVideo}
         inerFolder={inerFolder}
         setSelectFolder={setSelectFolder}
-        selectFolder={selectFolder}
+        selectFolder={selectFolder} 
+        setValue={setValue}
+        setSubfolderView={setSubfolderView}
       />
       <NewfolderAdd
-        show={showshare}
-        handleClose={showshare}
+        show={show5}
+        handleClose={handleClose5}
         handleChange={handleChange}
         subFolderView={subFolderView}
         active={active}
@@ -1107,11 +1110,12 @@ function RequestData({
                                                         </button>
                                                         <button
                                                           className="btn btn-bg-light"
-                                                          onClick={() =>
+                                                          onClick={() =>{
                                                             handleRequestSaveVideo(
                                                               activeItem
                                                             )
-                                                          }
+                                                            // handleShow1
+                                                          }}
                                                         >
                                                           <svg
                                                             width="21"
