@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEllipsisV, FaCaretDown } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import  { calculateMonthsAgo,formatDuration } from "@/app/utils/monthsAgo/page";
+import { calculateMonthsAgo, formatDuration } from "@/app/utils/monthsAgo/page";
 
 import RenameModel from "@/components/Models/Rename";
 import DeleteModel from "@/components/Models/Delete";
@@ -31,101 +31,96 @@ function Suggested({
   handleSaveSubFolderVideo,
   handleCreateFolderSub,
   calculateMonthsAgo,
-  handleGetFolderSub
+  handleGetFolderSub,
+  setValue,setPostId,
+  // setSubfolderView,
 }) {
+  const [renameModel, setRenameModel] = useState(false);
+  const [Subfolder, setSubfolder] = useState();
+  const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
+  const [subfolderid, setsubfolderid] = useState(null);
+  const [deleteModel, setDeleteModel] = useState(false);
+  const [inerFolder, setinerFolder] = useState();
+  const [selectFolder, setSelectFolder] = useState(null);
+  const [subFolderView, setSubfolderView] = useState(false);
+  const [subfolderName, setSubfolderName] = useState("");
+  const [color, setColor] = useState(false);
+  const [active, setActive] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [addnewFolder, setAddNewFolder] = useState("");
+  const [selectedValue, setSelectedValue] = useState([]);
+  const { openModal, setIsOpen } = useModal();
 
-    const [renameModel, setRenameModel] = useState(false);
-    const [Subfolder, setSubfolder] = useState();
-    const [isDropdownOpenid, setisDropdownOpenid] = useState(null);
-    const [subfolderid, setsubfolderid] = useState(null);
-    const [deleteModel, setDeleteModel] = useState(false);
-    const [inerFolder, setinerFolder] = useState()
-    const [selectFolder, setSelectFolder] = useState(null);
-    const [subFolderView, setSubfolderView] = useState(false);
-   const [subfolderName, setSubfolderName] = useState("");
-   const [color, setColor] = useState(false);
-   const [active, setActive] = useState(null);
-   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-   const [folders, setFolders] = useState([]);
-   const [addnewFolder, setAddNewFolder] = useState("");
-   const [selectedValue, setSelectedValue] = useState([]);
-    const { openModal,setIsOpen } = useModal(); 
-    
-    const dropdownRefnwe = useRef(null);
-    const dropdownRef = useRef()
+  const dropdownRefnwe = useRef(null);
+  const dropdownRef = useRef();
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    const [show6, setShow6] = useState(false);
-    const handleClose6 = () => setShow6(false);
-    const handleShow6 = () => setShow6(true);
-  
-    const [show1, setShow1] = useState(false);
-    const handleClose1 = () => {
-      setShow1(false);
-      setSubfolder("");
-      setSubfolderView(false);
-    };
-    const handleShow1 = () => setShow1(true);
- const [show5, setShow5] = useState(false);
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = () => setShow6(true);
+
+  const [show1, setShow1] = useState(false);
+  const handleClose1 = () => {
+    setShow1(false);
+    setSubfolder("");
+    setSubfolderView(false);
+  };
+  const handleShow1 = () => setShow1(true);
+  const [show5, setShow5] = useState(false);
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true);
-  
- const [show8, setShow8] = useState(false);
+
+  const [show8, setShow8] = useState(false);
   const handleClose8 = () => setShow8(false);
   const handleShow8 = () => setShow8(true);
-    const handleNavigateSave = (item) => {
-      // ('_id', _id)
-      setSelectedFolderId(item?._id);
-      setSubfolderName(item?.name);
-      setSubfolderView(true);
-      // setActive(item?._id);
-      setsubfolderid(item?._id);
-      setinerFolder(item?._id)
-      // handleCreateFolderSub(addnewFolder);
-      handleGetFolderSub(item?._id)
-    };
-
-    const handleNavigatename = (item) => {
-      // ('_id', _id)
-      setSelectedFolderId(item?._id);
-      setColor(true);
-      setActive(item?._id);
-      handleGetFolderSub(item?._id)
-    };
-
-    const handleChange = (e) => {
-      if (subFolderView) {
-        setAddNewFolder(e.target.value);
-      } else {
-        setFolders(e.target.value);
-      }
-    };
-
-    
-
-    const toggleDropdownnwe = (item) => {
-      // (item,"if")
-      setisDropdownOpenid((prev) => (prev === item ? null : item));
-      setThreeDotItem(item);
-    };
-
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-  
-  
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const handleNavigateSave = (item) => {
+    // ('_id', _id)
+    setSelectedFolderId(item?._id);
+    setSubfolderName(item?.name);
+    setSubfolderView(true);
+    // setActive(item?._id);
+    setsubfolderid(item?._id);
+    setinerFolder(item?._id);
+    // handleCreateFolderSub(addnewFolder);
+    handleGetFolderSub(item?._id);
   };
 
- 
+  const handleNavigatename = (item) => {
+    // ('_id', _id)
+    setSelectedFolderId(item?._id);
+    setColor(true);
+    setActive(item?._id);
+    handleGetFolderSub(item?._id);
+  };
+
+  const handleChange = (e) => {
+    if (subFolderView) {
+      setAddNewFolder(e.target.value);
+    } else {
+      setFolders(e.target.value);
+    }
+  };
+
+  const toggleDropdownnwe = (item) => {
+    // (item,"if")
+    setisDropdownOpenid((prev) => (prev === item ? null : item));
+    setThreeDotItem(item);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  const toggleDropdown = (video) => {
+    setIsDropdownOpen(!isDropdownOpen);
+    setPostId(video?._id)
+  };
 
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
@@ -133,13 +128,9 @@ function Suggested({
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
- 
-  
 
-    const [threeDotItem, setThreeDotItem] = useState(null);
-   
-  
- 
+  const [threeDotItem, setThreeDotItem] = useState(null);
+
   const convertToKM = (num) => {
     if (num >= 1000000) {
       return `${(num / 1000000).toFixed(1)}M`;
@@ -176,11 +167,6 @@ function Suggested({
     return timeAgo;
   };
 
-  
-
-
- 
-
   const isTopicSelected = (topicText) => selectedTopics.includes(topicText);
 
   const deselectAll = () => {
@@ -195,19 +181,13 @@ function Suggested({
     }
   };
 
-
- 
   const copyUrl = () => {
     navigator.clipboard.writeText(shareLink);
   };
   const Share = [];
 
-
- 
-
   return (
     <>
-   
       {/* <RenameModel
         renameModel={renameModel}
         show7={show}
@@ -219,21 +199,21 @@ function Suggested({
         setRenameModel={setRenameModel}
       /> */}
 
-     
+      <Modal
+        show={show8}
+        onHide={handleClose8}
+        centered
+        className="custom-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Full Summary</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{video?.description}</p>
+        </Modal.Body>
+      </Modal>
 
-     
-
-      <Modal show={show8} onHide={handleClose8} centered className='custom-modal'>
-                <Modal.Header closeButton>
-                    <Modal.Title>Full Summary</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>{video?.description}</p>
-     </Modal.Body>
-            </Modal>
-
-        
-       <RenameModel
+      <RenameModel
         renameModel={renameModel}
         show7={show}
         handleClose7={handleClose}
@@ -249,7 +229,7 @@ function Suggested({
         subfolderid={subfolderid}
         selectedFolderId={selectedFolderId}
       />
-   
+
       <DeleteModel
         deleteModel={deleteModel}
         show={show6}
@@ -262,7 +242,7 @@ function Suggested({
         handleDeleteSubFolder={handleDeleteSubFolder}
         selectFolder={selectFolder}
       />
-       <SaveLibraryModal
+      <SaveLibraryModal
         show_modal={show1}
         close_library_modal={handleClose1}
         handleShow={handleShow}
@@ -290,8 +270,10 @@ function Suggested({
         inerFolder={inerFolder}
         setSelectFolder={setSelectFolder}
         selectFolder={selectFolder}
+        setValue={setValue}
+        setSubfolderView={setSubfolderView}
       />
-        <NewfolderAdd
+      <NewfolderAdd
         show={show5}
         handleClose={handleClose5}
         handleChange={handleChange}
@@ -315,7 +297,7 @@ function Suggested({
                   alt="video card"
                 />
                 <div className="video-duration">
-                {formatDuration(video?.duration)}
+                  {formatDuration(video?.duration)}
                 </div>
               </div>
             </Link>
@@ -331,7 +313,7 @@ function Suggested({
                   </h4>
                 </div>
                 <div className="more-btn" ref={dropdownRef}>
-                  <button className="btn btn-more" onClick={toggleDropdown}>
+                  <button className="btn btn-more" onClick={()=>toggleDropdown(video)}>
                     <FaEllipsisV />
                   </button>
                   {isDropdownOpen && (
@@ -347,16 +329,35 @@ function Suggested({
                           </button>
                         </li>
                         <li>
-                          <button variant="primary" 
-                           onClick={(e) => {
-                            const token = localStorage.getItem("token");
-                            if (!token) {
-                            e.preventDefault(); // Prevents navigation
-                            setIsOpen(true);
-                            } else {
-                              handleShow1()
-                           }
-                        }}
+                          {video?.isSaved?(
+                            <button className="active">
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                  fill="#F18D51"
+                                />
+                              </svg>
+                              Save to your library
+                            </button>
+                          ):(
+                            <button
+                            variant="primary"
+                            onClick={(e) => {
+                              const token = localStorage.getItem("token");
+                              if (!token) {
+                                e.preventDefault(); // Prevents navigation
+                                setIsOpen(true);
+                              } else {
+                                handleShow1();
+                                setPostId(video?._id);
+                              }
+                            }}
                           >
                             <svg
                               width="32"
@@ -372,20 +373,23 @@ function Suggested({
                             </svg>
                             Save
                           </button>
+                          )}
+                          
                         </li>
                         <div className="dropdown-divider"></div>
                         <li>
                           <button
-                            href="#"                         
+                            href="#"
                             onClick={(e) => {
                               const token = localStorage.getItem("token");
                               if (!token) {
-                              e.preventDefault(); // Prevents navigation
-                              setIsOpen(true);
+                                e.preventDefault(); // Prevents navigation
+                                setIsOpen(true);
                               } else {
                                 handleNotIntrested(video?._id);
-                                setIsDropdownOpen(false);                             }
-                          }}
+                                setIsDropdownOpen(false);
+                              }
+                            }}
                           >
                             <Image
                               src={require("../../../assets/images/notIntrest.svg")}
@@ -456,7 +460,9 @@ const SuggestedCardGrid = ({
   getSubFolder,
   handleCreateFolderSub,
   handleGetFolderSub,
-  calculateMonthsAgo
+  calculateMonthsAgo,
+  setValue,
+  setSubfolderView,setPostId
 }) => (
   <div className="row">
     {suggested?.map((video, index) => (
@@ -477,6 +483,9 @@ const SuggestedCardGrid = ({
         handleCreateFolderSub={handleCreateFolderSub}
         handleGetFolderSub={handleGetFolderSub}
         calculateMonthsAgo={calculateMonthsAgo}
+        setValue={setValue}
+        setSubfolderView={setSubfolderView}
+        setPostId={setPostId}
       />
     ))}
   </div>

@@ -247,7 +247,7 @@ function SaveLibraryModal({
                         <div
                           className="folder-inner"
                           onClick={() => {
-                            console.log("item++++++++");
+                            // console.log("item++++++++");
                             handleNavigateSave(item);
                             handleSaveVideonext(item?._id);
                             setSelectSubFolderId(item?._id);

@@ -95,7 +95,7 @@ export default function PageComponent() {
   }, [loading, noLoad]);
 
   const handleGetPost = async (page) => {
-    console.log("Page number:", page);
+    // console.log("Page number:", page);
     setLoading(true);
     setLoader(true);
 
@@ -581,7 +581,7 @@ export default function PageComponent() {
       if (result?.success) {
         // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('success', 'Gimmel', result?.data);
-        handleGetFolderSub();
+        handleGetFolderSub(selectedFolderId);
       } else {
         // LoaderHelper.loaderStatus(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message  );

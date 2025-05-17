@@ -37,24 +37,26 @@ export default function RootLayout({ children }) {
       <Suspense fallback={<Loading />}>
         <LoaderProvider>
           {/* <CategoriesProvider> */}
+          <SaveProvider>
           <SearchListProvider>
           <HeaderProvider >
             <RequestProvider>
               <UnAuthModalProvider>
               <ModalProvider>
-          {/* <SaveProvider> */}
+          
             <LoaderSetup /> {/* Separate component for useEffect */}
             <Loader /> {/* Your global loader */}
            
             {/* <Header /> */}
             {children}
             
-            {/* </SaveProvider> */}
+            
             </ModalProvider>
             </UnAuthModalProvider>
             </RequestProvider>
             </HeaderProvider>
           </SearchListProvider>
+          </SaveProvider>
           {/* </CategoriesProvider> */}
          
         </LoaderProvider>

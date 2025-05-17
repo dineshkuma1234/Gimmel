@@ -16,6 +16,8 @@ import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import { useunauthModal } from "@/components/unauthmobile/page";
+import { useSave } from "@/app/Context/saveContext/SaveContext";
+
 
 const VideoCard = ({
   video,
@@ -55,7 +57,9 @@ const VideoCard = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { openModal, setIsOpenuauth } = useunauthModal();
+  // console.log("videogridmobile file ")
 
+  const {setPostId}=useSave();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -751,25 +755,25 @@ const VideoCard = ({
                             See full summary
                           </button>
                         </li>
-                        <li className="hide_mobile">
-                          <button variant="primary" onClick={handleShow1}>
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                fill="#242424"
-                              />
-                            </svg>
-                            Save
-                          </button>
-                        </li>
-                        <li className="show_mobile">
+                        <li>
                           {/* <Link href="/savelibrary"> */}
+                          {video?.isSaved ? (
+                            <button className="active">
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                  fill="#F18D51"
+                                />
+                              </svg>
+                              Save to your library
+                            </button>
+                          ) : (
                           <button
                             variant="primary"
                             onClick={(e) => {
@@ -779,9 +783,8 @@ const VideoCard = ({
                                 setIsOpenuauth(true);
                                 setIsDropdownOpen(false);
                               } else {
-                                setIsDropdownOpen(false);
-                                setSaveVideoScreen(true);
-                                setShow2(false);
+                                setPostId(video?._id);
+                               router.push("/savelibrary")
                               }
                             }}
                           >
@@ -799,6 +802,7 @@ const VideoCard = ({
                             </svg>
                             Save
                           </button>
+                          )}
                           {/* </Link> */}
                         </li>
 
@@ -893,33 +897,13 @@ const VideoCardGrid = ({
   selectedFolderId,
   saveVideoScreen,
   setSaveVideoScreen,
+  setSelectedFolderId
 }) => {
   const { loaderState } = UseLoader();
   return (
     <div className="row">
-      {saveVideoScreen ? (
-        <SaveLibrary
-          getFolder={getFolder}
-          handleCreateFolder={handleCreateFolder}
-          handleDeleteFolder={handleDeleteFolder}
-          handleSaveVideo={handleSaveVideo}
-          setSelectedFolderId={setSelectedFolderId}
-          handleRename={handleRename}
-          rename={rename}
-          setRename={setRename}
-          getSaveVideo={getSaveVideo}
-          getSubFolder={getSubFolder}
-          handleCreateFolderSub={handleCreateFolderSub}
-          handleGetFolderSub={handleGetFolderSub}
-          selectedFolderId={selectedFolderId}
-          handleGetFolder={handleGetFolder}
-          handleDeleteSubFolder={handleDeleteSubFolder}
-          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-          handleSaveVideonext={handleSaveVideonext}
-          saveVideoScreen={saveVideoScreen}
-          setSaveVideoScreen={setSaveVideoScreen}
-        />
-      ) : getPost && Array.isArray(getPost) && getPost.length > 0 ? (
+      
+      {getPost && Array.isArray(getPost) && getPost.length > 0 ? (
         getPost?.map((video, index) => (
           <VideoCard
             key={`video-${index}`}

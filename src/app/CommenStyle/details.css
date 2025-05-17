@@ -64,6 +64,10 @@
     gap: 8px;
 }
 
+.btn-light-bg.orange-active{
+    color: var(--gimmel-orange) !important;
+}
+
 .btn-light-bg svg {
     width: 20px;
     height: 20px;
@@ -344,6 +348,9 @@ ul.account-list li {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-break:break-all;
+    margin-bottom: 10px;
+    line-height: 18px;
 }
 
 .suggested-card .video-card-image img {

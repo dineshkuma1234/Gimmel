@@ -1,47 +1,316 @@
-"use client "
+"use client ";
 
-import { useState,useEffect,useContext,createContext } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import AuthService from "../../../../src/services/AuthService";
+import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
+const SaveContext = createContext();
 
+export const SaveProvider = ({ children }) => {
+  const { setLoader } = UseLoader();
+  const router=useRouter();
 
-const SaveContext= createContext();
-  
-export const SaveProvider=({Children})=>{
-    const [getSaveVideo,setGetSaveVideo] = useState([]);
-    const [selectedFolderId, setSelectedFolderId] = useState(null);
-   useEffect(() => {
-      if (selectedFolderId) {
-          handleSaveVideonext(selectedFolderId);
+  const [getSaveVideo, setGetSaveVideo] = useState([]);
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [getFolder, setGetFolder] = useState("");
+  const [getSubFolder, setGetFolderSub] = useState();
+  const [value, setValue] = useState(null);
+  const [postId,setPostId]=useState("")
+  const [selectIcon , setSelectIcon] = useState(true);
+//  console.log(postId,"postId++++")
+//  console.log(selectedFolderId,"selectedFolderId0000000")
+  useEffect(() => {
+    // console.log()
+    // console.log(selectedFolderId, "selectedFolderId++++++++++++++++++++")
+    if (selectedFolderId) {
+      handleSaveVideonext(selectedFolderId);
       }
-  }, [selectedFolderId]);
-   const handleSaveVideonext = async (selectedFolderId) => {
-        // LoaderHelper.loaderStatus(true);
-        try {
-          const result = await AuthService.GetSaveVideo(selectedFolderId);
-          if (result?.success) {
-            LoaderHelper.loaderStatus(false);
-            setGetSaveVideo(result?.videos);
-            // (result,"result++++++++++++++++++++++")
-          } else {
-            // LoaderHelper.loaderStatus(false);
-            // AlertHelper.show('danger', 'Gimmel', result?.message || result );
-          }
-        } catch (error) {
-          // LoaderHelper.loaderStatus(false);
-          // ('Error occurred:', 'Gimmel', error);
+  }, [selectedFolderId,selectIcon]);
+
+  useEffect(()=>{
+    handleGetFolder();
+  },[])
+   useEffect(() => {
+    handleGetFolderSub(selectedFolderId, value);
+  }, [value])
+
+  const handleGetFolder = async () => {
+    // setLoader(true);
+    try {
+      const result = await AuthService.GetFolder();
+      if (result?.success) {
+        // (result,"result of get folder")
+        // LoaderHelper.loaderStatus(false);
+        setGetFolder(result?.data?.data);
+      } else {
+        // setLoader(false);
+      }
+    } catch (error) {
+      // setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  const handleCreateFolder = async (folders) => {
+    setLoader(true);
+    try {
+      const result = await AuthService.createFolder(folders);
+      // (result, 'result');
+      if (result?.success) {
+        setLoader(false);
+        handleGetFolder();
+         toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
+      } else {
+        setLoader(false);
+        // AlertHelper.show("danger", "Gimmel", result?.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+    const handleRename = async (rename, id) => {
+    // console.log(rename, id, "rename and id --------------");
+    setLoader(true);
+    try {
+      const result = await AuthService.renames(rename, id);
+      if (result?.success) {
+        // console.log("yes its call rename")
+        setLoader(false);
+        handleGetFolder();
+        toast.success(result?.message || "success", {
+          className: "custom-toast-success",
+        });
+      } else {
+        setLoader(false);
+        // AlertHelper.show("danger", "Gimmel", result?.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+   const handleDeleteFolder = async (id) => {
+    setLoader(true);
+    try {
+      const result = await AuthService.deleteFolder(id);
+
+      // (result, "result---delete")
+      if (result?.success) {
+        setLoader(false);
+        handleGetFolder();
+        toast.success(result?.message || "success", {
+          className: "custom-toast-success",
+        });
+      } else {
+        setLoader(false);
+        // AlertHelper.show("danger", "Gimmel", result?.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+  
+  const handleSaveVideo = async () => {
+      
+      if (!selectedFolderId) {
+        toast.error( "Please select folder", {
+            className: "custom-toast",
+          });
+        return;
+      }
+      setLoader(true);
+  
+      try {
+        // console.log("Calling AuthService.SaveVideo with:", selectedFolderId, postId);
+  
+        const result = await AuthService.SaveVideo(selectedFolderId, postId);
+        if (result?.success) {
+          setLoader(false)
+           toast.success(result?.data || "success", {
+            className: "custom-toast-success",
+          });
+        router.push("/");
+        setSelectedFolderId(null)
+
+        } else {
+          setLoader(false);
         }
-      };
+      } catch (error) {
+        setLoader(false);
+        // console.log('Error occurred:', 'Gimmel', error);
+      } finally {
+        setLoader(false);
+      }
+    };
 
-    return(
-        <>
-        <SaveContext.Provider value={{
-         getSaveVideo,setSelectedFolderId
-        }}>
-            {Children}
-        </SaveContext.Provider>
-        </>
-    )
-}
+  const handleSaveVideonext = async (selectedFolderId) => {
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.GetSaveVideo(selectedFolderId);
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        setGetSaveVideo(result?.data?.videos);
+        // (result,"result++++++++++++++++++++++")
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message || result );
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
 
-export const useSave=()=>useContext(SaveContext);
+  //---------subFolder----------//
+
+
+  const handleCreateSubFolder = async (addnewFolder) => {
+    setLoader(true);
+    try {
+      const result = await AuthService.createSubFolder(selectedFolderId, addnewFolder);
+      result, "result---";
+      if (result?.success) {
+        setLoader(false);
+        toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
+        handleGetFolderSub();
+      } else {
+         setLoader(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message  );
+      }
+    } catch (error) {
+       setLoader(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+    const handleGetFolderSub = async () => {
+    // console.log("Get Subfolder function called with ID:", id,value);
+    // LoaderHelper.loaderStatus(true);
+    try {
+      const result = await AuthService.GetSubFolder(selectedFolderId, value);
+      if (result?.success) {
+        // LoaderHelper.loaderStatus(false);
+        result?.data?.data, "dat in api";
+        setGetFolderSub(result?.data?.data);
+      } else {
+        // LoaderHelper.loaderStatus(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message  );
+      }
+    } catch (error) {
+      // LoaderHelper.loaderStatus(false);
+      // ('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  const handleRenameFolder = async (rename, SubId) => {
+    setLoader(true)
+    try {
+      const result = await AuthService.RenameSubFolder(selectedFolderId, rename, SubId);
+      // console.log(result, 'result---');
+      if (result?.success) {
+        setLoader(false)
+        toast.success(result?.message || "success", {
+          className: "custom-toast-success",
+        });
+        handleGetFolderSub();
+        // setRename();
+      } else {
+        setLoader(false)
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+     setLoader(false)
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+  const handleDeleteSubFolder = async (subId) => {
+    setLoader(true);
+    try {
+      const result = await AuthService.DeleteSubFolder(selectedFolderId, subId);
+      if (result?.success) {
+        setLoader(false);
+        toast.success(result?.message || "success", {
+          className: "custom-toast-success",
+        });
+        handleGetFolderSub();
+      } else {
+        setLoader(false);
+        // AlertHelper.show('danger', 'Gimmel', result?.message);
+      }
+    } catch (error) {
+      setLoader(false);
+      console.log('Error occurred:', 'Gimmel', error);
+    }
+  };
+
+   const handleSaveSubFolderVideo = async (selectedSubFolder,selectedFolderId) => {
+    if (!selectedFolderId) {
+        toast.error( "Please select folder", {
+            className: "custom-toast",
+          });
+        return;
+      }
+      setLoader(true);
+    try {
+      const result = await AuthService.SaveSubFolderVideo(
+        postId,
+        selectedSubFolder,
+        selectedFolderId
+      );
+        if (result?.success) {
+        setLoader(false)
+          toast.success(result?.data || "success", {
+          className: "custom-toast-success",
+        });
+        router.push("/");
+       
+      } else {
+        setLoader(false);
+        
+      }
+    } catch (error) {
+      setLoader(false);
+    }
+  };
+
+  // console.log(getSaveVideo,"getSaveVideo 243 243v  ---------")
+  return (
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
+      <SaveContext.Provider
+        value={{
+          getSaveVideo,
+          selectedFolderId,
+          setSelectedFolderId,
+          handleCreateFolder,
+          getFolder,
+          handleRename,
+          handleDeleteFolder,
+          handleCreateSubFolder,
+          getSubFolder,
+          setValue,
+          handleGetFolderSub,
+          handleRenameFolder,
+          handleDeleteSubFolder,
+          setPostId,
+          handleSaveVideo,setSelectIcon,handleSaveSubFolderVideo
+        }}
+      >
+        {children}
+      </SaveContext.Provider>
+    </>
+  );
+};
+
+export const useSave = () => useContext(SaveContext);

@@ -22,6 +22,8 @@ import Link from "next/link";
 import SaveLibrary from "../savelibrary/page";
 import toast, { Toaster } from "react-hot-toast";
 import { useunauthModal } from "@/components/unauthmobile/page";
+import { useSave } from "@/app/Context/saveContext/SaveContext";
+import { useRouter } from "next/navigation";
 
 function WatchVideo({
   data,
@@ -46,22 +48,39 @@ function WatchVideo({
   idvideo,
   getReview,
   handleSendComment,
-   handleLikeReview,
-    handleDislikeReview,
-     handleReplayPost,
-  handleQuizPdf,getid,quizRegenrate,getDiscussion,handleDiscussPdf,discussionRegenrate,getActivity,handleActivityPdf,activityRegenrate,getHomeWork,handleHomeWorkPdf,homeworkRegenrate,getTest,handleTestPdf,TestRegenrate,
+  handleLikeReview,
+  handleDislikeReview,
+  handleReplayPost,
+  handleQuizPdf,
+  getid,
+  quizRegenrate,
+  getDiscussion,
+  handleDiscussPdf,
+  discussionRegenrate,
+  getActivity,
+  handleActivityPdf,
+  activityRegenrate,
+  getHomeWork,
+  handleHomeWorkPdf,
+  homeworkRegenrate,
+  getTest,
+  handleTestPdf,
+  TestRegenrate,
   handleSaveVideonext,
   handleSaveSubFolderVideo,
   handleDeleteSubFolder,
   selectedFolderId,
-  handleGetFolder
+  handleGetFolder,
 }) {
   // (data,"data in mobile viwe ==========")
   const [saveVideoScreen, setSaveVideoScreen] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-   const { openModal, setIsOpenuauth } = useunauthModal();
+  const { setPostId } = useSave();
+
+  const router = useRouter();
+  const { openModal, setIsOpenuauth } = useunauthModal();
 
   const [show2, setShow2] = useState(false);
 
@@ -215,23 +234,8 @@ function WatchVideo({
               </li>
               <li>
                 {/* <Link> */}
-                <button
-                  variant="primary"
-                  // onClick={() => {
-                  //   setSaveVideoScreen(true);
-                  //   
-                  // }}
-                  onClick={(e)=>{
-                    e.preventDefault();
-                    const token = localStorage.getItem("token");
-                    if (!token){
-                      setIsOpenuauth(true);
-                        setShow2(false);
-                    }
-
-                }}
-                >
-                  {data?.isSaved ? (
+                {data?.isSaved ? (
+                  <button className="active">
                     <svg
                       width="32"
                       height="32"
@@ -244,7 +248,23 @@ function WatchVideo({
                         fill="#F18D51"
                       />
                     </svg>
-                  ) : (
+                    Saved
+                  </button>
+                ) : (
+                  <button
+                    variant="primary"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const token = localStorage.getItem("token");
+                      if (!token) {
+                        setIsOpenuauth(true);
+                        setShow2(false);
+                      } else {
+                        setPostId(data?._id);
+                        router.push("/savelibrary");
+                      }
+                    }}
+                  >
                     <svg
                       width="32"
                       height="32"
@@ -257,20 +277,19 @@ function WatchVideo({
                         fill="#104E5B"
                       />
                     </svg>
-                  )}
-                  Save
-                </button>
+                    Save
+                  </button>
+                )}
+
                 {/* </Link> */}
               </li>
               <li>
                 <button
                   variant="primary"
-                  onClick={
-                      () => {
-                          handleShow();
-                          setShow2(false);
-                      }
-                  }
+                  onClick={() => {
+                    handleShow();
+                    setShow2(false);
+                  }}
                 >
                   <svg
                     width="22"
@@ -295,15 +314,14 @@ function WatchVideo({
                   //   handleShow4();
                   //   setShow2(false);
                   // }}
-                  onClick={(e)=>{
+                  onClick={(e) => {
                     e.preventDefault();
                     const token = localStorage.getItem("token");
-                    if (!token){
+                    if (!token) {
                       setIsOpenuauth(true);
-                        setShow2(false);
+                      setShow2(false);
                     }
-
-                }}
+                  }}
                 >
                   <svg
                     width="24"
@@ -637,25 +655,25 @@ function WatchVideo({
 
       {saveVideoScreen ? (
         <SaveLibrary
-        getFolder={getFolder}
-        handleCreateFolder={handleCreateFolder}
-        handleDeleteFolder={handleDeleteFolder}
-        handleSaveVideo={handleSaveVideo}
-        setSelectedFolderId={setSelectedFolderId}
-        handleRename={handleRename}
-        rename={rename}
-        setRename={setRename}
-        getSaveVideo={getSaveVideo}
-        getSubFolder={getSubFolder}
-        handleCreateFolderSub={handleCreateFolderSub}
-        handleGetFolderSub={handleGetFolderSub}
-        selectedFolderId={selectedFolderId}
-        handleGetFolder={handleGetFolder}
-        handleDeleteSubFolder={handleDeleteSubFolder}
-        handleSaveSubFolderVideo={handleSaveSubFolderVideo}
-        handleSaveVideonext={handleSaveVideonext}
-        saveVideoScreen={saveVideoScreen}
-        setSaveVideoScreen={setSaveVideoScreen}
+          getFolder={getFolder}
+          handleCreateFolder={handleCreateFolder}
+          handleDeleteFolder={handleDeleteFolder}
+          handleSaveVideo={handleSaveVideo}
+          setSelectedFolderId={setSelectedFolderId}
+          handleRename={handleRename}
+          rename={rename}
+          setRename={setRename}
+          getSaveVideo={getSaveVideo}
+          getSubFolder={getSubFolder}
+          handleCreateFolderSub={handleCreateFolderSub}
+          handleGetFolderSub={handleGetFolderSub}
+          selectedFolderId={selectedFolderId}
+          handleGetFolder={handleGetFolder}
+          handleDeleteSubFolder={handleDeleteSubFolder}
+          handleSaveSubFolderVideo={handleSaveSubFolderVideo}
+          handleSaveVideonext={handleSaveVideonext}
+          saveVideoScreen={saveVideoScreen}
+          setSaveVideoScreen={setSaveVideoScreen}
         />
       ) : (
         <>
@@ -681,7 +699,7 @@ function WatchVideo({
               </div>
               <div className="page-section-right">
                 <div className="add-folder-button">
-                  <button className="btn" onClick={handleShow} >
+                  <button className="btn" onClick={handleShow}>
                     <svg
                       width="32"
                       height="32"
@@ -695,27 +713,50 @@ function WatchVideo({
                       />
                     </svg>
                   </button>
-                  <button className="btn"  onClick={(e)=>{
-                      e.preventDefault();
-                      const token = localStorage.getItem("token");
-                      if (!token){
-                        setIsOpenuauth(true);
-                      }
-
-                  }}>
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                  {data?.isSaved ? (
+                    <button className=" btn active">
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                          fill="#F18D51"
+                        />
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      className="btn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const token = localStorage.getItem("token");
+                        if (!token) {
+                          setIsOpenuauth(true);
+                        } else {
+                          setPostId(data?._id);
+                          router.push("/savelibrary");
+                        }
+                      }}
                     >
-                      <path
-                        d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28ZM9.33268 23.9333L15.9993 21.0667L22.666 23.9333V6.66667H9.33268V23.9333Z"
-                        fill="#104E5B"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28ZM9.33268 23.9333L15.9993 21.0667L22.666 23.9333V6.66667H9.33268V23.9333Z"
+                          fill="#104E5B"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  
                 </div>
               </div>
             </div>
@@ -782,33 +823,16 @@ function WatchVideo({
                     </li>
                   </ul>
                 </div>
-                <div
-                  className="btn-list-container gap-8-flex"
-                  
-                >
-                  <button className="btn btn-light-bg" onClick={handleShow}> 
+                <div className="btn-list-container gap-8-flex">
+                  <button className="btn btn-light-bg" onClick={handleShow}>
                     <Image
                       src={require("../../../assets/images/share.svg")}
                       alt="Share"
                     />
                     Share
                   </button>
-                  <button
-                    className="btn btn-light-bg"
-                    // onClick={() => {
-                    //   setSaveVideoScreen(true);
-                    //   setShow2(false);
-                    // }}
-                    onClick={(e)=>{
-                      e.preventDefault();
-                      const token = localStorage.getItem("token");
-                      if (!token){
-                        setIsOpenuauth(true);
-                      }
-
-                  }}
-                  >
-                    {data?.isSaved ? (
+                  {data?.isSaved ? (
+                    <button className=" btn btn-light-bg active">
                       <svg
                         width="32"
                         height="32"
@@ -821,7 +845,22 @@ function WatchVideo({
                           fill="#F18D51"
                         />
                       </svg>
-                    ) : (
+                      Saved
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-light-bg"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const token = localStorage.getItem("token");
+                        if (!token) {
+                          setIsOpenuauth(true);
+                        } else {
+                          setPostId(data?._id);
+                          router.push("/savelibrary");
+                        }
+                      }}
+                    >
                       <svg
                         width="32"
                         height="32"
@@ -834,9 +873,10 @@ function WatchVideo({
                           fill="#104E5B"
                         />
                       </svg>
-                    )}
-                    Save
-                  </button>
+                      Save
+                    </button>
+                  )}
+
                   <button
                     className="btn btn-light-bg"
                     onClick={() => {
@@ -879,7 +919,9 @@ function WatchVideo({
                           <Nav.Link eventKey="first">Materials</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="second">Reviews  {getReview?.length || 0}</Nav.Link>
+                          <Nav.Link eventKey="second">
+                            Reviews {getReview?.length || 0}
+                          </Nav.Link>
                         </Nav.Item>
                       </Nav>
                     </Col>
@@ -900,53 +942,96 @@ function WatchVideo({
                                     <Nav.Link eventKey="first">Quiz</Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="second" disabled={!localStorage.getItem("token")}>
+                                    <Nav.Link
+                                      eventKey="second"
+                                      disabled={!localStorage.getItem("token")}
+                                    >
                                       Discussion
                                     </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="third" disabled={!localStorage.getItem("token")}>
+                                    <Nav.Link
+                                      eventKey="third"
+                                      disabled={!localStorage.getItem("token")}
+                                    >
                                       Activity
                                     </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="fourth" disabled={!localStorage.getItem("token")}>Homework</Nav.Link>
+                                    <Nav.Link
+                                      eventKey="fourth"
+                                      disabled={!localStorage.getItem("token")}
+                                    >
+                                      Homework
+                                    </Nav.Link>
                                   </Nav.Item>
                                   <Nav.Item>
-                                    <Nav.Link eventKey="fifth" disabled={!localStorage.getItem("token")}>
+                                    <Nav.Link
+                                      eventKey="fifth"
+                                      disabled={!localStorage.getItem("token")}
+                                    >
                                       Test
                                     </Nav.Link>
                                   </Nav.Item>
                                 </Nav>
-                                   {!localStorage.getItem("token") && (
-                                                        <div className="alert alert-warning custom-alert mt-3">
-                                                          <span className="Inform-Pop">
-                                                            <IoMdInformationCircle />
-                                                            You can generate pressurized attachments by
-                                                            registering and upgrading to our XY Plan.
-                                                          </span>
-                                                          <a href="/signup" className="button-sart-ragisration">
-                                                            Start Registration
-                                                          </a>
-                                                        </div>
-                                                      )}
+                                {!localStorage.getItem("token") && (
+                                  <div className="alert alert-warning custom-alert mt-3">
+                                    <span className="Inform-Pop">
+                                      <IoMdInformationCircle />
+                                      You can generate pressurized attachments
+                                      by registering and upgrading to our XY
+                                      Plan.
+                                    </span>
+                                    <a
+                                      href="/signup"
+                                      className="button-sart-ragisration"
+                                    >
+                                      Start Registration
+                                    </a>
+                                  </div>
+                                )}
                               </Col>
                               <Col sm={12}>
                                 <Tab.Content>
                                   <Tab.Pane eventKey="first">
-                                    <Step1 getQuiz={getQuiz} getid={getid} handleQuizPdf={handleQuizPdf}  quizRegenrate={quizRegenrate}/>
+                                    <Step1
+                                      getQuiz={getQuiz}
+                                      getid={getid}
+                                      handleQuizPdf={handleQuizPdf}
+                                      quizRegenrate={quizRegenrate}
+                                    />
                                   </Tab.Pane>
                                   <Tab.Pane eventKey="second">
-                                    <Step2 getDiscussion={getDiscussion}  getid={getid} handleDiscussPdf={handleDiscussPdf} discussionRegenrate={discussionRegenrate}/>
+                                    <Step2
+                                      getDiscussion={getDiscussion}
+                                      getid={getid}
+                                      handleDiscussPdf={handleDiscussPdf}
+                                      discussionRegenrate={discussionRegenrate}
+                                    />
                                   </Tab.Pane>
                                   <Tab.Pane eventKey="third">
-                                    <Step3 getActivity={getActivity} getid={getid} handleActivityPdf={handleActivityPdf} activityRegenrate={activityRegenrate}/>
+                                    <Step3
+                                      getActivity={getActivity}
+                                      getid={getid}
+                                      handleActivityPdf={handleActivityPdf}
+                                      activityRegenrate={activityRegenrate}
+                                    />
                                   </Tab.Pane>
                                   <Tab.Pane eventKey="fourth">
-                                    <Step4 getHomeWork={getHomeWork}  getid={getid} handleHomeWorkPdf={handleHomeWorkPdf} homeworkRegenrate={homeworkRegenrate}/>
+                                    <Step4
+                                      getHomeWork={getHomeWork}
+                                      getid={getid}
+                                      handleHomeWorkPdf={handleHomeWorkPdf}
+                                      homeworkRegenrate={homeworkRegenrate}
+                                    />
                                   </Tab.Pane>
                                   <Tab.Pane eventKey="fifth">
-                                    <Step5 getTest={getTest} getid={getid} handleTestPdf={handleTestPdf} TestRegenrate={TestRegenrate}/>
+                                    <Step5
+                                      getTest={getTest}
+                                      getid={getid}
+                                      handleTestPdf={handleTestPdf}
+                                      TestRegenrate={TestRegenrate}
+                                    />
                                   </Tab.Pane>
                                 </Tab.Content>
                               </Col>
@@ -954,7 +1039,13 @@ function WatchVideo({
                           </div>
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                          <Reviews  getReview={getReview} handleSendComment={handleSendComment} handleLikeReview={handleLikeReview} handleDislikeReview={handleDislikeReview} handleReplayPost={handleReplayPost} />
+                          <Reviews
+                            getReview={getReview}
+                            handleSendComment={handleSendComment}
+                            handleLikeReview={handleLikeReview}
+                            handleDislikeReview={handleDislikeReview}
+                            handleReplayPost={handleReplayPost}
+                          />
                         </Tab.Pane>
                       </Tab.Content>
                     </Col>
