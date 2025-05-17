@@ -16,6 +16,7 @@ import SaveLibrary from "@/app/(MobileFlow)/savelibrary/page";
 import { formatDuration } from "@/app/utils/monthsAgo/page";
 import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import { useunauthModal } from "@/components/unauthmobile/page";
+import { useSave } from "@/app/Context/saveContext/SaveContext";
 
 
 const VideoCard = ({
@@ -56,8 +57,9 @@ const VideoCard = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { openModal, setIsOpenuauth } = useunauthModal();
-  console.log("videogridmobile file ")
+  // console.log("videogridmobile file ")
 
+  const {setPostId}=useSave();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -755,6 +757,23 @@ const VideoCard = ({
                         </li>
                         <li>
                           {/* <Link href="/savelibrary"> */}
+                          {video?.isSaved ? (
+                            <button className="active">
+                              <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M6.66602 28V6.66667C6.66602 5.93333 6.92713 5.30556 7.44935 4.78333C7.97157 4.26111 8.59935 4 9.33268 4H22.666C23.3993 4 24.0271 4.26111 24.5494 4.78333C25.0716 5.30556 25.3327 5.93333 25.3327 6.66667V28L15.9993 24L6.66602 28Z"
+                                  fill="#F18D51"
+                                />
+                              </svg>
+                              Save to your library
+                            </button>
+                          ) : (
                           <button
                             variant="primary"
                             onClick={(e) => {
@@ -764,6 +783,7 @@ const VideoCard = ({
                                 setIsOpenuauth(true);
                                 setIsDropdownOpen(false);
                               } else {
+                                setPostId(video?._id);
                                router.push("/savelibrary")
                               }
                             }}
@@ -782,6 +802,7 @@ const VideoCard = ({
                             </svg>
                             Save
                           </button>
+                          )}
                           {/* </Link> */}
                         </li>
 

@@ -640,7 +640,7 @@ function PageComponent() {
         // setLoader(false); // Ensure loader stops after API call
       }
     };
-    console.log(suggested,"suggested-------")
+    // console.log(suggested,"suggested-------")
  
  
    

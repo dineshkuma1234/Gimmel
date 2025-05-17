@@ -804,10 +804,10 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  GetSubFolder: async (id, value) => {
+  GetSubFolder: async (selectedFolderId, value) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, GetSubFolders } = ApiConfig;
-    const url = authBaseUrl + GetSubFolders + id + "?sort=" + value;
+    const url = authBaseUrl + GetSubFolders + selectedFolderId + "?sort=" + value;
     url, "url----";
 
     const params = {};
@@ -833,10 +833,10 @@ const AuthService = {
     return ApiCallPost(url, params, headers);
   },
 
-  DeleteSubFolder: async (id,SubFolderId) => {
+  DeleteSubFolder: async (selectedFolderId,SubFolderId) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, deleteSubFolder } = ApiConfig;
-    const url = authBaseUrl + deleteSubFolder + id + "/" + SubFolderId;
+    const url = authBaseUrl + deleteSubFolder + selectedFolderId + "/" + SubFolderId;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
@@ -845,19 +845,23 @@ const AuthService = {
     return ApiCallDelete(url, params, headers);
   },
 
-  RenameSubFolder: async (id,rename,selectedFolderId) => {
-    const token = await localStorage.getItem("token");
+  
+  RenameSubFolder: async (selectedFolderId, rename, SubId) => {
+    const token = await localStorage.getItem('token');
     const { authBaseUrl, renameSubFolder } = ApiConfig;
-    const url = authBaseUrl + renameSubFolder + selectedFolderId + "/" + id;
+    const url = authBaseUrl + renameSubFolder + selectedFolderId + "/" + SubId;
+    // console.log(url, "url----")
     const params = {
-      subfolderName: rename,
+      subfolderName: rename
     }
+    // console.log(params, "params--")
     const headers = {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
     return ApiCallPut(url, params, headers);
   },
+
 
   getSubfolderSaveVideo: async (folderId, subfolderId) => {
     const token = await localStorage.getItem("token");

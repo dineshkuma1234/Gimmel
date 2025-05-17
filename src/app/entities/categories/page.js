@@ -149,7 +149,7 @@ const handleGetPostid = async () => {
   };
 
 const handleRename = async (rename, id) => {
-    console.log(rename, id, "rename and id --------------");
+    // console.log(rename, id, "rename and id --------------");
     setLoader(true);
     try {
       const result = await AuthService.renames(rename, id);
