@@ -241,19 +241,17 @@ function SaveLibraryModal({
                 ))
               ) : subFolderView && !subFolderVideos ? (
                 <>
-                  {Array.isArray(getSubFolder) &&
+                  {/* {Array.isArray(getSubFolder) &&
                     getSubFolder?.map((item, index) => (
                       <div key={index} className="folder-view">
                         <div
                           className="folder-inner"
                           onClick={() => {
-                            // console.log("item++++++++");
                             handleNavigateSave(item);
                             handleSaveVideonext(item?._id);
                             setSelectSubFolderId(item?._id);
                           }}
                           onDoubleClick={() => {
-                            // console.log(active, "item on double click");
                             setSubFolderVideos(true);
                             setValue(item?._id);
                           }}
@@ -282,7 +280,6 @@ function SaveLibraryModal({
                                 <p
                                   className=""
                                   onClick={(event) => {
-                                    // console.log("yes this is clicked")
                                     setColor(true);
                                     event.stopPropagation();
                                     handleNavigatename(item);
@@ -303,7 +300,6 @@ function SaveLibraryModal({
                                 >
                                   <button
                                     className="folder-icon"
-                                    // onClick={() => toggleDropdownnwe(item)} // Use item.id here
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       toggleDropdownnwe(item);
@@ -313,14 +309,13 @@ function SaveLibraryModal({
                                     <MdMoreVert />
                                   </button>
 
-                                  {/* Show the dropdown only if it matches the current item's ID */}
+                               
                                   {isDropdownOpenid?._id === item._id && (
                                     <div className="dropdown-menu-card">
                                       <ul>
                                         <li>
                                           <button
                                             variant="primary"
-                                            // onClick={handleShow}
                                             onClick={(event) => {
                                               event.stopPropagation();
                                               handleShow();
@@ -348,7 +343,7 @@ function SaveLibraryModal({
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
                   {Array.isArray(getSaveVideo) &&
                     getSaveVideo.map((item, index) => (
                       <div className="video-card-container" key={index}>

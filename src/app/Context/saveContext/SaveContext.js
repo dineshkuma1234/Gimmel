@@ -19,6 +19,8 @@ export const SaveProvider = ({ children }) => {
   const [value, setValue] = useState(null);
   const [postId,setPostId]=useState("")
   const [selectIcon , setSelectIcon] = useState(true);
+  const [selectSortValue , setSelectSortValue]=useState(null);
+  
 //  console.log(postId,"postId++++")
 //  console.log(selectedFolderId,"selectedFolderId0000000")
   useEffect(() => {
@@ -32,14 +34,24 @@ export const SaveProvider = ({ children }) => {
   useEffect(()=>{
     handleGetFolder();
   },[])
+  useEffect(() => {
+  console.log(selectSortValue, "value");
+
+  const timeout = setTimeout(() => {
+    handleGetFolder(selectSortValue);
+  }, 500); // Delay execution by 0.5 seconds
+
+  return () => clearTimeout(timeout); 
+}, [selectSortValue]);
+
    useEffect(() => {
     handleGetFolderSub(selectedFolderId, value);
   }, [value])
 
-  const handleGetFolder = async () => {
+  const handleGetFolder = async (value) => {
     // setLoader(true);
     try {
-      const result = await AuthService.GetFolder();
+      const result = await AuthService.GetFolder(value);
       if (result?.success) {
         // (result,"result of get folder")
         // LoaderHelper.loaderStatus(false);
@@ -65,6 +77,9 @@ export const SaveProvider = ({ children }) => {
           className: "custom-toast-success",
         });
       } else {
+        toast.error( result?.message, {
+          className: "custom-toast",
+        });
         setLoader(false);
         // AlertHelper.show("danger", "Gimmel", result?.message);
       }
@@ -304,7 +319,7 @@ export const SaveProvider = ({ children }) => {
           handleRenameFolder,
           handleDeleteSubFolder,
           setPostId,
-          handleSaveVideo,setSelectIcon,handleSaveSubFolderVideo
+          handleSaveVideo,setSelectIcon,handleSaveSubFolderVideo,selectSortValue,setSelectSortValue
         }}
       >
         {children}
