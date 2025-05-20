@@ -13,6 +13,7 @@ export const SaveProvider = ({ children }) => {
   const router=useRouter();
 
   const [getSaveVideo, setGetSaveVideo] = useState([]);
+  const [getSaveSubFolderVideo, setGetSaveSubFolderVideo] = useState("");
   const [selectedFolderId, setSelectedFolderId] = useState(null);
   const [getFolder, setGetFolder] = useState("");
   const [getSubFolder, setGetFolderSub] = useState();
@@ -20,12 +21,10 @@ export const SaveProvider = ({ children }) => {
   const [postId,setPostId]=useState("")
   const [selectIcon , setSelectIcon] = useState(true);
   const [selectSortValue , setSelectSortValue]=useState(null);
+  const [selectedSubFolder, setSelectedSubFolder] = useState("");
   
-//  console.log(postId,"postId++++")
-//  console.log(selectedFolderId,"selectedFolderId0000000")
+
   useEffect(() => {
-    // console.log()
-    // console.log(selectedFolderId, "selectedFolderId++++++++++++++++++++")
     if (selectedFolderId) {
       handleSaveVideonext(selectedFolderId);
       }
@@ -34,9 +33,15 @@ export const SaveProvider = ({ children }) => {
   useEffect(()=>{
     handleGetFolder();
   },[])
-  useEffect(() => {
-  console.log(selectSortValue, "value");
 
+  useEffect(()=>{
+    if(selectedSubFolder){
+     handleGetSubfolderVideo(selectedFolderId ,selectedSubFolder );
+    }
+    
+  },[selectedSubFolder])
+
+  useEffect(() => {
   const timeout = setTimeout(() => {
     handleGetFolder(selectSortValue);
   }, 500); // Delay execution by 0.5 seconds
@@ -45,22 +50,22 @@ export const SaveProvider = ({ children }) => {
 }, [selectSortValue]);
 
    useEffect(() => {
-    handleGetFolderSub(selectedFolderId, value);
+    handleGetFolderSub(selectedFolderId,value );
   }, [value])
 
   const handleGetFolder = async (value) => {
-    // setLoader(true);
+    setLoader(true);
     try {
       const result = await AuthService.GetFolder(value);
       if (result?.success) {
         // (result,"result of get folder")
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         setGetFolder(result?.data?.data);
       } else {
-        // setLoader(false);
+        setLoader(false);
       }
     } catch (error) {
-      // setLoader(false);
+      setLoader(false);
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -209,20 +214,19 @@ export const SaveProvider = ({ children }) => {
   };
 
     const handleGetFolderSub = async () => {
-    // console.log("Get Subfolder function called with ID:", id,value);
-    // LoaderHelper.loaderStatus(true);
+    setLoader(true)
     try {
       const result = await AuthService.GetSubFolder(selectedFolderId, value);
       if (result?.success) {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         result?.data?.data, "dat in api";
         setGetFolderSub(result?.data?.data);
       } else {
-        // LoaderHelper.loaderStatus(false);
+        setLoader(false);
         // AlertHelper.show('danger', 'Gimmel', result?.message  );
       }
     } catch (error) {
-      // LoaderHelper.loaderStatus(false);
+      setLoader(false);
       // ('Error occurred:', 'Gimmel', error);
     }
   };
@@ -299,7 +303,26 @@ export const SaveProvider = ({ children }) => {
     }
   };
 
-  // console.log(getSaveVideo,"getSaveVideo 243 243v  ---------")
+  const handleGetSubfolderVideo = async (selectedFolderId ,selectedSubFolder ) => {
+    console.log("handleGetSubfolderVideo")
+        setLoader(true)
+        try {
+            const result = await AuthService.getSubfolderSaveVideo(selectedFolderId ,selectedSubFolder );
+            if (result?.success) {
+              console.log(result,"result-------")
+                setLoader(false);
+                setGetSaveSubFolderVideo(result?.data?.videos);
+            } else {
+                setLoader(false);
+                // AlertHelper.show('danger', 'Gimmel', result?.message);
+            }
+        } catch (error) {
+            setLoader(false);
+            // console.log('Error occurred:', 'Gimmel', error);
+        }
+    };
+
+  console.log(getSaveSubFolderVideo,"getSaveSubFolderVideo 243 243v  ---------")
   return (
     <>
     <Toaster position="top-right" reverseOrder={false} />
@@ -314,12 +337,13 @@ export const SaveProvider = ({ children }) => {
           handleDeleteFolder,
           handleCreateSubFolder,
           getSubFolder,
+          value,
           setValue,
           handleGetFolderSub,
           handleRenameFolder,
           handleDeleteSubFolder,
           setPostId,
-          handleSaveVideo,setSelectIcon,handleSaveSubFolderVideo,selectSortValue,setSelectSortValue
+          handleSaveVideo,setSelectIcon,handleSaveSubFolderVideo,selectSortValue,setSelectSortValue,selectedSubFolder,setSelectedSubFolder,getSaveSubFolderVideo
         }}
       >
         {children}

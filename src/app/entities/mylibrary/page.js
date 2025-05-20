@@ -63,7 +63,6 @@ function MyLibrary() {
   const handleChange = (e) => {
     const selectedValue = e.target.value;
     setSelectSortValue(selectedValue);
-    console.log('Selected:', selectedValue); // optional: send to API or function
   };
 
     return (

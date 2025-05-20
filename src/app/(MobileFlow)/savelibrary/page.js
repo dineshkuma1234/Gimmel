@@ -18,7 +18,7 @@ import { useSave } from "@/app/Context/saveContext/SaveContext";
 import { useRouter } from "next/navigation";
 
 function SaveLibrary() {
-  const { handleCreateFolder, getFolder, handleRename, handleDeleteFolder ,selectedFolderId,setSelectedFolderId,handleSaveVideo,setSelectIcon} = useSave();
+  const { handleCreateFolder, getFolder, handleRename, handleDeleteFolder ,selectedFolderId,setSelectedFolderId,handleSaveVideo,setSelectIcon ,selectSortValue,setSelectSortValue,} = useSave();
   
   const router=useRouter();
 
@@ -71,6 +71,12 @@ function SaveLibrary() {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+   const handleChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectSortValue(selectedValue);
+  };
+
 
   return (
     <>
@@ -230,9 +236,10 @@ function SaveLibrary() {
             <div className="body-top-left">
               <div className="short-by">
                 <p>Sort by</p>
-                <select name="" id="" className="short-by-select">
-                  <option>Most recent</option>
-                  <option>Most popular</option>
+                <select name="" id="" className="short-by-select" value={selectSortValue} onChange={handleChange}>
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="name">Name</option>
                 </select>
               </div>
             </div>
@@ -249,7 +256,7 @@ function SaveLibrary() {
                           <div className="folder-content-left"
                           
                           >
-                            <div className="folder-icon"  onClick={()=>{  setSelectedFolderId(folder._id); setSelectIcon(prev => !prev); router.push(`/savelibrary/${folder._id}/folder`);}}>
+                            <div className="folder-icon"  onClick={()=>{  setSelectedFolderId(folder._id); setSelectIcon(prev => !prev); router.push(`/savelibrary/${folder._id}/folder?folderName=${encodeURIComponent(folder?.name)}`);}}>
                               <svg
                                 width="32"
                                 height="32"

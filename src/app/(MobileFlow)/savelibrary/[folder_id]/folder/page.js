@@ -12,8 +12,8 @@ import { Form } from "react-bootstrap";
 import "../../../../CommenStyle/details.css";
 import { useSave } from "@/app/Context/saveContext/SaveContext";
 import {calculateMonthsAgo }from "@/app/utils/monthsAgo/page";
-
-
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function SaveVideo() {
   const {
@@ -22,12 +22,16 @@ function SaveVideo() {
     handleGetFolderSub,
     selectedFolderId,
     handleRenameFolder,
-    handleDeleteSubFolder,getSaveVideo,handleSaveSubFolderVideo
+    handleDeleteSubFolder,getSaveVideo,handleSaveSubFolderVideo,value,setValue,selectedSubFolder,setSelectedSubFolder
   } = useSave();
+
+  const router=useRouter();
+
+  const SearchParams=useSearchParams();
+  const folderName=SearchParams.get('folderName')
 
   const [newFolder, setNewFolder] = useState("");
   const [renameFolder, setRenameFolder] = useState("");
-  const [selectedSubFolder,setSelectedSubFolder]=useState("")
 
   const [show2, setShow2] = useState(false);
 
@@ -44,7 +48,6 @@ function SaveVideo() {
      setRenameFolder("");
   };
   
-  console.log(selectedSubFolder,"selectedSubFolderselectedSubFolder")
 
   const [show3, setShow3] = useState(false);
 
@@ -80,7 +83,10 @@ function SaveVideo() {
       };
     }, []);
 
-    // console.log(selectedSubFolder,'selectedSubFolder----')
+    const handleChange = (e) => {
+    const selectedValue = e.target.value;
+    setValue(selectedValue);
+  };
   return (
     <>
       {/* Rename folder modal start */}
@@ -226,7 +232,7 @@ function SaveVideo() {
               </button>
             </div>
             <div className="page-title">
-              <h5>6th Grade</h5>
+              <h5>{folderName}</h5>
             </div>
           </div>
           <div className="page-section-right">
@@ -256,9 +262,10 @@ function SaveVideo() {
             <div className="body-top-left">
               <div className="short-by">
                 <p>Sort by</p>
-                <select name="" id="" className="short-by-select">
-                  <option>Most recent</option>
-                  <option>Most popular</option>
+                <select name="" id="" className="short-by-select" value={value} onChange={handleChange}>
+                   <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="name">Name</option>
                 </select>
               </div>
             </div>
@@ -272,7 +279,7 @@ function SaveVideo() {
                       <div className="folder-content-inline">
                         {/* <Link href="/savelibrary/folder_id/folder"> */}
                           <div className="folder-content-left">
-                            <div className="folder-icon">
+                            <div className="folder-icon" onClick={()=>{  setSelectedSubFolder(folder._id);  router.push(`/savelibrary/${folder._id}/subFolder?folderName=${encodeURIComponent(folder?.name)}`);}} >
                               <svg
                                 width="32"
                                 height="32"

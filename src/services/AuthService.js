@@ -863,10 +863,10 @@ const AuthService = {
   },
 
 
-  getSubfolderSaveVideo: async (folderId, subfolderId) => {
+  getSubfolderSaveVideo: async (selectedFolderId ,selectedSubFolder) => {
     const token = await localStorage.getItem("token");
     const { authBaseUrl, subfolderSaveVideo } = ApiConfig;
-    const url = authBaseUrl + subfolderSaveVideo + folderId + "/" + subfolderId;
+    const url = authBaseUrl + subfolderSaveVideo + selectedFolderId + "/" + selectedSubFolder;
     const params = {};
     const headers = {
       "Content-Type": "application/json",
