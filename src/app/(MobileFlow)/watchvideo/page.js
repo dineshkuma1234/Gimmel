@@ -24,6 +24,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useunauthModal } from "@/components/unauthmobile/page";
 import { useSave } from "@/app/Context/saveContext/SaveContext";
 import { useRouter } from "next/navigation";
+import save from "../../../assets/images/save-mobile.svg";
 
 function WatchVideo({
   data,
@@ -235,7 +236,7 @@ function WatchVideo({
               <li>
                 {/* <Link> */}
                 {data?.isSaved ? (
-                  <button className="active">
+                  <button className=" orange-active active">
                     <svg
                       width="32"
                       height="32"
@@ -265,18 +266,7 @@ function WatchVideo({
                       }
                     }}
                   >
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.6665 28V6.66667C6.6665 5.93333 6.92762 5.30556 7.44984 4.78333C7.97206 4.26111 8.59984 4 9.33317 4H22.6665C23.3998 4 24.0276 4.26111 24.5498 4.78333C25.0721 5.30556 25.3332 5.93333 25.3332 6.66667V28L15.9998 24L6.6665 28ZM9.33317 23.9333L15.9998 21.0667L22.6665 23.9333V6.66667H9.33317V23.9333Z"
-                        fill="#104E5B"
-                      />
-                    </svg>
+                    <Image src={save} alt="" width={24} height={24} />
                     Save
                   </button>
                 )}
@@ -492,7 +482,7 @@ function WatchVideo({
         show={show3}
         onHide={handleClose3}
         centered
-        className="details-modal"
+        className="custom-modal details-modal"
       >
         <div className="modal-bar">
           <div className="bar-line"></div>
@@ -756,7 +746,6 @@ function WatchVideo({
                       </svg>
                     </button>
                   )}
-                  
                 </div>
               </div>
             </div>
@@ -898,9 +887,12 @@ function WatchVideo({
                   className="custom-modal small-modal"
                 >
                   <Modal.Header closeButton className="p-2"></Modal.Header>
+                  <div className="modal-bar">
+                    <div className="bar-line"></div>
+                  </div>
                   <Modal.Body className="p-3">
                     <Modal.Title className="fs-5">Full Summary</Modal.Title>
-
+                    <div className="dropdown-divider"></div>
                     <p className="summary-text">{data?.description}</p>
                   </Modal.Body>
                 </Modal>

@@ -12,7 +12,7 @@ function Categories({
 }) {
   return (
     <>
-      <div className="page mt-4">
+      <div className="page mt-3">
         <div className="custom-container">
           <div className="page-main-title">
             <h3>{categoryVideoname}</h3>

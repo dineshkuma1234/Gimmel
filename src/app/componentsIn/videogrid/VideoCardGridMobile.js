@@ -18,7 +18,6 @@ import { UseLoader } from "@/app/LoderHelper/context/loaderHelperContext";
 import { useunauthModal } from "@/components/unauthmobile/page";
 import { useSave } from "@/app/Context/saveContext/SaveContext";
 
-
 const VideoCard = ({
   video,
   index,
@@ -59,7 +58,7 @@ const VideoCard = ({
   const { openModal, setIsOpenuauth } = useunauthModal();
   // console.log("videogridmobile file ")
 
-  const {setPostId}=useSave();
+  const { setPostId } = useSave();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -219,10 +218,10 @@ const VideoCard = ({
         <Modal.Header closeButton>
           <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
+        <div className="modal-bar">
+          <div className="bar-line"></div>
+        </div>
         <Modal.Body>
-          <div className="modal-bar">
-            <div className="bar-line"></div>
-          </div>
           <p>{video.description}</p>
         </Modal.Body>
       </Modal>
@@ -607,8 +606,8 @@ const VideoCard = ({
                     if (!token) {
                       setIsOpenuauth(true);
                     } else {
-                    handleShow3();
-                    setShowContent(false);
+                      handleShow3();
+                      setShowContent(false);
                     }
                   }}
                 >
@@ -738,6 +737,9 @@ const VideoCard = ({
                   {isDropdownOpen && (
                     <div className="dropdown-menu-card">
                       <ul>
+                        <div className="modal-bar mb-4">
+                          <div className="bar-line"></div>
+                        </div>
                         <li>
                           <button variant="primary" onClick={handleShow}>
                             <svg
@@ -774,34 +776,34 @@ const VideoCard = ({
                               Save to your library
                             </button>
                           ) : (
-                          <button
-                            variant="primary"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              const token = localStorage.getItem("token");
-                              if (!token) {
-                                setIsOpenuauth(true);
-                                setIsDropdownOpen(false);
-                              } else {
-                                setPostId(video?._id);
-                               router.push("/savelibrary")
-                              }
-                            }}
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              variant="primary"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const token = localStorage.getItem("token");
+                                if (!token) {
+                                  setIsOpenuauth(true);
+                                  setIsDropdownOpen(false);
+                                } else {
+                                  setPostId(video?._id);
+                                  router.push("/savelibrary");
+                                }
+                              }}
                             >
-                              <path
-                                d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
-                                fill="#104E5B"
-                              />
-                            </svg>
-                            Save
-                          </button>
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21ZM7 17.95L12 15.8L17 17.95V5H7V17.95Z"
+                                  fill="#104E5B"
+                                />
+                              </svg>
+                              Save
+                            </button>
                           )}
                           {/* </Link> */}
                         </li>
@@ -897,12 +899,11 @@ const VideoCardGrid = ({
   selectedFolderId,
   saveVideoScreen,
   setSaveVideoScreen,
-  setSelectedFolderId
+  setSelectedFolderId,
 }) => {
   const { loaderState } = UseLoader();
   return (
     <div className="row">
-      
       {getPost && Array.isArray(getPost) && getPost.length > 0 ? (
         getPost?.map((video, index) => (
           <VideoCard

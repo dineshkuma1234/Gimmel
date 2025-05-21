@@ -181,7 +181,7 @@ function UserProfile({
           <div className="bar-line"></div>
         </div>
         <div className="dropdown-divider"></div>
-        <Modal.Body>
+        <Modal.Body className="p-0">
           <div className="modal-body-container">
             <Form className="question-select mb-105">
               <Form.Group
@@ -346,7 +346,7 @@ function UserProfile({
         </div>
       </div>
 
-      <main id="main" className="top-space account-details">
+      <main id="main" className="mt-5 account-details">
         <div className="custom-container">
           <div className="account-details-inner">
             <div className="account-user-info">
@@ -591,7 +591,7 @@ function UserProfile({
                   </Link>
                 </div>
 
-                <div className="library-list mt-4">
+                <div className="library-list mt-3">
                   <div className="list-item">
                     {libraryVideo &&
                       Array.isArray(libraryVideo) &&
@@ -648,7 +648,7 @@ function UserProfile({
                   </Link>
                 </div>
 
-                <div className="library-list mt-4">
+                <div className="library-list mt-3">
                   <div className="list-item">
                     {watchHistoryData &&
                       Array.isArray(watchHistoryData) &&
