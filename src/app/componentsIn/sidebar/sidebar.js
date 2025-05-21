@@ -9,6 +9,7 @@ import "react-range-slider-input/dist/style.css";
 import { MultiSelect } from "react-multi-select-component";
 import { IoSearchSharp } from "react-icons/io5";
 import { useHeader } from "@/app/Context/headerContext/HeaderContext";
+import { useSave } from "@/app/Context/saveContext/SaveContext";
 
 function Sidebar() {
   const {
@@ -19,12 +20,16 @@ function Sidebar() {
     handleSearchCont,isOn, setIsOn,selectedAge, setSelectedAge,selectedEngagement, setSelectedEngagement,selectedDate, setSelectedDate,selectedAudience, setSelectedAudience,chips, setChips,inputValue, setInputValue,sliderValue, setSliderValue,selectedValue, setSelectedValue, selectedCategory ,handleGetCategories
   } = useHeader();
 
+  const {handleCreateFolder}=useSave();
   // (headerSearch,"setHeaderSearch---")
 
   const [selected, setSelected] = useState([]);
 
+  const[folderName,setFolderName]=useState("")
+
   const [isSearchListPage, setIsSearchListPage] = useState(false);
   const [iscategoriesPage, setcategoriesPage] = useState(false);
+  const [isMyLibraryPage, setMyLibraryPage]=useState(false);
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const category = searchParams.get("query");
@@ -170,9 +175,8 @@ function Sidebar() {
 
   useEffect(() => {
     setIsSearchListPage(window.location.pathname.includes("searchlist"));
-  }, []);
-  useEffect(() => {
     setcategoriesPage(window.location.pathname.includes("categorieslist"));
+    setMyLibraryPage(window.location.pathname.includes("library"));
   }, []);
 
   return (
@@ -195,12 +199,12 @@ function Sidebar() {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Folder name</Form.Label>
-                <Form.Control type="text" placeholder="" />
+                <Form.Control type="text" placeholder=""  onChange={(e)=>setFolderName(e.target.value)}/>
               </Form.Group>
             </div>
           </div>
           <div className="btn-container">
-            <button className="btn btn-color-orange" onClick={handleClose}>
+            <button className="btn btn-color-orange" onClick={()=>{handleClose(); handleCreateFolder(folderName)}}>
               Create folder
             </button>
           </div>
@@ -221,8 +225,8 @@ function Sidebar() {
           <div className="dropdown-divider"></div>
         </>
       )}
-
-      <div className="middle-sidebar">
+      {!isMyLibraryPage && (
+        <div className="middle-sidebar">
         <div className="switch-container">
           <span className="switch-label-text">
             Show only verified creators/channels
@@ -464,6 +468,9 @@ function Sidebar() {
           </div>
         </div>
       </div>
+
+      )}
+      
     </>
   );
 }

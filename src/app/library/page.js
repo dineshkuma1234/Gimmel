@@ -231,7 +231,7 @@ const PageComponent = () => {
           if (result?.success) {
    
             // LoaderHelper.loaderStatus(false);
-            setGetSaveVideo(result?.videos);
+            setGetSaveVideo(result?.data?.videos);
           } else {
    
             // LoaderHelper.loaderStatus(false);

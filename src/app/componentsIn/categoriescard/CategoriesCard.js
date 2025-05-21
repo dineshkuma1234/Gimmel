@@ -63,6 +63,9 @@ function CategoriesCard({
   const dropdownRefnwe = useRef(null);
   const dropdownRef = useRef();
   const [show, setShow] = useState(false);
+  const [isSearchListPage, setIsSearchListPage] = useState(false);
+  const [iscategoriesPage, setcategoriesPage] = useState(false);
+  const [isMyLibraryPage, setMyLibraryPage]=useState(false);
 
   const [showFullSummary, setShowFullSummary] = useState(false);
   const handleShowFullSummary = () => setShowFullSummary(true);
@@ -196,8 +199,11 @@ function CategoriesCard({
     };
   }, [openDropdownId]);
 
-  console.log(isDropdownOpenid, "isDropdownOpenid");
-
+  useEffect(() => {
+    setIsSearchListPage(window.location.pathname.includes("savematerial"));
+    setcategoriesPage(window.location.pathname.includes("watchhistory"));
+    setMyLibraryPage(window.location.pathname.includes("materials"));
+  }, []);
   return (
     <>
       <Modal
@@ -313,7 +319,8 @@ function CategoriesCard({
                       <h3>{item?.title}</h3>
                     </div>
                     <div className="more-btn" ref={dropdownRef}>
-                      <button
+                      {!isMyLibraryPage&& !isSearchListPage&& !iscategoriesPage && (
+                        <button
                         className="btn btn-more"
                         onClick={() => {
                           toggleDropdown(item?._id);
@@ -322,6 +329,8 @@ function CategoriesCard({
                       >
                         <FaEllipsisV />
                       </button>
+                      )}
+                      
                       {openDropdownId === item?._id && (
                         <div className="dropdown-menu-card">
                           <ul>
@@ -464,7 +473,7 @@ function CategoriesCard({
                   <div className="summary">
                     <div className="summary-title">Short Summary</div>
                     <div className="summary-content">
-                      <p>{item?.description}</p>
+                      <p>{item?.summary}</p>
                     </div>
                   </div>
                 </div>

@@ -5,9 +5,15 @@ import "../../CommenStyle/filter.css";
 import Link from "next/link";
 import CategoriesCard from "../../componentsIn/categoriescard/CategoriesCard";
 import Image from "next/image";
+import { useSave } from "@/app/Context/saveContext/SaveContext";
+import { useSearchParams } from 'next/navigation';
 
 function Material() {
 
+    const {getSaveVideo}=useSave();
+    
+    const searchParams = useSearchParams();
+    const folderName = searchParams.get('folderName') || "Default Folder";
 
     return (
         <>
@@ -15,17 +21,17 @@ function Material() {
 
             <main id="main" className="top-space-filter">
                 <div className="category-filter-container">
-                    <div className="sidebar">
+                    {/* <div className="sidebar">
                         <div className="sidebar-inner">
-                            <Sidebar />
+                            <Sidebar /> 
                         </div>
-                    </div>
-                    <div className='main-container'>
+                    </div> */}
+                    <div className='main-container-save'>
                         <div className="page-main-title-mylibrary inline-gap-16">
-                            <h3>My Library</h3> <Image src={require("../../../assets/images/right-svg.svg")} alt="arrow" /> <Link href="#">6th Grade</Link>
+                            <h3>My Library</h3> <Image src={require("../../../assets/images/right-svg.svg")} alt="arrow" /> <Link href="#">{folderName}</Link>
                         </div>
                         <div className='body-top'>
-                            <div className='body-top-left mt-3'>
+                            {/* <div className='body-top-left mt-3'>
                                 <div className='short-by'>
                                     <p>Sort by</p>
                                     <select name="" id="" className='short-by-select'>
@@ -33,8 +39,8 @@ function Material() {
                                         <option>Most popular</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div className='body-top-right'>
+                            </div> */}
+                            {/* <div className='body-top-right'>
                                 <div className='view-type'>
                                     <div className='list-type-view'>
                                         <div className='list-icon-text'>List view</div>
@@ -45,11 +51,11 @@ function Material() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="video-list-container">
-                            <CategoriesCard  />
+                            <CategoriesCard watchHistoryData={getSaveVideo} />
                         </div>
                     </div>
                 </div>
