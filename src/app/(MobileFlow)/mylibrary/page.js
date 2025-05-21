@@ -65,11 +65,20 @@ function MyLibrary() {
   return (
     <>
       {/* Rename folder modal start */}
-      <Modal show={show} onHide={handleClose} centered className="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Rename folder</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <Modal show={show} onHide={handleClose} centered className="modal-dots">
+        <div className="modal-bar">
+          <div className="bar-line"></div>
+        </div>
+        <div className="modal-icon-header d-flex justify-content-between align-items-center">
+          <div className="inline-gap-8">
+            <h3 className="modal-icon-title">Rename Folder</h3>
+          </div>
+          <div className="close-modal-icon" onClick={handleClose}>
+            <IoCloseSharp />
+          </div>
+        </div>
+        <div className="dropdown-divider"></div>
+        <Modal.Body className="p-0">
           <div className="modal-body-container">
             <div className="input-container modal-input">
               <Form.Group
@@ -105,7 +114,7 @@ function MyLibrary() {
         show={show3}
         onHide={handleClose3}
         centered
-        className="custom-modal"
+        className="modal-dots"
       >
         <Modal.Body>
           <div className="modal-body-container">
@@ -154,7 +163,7 @@ function MyLibrary() {
           </div>
         </div>
         <div className="dropdown-divider"></div>
-        <Modal.Body className="custom-modal-body">
+        <Modal.Body className="p-0">
           <div className="form-group">
             <div className="input-container modal-input">
               <Form.Group

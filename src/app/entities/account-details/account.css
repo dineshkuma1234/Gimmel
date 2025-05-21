@@ -213,6 +213,10 @@
     gap: 16px;
 }
 
+.list-item::-webkit-scrollbar {
+    display: none;
+}
+
 .video-card-container {
     min-width: 130px;
     width: min-content;
@@ -315,5 +319,9 @@
 
     .library-list .video-card-detail {
         padding: 0;
+    }
+
+    .account-details .dropdown-divider {
+        margin: 16px 0;
     }
 }

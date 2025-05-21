@@ -28,15 +28,6 @@
     font-weight: 500;
   }
   
-  /* Input field */
-  .modal-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
   
   /* Button container to align buttons vertically */
   .modal-footer {

@@ -522,12 +522,13 @@ const VideoCard = ({
         show={show1}
         onHide={handleClose1}
         centered
-        className="custom-modal"
+        className="custom-modal modal-summary"
+        size="lg"
       >
         <Modal.Header closeButton>
           <Modal.Title>Full Summary</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="overflow-hidden">
+        <Modal.Body className="">
           <div className="modal-bar show_mobile">
             <div className="bar-line"></div>
           </div>

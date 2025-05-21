@@ -18,17 +18,27 @@ import { useSave } from "@/app/Context/saveContext/SaveContext";
 import { useRouter } from "next/navigation";
 
 function SaveLibrary() {
-  const { handleCreateFolder, getFolder, handleRename, handleDeleteFolder ,selectedFolderId,setSelectedFolderId,handleSaveVideo,setSelectIcon ,selectSortValue,setSelectSortValue,} = useSave();
-  
-  const router=useRouter();
+  const {
+    handleCreateFolder,
+    getFolder,
+    handleRename,
+    handleDeleteFolder,
+    selectedFolderId,
+    setSelectedFolderId,
+    handleSaveVideo,
+    setSelectIcon,
+    selectSortValue,
+    setSelectSortValue,
+  } = useSave();
 
+  const router = useRouter();
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = (folderId) => {
     setShow(true);
-    setIsDropdownOpen(null); 
+    setIsDropdownOpen(null);
     setSelectedFolderId(folderId);
   };
 
@@ -36,9 +46,9 @@ function SaveLibrary() {
 
   const handleClose3 = () => setShow3(false);
   const handleShow3 = (folderId) => {
-    setShow3(true)
-    setSelectedFolderId(folderId)
-};
+    setShow3(true);
+    setSelectedFolderId(folderId);
+  };
 
   const [show2, setShow2] = useState(false);
 
@@ -47,7 +57,6 @@ function SaveLibrary() {
 
   const [newFolderName, setNewFolderName] = useState("");
   const [renameFolder, setRenameFolder] = useState("");
-
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
 
@@ -72,20 +81,28 @@ function SaveLibrary() {
     };
   }, []);
 
-   const handleChange = (e) => {
+  const handleChange = (e) => {
     const selectedValue = e.target.value;
     setSelectSortValue(selectedValue);
   };
 
-
   return (
     <>
       {/* Rename folder modal start */}
-      <Modal show={show} onHide={handleClose} centered className="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Rename folder</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <Modal show={show} onHide={handleClose} centered className="modal-dots">
+        <div className="modal-bar">
+          <div className="bar-line"></div>
+        </div>
+        <div className="modal-icon-header d-flex justify-content-between align-items-center">
+          <div className="inline-gap-8">
+            <h3 className="modal-icon-title">Rename Folder</h3>
+          </div>
+          <div className="close-modal-icon" onClick={handleClose}>
+            <IoCloseSharp />
+          </div>
+        </div>
+        <div className="dropdown-divider"></div>
+        <Modal.Body className="p-0">
           <div className="modal-body-container">
             <div className="input-container modal-input">
               <Form.Group
@@ -117,12 +134,7 @@ function SaveLibrary() {
       </Modal>
 
       {/* Delete folder modal start */}
-      <Modal
-        show={show3}
-        onHide={handleClose3}
-        centered
-        className="custom-modal"
-      >
+      <Modal show={show3} onHide={handleClose3} centered className="modal-dots">
         <Modal.Body>
           <div className="modal-body-container">
             <div className="icon-container d-flex justify-content-center">
@@ -138,7 +150,13 @@ function SaveLibrary() {
             </div>
           </div>
           <div className="btn-container d-flex gap-3">
-            <button className="btn btn-color-orange" onClick={()=>{handleClose3();handleDeleteFolder(selectedFolderId)}} >
+            <button
+              className="btn btn-color-orange"
+              onClick={() => {
+                handleClose3();
+                handleDeleteFolder(selectedFolderId);
+              }}
+            >
               Delete
             </button>
             <button
@@ -164,14 +182,14 @@ function SaveLibrary() {
           </div>
         </div>
         <div className="dropdown-divider"></div>
-        <Modal.Body className="custom-modal-body">
+        <Modal.Body className="p-0">
           <div className="form-group">
             <div className="input-container modal-input">
               <Form.Group
                 className="mb-4"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Folder Name</Form.Label>
+                <Form.Label>Folder name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder=""
@@ -185,7 +203,6 @@ function SaveLibrary() {
             className="btn-color-orange mb-5"
             onClick={() => {
               handleCreateFolder(newFolderName);
-              // addNewFolder();
               handleClose2();
             }}
             disabled={!newFolderName}
@@ -236,7 +253,13 @@ function SaveLibrary() {
             <div className="body-top-left">
               <div className="short-by">
                 <p>Sort by</p>
-                <select name="" id="" className="short-by-select" value={selectSortValue} onChange={handleChange}>
+                <select
+                  name=""
+                  id=""
+                  className="short-by-select"
+                  value={selectSortValue}
+                  onChange={handleChange}
+                >
                   <option value="newest">Newest</option>
                   <option value="oldest">Oldest</option>
                   <option value="name">Name</option>
@@ -244,36 +267,51 @@ function SaveLibrary() {
               </div>
             </div>
           </div>
-          <div className="body-middle">
+          <div className="body-middle pb-5">
             <div className="folder-lists">
               {Array.isArray(getFolder) &&
                 getFolder.map((folder) => (
-                  <div key={folder._id} className="folder-view"
-                   >
-                    <div className="folder-inner" >
-                      <div className="folder-content-inline" >
+                  <div key={folder._id} className="folder-view">
+                    <div className="folder-inner">
+                      <div className="folder-content-inline">
                         {/* <Link href={`/savelibrary/${folder._id}/folder`} onClick={() => setSelectedFolderId(folder._id)}> */}
-                          <div className="folder-content-left"
-                          
+                        <div className="folder-content-left">
+                          <div
+                            className="folder-icon"
+                            onClick={() => {
+                              setSelectedFolderId(folder._id);
+                              setSelectIcon((prev) => !prev);
+                              router.push(
+                                `/savelibrary/${
+                                  folder._id
+                                }/folder?folderName=${encodeURIComponent(
+                                  folder?.name
+                                )}`
+                              );
+                            }}
                           >
-                            <div className="folder-icon"  onClick={()=>{  setSelectedFolderId(folder._id); setSelectIcon(prev => !prev); router.push(`/savelibrary/${folder._id}/folder?folderName=${encodeURIComponent(folder?.name)}`);}}>
-                              <svg
-                                width="32"
-                                height="32"
-                                viewBox="0 0 32 32"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
-                                  fill="#104E5B"
-                                />
-                              </svg>
-                            </div>
-                            <div className={`folder-name${selectedFolderId === folder?._id ? " active" : ""}`} onClick={()=>setSelectedFolderId(folder?._id)}>
-                              <p>{folder?.name}</p>
-                            </div>
+                            <svg
+                              width="32"
+                              height="32"
+                              viewBox="0 0 32 32"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.33366 26.6673C4.60033 26.6673 3.97255 26.4062 3.45033 25.884C2.9281 25.3618 2.66699 24.734 2.66699 24.0007V8.00065C2.66699 7.26732 2.9281 6.63954 3.45033 6.11732C3.97255 5.5951 4.60033 5.33398 5.33366 5.33398H13.3337L16.0003 8.00065H26.667C27.4003 8.00065 28.0281 8.26176 28.5503 8.78398C29.0725 9.30621 29.3337 9.93398 29.3337 10.6673V24.0007C29.3337 24.734 29.0725 25.3618 28.5503 25.884C28.0281 26.4062 27.4003 26.6673 26.667 26.6673H5.33366ZM5.33366 24.0007H26.667V10.6673H14.9003L12.2337 8.00065H5.33366V24.0007Z"
+                                fill="#104E5B"
+                              />
+                            </svg>
                           </div>
+                          <div
+                            className={`folder-name${
+                              selectedFolderId === folder?._id ? " active" : ""
+                            }`}
+                            onClick={() => setSelectedFolderId(folder?._id)}
+                          >
+                            <p>{folder?.name}</p>
+                          </div>
+                        </div>
                         {/* </Link> */}
                         <div className="folder-content-right">
                           <button
@@ -294,10 +332,10 @@ function SaveLibrary() {
                                     Rename
                                   </button>
                                 </li>
-                                <li >
+                                <li>
                                   <button
                                     variant="primary"
-                                    onClick={()=>handleShow3(folder?._id)}
+                                    onClick={() => handleShow3(folder?._id)}
                                   >
                                     <MdDeleteOutline />
                                     Delete
@@ -327,7 +365,16 @@ function SaveLibrary() {
 
       <div className="bottom-btn-bar">
         <div className="bottom-btn-bar-inner">
-          <button type="button" className="btn-color-orange" onClick={(e)=>{ e.stopPropagation(); handleSaveVideo(); setSelectedFolderId(null)}} disabled={!selectedFolderId}>
+          <button
+            type="button"
+            className="btn-color-orange"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSaveVideo();
+              setSelectedFolderId(null);
+            }}
+            disabled={!selectedFolderId}
+          >
             Save here
           </button>
         </div>

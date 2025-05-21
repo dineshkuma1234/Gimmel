@@ -529,9 +529,9 @@ ul.account-list li {
     fill: var(--gimmel-darkBlue);
 }
 
-.modal-icon-header {
+/* .modal-icon-header {
     padding: 0px 24px;
-}
+} */
 
 .modal-icon-header svg path {
     fill: var(--gimmel-darkBlue);
@@ -635,7 +635,7 @@ ul.account-list li {
     }
 
     .review-type-container {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .reviews-container {
@@ -645,6 +645,10 @@ ul.account-list li {
     .details-modal .modal-dialog {
         align-items: flex-end ! important;
         height: auto;
+    }
+
+    ul.account-info-list li {
+        border-right: none;
     }
 }
 

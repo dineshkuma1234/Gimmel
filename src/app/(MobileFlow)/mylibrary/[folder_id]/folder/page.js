@@ -319,7 +319,7 @@ function SaveVideo() {
             </div>
 
             <div className="save-video-list-container">
-              <div className="video-list-container">
+              <div className="video-list-container gap-0">
                 {Array.isArray(getSaveVideo) &&
                   getSaveVideo.map((video) => (
                     <div className="video-item" key={video._id}>

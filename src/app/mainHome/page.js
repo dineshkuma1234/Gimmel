@@ -207,7 +207,7 @@ export default function Home() {
       )}
 
       {loading && (
-        <p style={{ textAlign: "center", margin: "20px 0" }}>
+        <p className="more-video">
           Loading more posts...
         </p>
       )}

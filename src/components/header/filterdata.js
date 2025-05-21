@@ -110,7 +110,7 @@ function FilterData({
             />
           </Form>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput1">
             <Form.Label>Topic of the content</Form.Label>
@@ -156,7 +156,7 @@ function FilterData({
             </div>
           </Form.Group>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput2">
             <Form.Label>Minimum Age Requirement</Form.Label>
@@ -220,7 +220,7 @@ function FilterData({
             </div>
           </div>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput3">
             <Form.Label>Minimum Engagement Rating</Form.Label>
@@ -248,7 +248,7 @@ function FilterData({
             </div>
           </div>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput4">
             <Form.Label>Date Published</Form.Label>
@@ -267,7 +267,7 @@ function FilterData({
             </div>
           </div>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput5">
             <Form.Label>Difficulty Level</Form.Label>
@@ -296,7 +296,7 @@ function FilterData({
             <div className="number-text">10</div>
           </div>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container check-sidebar">
           <Form.Group controlId="exampleForm.ControlInput6">
             <Form.Label>Duration</Form.Label>
@@ -345,7 +345,7 @@ function FilterData({
             ))}
           </Form.Group>
         </div>
-        <div className="dropdown-divider"></div>
+        {/* <div className="dropdown-divider"></div> */}
         <div className="select-container">
           <Form.Group controlId="exampleForm.ControlInput2">
             <Form.Label>Primary Audience</Form.Label>
