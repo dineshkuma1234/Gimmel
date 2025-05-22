@@ -15,7 +15,7 @@ function search() {
 //   const [searchListState, updatesearchListState] = useContext(SearchListContext);
   const {getCategoryData, handleGetCategories,selectedCategory} = useHeader();
 
-  console.log(selectedCategory,"selectedCategory in search+++");
+  // console.log(selectedCategory,"selectedCategory in search+++");
   const isMobile = useIsMobile()
 
   const params = useParams();

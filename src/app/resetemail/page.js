@@ -3,8 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 function ResetEmail() {
+
+    const router=useRouter();
 
     const [deviceWidth, setDeviceWidth] = useState(0); // Default to 0 for SSR
 
@@ -49,7 +52,7 @@ function ResetEmail() {
                                         </p>
                                     </div>
                                     <div className="banner-btn">
-                                        <button type="button" className="btn-color-orange">
+                                        <button type="button" className="btn-color-orange" onClick={()=>router.push('/otpVerify')} >
                                             Okay
                                         </button>
                                     </div>
@@ -77,7 +80,7 @@ function ResetEmail() {
                             </div>
                         </div>
                         <div className="logout-button">
-                            <button type="button" className="btn-color-orange">Okay</button>
+                            <button type="button" className="btn-color-orange"onClick={()=>router.push('/otpVerify')}>Okay</button>
                         </div>
                     </div>
                 </main>

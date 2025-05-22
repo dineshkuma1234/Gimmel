@@ -1876,6 +1876,13 @@ a.see-all {
 .btn-link {
   color: var(--gimmel-orange) !important;
   font-weight: bold;
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-link:disabled{
+  opacity: 0.5;
 }
 
 .bottom-bar {

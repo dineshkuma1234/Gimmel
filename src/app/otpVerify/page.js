@@ -4,31 +4,31 @@ import { useRouter } from "next/navigation";
 import AuthService from "../../services/AuthService";
 import { UseLoader } from "../LoderHelper/context/loaderHelperContext";
 import toast, { Toaster } from "react-hot-toast";
-import ResetPassword from "../entities/resetpassword/page";
+import OtpScreen from "../entities/otp-screen/page";
 
 function PageComponent() {
   const router = useRouter();
   const { setLoader } = UseLoader();
+  const [otp, setOtp] = useState("");
 
   const email = localStorage.getItem("email");
 
-  const handleReset = async (password) => {
+  const handleVerify = async () => {
     setLoader(true);
     try {
-      const result = await AuthService.ResetPassword(email, password);
+      const result = await AuthService.VerifyOtp(email, otp);
       console.log(result, "result");
       if (result?.success) {
         setLoader(false);
-        toast.success(result?.message || "success", {
+        toast.success(result?.message, {
           className: "custom-toast-success",
         });
-        console.log(result?.data, "in login screen");
-        router.push("/login");
+        router.push("/resetPassword");
       } else {
         setLoader(false);
-        toast.error(result?.message|| "Please select folder", {
-            className: "custom-toast",
-          });
+        toast.error(result?.message, {
+          className: "custom-toast",
+        });
       }
     } catch (error) {
       setLoader(false);
@@ -38,11 +38,8 @@ function PageComponent() {
 
   return (
     <>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-      />
-      <ResetPassword  handleReset={handleReset}/>
+      <Toaster position="top-right" reverseOrder={false} />
+      <OtpScreen handleVerify={handleVerify} otp={otp} setOtp={setOtp} />
     </>
   );
 }

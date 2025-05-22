@@ -6,6 +6,9 @@ const authBaseUrl =  "https://api.gimmel.one/"  // Live URL
 export const ApiConfig = {
   // =========EndPoints==========
   login: 'api/signin',
+  resetEmail:'api/send_mail',
+  verifyOtp:"api/otp/verify",
+  resetPassword:'api/reset_password',
   signIn:'api/signup',
   onBoarding:'api/onboarding',
   teaching:'api/teachtopic',

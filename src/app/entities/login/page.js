@@ -11,7 +11,7 @@ import GoogleLoginButton from "./googlelogin"
 
 // import { text } from "stream/consumers";
 
-const Login = ({handleLogIn}) => {
+const Login = ({handleLogIn,handleResetPassword}) => {
     const [user, setUser] = useState(null);
 
     const handleSend = data => {
@@ -35,10 +35,7 @@ const Login = ({handleLogIn}) => {
         handleSend,
     );
     const { email, password } = state;
-    // (email,password,"this the email.....")
-
-   
-
+    
     return (
         <>
             <div className="main-screen">
@@ -84,7 +81,7 @@ const Login = ({handleLogIn}) => {
                                             </div>
                                             )}
                                             <div className="forgot-password">
-                                                <Link href="/reset-email" className="btn-link">Forgot Password?</Link>
+                                                <button className="btn-link" onClick={(e)=>{ handleResetPassword(e, email?.value) }}   disabled={!email?.value|| email?.error}>Reset password</button>
                                             </div>
                                             <div className="form-group">
                                                 <button type="submit" className="btn-color-blue" onClick={handleSubmit} disabled={disable}>

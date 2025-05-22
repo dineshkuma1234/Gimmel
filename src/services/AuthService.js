@@ -24,6 +24,50 @@ const AuthService = {
     };
     return ApiCallPost(url, params, headers);
   },
+    ResetEmail: async (email ) => {
+    const { authBaseUrl, resetEmail } = ApiConfig;
+    const url = authBaseUrl + resetEmail;
+
+    const params = {
+      email: email.toLowerCase(),
+      
+    };
+    console.log(url,params,"params url")
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    return ApiCallPost(url, params, headers);
+  },
+  VerifyOtp: async (email,otp ) => {
+    const { authBaseUrl, verifyOtp } = ApiConfig;
+    const url = authBaseUrl + verifyOtp;
+
+    const params = {
+      email: email.toLowerCase(),
+      otp:otp,
+    };
+    console.log(url,params,"params url")
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    return ApiCallPost(url, params, headers);
+  },
+  ResetPassword: async (email,password ) => {
+
+    const { authBaseUrl, resetPassword } = ApiConfig;
+    const url = authBaseUrl + resetPassword;
+
+    const params = {
+      email: email?.toLowerCase(),
+      newPassword:password,
+      confirmPassword:password
+    };
+    console.log(url,params,"params url")
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    return ApiCallPost(url, params, headers);
+  },
   SignUp: async (data) => {
     const { authBaseUrl, signIn } = ApiConfig;
     const url = authBaseUrl + signIn;
