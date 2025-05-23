@@ -48,7 +48,7 @@ export const ModalProvider = ({ children }) => {
             free now to build a personal library and access several other
             features.
           </p>
-          <div className="modal-text mb-3">
+          <div className="modal-text mb-3 form-section">
             <p className="mb-0"> Email</p>
           <input type="Registeremail"  className="modal-input mb-0 "value={Registeremail} 
                  onChange={handleEmailChange} />

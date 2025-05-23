@@ -102,7 +102,9 @@ function SaveVideo() {
                     </div>
                   ))
                 ):(
-                    <p>No Videos Found !</p>
+                  <div className="no-data-message save-message">
+                  <p>No data available .</p>
+                  </div>
                 )
                 }
               </div>

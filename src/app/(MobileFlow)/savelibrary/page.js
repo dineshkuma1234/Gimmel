@@ -269,16 +269,11 @@ function SaveLibrary() {
           </div>
           <div className="body-middle pb-5">
             <div className="folder-lists">
-              {Array.isArray(getFolder) &&
+              {Array.isArray(getFolder) && getFolder.length > 0 ? (
                 getFolder.map((folder) => (
                   <div key={folder._id} className="folder-view">
                     <div className="folder-inner">
-                      <div className="folder-content-inline">
-                        {/* <Link href={`/savelibrary/${folder._id}/folder`} onClick={() => setSelectedFolderId(folder._id)}> */}
-                        <div className="folder-content-left">
-                          <div
-                            className="folder-icon"
-                            onClick={() => {
+                      <div className="folder-content-inline"  onClick={() => {
                               setSelectedFolderId(folder._id);
                               setSelectIcon((prev) => !prev);
                               router.push(
@@ -288,8 +283,10 @@ function SaveLibrary() {
                                   folder?.name
                                 )}`
                               );
-                            }}
-                          >
+                            }}>
+                        {/* <Link href={`/savelibrary/${folder._id}/folder`} onClick={() => setSelectedFolderId(folder._id)}> */}
+                        <div className="folder-content-left">
+                          <div className="folder-icon">
                             <svg
                               width="32"
                               height="32"
@@ -307,13 +304,13 @@ function SaveLibrary() {
                             className={`folder-name${
                               selectedFolderId === folder?._id ? " active" : ""
                             }`}
-                            onClick={() => setSelectedFolderId(folder?._id)}
+                            onClick={(e) => {e.stopPropagation(); setSelectedFolderId(folder?._id)}}
                           >
                             <p>{folder?.name}</p>
                           </div>
                         </div>
                         {/* </Link> */}
-                        <div className="folder-content-right">
+                        <div className="folder-content-right" onClick={(e) => e.stopPropagation()}>
                           <button
                             className="folder-icon"
                             onClick={() => toggleDropdown(folder._id)}
@@ -348,7 +345,13 @@ function SaveLibrary() {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                 <div className="no-data-message save-message">
+                  <p>No folder available .</p>
+                  </div>
+              )
+              }
             </div>
             <div className="add-new-folder">
               <button

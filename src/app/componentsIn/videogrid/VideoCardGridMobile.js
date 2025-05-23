@@ -222,7 +222,12 @@ const VideoCard = ({
           <div className="bar-line"></div>
         </div>
         <Modal.Body>
-          <p>{video.description}</p>
+          {/* <p>{video.description}</p> */}
+          <p>
+            {video.description && video.description.trim().length > 0
+              ? video.description
+              : "No summary available"}
+          </p>
         </Modal.Body>
       </Modal>
 

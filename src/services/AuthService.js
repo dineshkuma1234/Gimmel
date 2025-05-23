@@ -466,13 +466,13 @@ const AuthService = {
     return ApiCallGet(url, params, headers);
   },
 
-  GetFolder: async (value) => {
+  GetFolder: async (value,page) => {
     let token = await localStorage.getItem("token");
     if (!token) {
       token = await localStorage.getItem("unAuthToken");
     }
     const { authBaseUrl, getFolder } = ApiConfig;
-    const url = authBaseUrl + getFolder + "?sort=" + value;
+    const url = authBaseUrl + getFolder + "?sort=" + value +'?page='+page;;
     url, "url---";
     const params = {};
     const headers = {

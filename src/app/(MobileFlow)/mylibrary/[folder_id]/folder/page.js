@@ -320,7 +320,7 @@ function SaveVideo() {
 
             <div className="save-video-list-container">
               <div className="video-list-container gap-0">
-                {Array.isArray(getSaveVideo) &&
+                {Array.isArray(getSaveVideo) && getSaveVideo.length > 0 ?(
                   getSaveVideo.map((video) => (
                     <div className="video-item" key={video._id}>
                       <Link href={`/mainHome/${video?._id}/videodetails2`}>
@@ -348,17 +348,18 @@ function SaveVideo() {
                                   {calculateMonthsAgo(video.createdAt)}
                                 </div>
                               </div>
-                              {/* <div className="video-item-actions">
-                                                            <div className="video-item-icon">
-                                                                <MdMoreVert />
-                                                            </div>
-                                                        </div> */}
                             </div>
                           </div>
                         </div>
                       </Link>
                     </div>
-                  ))}
+                  ))
+                ):(
+                  <div className="no-data-message save-message">
+                  <p>No data available .</p>
+                  </div>
+                )
+                }
               </div>
             </div>
           </div>

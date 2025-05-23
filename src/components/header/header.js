@@ -139,7 +139,7 @@ function Header() {
                 className="search-input"
                 placeholder="Search"
                 value={headerSearch}
-                onChange={(e) => setHeaderSearch(e.target.value)}
+                onChange={(e) => {setHeaderSearch(e.target.value); if(e.target.value.trim()=== ""){handleHistoryList("")}}}
                 // onClick={(e) => handleHistoryList(headerSearch)}
                 onFocus={() => {
                   handleHistoryList(headerSearch)

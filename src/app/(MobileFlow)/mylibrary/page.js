@@ -23,7 +23,7 @@ function MyLibrary() {
     selectedFolderId,
     setSelectedFolderId,
     selectSortValue,setSelectSortValue,
-    setSelectIcon,
+    setSelectIcon,handleGetFolder
   } = useSave();
   const router=useRouter();
   const [show2, setShow2] = useState(false);
@@ -61,6 +61,10 @@ function MyLibrary() {
     const selectedValue = e.target.value;
     setSelectSortValue(selectedValue);
   };
+
+   useEffect(()=>{
+      handleGetFolder();
+    },[])
 
   return (
     <>
@@ -229,7 +233,7 @@ function MyLibrary() {
           </div>
           <div className="body-middle">
             <div className="folder-lists">
-              {Array.isArray(getFolder) &&
+              {Array.isArray(getFolder) && getFolder.length > 0 ?(
                 getFolder.map((folder) => (
                   <div key={folder._id} className="folder-view">
                     <div className="folder-inner">
@@ -290,7 +294,13 @@ function MyLibrary() {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                 <div className="no-data-message save-message">
+                  <p>No folder available .</p>
+                  </div>
+              )
+              }
             </div>
             <div className="add-new-folder">
               <button

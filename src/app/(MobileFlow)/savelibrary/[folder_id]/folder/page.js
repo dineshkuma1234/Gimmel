@@ -338,7 +338,7 @@ function SaveVideo() {
 
             <div className="save-video-list-container">
               <div className="video-list-container">
-                {Array.isArray(getSaveVideo)&& getSaveVideo.map((video) => (
+                {Array.isArray(getSaveVideo)&& getSaveVideo.length>0 ?( getSaveVideo.map((video) => (
                   <div className="video-item" key={video._id}>
                     {/* <Link href={"/watch"}> */}
                       <div className="video-item-inline">
@@ -370,7 +370,13 @@ function SaveVideo() {
                       </div>
                     {/* </Link> */}
                   </div>
-                ))}
+                ))
+              ):(
+                 <div className="no-data-message save-message">
+                  <p>No data available .</p>
+                  </div>
+              )
+              }
               </div>
             </div>
           </div>

@@ -131,6 +131,12 @@ function SaveLibraryModal({
               {Array.isArray(getFolder) &&
               !subFolderView &&
               !subFolderVideos ? (
+                 getFolder.length === 0 ? (
+                  <div className="no-data-message save-message">
+                    <p>No folder available</p>
+                  </div>
+                ) : (
+
                 getFolder.map((item, index) => (
                   <div key={index} className="folder-view">
                     <div
@@ -238,7 +244,7 @@ function SaveLibraryModal({
                       </div>
                     </div>
                   </div>
-                ))
+                )))
               ) : subFolderView && !subFolderVideos ? (
                 <>
                   {/* {Array.isArray(getSubFolder) &&

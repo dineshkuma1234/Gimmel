@@ -532,7 +532,12 @@ const VideoCard = ({
           <div className="modal-bar show_mobile">
             <div className="bar-line"></div>
           </div>
-          <p>{video.description}</p>
+          {/* <p>{video.description}</p> */}
+          <p>
+            {video.description && video.description.trim().length > 0
+              ? video.description
+              : "No summary available..."}
+          </p>
         </Modal.Body>
       </Modal>
 

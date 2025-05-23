@@ -148,10 +148,10 @@ function MyLibrary() {
                         </div>
 
                         <div className='folder-lists mt-3' >
-                            {Array.isArray(getFolder) && getFolder.map((folder) => (
+                            {Array.isArray(getFolder) && getFolder.length > 0 ? ( getFolder.map((folder) => (
                                 <div key={folder._id} className="folder-view">
                                     <div className="folder-inner">
-                                        <div className="folder-content-inline" onClick={()=>{  setSelectedFolderId(folder._id); router.push(`/materials?folderName=${encodeURIComponent(folder.name)}`); }}>
+                                        <div className="folder-content-inline" >
                                             {/* <Link href="/materials"> */}
                                                 <div className="folder-content-left">
                                                     <div className="folder-icon">
@@ -168,7 +168,7 @@ function MyLibrary() {
                                                             />
                                                         </svg>
                                                     </div>
-                                                    <div className="folder-name">
+                                                    <div className="folder-name" onClick={()=>{  setSelectedFolderId(folder._id); router.push(`/materials?folderName=${encodeURIComponent(folder.name)}`); }}>
                                                         <p>{folder.name}</p>
                                                     </div>
                                                 </div>
@@ -202,7 +202,13 @@ function MyLibrary() {
                                         </div>
                                     </div>
                                 </div>
-                            ))}
+                            ))
+                        ) : (
+                            <div className="no-search">
+                            <p>No folder available</p>
+                            </div>
+                        )
+                        }
                         </div>
                     </div>
                 </div>

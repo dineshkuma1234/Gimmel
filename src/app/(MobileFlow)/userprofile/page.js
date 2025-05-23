@@ -54,7 +54,11 @@ function UserProfile({
       setName(
         `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim()
       );
-      const initialValue = `${profileInfo?.onboarding?.ageFrom}-${profileInfo?.onboarding?.ageTo}`;
+      const from = profileInfo?.onboarding?.ageFrom;
+      const to = profileInfo?.onboarding?.ageTo;
+
+      const initialValue = from && to ? `${from}-${to}` : "";
+      // const initialValue = `${profileInfo?.onboarding?.ageFrom}-${profileInfo?.onboarding?.ageTo}`;
       setAge({ value: initialValue, error: "" });
     }
   }, [profileInfo]);
@@ -136,7 +140,7 @@ function UserProfile({
 
   const handleEditClick = () => {
     handleEditProfile(
-      selected.map((option) => option.value), // Extract values only
+      selected.map((option) => option.value), 
       selected1.map((option) => option.value),
       selected2.map((option) => option.value),
       phoneNumber,
@@ -167,6 +171,29 @@ function UserProfile({
       // setImgFile(file);
     }
   };
+
+  const isChanged = () => {
+  // Compare each field with the initial profileInfo values
+  const initialName = `${profileInfo?.firstName || ""} ${profileInfo?.lastName || ""}`.trim();
+  const initialPhone = profileInfo?.phone || "";
+  const initialSchool = profileInfo?.school || "";
+  const initialMinAge = profileInfo?.onboarding?.ageFrom || "";
+  const initialMaxAge = profileInfo?.onboarding?.ageTo || "";
+  const initialTeaching = profileInfo?.onboarding?.teachingTopics || [];
+  const initialMaturity = profileInfo?.onboarding?.contentMaturityRestrictions || [];
+  const initialEdu = profileInfo?.onboarding?.educationalObjectives || [];
+
+  return (
+    name !== initialName ||
+    phoneNumber !== initialPhone ||
+    school !== initialSchool ||
+    minAge !== initialMinAge ||
+    maxAge !== initialMaxAge ||
+    JSON.stringify(selected.map((o) => o.value).sort()) !== JSON.stringify(initialTeaching.sort()) ||
+    JSON.stringify(selected1.map((o) => o.value).sort()) !== JSON.stringify(initialMaturity.sort()) ||
+    JSON.stringify(selected2.map((o) => o.value).sort()) !== JSON.stringify(initialEdu.sort())
+  );
+};
 
   return (
     <>
@@ -327,6 +354,7 @@ function UserProfile({
                     handleClose();
                     handleEditClick();
                   }}
+                  disabled={!isChanged()}
                 >
                   Save Changes
                 </button>

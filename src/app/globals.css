@@ -2706,6 +2706,10 @@ border: 1px solid  #104E5B ;
    
 }
 
+.save-message{
+  font-size: larger !important;
+}
+
 .modal-back-btn {
   background: transparent;
   border: none;

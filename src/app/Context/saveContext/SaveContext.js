@@ -15,7 +15,7 @@ export const SaveProvider = ({ children }) => {
   const [getSaveVideo, setGetSaveVideo] = useState([]);
   const [getSaveSubFolderVideo, setGetSaveSubFolderVideo] = useState("");
   const [selectedFolderId, setSelectedFolderId] = useState(null);
-  const [getFolder, setGetFolder] = useState("");
+  const [getFolder, setGetFolder] = useState([]);
   const [getSubFolder, setGetFolderSub] = useState();
   const [value, setValue] = useState(null);
   const [postId,setPostId]=useState("")
@@ -60,7 +60,7 @@ export const SaveProvider = ({ children }) => {
       if (result?.success) {
         // (result,"result of get folder")
         setLoader(false);
-        setGetFolder(result?.data?.data);
+        setGetFolder(result?.data?.data || []);
       } else {
         setLoader(false);
       }

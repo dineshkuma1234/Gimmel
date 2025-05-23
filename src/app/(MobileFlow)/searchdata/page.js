@@ -105,7 +105,7 @@ function Search() {
                 placeholder="Search"
                 value={headerSearch}
                 autoFocus={true}
-                onChange={(e) => setHeaderSearch(e.target.value)}
+                onChange={(e) => {setHeaderSearch(e.target.value); if (e.target.value.trim() === "") { handleHistoryList(""); }  }}
                 onClick={(e) => handleHistoryList(e.target.value)}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
