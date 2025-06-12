@@ -282,8 +282,8 @@ function UserProfile({
                     allItemsAreSelected: "",
                   }}
                   className="multi-select"
-                  hasSelectAll={false} // Disable "Select All"
-                  disableSearch={true} // Disable search box
+                  hasSelectAll={false}
+                  disableSearch={true} 
                   valueRenderer={(selected) =>
                     selected.length
                       ? selected.map(({ label }) => label).join(", ")
